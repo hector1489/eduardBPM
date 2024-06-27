@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card img {
+            height: 150px;
+            object-fit: cover;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="form-logo" src="./logo.jpg" alt="Logo" style="position: relative; top: 5px; left: 10px; width: 50px; height: auto;">
+        <h2 class="text-center my-4">Panel de Control</h2>
+  
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="alimentos.jpg" class="card-img-top" alt="Auditoría 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Auditoría Sanitaria Alimentos</h5>
+                        <p class="card-text">Auditoria para casinos de alimentos colectivos</p>
+                        <a href="auditoria.html" class="btn btn-primary btn-block">Realizar Auditoría</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="hotel.jpg" class="card-img-top" alt="Auditoría 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Auditoría Sanitaria Hoteleria</h5>
+                        <p class="card-text">Evalúa la infraestructura y seguridad hotelera</p>
+                        <a href="#" class="btn btn-primary btn-block">Realizar Auditoría</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="proceso.jpg" class="card-img-top" alt="Auditoría 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Auditoría de procesos</h5>
+                        <p class="card-text">Verifica el cumplimiento de normas y regulaciones.</p>
+                        <a href="#" class="btn btn-primary btn-block">Realizar Auditoría</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button id="logout-button" class="btn btn-danger btn-block mt-4">Cerrar Sesión</button>
+    </div>
+    
+    <script src="dashboard.js"></script>
+</body>
+</html>

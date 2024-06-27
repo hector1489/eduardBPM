@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+        }
+        #result-container {
+            display: none;
+        }
+        .module {
+            display: none;
+        }
+        .module.active {
+            display: block;
+        }
+        .btn-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            border: none;
+            margin: 0 10px;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .btn-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    border: none;
+    margin: 0 10px;
+}
+
+.btn-green {
+    background-color: #28a745;
+}
+
+.btn-red {
+    background-color: #dc3545;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Auditoría</h1>
+        <div id="modules-container" class="mx-auto" style="max-width: 600px;">
+            <!-- BPM Module -->
+            <div class="module active" id="bpm-module">
+                <h2 class="text-center">BPM - Buenas Prácticas de Manufactura</h2>
+                <div id="bpm-questions-container" class="my-4">
+                    <div class="question active" data-question-index="0">
+                        <h3>Infraestructura</h3>
+                        <label for="bpm-q0">Separaciones de áreas mínimas y condiciones de mantención de esta:</label>
+                        <select class="form-control" id="bpm-q0" onchange="calculateAverage()">
+                            <option value="100">100%: Áreas separadas virtualmente y en buen estado</option>
+                            <option value="75">75%: Se cuenta por áreas separadas frías y calientes</option>
+                            <option value="50">50%: Separación pero mantención deficientes</option>
+                            <option value="25">25%: Con deficiencias de infraestructura (T° ambiental)</option>
+                            <option value="0">0%: Sin separación, con mantención deficientes</option>
+                        </select>
+                    </div>
+                    <div class="question" data-question-index="1">
+                        <h3>Infraestructura</h3>
+                        <label for="bpm-q1">Equipos mínimos de cocción y frío (quemadores, refrigeradores, mantenedores, otros):</label>
+                        <select class="form-control" id="bpm-q1" onchange="calculateAverage()">
+                            <option value="100">100%: Equipamiento suficiente</option>
+                            <option value="75">75%: Equipamiento suficiente salvo una prep. no crítica</option>
+                            <option value="50">50%: Equipamiento deficiente dependiento del menú</option>
+                            <option value="25">25%: Adelantan prep. para cumplir con servicio planificado</option>
+                            <option value="0">0%: El equipamiento es insuficiente para la operación</option>
+                        </select>
+                    </div>
+                    <div class="question" data-question-index="2">
+                        <h3>Infraestructura</h3>
+                        <label for="bpm-q2">Cuenta con servicios básicos (agua potable, desagües, ventilación, luminarias, vestuarios, otros):</label>
+                        <select class="form-control" id="bpm-q2" onchange="calculateAverage()">
+                            <option value="100">100%: Cuenta con todos los servicios básicos</option>
+                            <option value="75">75%: Cuenta con servicios básicos c/detalles en iluminación</option>
+                            <option value="50">50%: Fallan en el vestuario y/o la iluminación</option>
+                            <option value="25">25%: Existen fallas en la ventilación y desagües</option>
+                            <option value="0">0%: Sin agua potable y/o alcantarillado adecuados</option>
+                        </select>
+                    </div>
+                    <div class="question" data-question-index="3">
+                        <h3>Requerimientos Legales - Adicionales</h3>
+                        <label for="bpm-q3">Es factible realizar trazabilidad de producto:</label>
+                        <select class="form-control" id="bpm-q3" onchange="calculateAverage()">
+                            <option value="100">100%: Se dispone de toda la información requerida</option>
+                            <option value="75">75%: Falla en el orden/Disposición de la información</option>
+                            <option value="50">50%: Falla en la recepción de materias primas</option>
+                            <option value="25">25%: Controles de proceso incompletos</option>
+                            <option value="0">0%: La información requerida está ausente</option>
+                        </select>
+                    </div>
+                    <div class="question" data-question-index="4">
+                        <h3>Requerimientos Legales - Adicionales</h3>
+                        <label for="bpm-q4">Mantención de registros de control de proceso, 90 días:</label>
+                        <select class="form-control" id="bpm-q4" onchange="calculateAverage()">
+                            <option value="100">100%: Al día y continuos</option>
+                            <option value="75">75%: Al día, falta firma de los registros</option>
+                            <option value="50">50%: Discontinuos (no aplican fin de sem. o turno noche)</option>
+                            <option value="25">25%: Con mucha discontinuidad</option>
+                            <option value="0">0%: No existen controles de proceso</option>
+                        </select>
+                    </div>
+                    <div class="question" data-question-index="5">
+                        <h3>Requerimientos Legales - Adicionales</h3>
+                        <label for="bpm-q5">Cuenta con registros de mantención correctiva de equipos:</label>
+                        <select class="form-control" id="bpm-q5" onchange="calculateAverage()">
+                            <option value="100">100%: Cuenta con registros</option>
+                            <option value="75">75%: Falta mejorar el orden de la información</option>
+                            <option value="50">50%: Algunas mantenciones no documentadas</option>
+                            <option value="25">25%: Uno que otro registro de mantención</option>
+                            <option value="0">0%: Mantenciones, pero sin registros</option>
+                        </select>
+                    </div>
+                    <div class="question" data-question-index="6">
+                        <h3>Requerimientos Legales - Adicionales</h3>
+                        <label for="bpm-q6">Inducción y entrenamiento al personal, en calidad y medio ambiente (registros e interrogar al personal):</label>
+                        <select class="form-control" id="bpm-q6" onchange="calculateAverage()">
+                            <option value="100">100%: Charlas al día, el personal se verifica capacitado</option>
+                            <option value="75">75%: Charlas al día, pero falta interiorizar en el personal</option>
+                            <option value="50">50%: Charlas de calidad atrasados</option>
+                            <option value="25">25%: Charlas atrasadas, personal no responde</option>
+                            <option value="0">0%: No está implementado programa de charlas</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="result-container" class="my-4">
+                    <h3>Promedio BPM</h3>
+                    <p id="result"></p>
+                </div>
+                <div class="text-center button-container">
+                    <button class="btn btn-circle btn-red" id="prevBtn" onclick="changeQuestion(-1)">&times;</button>
+                    <button class="btn btn-circle btn-green" id="nextBtn" onclick="changeQuestion(1)">&check;</button>
+                </div>
+            </div>
+               <!-- POES questions go here -->
+            <div class="module" id="poes-module">
+                <h2>Módulo POES - Procedimientos Operaciones Estandarizados de Saneamiento</h2>
+                <!-- Control de Productos Químicos y Artículos de Aseo -->
+                <div class="question">
+                    <h3>CONTROL DE PRODUCTOS QUÍMICOS Y ARTÍCULOS DE ASEO</h3>
+                    <label for="poes-q0">Almacenamiento de productos químicos según Ph, con hojas de seguridad y EPP disponibles:</label>
+                    <select class="form-control" id="poes-q0">
+                        <option value="100">100%: orden s/pH, hojas seguridad y EPP</option>
+                        <option value="75">75%: Cumple EPP y orden s/ph</option>
+                        <option value="50">50%: Cumple EPP</option>
+                        <option value="25">25%: Sólo hojas seguridad o PH</option>
+                        <option value="0">0%: No cumple ninguno</option>
+                    </select>
+                </div>
+                <div class="question">
+                    <h3>CONTROL DE PRODUCTOS QUÍMICOS Y ARTÍCULOS DE ASEO</h3>
+                    <label for="poes-q1">Rotulación correcta, indicando nombre producto y área de uso:</label>
+                    <select class="form-control" id="poes-q1">
+                        <option value="100">100%: Todo rotulado y correcto</option>
+                        <option value="75">75%: Falta rótulo en alguna botella</option>
+                        <option value="50">50%: Botellas rotuladas, con errores</option>
+                        <option value="25">25%: Rótulo en algunas botellas</option>
+                        <option value="0">0%: Sin rótulo alguno</option>
+                    </select>
+                </div>
+                <div class="question">
+                    <h3>CONTROL DE PRODUCTOS QUÍMICOS Y ARTÍCULOS DE ASEO</h3>
+                    <label for="poes-q2">Productos químicos y utensilios de aseo en cantidad y limpieza adecuada:</label>
+                    <select class="form-control" id="poes-q2">
+                        <option value="100">100%: Todo ok</option>
+                        <option value="75">75%: Químicos ok y utensilios sucios</option>
+                        <option value="50">50%: Utensilios sucios y químicos insuficientes</option>
+                        <option value="25">25%: Algunos rotos/desgastados y sucios</option>
+                        <option value="0">0%: No cumple cant. ni limpieza</option>
+                    </select>
+                </div>
+                <!-- Control de Agua -->
+                <div class="question">
+                    <h3>CONTROL DE AGUA</h3>
+                    <label for="poes-q3">Agua potable suministrada por empresa sanitaria u otra fuente autorizada, con registro sanitario (evidencia):</label>
+                    <select class="form-control" id="poes-q3">
+                        <option value="100">100%: Todo respaldado y ok</option>
+                        <option value="75">75%: Hay respaldo/ NC con NCh409/1 (minería)</option>
+                        <option value="50">50%: Conoce fuente pero no tiene respaldo</option>
+                        <option value="25">25%: No se conoce y no hay respaldo</option>
+                        <option value="0">0%: Agua pozo sin respaldo</option>
+                    </select>
+                </div>
+                <h2>Control de Superficies Contacto con Alimentos e Instalaciones</h2>
+        
+                <!-- Higiene de utensilios almacenados -->
+                <div class="question">
+                    <h3>Higiene de utensilios almacenados</h3>
+                    <label for="poes-q1">Ordenado, limpio y tapado:</label>
+                    <select id="poes-q1" class="form-control">
+                        <option value="100">100%: Ordenado, limpio y tapado</option>
+                        <option value="75">75%: Ordenado, limpio y sin tapa</option>
+                        <option value="50">50%: Desordenado y sin tapa</option>
+                        <option value="25">25%: Ordenado, tapado, pero sucio</option>
+                        <option value="0">0%: Desorden, sucio, sin tapa/mueble cerrado</option>
+                    </select>
+                </div>
+                
+                <!-- Aplicación de procedimiento de higiene de tablas, cuchillos y mesones -->
+                <div class="question">
+                    <h3>Aplicación de procedimiento de higiene de tablas, cuchillos y mesones</h3>
+                    <label for="poes-q2">Aplica con frecuencia y correctamente:</label>
+                    <select id="poes-q2" class="form-control">
+                        <option value="100">100%: Aplica con frecuencia y correctamente</option>
+                        <option value="75">75%: Aplica frecuentemente pero con errores</option>
+                        <option value="50">50%: Procedimiento correcto pero no frecuente</option>
+                        <option value="25">25%: Aplica con errores y no es frecuente</option>
+                        <option value="0">0%: No se evidencia aplicación en la auditoría</option>
+                    </select>
+                </div>
+                
+                <!-- Limpieza y desinfección de equipos de proceso -->
+                <div class="question">
+                    <h3>Limpieza y desinfección de equipos de proceso</h3>
+                    <label for="poes-q3">Todos limpios y desinfectados:</label>
+                    <select id="poes-q3" class="form-control">
+                        <option value="100">100%: Todos limpios y desinfectados</option>
+                        <option value="75">75%: Limpios y desinfectados, con detalles</option>
+                        <option value="50">50%: Todos limpios sin desinfectar</option>
+                        <option value="25">25%: Algunos equipos sucios</option>
+                        <option value="0">0%: Con suciedad acumulada</option>
+                    </select>
+                </div>
+                
+                <!-- Limpieza y desengrasado de equipos -->
+                <div class="question">
+                    <h3>Limpieza y desengrasado de equipos</h3>
+                    <label for="poes-q4">Todos limpios y desengrasados:</label>
+                    <select id="poes-q4" class="form-control">
+                        <option value="100">100%: Todos limpios y desengrasados</option>
+                        <option value="75">75%: Limpios y desengrasados, con detalles</option>
+                        <option value="50">50%: Desengrasado insuficiente (bordes)</option>
+                        <option value="25">25%: Algunos equipos con grasa</option>
+                        <option value="0">0%: Con grasa acumulada</option>
+                    </select>
+                </div>
+                
+                <!-- Limpieza y desincrustación de máquinas -->
+                <div class="question">
+                    <h3>Limpieza y desincrustación de máquinas</h3>
+                    <label for="poes-q5">Todos limpios y desincrustados:</label>
+                    <select id="poes-q5" class="form-control">
+                        <option value="100">100%: Todos limpios y desincrustados</option>
+                        <option value="75">75%: Limpios y desincrustados, con detalles</option>
+                        <option value="50">50%: Desincrustado insuficiente (bordes)</option>
+                        <option value="25">25%: Algunos equipos con sarro</option>
+                        <option value="0">0%: Con sarro acumulado</option>
+                    </select>
+                </div>
+                
+                <!-- Limpieza de mesas y sillas de comedor -->
+                <div class="question">
+                    <h3>Limpieza de mesas y sillas de comedor</h3>
+                    <label for="poes-q6">Todos limpios:</label>
+                    <select id="poes-q6" class="form-control">
+                        <option value="100">100%: Todos limpios</option>
+                        <option value="75">75%: Limpios con detalles</option>
+                        <option value="50">50%: Estructuras de mesas y sillas sucias</option>
+                        <option value="25">25%: Mesas o sillas sucias</option>
+                        <option value="0">0%: Mesas y sillas sucias</option>
+                    </select>
+                </div>
+                
+                <!-- Aplicación y eficiencia del programa de higiene -->
+                <div class="question">
+                    <h3>Aplicación y eficiencia del programa de higiene</h3>
+                    <label for="poes-q7">Aplicado, adaptado, publicado completo:</label>
+                    <select id="poes-q7" class="form-control">
+                        <option value="100">100%: Aplicado, adaptado, publicado completo</option>
+                        <option value="75">75%: Aplicado, adaptado, publicado incompleto</option>
+                        <option value="50">50%: No adaptado y aplicado parcialmente</option>
+                        <option value="25">25%: No aplicado, no adaptado, pero publicado</option>
+                        <option value="0">0%: No cumple ningún ítem</option>
+                    </select>
+                </div>
+                
+                <!-- Aplicación de alarma sanitaria durante la auditoría -->
+                <div class="question">
+                    <h3>Aplicación de alarma sanitaria durante la auditoría</h3>
+                    <label for="poes-q8">Sistemática en los manipuladores directos:</label>
+                    <select id="poes-q8" class="form-control">
+                        <option value="100">100%: Sistemática en los manipuladores directos</option>
+                        <option value="75">75%: Se aplica, pero no frecuentemente</option>
+                        <option value="50">50%: Se aplica incompleto, pero frecuente</option>
+                        <option value="25">25%: Incompleto y no frecuente</option>
+                        <option value="0">0%: No se aplica normativa. No hay dispositivo</option>
+                    </select>
+                </div>
+                
+                <!-- Resultados de luminometría realizada -->
+                <div class="question">
+                    <h3>Resultados de luminometría realizada</h3>
+                    <label for="poes-q9">Ingresar promedio de luminometría aplicada:</label>
+                    <input type="text" id="poes-q9" class="form-control">
+                </div>
+                
+
+                <div class="module">
+                    <h2>Control de Contaminación Cruzada</h2>
+                    
+                    <!-- Separación de utensilios por área y alimentos -->
+                    <div class="question">
+                        <h3>Separación de utensilios por área y alimentos</h3>
+                        <label for="poes-10">Cumple con todo:</label>
+                        <select id="poes-10" class="form-control">
+                            <option value="100">100%: Cumple con todo</option>
+                            <option value="75">75%: Separa alimentos y manejo de utensilios con observ.</option>
+                            <option value="50">50%: Algunos alimentos separados y buen manejo de utensilios.</option>
+                            <option value="25">25%: No separa alimentos, pero buen manejo de utensilios.</option>
+                            <option value="0">0%: Cruce de alimentos y utensilios.</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Ubicación de equipos y mobiliarios -->
+                    <div class="question">
+                        <h3>Ubicación de equipos y mobiliarios</h3>
+                        <label for="poes-11">Ubicación correcta:</label>
+                        <select id="poes-12" class="form-control">
+                            <option value="100">100%: Ubicación correcta</option>
+                            <option value="75">75%: Ubicación dada por área disponible</option>
+                            <option value="50">50%: Un equipo o mobiliario mal ubicado</option>
+                            <option value="25">25%: Algunos equipos o mobiliarios mal ubicados</option>
+                            <option value="0">0%: Equipos - mobiliarios mal ubicados</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                
+                <div class="module">
+                    <h2>Control de Sustancias Adulterantes</h2>
+                    
+                    <!-- Pulverizadores de productos químicos separados -->
+                    <div class="question">
+                        <h3>Pulverizadores de productos químicos separados</h3>
+                        <label for="poes-13">Ubicación correcta, separados de alimentos:</label>
+                        <select id="poes-13" class="form-control">
+                            <option value="100">100%: Ubicación correcta, separados de alimentos</option>
+                            <option value="75">75%: Separados de alimentos, pero en lugar inadecuado</option>
+                            <option value="50">50%: Separados de alimentos, pero no hay lugar definido</option>
+                            <option value="25">25%: Desordenados, pero separados de alimentos</option>
+                            <option value="0">0%: Junto a alimentos</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Consultar al personal por método de protección -->
+                    <div class="question">
+                        <h3>Consultar al personal por método de protección</h3>
+                        <label for="poes-14">Todo protegido (use criterio en postres):</label>
+                        <select id="poes-14" class="form-control">
+                            <option value="100">100%: Todo protegido (use criterio en postres)</option>
+                            <option value="75">75%: Alguna MP desprotegida</option>
+                            <option value="50">50%: MP mal protegidas</option>
+                            <option value="25">25%: Producto terminado mal protegido</option>
+                            <option value="0">0%: MP y PT desprotegidos</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Protección de materias primas, producto terminado -->
+                    <div class="question">
+                        <h3>Protección de materias primas, producto terminado</h3>
+                        <label for="poes-15">Todo protegido (use criterio en postres):</label>
+                        <select id="poes-15" class="form-control">
+                            <option value="100">100%: Todo protegido (use criterio en postres)</option>
+                            <option value="75">75%: Alguna MP desprotegida</option>
+                            <option value="50">50%: MP mal protegidas</option>
+                            <option value="25">25%: Producto terminado mal protegido</option>
+                            <option value="0">0%: MP y PT desprotegidos</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                
+               <!-- POE questions go here -->
+            <div class="module" id="poe-module">
+                <h2 class="text-center">POE - Procedimientos Operativos Estandarizados</h2>
+             
+            </div>
+              <!-- MA questions go here -->
+            <div class="module" id="ma-module">
+                <h2 class="text-center">MA - Manejo Ambiental</h2>
+              
+            </div>
+
+               <!-- DOC questions go here -->
+            <div class="module" id="doc-module">
+                <h2 class="text-center">DOC - Documentación</h2>             
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateAverage() {
+            const questions = document.querySelectorAll('.question');
+            let total = 0;
+            let count = 0;
+
+            questions.forEach((question, index) => {
+                const answer = document.querySelector(`#bpm-q${index}`);
+                if (answer && answer.value !== "") {
+                    total += parseInt(answer.value);
+                    count++;
+                }
+            });
+
+            const average = count ? total / count : 0;
+            document.getElementById('result').textContent = `Promedio: ${average.toFixed(2)}`;
+        }
+
+        function changeQuestion(direction) {
+            const questions = document.querySelectorAll('.question');
+            let currentQuestion = document.querySelector('.question.active');
+            let currentIndex = parseInt(currentQuestion.getAttribute('data-question-index'));
+
+            currentQuestion.classList.remove('active');
+            let newIndex = currentIndex + direction;
+
+            if (newIndex < 0) {
+                newIndex = 0;
+            } else if (newIndex >= questions.length) {
+                newIndex = questions.length - 1;
+                document.getElementById('result-container').style.display = 'block';
+            } else {
+                document.getElementById('result-container').style.display = 'none';
+            }
+
+            questions[newIndex].classList.add('active');
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
