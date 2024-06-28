@@ -13,8 +13,10 @@
 <body>
 
   <div class="container">
+    <div class="d-flex justify-content-center p-2">
     <img id="form-logo" src="./logo.jpg" alt="Logo"
       style="position: relative; top: 5px; left: 10px; width: 50px; height: auto;">
+    </div>
     <!-- Sección de Ficha -->
     <div id="module-ficha" class="module-section active">
       <h3 class="text-center">Ficha de Auditoría</h3>
@@ -80,7 +82,7 @@
     <h2 id="module-title" class="text-center">BPM - Buenas Prácticas de Manufactura</h2>
 
     <!-- Sección de Infraestructura -->
-    <div id="module-infraestructura" class="module-section active">
+    <div id="module-infraestructura" class="module-section active p-2">
       <h3 class="text-center">Evaluación de Infraestructura</h3>
       <form id="form-infraestructura">
         <div class="form-group pregunta active">
@@ -121,18 +123,18 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-infraestructura">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('infraestructura', 'ficha')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('infraestructura', 'legales')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger" onclick="previousModule('infraestructura', 'ficha')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('infraestructura', 'legales')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -141,7 +143,7 @@
     </div>
 
     <!-- Sección de Legales -->
-    <div id="module-legales" class="module-section">
+    <div id="module-legales" class="module-section p-2">
       <h3 class="text-center">Requerimientos Legales - Adicionales</h3>
       <form id="form-legales">
         <div class="form-group pregunta active">
@@ -190,18 +192,18 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-legales">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('legales', 'infraestructura')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('legales', 'poes-control-productos')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger" onclick="previousModule('legales', 'infraestructura')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('legales', 'poes-control-productos')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -209,7 +211,7 @@
     </div>
 
     <!-- Sección de POES - Control de Productos Químicos y Artículos de Aseo -->
-    <div id="module-poes-control-productos" class="module-section">
+    <div id="module-poes-control-productos" class="module-section p-2">
       <h3 class="text-center">Control de Productos Químicos y Artículos de Aseo</h3>
       <form id="form-poes-control-productos">
         <div class="form-group pregunta active">
@@ -249,18 +251,22 @@
           </select>
 
         </div>
+        
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
+
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-control-productos">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poes-control-productos', 'legales')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poes-control-productos', 'poes-control-agua')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poes-control-productos', 'legales')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poes-control-productos', 'poes-control-agua')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -269,7 +275,7 @@
     </div>
 
     <!-- Sección de POES - Control de Agua -->
-    <div id="module-poes-control-agua" class="module-section">
+    <div id="module-poes-control-agua" class="module-section p-2">
       <h3 class="text-center">Control de Agua</h3>
       <form id="form-poes-control-agua">
         <div class="form-group">
@@ -285,17 +291,19 @@
 
         </div>
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-control-agua">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poes-control-agua', 'poes-control-productos')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poes-control-agua', 'poes-superficies')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poes-control-agua', 'poes-control-productos')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poes-control-agua', 'poes-superficies')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -305,7 +313,7 @@
 
 
     <!-- Sección de POES - Control de Superficies -->
-    <div id="module-poes-superficies" class="module-section">
+    <div id="module-poes-superficies" class="module-section p-2">
       <h3 class="text-center">Control de Superficies Contacto con Alimentos e Instalaciones</h3>
       <form id="form-poes-superficies">
         <div class="form-group pregunta active">
@@ -420,18 +428,20 @@
         </form>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-superficies">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poes-superficies', 'poes-control-agua')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poes-superficies', 'poes-contaminacion-cruzada')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poes-superficies', 'poes-control-agua')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poes-superficies', 'poes-contaminacion-cruzada')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -440,7 +450,7 @@
 
 
     <!-- Sección de POES - Control de Contaminación Cruzada -->
-    <div id="module-poes-contaminacion-cruzada" class="module-section">
+    <div id="module-poes-contaminacion-cruzada" class="module-section p-2">
       <h3 class="text-center">Control de Contaminación Cruzada</h3>
       <form id="form-poes-contaminacion-cruzada">
         <div class="form-group pregunta active">
@@ -471,18 +481,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-contaminacion-cruzada">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poes-contaminacion-cruzada', 'poes-superficies')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poes-contaminacion-cruzada', 'poes-superficies')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -490,7 +502,7 @@
     </div>
 
     <!-- Sección de POES - Control de Sustancias Adulterantes -->
-    <div id="module-poes-sustancias-adulterantes" class="module-section">
+    <div id="module-poes-sustancias-adulterantes" class="module-section p-2">
       <h3 class="text-center">Control de Sustancias Adulterantes</h3>
       <form id="form-poes-sustancias-adulterantes">
         <div class="form-group pregunta active">
@@ -520,18 +532,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-sustancias-adulterantes">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poes-sustancias-adulterantes', 'poes-contaminacion-cruzada')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poes-sustancias-adulterantes', 'poes-higiene-empleados')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poes-sustancias-adulterantes', 'poes-contaminacion-cruzada')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poes-sustancias-adulterantes', 'poes-higiene-empleados')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -539,7 +553,7 @@
     </div>
 
     <!-- Sección de POES - Higiene de Empleados -->
-    <div id="module-poes-higiene-empleados" class="module-section">
+    <div id="module-poes-higiene-empleados" class="module-section p-2">
       <h3 class="text-center">Control de Salud e Higiene de Empleados</h3>
       <form id="form-poes-higiene-empleados">
         <div class="form-group pregunta active">
@@ -606,18 +620,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-higiene-empleados">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poes-higiene-empleados', 'poes-sustancias-adulterantes')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poes-higiene-empleados', 'poes-control-plagas')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poes-higiene-empleados', 'poes-sustancias-adulterantes')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poes-higiene-empleados', 'poes-control-plagas')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -625,7 +641,7 @@
     </div>
 
     <!-- Sección de POES - Control de Plagas -->
-    <div id="module-poes-control-plagas" class="module-section">
+    <div id="module-poes-control-plagas" class="module-section p-2">
       <h3 class="text-center">Control de Plagas</h3>
       <form id="form-poes-control-plagas">
         <div class="form-group pregunta active">
@@ -656,18 +672,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-control-plagas">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poes-control-plagas', 'poes-higiene-empleados')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poes-control-plagas', 'poes-instalaciones')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poes-control-plagas', 'poes-higiene-empleados')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poes-control-plagas', 'poes-instalaciones')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -675,7 +693,7 @@
     </div>
 
     <!-- Sección de POES - Control de Instalaciones Sanitarias -->
-    <div id="module-poes-instalaciones" class="module-section">
+    <div id="module-poes-instalaciones" class="module-section p-2">
       <h3 class="text-center">Control de Instalaciones Sanitarias</h3>
       <form id="form-poes-instalaciones">
         <div class="form-group pregunta active">
@@ -706,18 +724,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-instalaciones">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poes-instalaciones', 'poes-control-plagas')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poes-instalaciones', 'poe-recepcion')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poes-instalaciones', 'poes-control-plagas')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poes-instalaciones', 'poe-recepcion')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -725,7 +745,7 @@
     </div>
 
     <!-- Sección de POE - Recepción -->
-    <div id="module-poe-recepcion" class="module-section">
+    <div id="module-poe-recepcion" class="module-section p-2">
       <h3 class="text-center">Recepción</h3>
       <form id="form-poe-recepcion">
         <div class="form-group pregunta active">
@@ -766,18 +786,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-recepcion">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-recepcion', 'poes-instalaciones')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poe-recepcion', 'poe-almacenamiento')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poe-recepcion', 'poes-instalaciones')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poe-recepcion', 'poe-almacenamiento')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -785,7 +807,7 @@
     </div>
 
     <!-- Sección de POE - Almacenamiento -->
-    <div id="module-poe-almacenamiento" class="module-section">
+    <div id="module-poe-almacenamiento" class="module-section p-2">
       <h3 class="text-center">Almacenamiento</h3>
       <form id="form-poe-almacenamiento">
         <div class="form-group pregunta active">
@@ -889,18 +911,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-almacenamiento">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-almacenamiento', 'poe-recepcion')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poe-almacenamiento', 'poe-preelaboraciones')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poe-almacenamiento', 'poe-recepcion')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poe-almacenamiento', 'poe-preelaboraciones')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -909,7 +933,7 @@
     </div>
 
     <!-- Sección de POE - Pre-elaboraciones -->
-    <div id="module-poe-preelaboraciones" class="module-section">
+    <div id="module-poe-preelaboraciones" class="module-section p-2">
       <h3 class="text-center">Pre-elaboraciones</h3>
       <form id="form-poe-preelaboraciones">
         <div class="form-group pregunta active">
@@ -978,18 +1002,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-preelaboraciones">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-preelaboraciones', 'poe-almacenamiento')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poe-preelaboraciones', 'poe-elaboracion')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poe-preelaboraciones', 'poe-almacenamiento')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poe-preelaboraciones', 'poe-elaboracion')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -997,7 +1023,7 @@
     </div>
 
     <!-- Sección de POE - Elaboración -->
-    <div id="module-poe-elaboracion" class="module-section">
+    <div id="module-poe-elaboracion" class="module-section p-2">
       <h3 class="text-center">Elaboración</h3>
       <form id="form-poe-elaboracion">
         <div class="form-group pregunta active">
@@ -1128,18 +1154,19 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-elaboracion">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-elaboracion', 'poe-preelaboraciones')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poe-elaboracion', 'poe-mantencion')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poe-elaboracion', 'poe-preelaboraciones')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('poe-elaboracion', 'poe-mantencion')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1147,7 +1174,7 @@
     </div>
 
     <!-- Sección de POE - Mantención -->
-    <div id="module-poe-mantencion" class="module-section">
+    <div id="module-poe-mantencion" class="module-section p-2">
       <h3 class="text-center">Mantención</h3>
       <form id="form-poe-mantencion">
         <div class="form-group">
@@ -1165,18 +1192,19 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-mantencion">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-mantencion', 'poe-elaboracion')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poe-mantencion', 'poe-transporte')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poe-mantencion', 'poe-elaboracion')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('poe-mantencion', 'poe-transporte')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1184,7 +1212,7 @@
     </div>
 
     <!-- Sección de POE - Transporte -->
-    <div id="module-poe-transporte" class="module-section">
+    <div id="module-poe-transporte" class="module-section p-2">
       <h3 class="text-center">Transporte</h3>
       <form id="form-poe-transporte">
         <div class="form-group pregunta active">
@@ -1213,18 +1241,19 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-transporte">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-transporte', 'poe-mantencion')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poe-transporte', 'poe-servicio')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poe-transporte', 'poe-mantencion')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('poe-transporte', 'poe-servicio')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1232,7 +1261,7 @@
     </div>
 
     <!-- Sección de POE - Servicio -->
-    <div id="module-poe-servicio" class="module-section">
+    <div id="module-poe-servicio" class="module-section p-2">
       <h3 class="text-center">Servicio</h3>
       <form id="form-poe-servicio">
         <div class="form-group pregunta active">
@@ -1300,18 +1329,19 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-servicio">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-servicio', 'poe-transporte')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poe-servicio', 'poe-lavado-ollas-vajilla')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger" onclick="previousModule('poe-servicio', 'poe-transporte')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poe-servicio', 'poe-lavado-ollas-vajilla')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1319,7 +1349,7 @@
     </div>
 
     <!-- Sección de POE - Lavado de ollas y vajilla -->
-    <div id="module-poe-lavado-ollas-vajilla" class="module-section">
+    <div id="module-poe-lavado-ollas-vajilla" class="module-section p-2">
       <h3 class="text-center">Lavado de ollas y vajilla</h3>
       <form id="form-poe-lavado-ollas-vajilla">
         <div class="form-group pregunta active">
@@ -1361,18 +1391,20 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-lavado-ollas-vajilla">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-lavado-ollas-vajilla', 'poe-servicio')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75"
-          onclick="nextModule('poe-lavado-ollas-vajilla', 'poe-control-calidad')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poe-lavado-ollas-vajilla', 'poe-servicio')">❌</button>
+          <button class="btn btn-form btn-success"
+            onclick="nextModule('poe-lavado-ollas-vajilla', 'poe-control-calidad')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1380,7 +1412,7 @@
     </div>
 
     <!-- Sección de POE - Control de calidad -->
-    <div id="module-poe-control-calidad" class="module-section">
+    <div id="module-poe-control-calidad" class="module-section p-2">
       <h3 class="text-center">Control de Calidad</h3>
       <form id="form-poe-control-calidad">
         <div class="form-group pregunta active">
@@ -1436,17 +1468,19 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-control-calidad">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('poe-control-calidad', 'poe-lavado-ollas-vajilla')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75" onclick="nextModule('poe-control-calidad', 'ma')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger"
+            onclick="previousModule('poe-control-calidad', 'poe-lavado-ollas-vajilla')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('poe-control-calidad', 'ma')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1454,7 +1488,7 @@
     </div>
 
     <!-- Módulo MA - MANEJO Y PROTECCIÓN AMBIENTAL -->
-    <div id="module-ma" class="module-section">
+    <div id="module-ma" class="module-section p-2">
       <h3 class="text-center">Manejo y Protección Ambiental</h3>
       <form id="form-ma">
         <div class="form-group pregunta active">
@@ -1543,17 +1577,18 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-ma">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75"
-          onclick="previousModule('ma', 'poe-control-calidad')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75" onclick="nextModule('ma', 'doc')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger" onclick="previousModule('ma', 'poe-control-calidad')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('ma', 'doc')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1561,7 +1596,7 @@
     </div>
 
     <!-- Módulo DOC - DOCUMENTACION -->
-    <div id="module-doc" class="module-section">
+    <div id="module-doc" class="module-section p-2">
       <h3 class="text-center">Documentación</h3>
       <form id="form-doc">
         <div class="form-group pregunta active">
@@ -1638,16 +1673,18 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-doc">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75" onclick="previousModule('doc', 'ma')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75" onclick="nextModule('doc', 'tra')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger" onclick="previousModule('doc', 'ma')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('doc', 'tra')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1655,7 +1692,7 @@
     </div>
 
     <!-- Módulo TRA - TRAZADORES DE POSIBLE BROTE ETA -->
-    <div id="module-tra" class="module-section">
+    <div id="module-tra" class="module-section p-2">
       <h3 class="text-center">Trazadores de Posible Brote ETA</h3>
       <form id="form-tra">
         <div class="form-group pregunta active">
@@ -1797,16 +1834,18 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-tra">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75" onclick="previousModule('tra', 'doc')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75" onclick="nextModule('tra', 'lum')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger" onclick="previousModule('tra', 'doc')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('tra', 'lum')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
@@ -1814,7 +1853,7 @@
     </div>
 
     <!-- Módulo LUM - LUMINOMETRÍA -->
-    <div id="module-lum" class="module-section">
+    <div id="module-lum" class="module-section p-2">
       <h3 class="text-center">Luminometría</h3>
       <form id="form-lum">
         <div class="form-group">
@@ -1831,8 +1870,8 @@
         </div>
 
         <div class="btn-form-group">
-          <button class="btn btn-form btn-success" onclick="nextQuestion()">✅</button>
-          <button class="btn btn-form btn-danger" onclick="previousQuestion()">❌</button>
+          <button type="button"  class="btn btn-form" onclick="nextQuestion()">⬅</button>
+          <button type="button"  class="btn btn-form" onclick="previousQuestion()">➡️</button>
         </div>
 
       </form>
@@ -1841,8 +1880,10 @@
       <script></script>
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-lum">100%</span></h3>
-        <button class="btn btn-secondary btn-block rounded-pill w-75" onclick="previousModule('lum', 'tra')">Anterior</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75" onclick="nextModule('lum', 'resumen')">Siguiente</button>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-danger" onclick="previousModule('lum', 'tra')">❌</button>
+          <button class="btn btn-form btn-success" onclick="nextModule('lum', 'resumen')">✅</button>
+        </div>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="capture-btn">Fotos</button>
         <button class="btn btn-primary btn-block rounded-pill w-75" id="incident-btn">Incidencia</button>
