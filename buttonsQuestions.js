@@ -3,7 +3,7 @@ const questions = document.querySelectorAll('.pregunta');
 
 function showQuestion(index) {
   questions.forEach((question, i) => {
-    question.style.display = i === index ? 'block' : 'none';
+    question.classList.toggle('active', i === index);
   });
 }
 

@@ -31,6 +31,15 @@ h3 {
   display: block;
 }
 
+
+.pregunta {
+  display: none;
+}
+
+.pregunta.active {
+  display: block;
+}
+
 .btn-form-group {
   display: flex;
   justify-content: center;
