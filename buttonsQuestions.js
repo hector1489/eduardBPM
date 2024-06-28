@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showQuestion(index) {
     questions.forEach((question, i) => {
-      question.classList.toggle('active', i === index);
+      question?.classList.toggle('active', i === index);
     });
   }
 
