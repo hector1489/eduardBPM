@@ -14,13 +14,13 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
 });
 
 // botón de "Comentario"
-document.getElementById('comment-btn').addEventListener('click', function () {
+document.getElementById('#comment-btn').addEventListener('click', function () {
 
   alert('Comentario Enviado');
 });
 
 // botón de "Incidencia"
-document.getElementById('incident-btn').addEventListener('click', function () {
+document.getElementById('#incident-btn').addEventListener('click', function () {
 
   alert('Incidencia enviada');
 });
