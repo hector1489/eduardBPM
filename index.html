@@ -1,33 +1,2066 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <img id="form-logo" src="./logo.jpg" alt="Logo" style="position: relative; top: 5px; left: 10px; width: 50px; height: auto;">
-            <h2 class="text-center">Iniciar Sesión</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="username">Usuario</label>
-                    <input type="text" class="form-control" id="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" class="form-control" id="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
-            </form>
-            <div id="login-error" class="class=alert alert-danger mt-3" style="display:none;">Usuario o contraseña incorrectos</div>
-        </div>
-    </div>
-</div>
 
-<script src="auth.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Evaluación</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="d-flex justify-content-center m-4">
+      <img id="form-logo" src="./logo.jpg" alt="Logo"
+        style="position: relative; top: 5px; left: 10px; width: 100px; height: auto;">
+    </div>
+    <!-- Sección de Ficha -->
+    <div id="module-ficha" class="module-section active">
+      <h3 class="text-center">Ficha de Auditoría</h3>
+      <form id="form-ficha">
+        <div class="form-group">
+          <label for="nombre-establecimiento">Nombre de Establecimiento:</label>
+          <input type="text" class="form-control" id="nombre-establecimiento" name="nombre-establecimiento">
+        </div>
+        <div class="form-group">
+          <label for="numero-auditoria">N° de Auditoría:</label>
+          <input type="text" class="form-control" id="numero-auditoria" name="numero-auditoria">
+        </div>
+        <div class="form-group">
+          <label for="gerente-establecimiento">Gerente de Establecimiento:</label>
+          <input type="text" class="form-control" id="gerente-establecimiento" name="gerente-establecimiento">
+        </div>
+        <div class="form-group">
+          <label for="administrador-establecimiento">Administrador de Establecimiento:</label>
+          <input type="text" class="form-control" id="administrador-establecimiento"
+            name="administrador-establecimiento">
+        </div>
+        <div class="form-group">
+          <label for="supervisor-establecimiento">Supervisor del Establecimiento:</label>
+          <input type="text" class="form-control" id="supervisor-establecimiento" name="supervisor-establecimiento">
+        </div>
+        <div class="form-group">
+          <label for="auditor-externo">Auditor Externo:</label>
+          <input type="text" class="form-control" id="auditor-externo" name="auditor-externo">
+        </div>
+        <div class="form-group">
+          <label for="fecha-auditoria">Fecha:</label>
+          <input type="date" class="form-control" id="fecha-auditoria" name="fecha-auditoria">
+        </div>
+        <button type="button" class="btn btn-blue btn-block"
+          onclick="nextModule('ficha', 'infraestructura')">Siguiente</button>
+      </form>
+    </div>
+    <script>
+      let currentAuditNumber = 1; // Número de auditoría inicial
+
+      document.addEventListener('DOMContentLoaded', function () {
+        setAutomaticDate();
+        setAuditNumber();
+        calculateOverallAverages();
+      });
+
+      function setAutomaticDate() {
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('fecha-auditoria');
+        dateInput.value = today;
+        dateInput.setAttribute('readonly', true); // Hace que el campo de fecha sea de solo lectura
+      }
+
+      function setAuditNumber() {
+        const auditNumber = currentAuditNumber.toString().padStart(6, '0');
+        document.getElementById('numero-auditoria').value = auditNumber;
+        currentAuditNumber++;
+      }
+    </script>
+
+
+
+    <h2 id="module-title" class="text-center">BPM - Buenas Prácticas de Manufactura</h2>
+
+    <!-- Sección de Infraestructura -->
+    <div id="module-infraestructura" class="module-section active p-2">
+      <h3 class="text-center">Evaluación de Infraestructura</h3>
+      <form id="form-infraestructura">
+        <div class="form-group pregunta active">
+          <label for="separaciones">Separaciones de áreas mínimas y condiciones de mantención de esta:</label>
+          <select class="form-control" id="separaciones" name="separaciones"
+            onchange="calculateAverage('infraestructura')">
+            <option value="100">100%: Áreas separadas virtualmente y en buen estado</option>
+            <option value="75">75%: Se cuenta con áreas separadas frías y calientes</option>
+            <option value="50">50%: Separación pero mantención deficientes</option>
+            <option value="25">25%: Con deficiencias de infraestructura (T° ambiental)</option>
+            <option value="0">0%: Sin separación, con mantención deficientes</option>
+          </select>
+
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="equipos">Equipos mínimos de cocción y frío (quemadores, refrigeradores, mantenedores,
+            otros):</label>
+          <select class="form-control" id="equipos" name="equipos" onchange="calculateAverage('infraestructura')">
+            <option value="100">100%: Equipamiento suficiente</option>
+            <option value="75">75%: Equipamiento suficiente salvo una preparación no crítica</option>
+            <option value="50">50%: Equipamiento deficiente dependiendo del menú</option>
+            <option value="25">25%: Adelantan preparación para cumplir con servicio planificado</option>
+            <option value="0">0%: El equipamiento es insuficiente para la operación</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="servicios">Cuenta con servicios básicos (agua potable, desagües, ventilación, luminarias,
+            vestuarios, otros):</label>
+          <select class="form-control" id="servicios" name="servicios" onchange="calculateAverage('infraestructura')">
+            <option value="100">100%: Cuenta con todos los servicios básicos</option>
+            <option value="75">75%: Cuenta con servicios básicos con detalles en iluminación</option>
+            <option value="50">50%: Fallan en el vestuario y/o la iluminación</option>
+            <option value="25">25%: Existen fallas en la ventilación y desagües</option>
+            <option value="0">0%: Sin agua potable y/o alcantarillado adecuados</option>
+          </select>
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-infraestructura">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('infraestructura', 'ficha')"><i
+              class="fa-solid fa-xmark"></i></button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('infraestructura', 'legales')"><i
+              class="fa-solid fa-check"></i></button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+
+    </div>
+
+    <!-- Sección de Legales -->
+    <div id="module-legales" class="module-section p-2">
+      <h3 class="text-center">Requerimientos Legales - Adicionales</h3>
+      <form id="form-legales">
+        <div class="form-group pregunta active">
+          <label for="trazabilidad">Es factible realizar trazabilidad de producto:</label>
+          <select class="form-control" id="trazabilidad" name="trazabilidad" onchange="calculateAverage('legales')">
+            <option value="100">100%: Se dispone de toda la información requerida</option>
+            <option value="75">75%: Falla en el orden/Disposición de la información</option>
+            <option value="50">50%: Falla en la recepción de materias primas</option>
+            <option value="25">25%: Controles de proceso incompletos</option>
+            <option value="0">0%: La información requerida está ausente</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="registros">Mantención de registros de control de proceso, 90 días:</label>
+          <select class="form-control" id="registros" name="registros" onchange="calculateAverage('legales')">
+            <option value="100">100%: Al día y continuos</option>
+            <option value="75">75%: Al día, falta firma de los registros</option>
+            <option value="50">50%: Discontinuos (no aplican fin de sem. o turno noche)</option>
+            <option value="25">25%: Con mucha discontinuidad</option>
+            <option value="0">0%: No existen controles de proceso</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="correctiva">Cuenta con registros de mantención correctiva de equipos:</label>
+          <select class="form-control" id="correctiva" name="correctiva" onchange="calculateAverage('legales')">
+            <option value="100">100%: Cuenta con registros</option>
+            <option value="75">75%: Falta mejorar el orden de la información</option>
+            <option value="50">50%: Algunas mantenciones no documentadas</option>
+            <option value="25">25%: Uno que otro registro de mantención</option>
+            <option value="0">0%: Mantenciones, pero sin registros</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="entrenamiento">Inducción y entrenamiento al personal, en calidad y medio ambiente (registros e
+            interrogar al personal):</label>
+          <select class="form-control" id="entrenamiento" name="entrenamiento" onchange="calculateAverage('legales')">
+            <option value="100">100%: Charlas al día, el personal se verifica capacitado</option>
+            <option value="75">75%: Charlas al día, pero falta interiorizar en el personal</option>
+            <option value="50">50%: Charlas de calidad atrasados</option>
+            <option value="25">25%: Charlas atrasadas, personal no responde</option>
+            <option value="0">0%: No está implementado programa de charlas</option>
+          </select>
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-legales">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('legales', 'infraestructura')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('legales', 'poes-control-productos')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POES - Control de Productos Químicos y Artículos de Aseo -->
+    <div id="module-poes-control-productos" class="module-section p-2">
+      <h3 class="text-center">Control de Productos Químicos y Artículos de Aseo</h3>
+      <form id="form-poes-control-productos">
+        <div class="form-group pregunta active">
+          <label for="almacenamiento">Almacenamiento de productos químicos según Ph, con hojas de seguridad y EPP
+            disponibles:</label>
+          <select class="form-control" id="almacenamiento" name="almacenamiento"
+            onchange="calculateAverage('poes-control-productos')">
+            <option value="100">100%: orden s/pH, hojas seguridad y EPP</option>
+            <option value="75">75%: Cumple EPP y orden s/ph</option>
+            <option value="50">50%: Cumple EPP</option>
+            <option value="25">25%: Sólo hojas seguridad o PH</option>
+            <option value="0">0%: No cumple ninguno</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="rotulacion">Rotulación correcta, indicando nombre producto y área de uso:</label>
+          <select class="form-control" id="rotulacion" name="rotulacion"
+            onchange="calculateAverage('poes-control-productos')">
+            <option value="100">100%: Todo rotulado y correcto</option>
+            <option value="75">75%: Falta rótulo en alguna botella</option>
+            <option value="50">50%: Botellas rotuladas, con errores</option>
+            <option value="25">25%: Rótulo en algunas botellas</option>
+            <option value="0">0%: Sin rótulo alguno</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="cantidad">Productos químicos y utensilios de aseo en cantidad y limpieza adecuada:</label>
+          <select class="form-control" id="cantidad" name="cantidad"
+            onchange="calculateAverage('poes-control-productos')">
+            <option value="100">100%: Todo ok</option>
+            <option value="75">75%: Químicos ok y utensilios sucios</option>
+            <option value="50">50%: Utensilios sucios y químicos insufic.</option>
+            <option value="25">25%: Algunos rotos/desgast. y sucios</option>
+            <option value="0">0%: No cumple cant. ni limpieza</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poes-control-productos">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poes-control-productos', 'legales')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poes-control-productos', 'poes-control-agua')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+
+    </div>
+
+    <!-- Sección de POES - Control de Agua -->
+    <div id="module-poes-control-agua" class="module-section p-2">
+      <h3 class="text-center">Control de Agua</h3>
+      <form id="form-poes-control-agua">
+        <div class="form-group">
+          <label for="agua">Agua potable suministrada por empresa sanitaria u otra fuente autorizada, con registro
+            sanitario (evidencia):</label>
+          <select class="form-control" id="agua" name="agua" onchange="calculateAverage('poes-control-agua')">
+            <option value="100">100%: Todo respaldado y ok</option>
+            <option value="75">75%: Hay respaldo/ NC con NCh409/1 (minería)</option>
+            <option value="50">50%: Conoce fuente pero no tiene respaldo</option>
+            <option value="25">25%: No se conoce y no hay respaldo</option>
+            <option value="0">0%: Agua pozo sin respaldo</option>
+          </select>
+
+        </div>
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poes-control-agua">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red"
+            onclick="previousModule('poes-control-agua', 'poes-control-productos')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poes-control-agua', 'poes-superficies')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-nlue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+
+    </div>
+
+
+    <!-- Sección de POES - Control de Superficies -->
+    <div id="module-poes-superficies" class="module-section p-2">
+      <h3 class="text-center">Control de Superficies Contacto con Alimentos e Instalaciones</h3>
+      <form id="form-poes-superficies">
+        <div class="form-group pregunta active">
+          <label for="utensilios">Higiene de utensilios almacenados, limpios y tapados:</label>
+          <select class="form-control" id="utensilios" name="utensilios"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Ordenado, limpio y tapado</option>
+            <option value="75">75%: Ordenado, limpio y sin tapa</option>
+            <option value="50">50%: Desordenado y sin tapa</option>
+            <option value="25">25%: Ordenado, tapado, pero SUCIO</option>
+            <option value="0">0%: Desorden, sucio, sin tapa/mueble cerrado</option>
+          </select>
+        </div>
+        <div class="form-group pregunta">
+          <label for="higiene-tablas">Aplicación de procedimiento de higiene de tablas, cuchillos y mesones:</label>
+          <select class="form-control" id="higiene-tablas" name="higiene-tablas"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Aplica con frecuencia y correctamente</option>
+            <option value="75">75%: Aplica frecuentemente pero con errores</option>
+            <option value="50">50%: Procedimiento correcto pero no frecuente</option>
+            <option value="25">25%: Aplica con errores y no es frecuente</option>
+            <option value="0">0%: No se evidencia aplicación en la auditoría</option>
+          </select>
+        </div>
+        <div class="form-group pregunta">
+          <label for="desinfeccion-equipos">Limpieza y desinfección de equipos de proceso (máquina universal, juguera,
+            amasadora, otros):</label>
+          <select class="form-control" id="desinfeccion-equipos" name="desinfeccion-equipos"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Todos limpios y desinfectados</option>
+            <option value="75">75%: Limpios y desinfectados, con detalles</option>
+            <option value="50">50%: Todos limpios sin desinfectar</option>
+            <option value="25">25%: Algunos equipos sucios</option>
+            <option value="0">0%: Con suciedad acumulada</option>
+          </select>
+        </div>
+        <div class="form-group pregunta">
+          <label for="desengrasado-equipos">Limpieza y desengrasado de equipos (cocina, horno, freidora, marmita,
+            campana y otros):</label>
+          <select class="form-control" id="desengrasado-equipos" name="desengrasado-equipos"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Todos limpios y desengrasados</option>
+            <option value="75">75%: Limpios y desengrasados, con detalles</option>
+            <option value="50">50%: Desengrasado insuficiente (bordes)</option>
+            <option value="25">25%: Algunos equipos con grasa</option>
+            <option value="0">0%: Con grasa acumulada</option>
+          </select>
+        </div>
+        <div class="form-group pregunta">
+          <label for="desincrustacion-maquinas">Limpieza y desincrustación de máquinas de jugo, baño maría, vitrinas y
+            hervidores (sin sarro):</label>
+          <select class="form-control" id="desincrustacion-maquinas" name="desincrustacion-maquinas"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Todos limpios y desincrustados</option>
+            <option value="75">75%: Limpios y desincrustados, con detalles</option>
+            <option value="50">50%: Desincrustado insuficiente (bordes)</option>
+            <option value="25">25%: Algunos equipos con sarro</option>
+            <option value="0">0%: Con sarro acumulado</option>
+          </select>
+        </div>
+        <div class="form-group pregunta">
+          <label for="limpieza-mesas">Limpieza de mesas y sillas de comedor:</label>
+          <select class="form-control" id="limpieza-mesas" name="limpieza-mesas"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Todos limpios</option>
+            <option value="75">75%: Limpios con detalles</option>
+            <option value="50">50%: Estructuras de mesas y sillas sucias</option>
+            <option value="25">25%: Mesas o sillas sucias</option>
+            <option value="0">0%: Mesas y sillas sucias</option>
+          </select>
+        </div>
+        <div class="form-group pregunta">
+          <label for="higiene-programa">Aplicación y eficiencia del programa de higiene, publicado e implementado por
+            áreas:</label>
+          <select class="form-control" id="higiene-programa" name="higiene-programa"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Aplicado, adaptado, publicado completo</option>
+            <option value="75">75%: Aplicado, adaptado, publicado incompleto</option>
+            <option value="50">50%: No adaptado y aplicado parcialmente</option>
+            <option value="25">25%: No aplicado, no adaptado, pero publicado</option>
+            <option value="0">0%: No cumple ningún ítem</option>
+          </select>
+        </div>
+        <div class="form-group pregunta">
+          <label for="alarma-sanitaria">Aplicación de alarma sanitaria (equipo), durante la auditoría, con frecuencia y
+            responsable definido (si aplica):</label>
+          <select class="form-control" id="alarma-sanitaria" name="alarma-sanitaria"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Sistemática en los manipuladores directos</option>
+            <option value="75">75%: Se aplica, pero no frecuentemente</option>
+            <option value="50">50%: Se aplica incompleto, pero frecuente</option>
+            <option value="25">25%: Incompleto y no frecuente</option>
+            <option value="0">0%: No se aplica normativa. No hay dispositivo</option>
+          </select>
+        </div>
+
+
+        <form id="form-lum">
+          <div class="form-group pregunta">
+            <label for="luminometro">Calibración y uso de luminómetro:</label>
+            <select class="form-control" id="luminometro" name="luminometro"
+              onchange="calculateAverage('poes-superficies')">
+              <option value="100">100 NOTA 7 /EXCELENTE / 0-50 URL/MUY LIMPIO / SIN RIESGO </option>
+              <option value="90">90 NOTA 6 /MUY BUENO / >51 - 150 URL / LIMPIO SIN RIESGO</option>
+              <option value="75">75 NOTA 5 / BUENO />151 - 250 URL / MEDIANAMENTE SUCIO / BAJO RIESGO </option>
+              <option value="50">50 NOTA 4 REGULAR / >251 -500 URL / ALERTA / RIESGO (LEVE) </option>
+              <option value="25">25 NOTA3 DEFICIENTE / >501- 1000 URL/ SUCIO /MEDIANO RIESGO (GRAVE)</option>
+              <option value="0">0 NOTA 2 MALA />1001 URL / MUY SUCIO/ALTO RIESGO (MUY GRAVE) </option>
+            </select>
+
+          </div>
+        </form>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poes-superficies">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poes-superficies', 'poes-control-agua')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green"
+            onclick="sendTicket('poes-superficies', 'poes-contaminacion-cruzada')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+
+    <!-- Sección de POES - Control de Contaminación Cruzada -->
+    <div id="module-poes-contaminacion-cruzada" class="module-section p-2">
+      <h3 class="text-center">Control de Contaminación Cruzada</h3>
+      <form id="form-poes-contaminacion-cruzada">
+        <div class="form-group pregunta active">
+          <label for="contaminacion-utensilios">Separación de utensilios por área, y separación alimentos (cocido -
+            crudo - sucio, otros):</label>
+          <select class="form-control" id="contaminacion-utensilios" name="contaminacion-utensilios"
+            onchange="calculateAverage('poes-contaminacion-cruzada')">
+            <option value="100">100%: Cumple con todo</option>
+            <option value="75">75%: Separa alimentos y manejo de utensilios con observaciones</option>
+            <option value="50">50%: Algunos alimentos separados y buen manejo de utensilios</option>
+            <option value="25">25%: No separa alimentos, y buen manejo utensilios</option>
+            <option value="0">0%: Cruce de alimentos y utensilios</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="ubicacion-equipos">Ubicación de equipos y mobiliarios se mantienen correctamente (basureros,
+            mesones, lavadero sanitizado):</label>
+          <select class="form-control" id="ubicacion-equipos" name="ubicacion-equipos"
+            onchange="calculateAverage('poes-contaminacion-cruzada')">
+            <option value="100">100%: Ubicación correcta</option>
+            <option value="75">75%: Ubicación dada por área disponible</option>
+            <option value="50">50%: Un equipo o mobiliario mal ubicado</option>
+            <option value="25">25%: Algunos equipos o mobiliarios mal ubicados</option>
+            <option value="0">0%: Equipos - mobiliarios mal ubicados</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poes-contaminacion-cruzada">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red"
+            onclick="previousModule('poes-contaminacion-cruzada', 'poes-superficies')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green"
+            onclick="sendTicket('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POES - Control de Sustancias Adulterantes -->
+    <div id="module-poes-sustancias-adulterantes" class="module-section p-2">
+      <h3 class="text-center">Control de Sustancias Adulterantes</h3>
+      <form id="form-poes-sustancias-adulterantes">
+        <div class="form-group pregunta active">
+          <label for="pulverizadores">Pulverizadores de productos químicos separados de las materias
+            primas-preparaciones en producción:</label>
+          <select class="form-control" id="pulverizadores" name="pulverizadores"
+            onchange="calculateAverage('poes-sustancias-adulterantes')">
+            <option value="100">100%: Ubicación correcta, separados de alimentos</option>
+            <option value="75">75%: Separados de alimentos, pero en lugar inadecuado</option>
+            <option value="50">50%: Separados de alimentos, pero no hay lugar definido</option>
+            <option value="25">25%: Desordenados, pero separados de alimentos</option>
+            <option value="0">0%: Junto a alimentos</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="proteccion-mp">Protección de materias primas, producto terminado:</label>
+          <select class="form-control" id="proteccion-mp" name="proteccion-mp"
+            onchange="calculateAverage('poes-sustancias-adulterantes')">
+            <option value="100">100%: Todo protegido (use criterio en postres)</option>
+            <option value="75">75%: Alguna MP desprotegida</option>
+            <option value="50">50%: MP mal protegidas</option>
+            <option value="25">25%: Producto terminado mal protegido</option>
+            <option value="0">0%: MP y PT desprotegidos</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poes-sustancias-adulterantes">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red"
+            onclick="previousModule('poes-sustancias-adulterantes', 'poes-contaminacion-cruzada')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green"
+            onclick="sendTicket('poes-sustancias-adulterantes', 'poes-higiene-empleados')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POES - Higiene de Empleados -->
+    <div id="module-poes-higiene-empleados" class="module-section p-2">
+      <h3 class="text-center">Control de Salud e Higiene de Empleados</h3>
+      <form id="form-poes-higiene-empleados">
+        <div class="form-group pregunta active">
+          <label for="uniformes">Uniforme completo de todos, limpio y en buen estado - Sin accesorios adicionales
+            (reloj, joyas, celular, otros):</label>
+          <select class="form-control" id="uniformes" name="uniformes"
+            onchange="calculateAverage('poes-higiene-empleados')">
+            <option value="100">100%: Uniforme completo y sin joyas, incluye ADM</option>
+            <option value="75">75%: Uniforme y/o joyas en alguna persona</option>
+            <option value="50">50%: Uniformes sucios y/o algunos con joyas</option>
+            <option value="25">25%: Alguien sin uniforme completo</option>
+            <option value="0">0%: Sin uniformes o con joyas en general</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="cubrepelo">Cubre-pelo (gorro o cofia), mascarilla y guantes usados correctamente:</label>
+          <select class="form-control" id="cubrepelo" name="cubrepelo"
+            onchange="calculateAverage('poes-higiene-empleados')">
+            <option value="100">100%: Cubrepelo, mascarilla sobre nariz y guantes ok</option>
+            <option value="75">75%: Cubrepelo con observaciones</option>
+            <option value="50">50%: Cubrepelo y mascarilla con observ., guantes ok</option>
+            <option value="25">25%: Cubrepelo ok, mascarilla y guantes con observaciones</option>
+            <option value="0">0%: Cubrepelo, mascarilla y guantes con observaciones</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="lavado-manos">Lavado y sanitizado correcto de manos y uñas:</label>
+          <select class="form-control" id="lavado-manos" name="lavado-manos"
+            onchange="calculateAverage('poes-higiene-empleados')">
+            <option value="100">100%: Doble ciclo,frecuente</option>
+            <option value="75">75%: Ciclo único,frecuente</option>
+            <option value="50">50%: Ciclo único,frecuencia insuficiente</option>
+            <option value="25">25%: Ciclo único, y sin frecuencia</option>
+            <option value="0">0%: No hay lavado de manos</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="manos-heridas">Manos sin heridas desprotegidas, uñas cortas y sin esmalte:</label>
+          <select class="form-control" id="manos-heridas" name="manos-heridas"
+            onchange="calculateAverage('poes-higiene-empleados')">
+            <option value="100">100%: Todos sin heridas ni uñas largas ni esmalte</option>
+            <option value="75">75%: Una persona con uñas largas y/o esmalte (ADM)</option>
+            <option value="50">50%: Uñas largas y/o esmalte en algunas personas</option>
+            <option value="25">25%: Manos con uñas largas y/o esmalte</option>
+            <option value="0">0%: Manos con heridas desprotegidas y uñas largas</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="examenes">Exámenes de todos los manipuladores, ecónomos y administradores. Ausencia de malestares
+            o infecciones:</label>
+          <select class="form-control" id="examenes" name="examenes"
+            onchange="calculateAverage('poes-higiene-empleados')">
+            <option value="100">100%: Al día, incluído Adm, ecónomo y choferes</option>
+            <option value="75">75%: Todos al día excepto Admin., ecónomo o chofer</option>
+            <option value="50">50%: Alguno con exámen vencido</option>
+            <option value="25">25%: Algunos con exámenes vencidos</option>
+            <option value="0">0%: No cuentan con exámenes</option>
+          </select>
+
+        </div>
+
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poes-higiene-empleados">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red"
+            onclick="previousModule('poes-higiene-empleados', 'poes-sustancias-adulterantes')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green"
+            onclick="sendTicket('poes-higiene-empleados', 'poes-control-plagas')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POES - Control de Plagas -->
+    <div id="module-poes-control-plagas" class="module-section p-2">
+      <h3 class="text-center">Control de Plagas</h3>
+      <form id="form-poes-control-plagas">
+        <div class="form-group pregunta active">
+          <label for="barreras-fisicas">Barreras físicas para ingreso de vectores y/o plagas (puertas, ventanas,
+            grietas, desagües, otros):</label>
+          <select class="form-control" id="barreras-fisicas" name="barreras-fisicas"
+            onchange="calculateAverage('poes-control-plagas')">
+            <option value="100">100%: Cuenta con barreras y sin grietas</option>
+            <option value="75">75%: Barreras ok, con alguna grieta u orificio</option>
+            <option value="50">50%: Alguna ventana o puerta sin barrera</option>
+            <option value="25">25%: Ventana o puerta se mantiene abierta/sin barrera</option>
+            <option value="0">0%: Ventanas o puertas sin barrera, con grietas y hoyos</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="programa-plagas">Revisar programa y evaluar eficacia y eficiencia (certificados 6 meses atrás e
+            inspección visual):</label>
+          <select class="form-control" id="programa-plagas" name="programa-plagas"
+            onchange="calculateAverage('poes-control-plagas')">
+            <option value="100">100%: Cero presencia y certificados al día</option>
+            <option value="75">75%: Cero presencia, falta un certificado</option>
+            <option value="50">50%: Cero presencia, falta evidencia de varios certificados</option>
+            <option value="25">25%: Presencia de vectores en alguna área</option>
+            <option value="0">0%: Hay presencia - no cuentan con registros</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poes-control-plagas">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red"
+            onclick="previousModule('poes-control-plagas', 'poes-higiene-empleados')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poes-control-plagas', 'poes-instalaciones')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POES - Control de Instalaciones Sanitarias -->
+    <div id="module-poes-instalaciones" class="module-section p-2">
+      <h3 class="text-center">Control de Instalaciones Sanitarias</h3>
+      <form id="form-poes-instalaciones">
+        <div class="form-group pregunta active">
+          <label for="lavamanos">Lavamanos suficientes en áreas de manipulación, limpios, dispensador de papel y
+            señalética publicada:</label>
+          <select class="form-control" id="lavamanos" name="lavamanos"
+            onchange="calculateAverage('poes-instalaciones')">
+            <option value="100">100%: Lavam. uso exclusivo, papel, jabón y señalética ok</option>
+            <option value="75">75%: Lavado, papel, jabón y señalética, limpios y ok</option>
+            <option value="50">50%: Lavado, papel, jabón y señalética, con obs</option>
+            <option value="25">25%: Lavado, sin papel o jabón, señalética ok</option>
+            <option value="0">0%: Lavado, sin papel, sin jabón ni señalética</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="servicios-higienicos">Servicios higiénicos y sala vestuario, en buenas condiciones, limpios, con
+            agua caliente, jabón y papel:</label>
+          <select class="form-control" id="servicios-higienicos" name="servicios-higienicos"
+            onchange="calculateAverage('poes-instalaciones')">
+            <option value="100">100%: Baño ok, jabón sanitizante ok</option>
+            <option value="75">75%: Baños ok, sin agua caliente o sin jabón sanitizante</option>
+            <option value="50">50%: Baños sucios y/o sin agua caliente</option>
+            <option value="25">25%: Hongos, mala mantención infraestructura</option>
+            <option value="0">0%: Baño con conexión área proceso, sin agua caliente, unisex</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poes-instalaciones">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poes-instalaciones', 'poes-control-plagas')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poes-instalaciones', 'poe-recepcion')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POE - Recepción -->
+    <div id="module-poe-recepcion" class="module-section p-2">
+      <h3 class="text-center">Recepción</h3>
+      <form id="form-poe-recepcion">
+        <div class="form-group pregunta active">
+          <label for="registro-recepcion">Verificar registro recepción materias primas, inventario, ordenes de compra y
+            guías de despacho:</label>
+          <select class="form-control" id="registro-recepcion" name="registro-recepcion"
+            onchange="calculateAverage('poe-recepcion')">
+            <option value="100">100%: Cumple los 4 puntos</option>
+            <option value="75">75%: Falta registro de algunos prod. para trazabilidad</option>
+            <option value="50">50%: Documentos incompletos y/o desordenados</option>
+            <option value="25">25%: Cumple todo menos registro de RMP</option>
+            <option value="0">0%: No es posible la trazabilidad</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="balanza">Balanza en buen estado, limpia y utilizada frecuentemente:</label>
+          <select class="form-control" id="balanza" name="balanza" onchange="calculateAverage('poe-recepcion')">
+            <option value="100">100%: Cumple los 3 puntos</option>
+            <option value="75">75%: No se utiliza frecuentemente</option>
+            <option value="50">50%: Se utiliza balanza sucia</option>
+            <option value="25">25%: Balanzas sucia y mal ubicada</option>
+            <option value="0">0%: No hay balanza o mal estado y sucia</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="tiempo-exposicion">Verificar tiempo de exposición de materias primas a Tª adecuada:</label>
+          <select class="form-control" id="tiempo-exposicion" name="tiempo-exposicion"
+            onchange="calculateAverage('poe-recepcion')">
+            <option value="100">100%: No hay exposición a ambiente, en la RMP</option>
+            <option value="75">75%: Se pierde cadena de frío por algunos minutos</option>
+            <option value="50">50%: Algunos expuestos a T° ambiente</option>
+            <option value="25">25%: Se pierde cadena de frío por lapso mayor (ej: 1 hora)</option>
+            <option value="0">0%: Se RMP y se mantiene al ambiente</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-recepcion">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-recepcion', 'poes-instalaciones')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-recepcion', 'poe-almacenamiento')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POE - Almacenamiento -->
+    <div id="module-poe-almacenamiento" class="module-section p-2">
+      <h3 class="text-center">Almacenamiento</h3>
+      <form id="form-poe-almacenamiento">
+        <div class="form-group pregunta active">
+          <label for="practicas-higienicas">Verificar prácticas higiénicas en el trasvasije de envases - Evitar contacto
+            directo entre diferentes tipos de carne:</label>
+          <select class="form-control" id="practicas-higienicas" name="practicas-higienicas"
+            onchange="calculateAverage('poe-almacenamiento')">
+            <option value="100">100%: Cumple prácticas y no hay contacto</option>
+            <option value="75">75%: Alguna mala práctica pero no hay contacto</option>
+            <option value="50">50%: Malas prácticas al trasvasijar</option>
+            <option value="25">25%: Contacto en algunos tipos de productos</option>
+            <option value="0">0%: Malas prácticas y contacto con alimentos</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="identificacion-areas">Identificación de áreas y estantes, por OPX - Rotulación de productos según
+            ISO-OPX (se acepta fotocopia):</label>
+          <select class="form-control" id="identificacion-areas" name="identificacion-areas"
+            onchange="calculateAverage('poe-almacenamiento')">
+            <option value="100">100%: Estantes rotulados, productos c/rótulo completo</option>
+            <option value="75">75%: Estantes con obs y productos c/rótulo completo</option>
+            <option value="50">50%: Estantes con obs y productos c/rótulo incompleto</option>
+            <option value="25">25%: Estantes ok y productos s/rótulo</option>
+            <option value="0">0%: Estantes y productos s/ rótulo</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="receptaculos">Receptáculos (bandejas) suficientes, limpios y ordenados:</label>
+          <select class="form-control" id="receptaculos" name="receptaculos"
+            onchange="calculateAverage('poe-almacenamiento')">
+            <option value="100">100%: Suficiente, ordenados y limpios</option>
+            <option value="75">75%: Insuficientes, ordenados y limpios</option>
+            <option value="50">50%: insuficientes, desordenados y limpios</option>
+            <option value="25">25%: sucios</option>
+            <option value="0">0%: Insuficientes, desordenados y sucios</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="fifo-fefo">Cumplimiento del sistema FIFO o FEFO, según corresponda:</label>
+          <select class="form-control" id="fifo-fefo" name="fifo-fefo"
+            onchange="calculateAverage('poe-almacenamiento')">
+            <option value="100">100%: Ordenados sin productos vencidos</option>
+            <option value="75">75%: Algunos desordenados sin productos vencidos</option>
+            <option value="50">50%: Desordenados sin productos vencidos</option>
+            <option value="25">25%: Un producto de bajo riesgo vencido</option>
+            <option value="0">0%: Evidencia de 1 prod de alto riesgo vencido</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="productos-no-conforme">Productos No Conforme, manejo correcto (art. 105 DS977):</label>
+          <select class="form-control" id="productos-no-conforme" name="productos-no-conforme"
+            onchange="calculateAverage('poe-almacenamiento')">
+            <option value="100">100%: Separación física, identif, a espera del retiro</option>
+            <option value="75">75%: Separación virtual, ident, a espera del retiro</option>
+            <option value="50">50%: No separados, identif, a espera del retiro</option>
+            <option value="25">25%: Separado, sin identif, a espera del retiro</option>
+            <option value="0">0%: No separado ni identificado</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="nivel-piso">Mantención de productos sobre nivel de piso:</label>
+          <select class="form-control" id="nivel-piso" name="nivel-piso"
+            onchange="calculateAverage('poe-almacenamiento')">
+            <option value="100">100%: Todo sobre nivel del piso</option>
+            <option value="75">75%: Un prod no alim. a nivel de piso</option>
+            <option value="50">50%: Algunos prod no alim. a nivel de piso</option>
+            <option value="25">25%: Prod alim. bajo riesgo (bebida) a nivel de piso</option>
+            <option value="0">0%: Prod alim. a nivel de piso</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="separacion-materias">Separación materias primas, desechables, productos químicos:</label>
+          <select class="form-control" id="separacion-materias" name="separacion-materias"
+            onchange="calculateAverage('poe-almacenamiento')">
+            <option value="100">100%: Sep. con barrera: MP - DESECHABLE - PROD QCO</option>
+            <option value="75">75%: Separación virtual MP - DESECHABLE - PROD QCO</option>
+            <option value="50">50%: MP mezclado con DESECHABLE</option>
+            <option value="25">25%: DESECHABLE junto a QUIMICO</option>
+            <option value="0">0%: MP junto a PRODUCTO QUIMICO</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="entrega-produccion">Verificar entrega correcta a la producción (verificación de cantidad, calidad
+            y disponibilidad):</label>
+          <select class="form-control" id="entrega-produccion" name="entrega-produccion"
+            onchange="calculateAverage('poe-almacenamiento')">
+            <option value="100">100%: Se verifica calidad organ, orden canasta y cant</option>
+            <option value="75">75%: Verifica sólo cantidad y calidad organ</option>
+            <option value="50">50%: Verifica todo, pero sólo algunos productos</option>
+            <option value="25">25%: No verifica orden de canastas</option>
+            <option value="0">0%: No hay entrega formal, no verifica</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-almacenamiento">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-almacenamiento', 'poe-recepcion')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-almacenamiento', 'poe-preelaboraciones')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+
+    </div>
+
+    <!-- Sección de POE - Pre-elaboraciones -->
+    <div id="module-poe-preelaboraciones" class="module-section p-2">
+      <h3 class="text-center">Pre-elaboraciones</h3>
+      <form id="form-poe-preelaboraciones">
+        <div class="form-group pregunta active">
+          <label for="descongelacion">Verificar descongelación en equipos de refrigeración, en agua corriendo sólo en
+            caso de emergencias:</label>
+          <select class="form-control" id="descongelacion" name="descongelacion"
+            onchange="calculateAverage('poe-preelaboraciones')">
+            <option value="100">100%: Cumple el procedimiento</option>
+            <option value="75">75%: En agua circulante como proced habitual</option>
+            <option value="50">50%: En eq frío pero, mal ubicado o desprotegido</option>
+            <option value="25">25%: Agua circulante sin protección</option>
+            <option value="0">0%: A T° amb, agua estancada o caliente</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="preelaborados">Pre-elaborados en refrigeración, en envases originales sellados y apilados
+            correctamente:</label>
+          <select class="form-control" id="preelaborados" name="preelaborados"
+            onchange="calculateAverage('poe-preelaboraciones')">
+            <option value="100">100%: Refrigerados, sellados y bien apilados</option>
+            <option value="75">75%: Refrigerados, sellados mal apilados</option>
+            <option value="50">50%: Refrigerados mal sellados</option>
+            <option value="25">25%: Productos abiertos en envase original</option>
+            <option value="0">0%: No refrigerados</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="materias-primas">Materias primas ya procesadas en recipientes o envases lavables y
+            tapadas:</label>
+          <select class="form-control" id="materias-primas" name="materias-primas"
+            onchange="calculateAverage('poe-preelaboraciones')">
+            <option value="100">100%: MP protegidas</option>
+            <option value="75">75%: MP con protección deficiente</option>
+            <option value="50">50%: MP sin protección</option>
+            <option value="25">25%: MP sin protección en envase inadecuado</option>
+            <option value="0">0%: MP sin protección y contenedor sucio</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="separacion-productos">Se separan productos por tipo y/o riesgo de contaminación (lavaderos,
+            mesones, equipos, utensilios):</label>
+          <select class="form-control" id="separacion-productos" name="separacion-productos"
+            onchange="calculateAverage('poe-preelaboraciones')">
+            <option value="100">100%: Separan físicamente por tipo de MP</option>
+            <option value="75">75%: Separación virtual por tipo de MP</option>
+            <option value="50">50%: Existe cruce en productos no críticos</option>
+            <option value="25">25%: Existe cruce entre productos críticos</option>
+            <option value="0">0%: MP no se separan por tipo y/o riesgo</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="sanitizado">Sanitizado con concentración y tiempo correctos. Verificar registro si aplica:</label>
+          <select class="form-control" id="sanitizado" name="sanitizado"
+            onchange="calculateAverage('poe-preelaboraciones')">
+            <option value="100">100%: Cumple concentración y tiempo, en lavadero limpio</option>
+            <option value="75">75%: Cumple concentración y tiempo, en lavadero sucio</option>
+            <option value="50">50%: Cumple sólo en algunos productos</option>
+            <option value="25">25%: No se cumple concentración ni tiempo</option>
+            <option value="0">0%: No sanitizan ningún producto</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-preelaboraciones">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red"
+            onclick="previousModule('poe-preelaboraciones', 'poe-almacenamiento')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-preelaboraciones', 'poe-elaboracion')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POE - Elaboración -->
+    <div id="module-poe-elaboracion" class="module-section p-2">
+      <h3 class="text-center">Elaboración</h3>
+      <form id="form-poe-elaboracion">
+        <div class="form-group pregunta active">
+          <label for="recepcion-materias">Recepción y mantención de materias primas en envases limpios y
+            protegidos:</label>
+          <select class="form-control" id="recepcion-materias" name="recepcion-materias"
+            onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: RMP en contendor limpio y protegidos</option>
+            <option value="75">75%: Contenedor limpio, algun prod mal protegido</option>
+            <option value="50">50%: Contenedor limpio pero 1 prod. desprotegidos</option>
+            <option value="25">25%: Contenedor limpio, varios prod desprotegidos</option>
+            <option value="0">0%: Contenedores sucios y prod desprotegidos</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="orden-limpieza">Orden, limpieza y T° correcta en todos los equipos de frío. Termómetro
+            interno:</label>
+          <select class="form-control" id="orden-limpieza" name="orden-limpieza"
+            onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: Cumple los 4 puntos</option>
+            <option value="75">75%: Cumple todo menos orden</option>
+            <option value="50">50%: T° inadecuada y limp. con accion correctiva</option>
+            <option value="25">25%: T° inadecuada y limp. sin acción correctiva</option>
+            <option value="0">0%: Falta termómetro, control de T°</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="productos-transito">Productos en tránsito y/o producto terminado, correctamente rotulado según
+            tiempos definidos:</label>
+          <select class="form-control" id="productos-transito" name="productos-transito"
+            onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: está rotulado y cumple con la tabla</option>
+            <option value="75">75%: Algunos producto NC con la tabla</option>
+            <option value="50">50%: Algunos producto crítico NC con la tabla</option>
+            <option value="25">25%: Prod. rotulado pero NC con tabla</option>
+            <option value="0">0%: Prod. sin rotulación</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="respetan-temperaturas">Respetan las T° y los tiempos correctos de cocción y enfriamiento (fríos y
+            calientes):</label>
+          <select class="form-control" id="respetan-temperaturas" name="respetan-temperaturas"
+            onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: Cumple, controla in situ y registra al momento</option>
+            <option value="75">75%: Cumple, control y registra in situ, algunos prod.</option>
+            <option value="50">50%: Cumple, controla in situ pero no se registra</option>
+            <option value="25">25%: Uso de termómetro sólo ocasional</option>
+            <option value="0">0%: Sin termómetro disponible</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="uso-equipos-frio">Uso correcto de equipos de frío, elaboración y mantención:</label>
+          <select class="form-control" id="uso-equipos-frio" name="uso-equipos-frio"
+            onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: Se utiliza el equipo para el fin definido</option>
+            <option value="75">75%: Mala práctica puntual (ejm: golpear o mojar equipo)</option>
+            <option value="50">50%: Sobre-exigencia de equipos (ejm: congelador)</option>
+            <option value="25">25%: No se utiliza el equipo para fin definido</option>
+            <option value="0">0%: Equipo en mal estado, por mal uso</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="sistema-extraccion">Sistema de extracción e inyección de aire, en correcto funcionamiento, limpio
+            y con registro de limpieza de ducto:</label>
+          <select class="form-control" id="sistema-extraccion" name="sistema-extraccion"
+            onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: Sistema eficiente, limpio y con registro</option>
+            <option value="75">75%: Sistema eficiente, limpieza con obs, y registro</option>
+            <option value="50">50%: Sistema funciona, ineficiente y sucio</option>
+            <option value="25">25%: Sistema no funciona, s/filtro, pero limpio</option>
+            <option value="0">0%: No cuenta con sistema</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="estantes">Estantes sin óxido, sin sobrecarga y ordenados (materias primas y especies - desechables
+            - utensilios):</label>
+          <select class="form-control" id="estantes" name="estantes" onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: Cumple todo</option>
+            <option value="75">75%: Estantes con sobrecarga, ordenados</option>
+            <option value="50">50%: Estantes desordenados</option>
+            <option value="25">25%: Estantes ordenados con óxido</option>
+            <option value="0">0%: No Cumple</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="especieros">Especieros limpios, rotulados, tapados y ordenados. Envases de material
+            lavable:</label>
+          <select class="form-control" id="especieros" name="especieros" onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: Cumple 5 puntos</option>
+            <option value="75">75%: Cumple todo menos orden</option>
+            <option value="50">50%: Cumple, pero sin rotulación</option>
+            <option value="25">25%: Cumple sin tapa y/o sucios</option>
+            <option value="0">0%: No cumple ninguno</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="montajes-rapidos">Montajes rápidos, por lote de producto y mice and place completa (mantención
+            cadena frío):</label>
+          <select class="form-control" id="montajes-rapidos" name="montajes-rapidos"
+            onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: Montajes rápidos</option>
+            <option value="75">75%: Montaje en ambiente con T° altas</option>
+            <option value="50">50%: Montaje con manipulación lenta</option>
+            <option value="25">25%: Mice and place insuficiente</option>
+            <option value="0">0%: Montaje en grandes cantidades, exp a T° amb</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="tiempo-elaboracion-consumo">Tiempo entre elaboración y consumo:</label>
+          <select class="form-control" id="tiempo-elaboracion-consumo" name="tiempo-elaboracion-consumo"
+            onchange="calculateAverage('poe-elaboracion')">
+            <option value="100">100%: Elaboran durante el día (cocina tradicional)</option>
+            <option value="75">75%: Adelantan muchas preparaciones no críticas</option>
+            <option value="50">50%: Adelantan alguna prepar. no crítica con mucho tpo</option>
+            <option value="25">25%: Se adelantan preparaciones críticas</option>
+            <option value="0">0%: Se utilizan prepar. calientes de servicio anterior</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-elaboracion">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-elaboracion', 'poe-preelaboraciones')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-elaboracion', 'poe-mantencion')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POE - Mantención -->
+    <div id="module-poe-mantencion" class="module-section p-2">
+      <h3 class="text-center">Mantención</h3>
+      <form id="form-poe-mantencion">
+        <div class="form-group">
+          <label for="control-tiempo-temperatura">Control de tiempo y Tº del equipo, al inicio y término de la
+            mantención en frío o caliente:</label>
+          <select class="form-control" id="control-tiempo-temperatura" name="control-tiempo-temperatura"
+            onchange="calculateAverage('poe-mantencion')">
+            <option value="100">100%: Se aplica mantención en equipo adecuado</option>
+            <option value="75">75%: Se aplica técnica alternativa pero con observaciones</option>
+            <option value="50">50%: Aplica técnica pero en equipo no adecuado</option>
+            <option value="25">25%: Aplica técnica sólo a algunos productos</option>
+            <option value="0">0%: No aplican baño maría o técnica alternativo autorizado</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-mantencion">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-mantencion', 'poe-elaboracion')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-mantencion', 'poe-transporte')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POE - Transporte -->
+    <div id="module-poe-transporte" class="module-section p-2">
+      <h3 class="text-center">Transporte</h3>
+      <form id="form-poe-transporte">
+        <div class="form-group pregunta active">
+          <label for="traslado-alimentos">Traslado de alimentos cumpliendo; protección, rotulación, estiba y registros
+            al inicio y término:</label>
+          <select class="form-control" id="traslado-alimentos" name="traslado-alimentos"
+            onchange="calculateAverage('poe-transporte')">
+            <option value="100">100%: Todo protegido, rotulado y con control de T°</option>
+            <option value="75">75%: Todo protegido, rótulos incomp. Y control de T°</option>
+            <option value="50">50%: Todo protegido, sín rótulo y con control de T°</option>
+            <option value="25">25%: Todo protegido, sin rótulo, sin control de T°</option>
+            <option value="0">0%: Protegido parcial, sin rótulo, sin control de T°</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="vehiculo">Vehículo cerrado, limpio y en correctas condiciones. Con autorización sanitaria:</label>
+          <select class="form-control" id="vehiculo" name="vehiculo" onchange="calculateAverage('poe-transporte')">
+            <option value="100">100%: Veh cerrado, limpio, refrigerado, con resolución</option>
+            <option value="75">75%: Veh cerrado, limp deficiente, refrigerado, con resol</option>
+            <option value="50">50%: Veh cerrado, limpio, refrigeración deficiente, con resol</option>
+            <option value="25">25%: Veh cerrado, limp y refrigeración deficiente, sin resol</option>
+            <option value="0">0%: Veh cerrado, sucio, ref deficiente, sin resolución</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-transporte">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-transporte', 'poe-mantencion')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-transporte', 'poe-servicio')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POE - Servicio -->
+    <div id="module-poe-servicio" class="module-section p-2">
+      <h3 class="text-center">Servicio</h3>
+      <form id="form-poe-servicio">
+        <div class="form-group pregunta active">
+          <label for="mantenimiento-baño-maria">Verificar mantención en baño maría caliente o mantenedor
+            electrico:</label>
+          <select class="form-control" id="mantenimiento-baño-maria" name="mantenimiento-baño-maria"
+            onchange="calculateAverage('poe-servicio')">
+            <option value="100">100%: Aplica técnica en equipo adecuado en cada servicio</option>
+            <option value="75">75%: Téc. alternativa c/obs. (ej. Budineras sobre baño maria)</option>
+            <option value="50">50%: Se usa equipo como mantenedor de pre-servicio</option>
+            <option value="25">25%: Se aplica técnica solo en servicio principal</option>
+            <option value="0">0%: No se aplica técnica</option>
+          </select>
+
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="variedad-autoservicio">Variedad de alternativas instaladas en línea autoservicio, según menú.
+            (fondos, ensaladas y postres, otros):</label>
+          <select class="form-control" id="variedad-autoservicio" name="variedad-autoservicio"
+            onchange="calculateAverage('poe-servicio')">
+            <option value="100">100%: Se cumple con menu</option>
+            <option value="75">75%: Una variedad repetida o parecida (repollo, mix)</option>
+            <option value="50">50%: Algunas modif justificadas (ej. No llega proveedor)</option>
+            <option value="25">25%: Algunas modificaciones sin justificacion</option>
+            <option value="0">0%: No se cumple con menu</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="equipos-suficientes">Equipos suficientes para la correcta mantención de productos calientes y
+            fríos:</label>
+          <select class="form-control" id="equipos-suficientes" name="equipos-suficientes"
+            onchange="calculateAverage('poe-servicio')">
+            <option value="100">100%: Disponibilidad suficiente</option>
+            <option value="75">75%: Equipos Compartidos ordenados (postres, ensal)</option>
+            <option value="50">50%: Equipos compartidos sin orden(postres, ensal)</option>
+            <option value="25">25%: Equipos funcionando incorrectamente</option>
+            <option value="0">0%: Sin equipos disponible</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="reposicion-preparaciones">Reposición continua de las preparaciones frías y calientes:</label>
+          <select class="form-control" id="reposicion-preparaciones" name="reposicion-preparaciones"
+            onchange="calculateAverage('poe-servicio')">
+            <option value="100">100%: Se cumple durante todo el servicio</option>
+            <option value="75">75%: Tiempos de espera cortos</option>
+            <option value="50">50%: Reposición lenta (disponibilidad personal)</option>
+            <option value="25">25%: Reposición lenta por programación</option>
+            <option value="0">0%: No se cumple con reposición</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="vajilla">Vajilla, bandejas y cubiertos en cantidad correcta, limpios y secos:</label>
+          <select class="form-control" id="vajilla" name="vajilla" onchange="calculateAverage('poe-servicio')">
+            <option value="100">100%: Se cumple con cantidad, limpios y secos</option>
+            <option value="75">75%: Stock insuficiente, limpios y secos</option>
+            <option value="50">50%: Stock insuf. limpios</option>
+            <option value="25">25%: Stock insuf. secos pero con algunos con residuos</option>
+            <option value="0">0%: Stock insuf. utensilios sucios. No se cumple</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-servicio">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-servicio', 'poe-transporte')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-servicio', 'poe-lavado-ollas-vajilla')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POE - Lavado de ollas y vajilla -->
+    <div id="module-poe-lavado-ollas-vajilla" class="module-section p-2">
+      <h3 class="text-center">Lavado de ollas y vajilla</h3>
+      <form id="form-poe-lavado-ollas-vajilla">
+        <div class="form-group pregunta active">
+          <label for="desconche">Desconche de ollas y vajilla:</label>
+          <select class="form-control" id="desconche" name="desconche"
+            onchange="calculateAverage('poe-lavado-ollas-vajilla')">
+            <option value="100">100%: Elimina todo resto de alimentos y separa percolados</option>
+            <option value="75">75%: Elimina algo residuos de alim. y separa líq percolados</option>
+            <option value="50">50%: Elimina algo de resto de alim., no separa líq percolados</option>
+            <option value="25">25%: Elimina poco del resto de alim., no separa líq percolados</option>
+            <option value="0">0%: Mal realizado, no separa liquidos percolados</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="procedimiento-higiene">Procedimiento de higiene de vajilla y utensilios, en tres etapas (lavado,
+            enjuague, sanitizado) - Disp. agua caliente:</label>
+          <select class="form-control" id="procedimiento-higiene" name="procedimiento-higiene"
+            onchange="calculateAverage('poe-lavado-ollas-vajilla')">
+            <option value="100">100%: Cumple con los 3 pasos y hay agua caliente</option>
+            <option value="75">75%: Lavado ok, sanitizacion ok, sin agua caliente</option>
+            <option value="50">50%: Lavado ok, sin sanitizacion, con agua caliente</option>
+            <option value="25">25%: Lavado ok, sin sanitizacion, sin agua caliente</option>
+            <option value="0">0%: Lavado con observ., sin sanitizacion, sin agua caliente</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="orden-area">Orden general del área:</label>
+          <select class="form-control" id="orden-area" name="orden-area"
+            onchange="calculateAverage('poe-lavado-ollas-vajilla')">
+            <option value="100">100%: Areas separadas (sucio/limpio), señalét. y ordenadas</option>
+            <option value="75">75%: Areas separadas y ordenadas</option>
+            <option value="50">50%: Areas separadas, desordenada</option>
+            <option value="25">25%: No hay separacion, pero ordenadas</option>
+            <option value="0">0%: No existe separacion, muy desordenadas</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-lavado-ollas-vajilla">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-lavado-ollas-vajilla', 'poe-servicio')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green"
+            onclick="sendTicket('poe-lavado-ollas-vajilla', 'poe-control-calidad')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Sección de POE - Control de calidad -->
+    <div id="module-poe-control-calidad" class="module-section p-2">
+      <h3 class="text-center">Control de Calidad</h3>
+      <form id="form-poe-control-calidad">
+        <div class="form-group pregunta active">
+          <label for="termometros-balanzas">Termómetros y balanzas suficientes, en correcto estado y limpios:</label>
+          <select class="form-control" id="termometros-balanzas" name="termometros-balanzas"
+            onchange="calculateAverage('poe-control-calidad')">
+            <option value="100">100%: Cumple buen estado y limpieza</option>
+            <option value="75">75%: Cumple buen estado, limpios pero insuficientes</option>
+            <option value="50">50%: Buen estado, limpios, sin solución desinfectante</option>
+            <option value="25">25%: Buen estado, sucios</option>
+            <option value="0">0%: Termómetros no operativos, sucios, insufic, en casilleros</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="monitoreo-controles">Verificar monitoreo de controles de proceso y verificación por la supervisión
+            (en degustación debe revisar planillas):</label>
+          <select class="form-control" id="monitoreo-controles" name="monitoreo-controles"
+            onchange="calculateAverage('poe-control-calidad')">
+            <option value="100">100%: Al día, revisados y firmados</option>
+            <option value="75">75%: Al día, registros sin firma</option>
+            <option value="50">50%: Mal llenados (incompletos), sin revisar (firma)</option>
+            <option value="25">25%: Registros de tiempo/T° deficientes</option>
+            <option value="0">0%: Sin mayor control evidente</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="acciones-correctivas">Verificar aplicación y verificación (firmas) de acciones correctivas en
+            registros de días anteriores:</label>
+          <select class="form-control" id="acciones-correctivas" name="acciones-correctivas"
+            onchange="calculateAverage('poe-control-calidad')">
+            <option value="100">100%: Aplican y verifican acciones correctivas</option>
+            <option value="75">75%: Realizan acciones correctivas, algunas sin verificar</option>
+            <option value="50">50%: Realizan acciones correctivas, sin verificar</option>
+            <option value="25">25%: Pocas acciones correctivas, sin verificar</option>
+            <option value="0">0%: Sin acciones correctivas, pese desviaciones</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="registro-contramuestras">Verificar registro y toma de contramuestras, considerar menú y gramaje
+            (150 a 200 gramos):</label>
+          <select class="form-control" id="registro-contramuestras" name="registro-contramuestras"
+            onchange="calculateAverage('poe-control-calidad')">
+            <option value="100">100%: Contramuestras y registros al día</option>
+            <option value="75">75%: Contramuestras y registros ok, insuficiente gramaje</option>
+            <option value="50">50%: Contramuestras y registros solo del servicio principal</option>
+            <option value="25">25%: Sin contramuestras de ayer, registros discontinuos</option>
+            <option value="0">0%: Sin contramuestras, sin registros al día</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-poe-control-calidad">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-control-calidad', 'poe-lavado-ollas-vajilla')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-control-calidad', 'ma')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Módulo MA - MANEJO Y PROTECCIÓN AMBIENTAL -->
+    <div id="module-ma" class="module-section p-2">
+      <h3 class="text-center">Manejo y Protección Ambiental</h3>
+      <form id="form-ma">
+        <div class="form-group pregunta active">
+          <label for="dosificacion">Dosificación correcta de detergentes y sanitizantes:</label>
+          <select class="form-control" id="dosificacion" name="dosificacion" onchange="calculateAverage('ma')">
+            <option value="100">100%: Se evidencia dosificación automática, vasos dosificadores, el persona conoce las
+              diluciones.</option>
+            <option value="75">75%: Con dosificación manual, Automática no operativa.</option>
+            <option value="50">50%: Dosificación manual con control deficiente de diluciones.</option>
+            <option value="25">25%: Fallas en las dilución de productos químicos.</option>
+            <option value="0">0%: Dosificaciones incorrectas (sin medición).</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="productos">Productos químicos autorizados por la empresa, verificar cumplimiento del 100% del
+            listado y programa:</label>
+          <select class="form-control" id="productos" name="productos" onchange="calculateAverage('ma')">
+            <option value="100">100%: Programa de productos completo, ausencia de No Autorizados</option>
+            <option value="75">75%: No más de uno no autorizado.</option>
+            <option value="50">50%: Más de un producto no autorizado, Ausente un producto del programa.</option>
+            <option value="25">25%: Falla en algunos de los productos desinfectantes (yodo, cloro, jabón)</option>
+            <option value="0">0%: Sin Productos desinfectantes.</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="basureros">Basureros limpios y sanitizados, con pedal, tapa y bolsa:</label>
+          <select class="form-control" id="basureros" name="basureros" onchange="calculateAverage('ma')">
+            <option value="100">100%: Cumple requerimientos.</option>
+            <option value="75">75%: Uso de basureros sin pedal</option>
+            <option value="50">50%: Se trabaja con basureros en ocasiones sin tapa o levantada.</option>
+            <option value="25">25%: Basureros sin sanitizar</option>
+            <option value="0">0%: Se maneja basureros sucios, No desinfectados, sin bolsa.</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="retiro-basura">Frecuencia de retiro de basura de las áreas (75% de la capacidad del
+            contenedor):</label>
+          <select class="form-control" id="retiro-basura" name="retiro-basura" onchange="calculateAverage('ma')">
+            <option value="100">100%: No llegan al 75% de capacidad</option>
+            <option value="75">75%: Sobrepasa el 75% pero no al 100%</option>
+            <option value="50">50%: Alguno llega al 100% capacidad</option>
+            <option value="25">25%: Varios se observan al 100% capacidad</option>
+            <option value="0">0%: No hay retiro de basura.</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="limpieza-area-basura">Limpieza y sanitización de la sala o área destinada a la basura:</label>
+          <select class="form-control" id="limpieza-area-basura" name="limpieza-area-basura"
+            onchange="calculateAverage('ma')">
+            <option value="100">100%: Cumple Aseo - Desinfección de superficies - Control de olores.</option>
+            <option value="75">75%: Cumple aseo, falla en el control de olores</option>
+            <option value="50">50%: Aseo con detalles en pisos y/o desagües</option>
+            <option value="25">25%: Falla en la frecuencia del aseo general</option>
+            <option value="0">0%: No se evidencian actividades de aseo y desinfección en el área.</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="manejo-aceites">Aceites usados, son correctamente envasados, rotulados. Ausencia de grasa en los
+            desagües:</label>
+          <select class="form-control" id="manejo-aceites" name="manejo-aceites" onchange="calculateAverage('ma')">
+            <option value="100">100%: Cumple requerimiento.</option>
+            <option value="75">75%: Falla en la rotulación de los envases</option>
+            <option value="50">50%: Desagües sucios, o disposición de aceite en bolsas.</option>
+            <option value="25">25%: Cumple en forma esporádica, cuando el aceite es poco se dispone en desagüe.</option>
+            <option value="0">0%: No cumple manejo de aceite según procedimiento.</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="separacion-residuos">Separación de residuos sólidos y grasa durante desconche de vajilla y
+            ollas:</label>
+          <select class="form-control" id="separacion-residuos" name="separacion-residuos"
+            onchange="calculateAverage('ma')">
+            <option value="100">100%: Se cumple separación de residuos, colador de uso exclusivo.</option>
+            <option value="75">75%: Se cumple, pero con utensilios con cierto grado de deterioro (coladores)</option>
+            <option value="50">50%: Se usan rejillas de desagüe para realizar la separación de residuos.</option>
+            <option value="25">25%: Se observa poco o regular la separación de residuos.</option>
+            <option value="0">0%: Los residuos se van directo al desagüe sin separación.</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-ma">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('ma', 'poe-control-calidad')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('ma', 'doc')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Módulo DOC - DOCUMENTACION -->
+    <div id="module-doc" class="module-section p-2">
+      <h3 class="text-center">Documentación</h3>
+      <form id="form-doc">
+        <div class="form-group pregunta active">
+          <label for="autorizaciones">Autorizaciones Sanitarias (casino y verduras crudas):</label>
+          <select class="form-control" id="autorizaciones" name="autorizaciones" onchange="calculateAverage('doc')">
+            <option value="100">100%: Ambas resoluciones publicadas y al día</option>
+            <option value="75">75%: Ambas resoluciones pero no publicadas</option>
+            <option value="50">Resolución casino, no evidencia res. verd. crudas</option>
+            <option value="25">Sólo res. casino o con razon social no corresp.</option>
+            <option value="0">No tiene resoluciones</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="libro-inspeccion">Libro de inspección SEREMI Salud:</label>
+          <select class="form-control" id="libro-inspeccion" name="libro-inspeccion" onchange="calculateAverage('doc')">
+            <option value="100">100%: Libro timbrado por SEREMI</option>
+            <option value="75">75%: Libro timbrado pero mal ubicado (cuesta ubicarlo)</option>
+            <option value="50">50%: Libro timbrado pero sucio o rayado</option>
+            <option value="25">25%: Libro roto o dañado</option>
+            <option value="0">No cuenta con libro</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="informes-microbio">Informes de muestreo microbiológico/luminometrìa. Planes de acción, charlas al
+            personal si corresponde:</label>
+          <select class="form-control" id="informes-microbio" name="informes-microbio"
+            onchange="calculateAverage('doc')">
+            <option value="100">100%: Inf microb y lum ok, planes cerrados ok, charlas ok</option>
+            <option value="75">75%: Inf microb y lum ok, alguna acción pendiente, charla ok</option>
+            <option value="50">50%: Inf microb y lum ok, alguna acción pendiente, sin charla</option>
+            <option value="25">25%: Inf microb y lum ok, pero sin plan acción</option>
+            <option value="0">0%: Sin informes ni plan acción</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="informes-auditoria">Informes de auditoría sanitaria, plan de acción, verificación de cumplimiento,
+            por Administrador y Jefe Op.:</label>
+          <select class="form-control" id="informes-auditoria" name="informes-auditoria"
+            onchange="calculateAverage('doc')">
+            <option value="100">100%: Inf ok, plan cerrado ok, verif por Adm y JOP</option>
+            <option value="75">75%: Inf ok, alguna acción pendiente, verif por Adm ó JOP</option>
+            <option value="50">50%: Inf ok, alguna acción pendiente, sin verif por Adm</option>
+            <option value="25">25%: Inf ok, sin plan de acción, sin verif</option>
+            <option value="0">No hay informe, no hay plan</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="programa-charlas">Registros del cumplimiento al 100% del programa de charlas en Calidad y Medio
+            Ambiente:</label>
+          <select class="form-control" id="programa-charlas" name="programa-charlas" onchange="calculateAverage('doc')">
+            <option value="100">100%: Charlas al día, el personal se verifica capacitado</option>
+            <option value="75">75%: Charlas al día, pero falta interiorizar en el personal</option>
+            <option value="50">50%: Charlas de calidad atrasados</option>
+            <option value="25">25%: Charlas atrasadas, personal no responde</option>
+            <option value="0">0%: No está implementado programa de charlas</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="reporte-proveedor">Reporte de proveedor productos químicos:</label>
+          <select class="form-control" id="reporte-proveedor" name="reporte-proveedor"
+            onchange="calculateAverage('doc')">
+            <option value="100">100%: Rep ok, plan cerrado ok, verif por Adm</option>
+            <option value="75">75%: Rep ok, alguna acción pendiente, verif por Adm</option>
+            <option value="50">50%: Rep ok, alguna acción pendiente, sin verif por Adm</option>
+            <option value="25">25%: Rep ok, sin plan de acción, sin verif</option>
+            <option value="0">No hay reporte, no hay plan</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-doc">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('doc', 'ma')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('doc', 'tra')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Módulo TRA - TRAZADORES DE POSIBLE BROTE ETA -->
+    <div id="module-tra" class="module-section p-2">
+      <h3 class="text-center">Trazadores de Posible Brote ETA</h3>
+      <form id="form-tra">
+        <div class="form-group pregunta active">
+          <label for="programa-higiene">Aplicación y eficiencia del programa de higiene, publicado e implementado por
+            áreas:</label>
+          <select class="form-control" id="programa-higiene" name="programa-higiene" onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="lavado-manos">Lavado y sanitizado correcto de manos y uñas:</label>
+          <select class="form-control" id="lavado-manos" name="lavado-manos" onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="examenes-manipuladores">Exámenes de todos los manipuladores, ecónomos y administradores. Ausencia
+            de malestares o infecciones:</label>
+          <select class="form-control" id="examenes-manipuladores" name="examenes-manipuladores"
+            onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="descongelacion">Verificar descongelación en equipos de refrigeración, en agua corriendo sólo en
+            caso de emergencias:</label>
+          <select class="form-control" id="descongelacion" name="descongelacion" onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="tiempos-coccion-enfriamiento">Respetan las T y los tiempos correctos de cocción y enfriamiento
+            (fríos y calientes):</label>
+          <select class="form-control" id="tiempos-coccion-enfriamiento" name="tiempos-coccion-enfriamiento"
+            onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="tiempo-elaboracion-consumo">Tiempo entre elaboración y consumo:</label>
+          <select class="form-control" id="tiempo-elaboracion-consumo" name="tiempo-elaboracion-consumo"
+            onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="control-mantenimiento">Control de tiempo y T del equipo, al inicio y término de la mantención en
+            frío o caliente:</label>
+          <select class="form-control" id="control-mantenimiento" name="control-mantenimiento"
+            onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="traslado-alimentos">Traslado de alimentos cumpliendo; protección, rotulación, estiba y registros
+            al inicio y término (si aplica):</label>
+          <select class="form-control" id="traslado-alimentos" name="traslado-alimentos"
+            onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="equipos-mantencion">Equipos suficientes para la correcta mantención de productos calientes y
+            fríos:</label>
+          <select class="form-control" id="equipos-mantencion" name="equipos-mantencion"
+            onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="informes-auditoria">Informes de auditoría sanitaria, plan de acción, verificación de cumplimiento,
+            por Administrador:</label>
+          <select class="form-control" id="informes-auditoria" name="informes-auditoria"
+            onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+        <div class="form-group pregunta">
+          <label for="charlas-calidad">Registros del cumplimiento al 100% del programa de charlas en Calidad y Medio
+            Ambiente:</label>
+          <select class="form-control" id="charlas-calidad" name="charlas-calidad" onchange="calculateAverage('tra')">
+            <option value="100">100%: Uno</option>
+            <option value="75">75%: Dos</option>
+            <option value="50">50%: Tres</option>
+            <option value="25">25%: Cuatro</option>
+            <option value="0">0%: Cinco</option>
+          </select>
+
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-tra">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('tra', 'doc')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('tra', 'lum')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+    <!-- Módulo LUM - LUMINOMETRÍA -->
+    <div id="module-lum" class="module-section p-2">
+      <h3 class="text-center">Luminometría</h3>
+      <form id="form-lum">
+        <div class="form-group">
+          <label for="luminometro">Calibración y uso de luminómetro:</label>
+          <select class="form-control" id="luminometro" name="luminometro" onchange="calculateAverage('lum')">
+            <option value="100"> NOTA 7 /EXCELENTE / 0-50 URL/MUY LIMPIO / SIN RIESGO </option>
+            <option value="90">NOTA 6 /MUY BUENO / >51 - 150 URL / LIMPIO SIN RIESGO</option>
+            <option value="75">NOTA 5 / BUENO />151 - 250 URL / MEDIANAMENTE SUCIO / BAJO RIESGO </option>
+            <option value="50">NOTA4 REGULAR / >251 -500 URL / ALERTA / RIESGO (LEVE) </option>
+            <option value="25">NOTA3 DEFICIENTE / >501- 1000 URL/ SUCIO /MEDIANO RIESGO (GRAVE)</option>
+            <option value="0"> NOTA 2 MALA />1001 URL / MUY SUCIO/ALTO RIESGO (MUY GRAVE) </option>
+          </select>
+
+        </div>
+
+      </form>
+
+
+      <script></script>
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h3 class="text-center">PROMEDIO: <span id="average-lum">100%</span></h3>
+        <div class="btn-form-group p-2">
+          <button class="btn btn-form btn-red" onclick="previousModule('lum', 'tra')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="btn btn-form btn-green" onclick="sendTicket('lum', 'resumen')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+            class="fa-solid fa-file-lines"></i> Comentario</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+            class="fa-solid fa-camera-retro"></i> Fotos</button>
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+            class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
+      </div>
+    </div>
+
+
+    <!-- Resumen -->
+    <div id="module-resumen" class="module-section">
+      <h3 class="text-center">Resumen de Auditoría</h3>
+
+      <!-- Información de la Ficha -->
+      <div id="ficha-resumen" class="text-center">
+        <h4>Ficha de Auditoría</h4>
+        <p><strong>Nombre de Establecimiento:</strong> <span id="resumen-nombre-establecimiento"></span></p>
+        <p><strong>N° de Auditoría:</strong> <span id="resumen-numero-auditoria"></span></p>
+        <p><strong>Gerente de Establecimiento:</strong> <span id="resumen-gerente-establecimiento"></span></p>
+        <p><strong>Administrador de Establecimiento:</strong> <span id="resumen-administrador-establecimiento"></span>
+        </p>
+        <p><strong>Supervisor del Establecimiento:</strong> <span id="resumen-supervisor-establecimiento"></span></p>
+        <p><strong>Auditor Externo:</strong> <span id="resumen-auditor-externo"></span></p>
+        <p><strong>Fecha:</strong> <span id="resumen-fecha-auditoria"></span></p>
+      </div>
+
+      <!-- Promedios -->
+      <h4 class="text-center">Promedio BPM: <span id="resumen-bpm">0%</span></h4>
+      <h4 class="text-center">Promedio POES: <span id="resumen-poes">0%</span></h4>
+      <h4 class="text-center">Promedio POE: <span id="resumen-poe">0%</span></h4>
+      <h4 class="text-center">Promedio MA: <span id="resumen-ma">0%</span></h4>
+      <h4 class="text-center">Promedio DOC: <span id="resumen-doc">0%</span></h4>
+      <h4 class="text-center">Promedio TRA: <span id="resumen-tra">0%</span></h4>
+      <h4 class="text-center">Promedio LUM: <span id="resumen-lum">0%</span></h4>
+      <h4 class="text-center">Promedio General: <span id="promedio-general">0%</span></h4>
+      <div id="interpretacion-final" class="text-center"></div>
+      <canvas id="resultChart" width="400" height="200"></canvas>
+
+      <!-- Tabla de Auditoría -->
+      <div class="audit-summary">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>ASPECTOS EVALUADOS</th>
+                <th>PONDERACIÓN (%)</th>
+                <th>NOTA POR ITEM</th>
+                <th>PUNTAJE POR ITEM</th>
+              </tr>
+            </thead>
+            <tbody id="audit-table-body">
+              <tr>
+                <td>1</td>
+                <td>BPM INFRAESTRUCTURA Y REQUERIMIENTOS LEGALES</td>
+                <td>5%</td>
+                <td><span id="nota-infraestructura">0%</span></td>
+                <td><span id="puntaje-infraestructura">0%</span></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>POES PROCEDIMIENTOS OP. DE SANITIZACION</td>
+                <td>25%</td>
+                <td><span id="nota-poes">0%</span></td>
+                <td><span id="puntaje-poes">0%</span></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>POE PROCEDIMIENTOS OP. DEL PROCESO</td>
+                <td>25%</td>
+                <td><span id="nota-poe">0%</span></td>
+                <td><span id="puntaje-poe">0%</span></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>MA MANEJO AMBIENTAL</td>
+                <td>5%</td>
+                <td><span id="nota-ma">0%</span></td>
+                <td><span id="puntaje-ma">0%</span></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>DOC DOCUMENTACION</td>
+                <td>10%</td>
+                <td><span id="nota-doc">0%</span></td>
+                <td><span id="puntaje-doc">0%</span></td>
+              </tr>
+              <tr class="fila-invisible">
+                <td>6</td>
+                <td>TRAZ TRAZADORES DE POSIBLE BROTE ETA</td>
+                <td>21%</td>
+                <td><span id="nota-traz">0%</span></td>
+                <td><span id="puntaje-traz">0%</span></td>
+              </tr>
+              <tr class="fila-invisible">
+                <td>7</td>
+                <td>LUM LUMINOMETRIA</td>
+                <td>10%</td>
+                <td><span id="nota-lum">0%</span></td>
+                <td><span id="puntaje-lum">0%</span></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">PROMEDIO FINAL PONDERADO</td>
+                <td><span id="promedio-ponderado">0%</span></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <button class="btn btn-secondary btn-block" onclick="previousModule('resumen', 'lum')">Anterior</button>
+      <button class="btn btn-blue btn-block" onclick="nextModule('resumen', '#')">Enviar</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Al cargar la página, muestra solo el módulo del formulario inicial
+        let modules = document.getElementsByClassName('module-section');
+        for (var i = 0; i < modules.length; i++) {
+          modules[i].classList.remove('active');
+        }
+        document.getElementById('module-ficha').classList.add('active');
+
+        // Oculta el título cuando está en el módulo ficha
+        const titleElement = document.getElementById('module-title');
+        titleElement.style.display = 'none';
+      });
+    </script>
+
+    <!-- script para la navegación, funciones, charts y buttons -->
+    <script src="./navigation.js"></script>
+    <script src="./functions.js"></script>
+    <script src="./charts.js"></script>
+    <script src="./buttonsQuestions.js"></script>
+    <script src="./bannerButtons.js"></script>
+
+
+    <!-- script de canvas para las fotos -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="..//Front/auditoria.js"></script>
+
 </body>
+
 </html>
