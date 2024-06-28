@@ -29,9 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function addChangeListenerToQuestions() {
     const activeModule = document.querySelector('.module-section.active');
-    const questions = activeModule.querySelectorAll('.pregunta select');
-    questions.forEach(select => {
-      select.addEventListener('change', nextQuestion);
+    const questions = activeModule.querySelectorAll('.pregunta');
+  
+    questions.forEach((question, index) => {
+      const select = question.querySelector('select');
+      select.addEventListener('change', () => {
+        // Avanzar a la siguiente pregunta si no es la última
+        if (index < questions.length - 1) {
+          currentQuestion = index + 1;
+          showQuestion(currentQuestion);
+        }
+      });
     });
   }
 
