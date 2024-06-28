@@ -128,7 +128,7 @@
         <h3 class="text-center">PROMEDIO: <span id="average-infraestructura">100%</span></h3>
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger" onclick="previousModule('infraestructura', 'ficha')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('infraestructura', 'legales')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('infraestructura', 'legales')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -192,7 +192,7 @@
         <h3 class="text-center">PROMEDIO: <span id="average-legales">100%</span></h3>
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger" onclick="previousModule('legales', 'infraestructura')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('legales', 'poes-control-productos')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('legales', 'poes-control-productos')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -250,7 +250,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poes-control-productos', 'legales')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poes-control-productos', 'poes-control-agua')">✅</button>
+            onclick="sendTicket('poes-control-productos', 'poes-control-agua')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -283,7 +283,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poes-control-agua', 'poes-control-productos')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poes-control-agua', 'poes-superficies')">✅</button>
+            onclick="sendTicket('poes-control-agua', 'poes-superficies')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -416,7 +416,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poes-superficies', 'poes-control-agua')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poes-superficies', 'poes-contaminacion-cruzada')">✅</button>
+            onclick="sendTicket('poes-superficies', 'poes-contaminacion-cruzada')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -464,7 +464,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poes-contaminacion-cruzada', 'poes-superficies')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">✅</button>
+            onclick="sendTicket('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -510,7 +510,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poes-sustancias-adulterantes', 'poes-contaminacion-cruzada')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poes-sustancias-adulterantes', 'poes-higiene-empleados')">✅</button>
+            onclick="sendTicket('poes-sustancias-adulterantes', 'poes-higiene-empleados')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -594,7 +594,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poes-higiene-empleados', 'poes-sustancias-adulterantes')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poes-higiene-empleados', 'poes-control-plagas')">✅</button>
+            onclick="sendTicket('poes-higiene-empleados', 'poes-control-plagas')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -641,7 +641,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poes-control-plagas', 'poes-higiene-empleados')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poes-control-plagas', 'poes-instalaciones')">✅</button>
+            onclick="sendTicket('poes-control-plagas', 'poes-instalaciones')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -688,7 +688,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poes-instalaciones', 'poes-control-plagas')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poes-instalaciones', 'poe-recepcion')">✅</button>
+            onclick="sendTicket('poes-instalaciones', 'poe-recepcion')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -745,7 +745,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poe-recepcion', 'poes-instalaciones')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poe-recepcion', 'poe-almacenamiento')">✅</button>
+            onclick="sendTicket('poe-recepcion', 'poe-almacenamiento')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -865,7 +865,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poe-almacenamiento', 'poe-recepcion')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poe-almacenamiento', 'poe-preelaboraciones')">✅</button>
+            onclick="sendTicket('poe-almacenamiento', 'poe-preelaboraciones')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -951,7 +951,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poe-preelaboraciones', 'poe-almacenamiento')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poe-preelaboraciones', 'poe-elaboracion')">✅</button>
+            onclick="sendTicket('poe-preelaboraciones', 'poe-elaboracion')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1097,7 +1097,7 @@
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poe-elaboracion', 'poe-preelaboraciones')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('poe-elaboracion', 'poe-mantencion')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('poe-elaboracion', 'poe-mantencion')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1130,7 +1130,7 @@
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poe-mantencion', 'poe-elaboracion')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('poe-mantencion', 'poe-transporte')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('poe-mantencion', 'poe-transporte')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1174,7 +1174,7 @@
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poe-transporte', 'poe-mantencion')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('poe-transporte', 'poe-servicio')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('poe-transporte', 'poe-servicio')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1257,7 +1257,7 @@
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger" onclick="previousModule('poe-servicio', 'poe-transporte')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poe-servicio', 'poe-lavado-ollas-vajilla')">✅</button>
+            onclick="sendTicket('poe-servicio', 'poe-lavado-ollas-vajilla')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1315,7 +1315,7 @@
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poe-lavado-ollas-vajilla', 'poe-servicio')">❌</button>
           <button class="btn btn-form btn-success"
-            onclick="nextModule('poe-lavado-ollas-vajilla', 'poe-control-calidad')">✅</button>
+            onclick="sendTicket('poe-lavado-ollas-vajilla', 'poe-control-calidad')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1386,7 +1386,7 @@
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger"
             onclick="previousModule('poe-control-calidad', 'poe-lavado-ollas-vajilla')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('poe-control-calidad', 'ma')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('poe-control-calidad', 'ma')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1489,7 +1489,7 @@
         <h3 class="text-center">PROMEDIO: <span id="average-ma">100%</span></h3>
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger" onclick="previousModule('ma', 'poe-control-calidad')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('ma', 'doc')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('ma', 'doc')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1580,7 +1580,7 @@
         <h3 class="text-center">PROMEDIO: <span id="average-doc">100%</span></h3>
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger" onclick="previousModule('doc', 'ma')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('doc', 'tra')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('doc', 'tra')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1736,7 +1736,7 @@
         <h3 class="text-center">PROMEDIO: <span id="average-tra">100%</span></h3>
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger" onclick="previousModule('tra', 'doc')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('tra', 'lum')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('tra', 'lum')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>
@@ -1769,7 +1769,7 @@
         <h3 class="text-center">PROMEDIO: <span id="average-lum">100%</span></h3>
         <div class="btn-form-group p-2">
           <button class="btn btn-form btn-danger" onclick="previousModule('lum', 'tra')">❌</button>
-          <button class="btn btn-form btn-success" onclick="nextModule('lum', 'resumen')">✅</button>
+          <button class="btn btn-form btn-success" onclick="sendTicket('lum', 'resumen')">✅</button>
         </div>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn">Comentario</button>
         <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn">Fotos</button>

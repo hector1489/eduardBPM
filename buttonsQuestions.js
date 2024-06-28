@@ -59,3 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
   window.nextQuestion = nextQuestion;
   window.previousQuestion = previousQuestion;
 });
+
+
+/*ticket*/
+
+function sendTicket(currentModuleId, nextModuleId) {
+  // Aquí puedes implementar la lógica para enviar el ticket
+  alert('Ticket enviado correctamente');
+
+  // Avanzar al siguiente módulo
+  nextModule(currentModuleId, nextModuleId);
+}
+
