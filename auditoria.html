@@ -53,7 +53,7 @@
           <label for="fecha-auditoria">Fecha:</label>
           <input type="date" class="form-control" id="fecha-auditoria" name="fecha-auditoria">
         </div>
-        <button type="button" class="btn btn-primary btn-block"
+        <button type="button" class="btn btn-blue btn-block"
           onclick="nextModule('ficha', 'infraestructura')">Siguiente</button>
       </form>
     </div>
@@ -130,16 +130,16 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-infraestructura">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('infraestructura', 'ficha')"><i
+          <button class="btn btn-form btn-red" onclick="previousModule('infraestructura', 'ficha')"><i
               class="fa-solid fa-xmark"></i></button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('infraestructura', 'legales')"><i
+          <button class="btn btn-form btn-green" onclick="sendTicket('infraestructura', 'legales')"><i
               class="fa-solid fa-check"></i></button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
 
@@ -199,18 +199,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-legales">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('legales', 'infraestructura')">
+          <button class="btn btn-form btn-red" onclick="previousModule('legales', 'infraestructura')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('legales', 'poes-control-productos')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('legales', 'poes-control-productos')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -262,18 +262,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-control-productos">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poes-control-productos', 'legales')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poes-control-productos', 'legales')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poes-control-productos', 'poes-control-agua')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poes-control-productos', 'poes-control-agua')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
 
@@ -300,19 +300,19 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-control-agua">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger"
+          <button class="btn btn-form btn-red"
             onclick="previousModule('poes-control-agua', 'poes-control-productos')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poes-control-agua', 'poes-superficies')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poes-control-agua', 'poes-superficies')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-nlue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
 
@@ -439,19 +439,19 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-superficies">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poes-superficies', 'poes-control-agua')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poes-superficies', 'poes-control-agua')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success"
+          <button class="btn btn-form btn-green"
             onclick="sendTicket('poes-superficies', 'poes-contaminacion-cruzada')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -493,20 +493,20 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-contaminacion-cruzada">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger"
+          <button class="btn btn-form btn-red"
             onclick="previousModule('poes-contaminacion-cruzada', 'poes-superficies')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success"
+          <button class="btn btn-form btn-green"
             onclick="sendTicket('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -546,20 +546,20 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-sustancias-adulterantes">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger"
+          <button class="btn btn-form btn-red"
             onclick="previousModule('poes-sustancias-adulterantes', 'poes-contaminacion-cruzada')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success"
+          <button class="btn btn-form btn-green"
             onclick="sendTicket('poes-sustancias-adulterantes', 'poes-higiene-empleados')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -637,20 +637,20 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-higiene-empleados">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger"
+          <button class="btn btn-form btn-red"
             onclick="previousModule('poes-higiene-empleados', 'poes-sustancias-adulterantes')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success"
+          <button class="btn btn-form btn-green"
             onclick="sendTicket('poes-higiene-empleados', 'poes-control-plagas')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -691,19 +691,19 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-control-plagas">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger"
+          <button class="btn btn-form btn-red"
             onclick="previousModule('poes-control-plagas', 'poes-higiene-empleados')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poes-control-plagas', 'poes-instalaciones')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poes-control-plagas', 'poes-instalaciones')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -744,18 +744,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poes-instalaciones">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poes-instalaciones', 'poes-control-plagas')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poes-instalaciones', 'poes-control-plagas')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poes-instalaciones', 'poe-recepcion')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poes-instalaciones', 'poe-recepcion')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -806,18 +806,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-recepcion">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poe-recepcion', 'poes-instalaciones')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-recepcion', 'poes-instalaciones')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poe-recepcion', 'poe-almacenamiento')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-recepcion', 'poe-almacenamiento')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -931,18 +931,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-almacenamiento">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poe-almacenamiento', 'poe-recepcion')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-almacenamiento', 'poe-recepcion')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poe-almacenamiento', 'poe-preelaboraciones')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-almacenamiento', 'poe-preelaboraciones')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
 
@@ -1022,19 +1022,19 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-preelaboraciones">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger"
+          <button class="btn btn-form btn-red"
             onclick="previousModule('poe-preelaboraciones', 'poe-almacenamiento')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poe-preelaboraciones', 'poe-elaboracion')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-preelaboraciones', 'poe-elaboracion')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1175,18 +1175,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-elaboracion">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poe-elaboracion', 'poe-preelaboraciones')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-elaboracion', 'poe-preelaboraciones')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poe-elaboracion', 'poe-mantencion')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-elaboracion', 'poe-mantencion')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1214,18 +1214,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-mantencion">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poe-mantencion', 'poe-elaboracion')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-mantencion', 'poe-elaboracion')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poe-mantencion', 'poe-transporte')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-mantencion', 'poe-transporte')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1264,18 +1264,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-transporte">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poe-transporte', 'poe-mantencion')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-transporte', 'poe-mantencion')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poe-transporte', 'poe-servicio')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-transporte', 'poe-servicio')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1353,18 +1353,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-servicio">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poe-servicio', 'poe-transporte')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-servicio', 'poe-transporte')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poe-servicio', 'poe-lavado-ollas-vajilla')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-servicio', 'poe-lavado-ollas-vajilla')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1416,19 +1416,19 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-lavado-ollas-vajilla">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poe-lavado-ollas-vajilla', 'poe-servicio')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-lavado-ollas-vajilla', 'poe-servicio')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success"
+          <button class="btn btn-form btn-green"
             onclick="sendTicket('poe-lavado-ollas-vajilla', 'poe-control-calidad')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1494,18 +1494,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-poe-control-calidad">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('poe-control-calidad', 'poe-lavado-ollas-vajilla')">
+          <button class="btn btn-form btn-red" onclick="previousModule('poe-control-calidad', 'poe-lavado-ollas-vajilla')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('poe-control-calidad', 'ma')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('poe-control-calidad', 'ma')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1604,18 +1604,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-ma">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('ma', 'poe-control-calidad')">
+          <button class="btn btn-form btn-red" onclick="previousModule('ma', 'poe-control-calidad')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('ma', 'doc')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('ma', 'doc')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1702,18 +1702,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-doc">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('doc', 'ma')">
+          <button class="btn btn-form btn-red" onclick="previousModule('doc', 'ma')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('doc', 'tra')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('doc', 'tra')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1865,18 +1865,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-tra">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('tra', 'doc')">
+          <button class="btn btn-form btn-red" onclick="previousModule('tra', 'doc')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('tra', 'lum')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('tra', 'lum')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -1905,18 +1905,18 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">PROMEDIO: <span id="average-lum">100%</span></h3>
         <div class="btn-form-group p-2">
-          <button class="btn btn-form btn-danger" onclick="previousModule('lum', 'tra')">
+          <button class="btn btn-form btn-red" onclick="previousModule('lum', 'tra')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button class="btn btn-form btn-success" onclick="sendTicket('lum', 'resumen')">
+          <button class="btn btn-form btn-green" onclick="sendTicket('lum', 'resumen')">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
             class="fa-solid fa-file-lines"></i> Comentario</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
             class="fa-solid fa-camera-retro"></i> Fotos</button>
-        <button class="btn btn-primary btn-block rounded-pill w-75 m-3" id="incident-btn"><i
+        <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="incident-btn"><i
             class="fa-solid fa-triangle-exclamation"></i> Incidencia</button>
       </div>
     </div>
@@ -2025,7 +2025,7 @@
         </div>
       </div>
       <button class="btn btn-secondary btn-block" onclick="previousModule('resumen', 'lum')">Anterior</button>
-      <button class="btn btn-primary btn-block" onclick="nextModule('resumen', '#')">Enviar</button>
+      <button class="btn btn-blue btn-block" onclick="nextModule('resumen', '#')">Enviar</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

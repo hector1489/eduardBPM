@@ -18,7 +18,7 @@ body {
 .container {
   max-width: 600px;
   background: white;
-  padding: 20px;
+  padding: 40px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -60,6 +60,24 @@ h3 {
   justify-content: center;
   align-items: center;
 }
+
+/*button colors*/
+
+.btn-green {
+ background-color: #28a745;
+ color: white;
+}
+
+.btn-red {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-blue {
+  background-color: #2E86C1;
+  color: white;
+}
+
 
 /*table*/
 .fila-invisible {
