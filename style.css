@@ -83,8 +83,13 @@ h3 {
 }
 
 .btn-gray {
-  background-color: #e7e7e7;
-  color: black;
+  background-color: #979A9A;
+  color: white;
+}
+
+.btn-orange {
+  background-color: #F39C12;
+  color: white;
 }
 
 
