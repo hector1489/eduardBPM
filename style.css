@@ -12,7 +12,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: #f8f9fa;
-  padding: 20px;
+  padding: 40px;
 }
 
 .container {
@@ -47,9 +47,8 @@ h3 {
 
 .btn-form-group {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  justify-content: space-around;
+  gap: 20px;
 }
 
 .btn-form {
@@ -74,8 +73,18 @@ h3 {
 }
 
 .btn-blue {
-  background-color: #2E86C1;
+  background-color: #2D1C7D;
   color: white;
+  font-weight: bold;
+}
+
+.btn-blue:hover {
+  background-color: #F39C12;
+}
+
+.btn-gray {
+  background-color: #e7e7e7;
+  color: black;
 }
 
 

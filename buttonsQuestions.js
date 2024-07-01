@@ -28,31 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function addChangeListenerToQuestions() {
-    const questions = getQuestions();
-
-    questions.forEach((question, index) => {
-      const select = question.querySelector('select');
-      if (select) {
-        select.addEventListener('change', () => {
-          if (index < questions.length - 1) {
-            currentQuestion = index + 1;
-            showQuestion(currentQuestion);
-          }
-        });
-      }
+    const activeModule = document.querySelector('.module-section.active');
+    const questions = activeModule.querySelectorAll('.pregunta select');
+    questions.forEach(select => {
+      select.addEventListener('change', nextQuestion);
     });
   }
 
-  const modules = document.querySelectorAll('.module-section');
-  modules.forEach(module => {
-    module.addEventListener('click', () => {
-      currentQuestion = 0;
-      showQuestion(currentQuestion);
-      addChangeListenerToQuestions();
-    });
-  });
 
-  // Mostrar la primera pregunta del primer módulo al cargar la página
+
   showQuestion(currentQuestion);
   addChangeListenerToQuestions();
 
@@ -64,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /*ticket*/
 
 function sendTicket(currentModuleId, nextModuleId) {
-  // Aquí puedes implementar la lógica para enviar el ticket
+
   alert('Ticket enviado correctamente');
 
   // Avanzar al siguiente módulo
