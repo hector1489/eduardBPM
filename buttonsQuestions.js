@@ -6,36 +6,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showQuestion(index) {
     const questions = getQuestions();
-    questions?.forEach((question, i) => {
+    questions.forEach((question, i) => {
       question.classList.toggle('active', i === index);
     });
   }
 
-  function nextQuestion() {
+  function allQuestionsAnswered(module) {
+    const questions = module.querySelectorAll('.pregunta');
+    for (let question of questions) {
+      const select = question.querySelector('select');
+      const input = question.querySelector('input');
+      if ((select && !select.value) || (input && !input.value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function nextQuestion(currentModuleId, nextModuleId) {
     const questions = getQuestions();
     if (currentQuestion < questions.length - 1) {
       currentQuestion++;
       showQuestion(currentQuestion);
+    } else if (allQuestionsAnswered(getActiveModule())) {
+      sendTicket(currentModuleId, nextModuleId);
+    } else {
+      alert('Por favor, responda todas las preguntas antes de continuar.');
     }
   }
 
-  function previousQuestion() {
+  function previousQuestion(currentModuleId, previousModuleId) {
     const questions = getQuestions();
     if (currentQuestion > 0) {
       currentQuestion--;
       showQuestion(currentQuestion);
+    } else {
+      previousModule(currentModuleId, previousModuleId);
     }
   }
 
   function addChangeListenerToQuestions() {
-    const activeModule = document.querySelector('.module-section.active');
-    const questions = activeModule.querySelectorAll('.pregunta select');
-    questions?.forEach(select => {
-      select.addEventListener('change', nextQuestion);
+    const questions = getActiveModule().querySelectorAll('.pregunta select, .pregunta input');
+    questions.forEach(element => {
+      element.addEventListener('change', nextQuestion);
     });
   }
 
-  /*function countQuestionsInModules() {
+  function allQuestionsAnswered(module) {
+    const questions = module.querySelectorAll('.pregunta');
+    for (let question of questions) {
+      const select = question.querySelector('select');
+      const input = question.querySelector('input');
+      if ((select && !select.value) || (input && !input.value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function countQuestionsInModules() {
     const modules = document.querySelectorAll('.module-section');
     modules.forEach(module => {
       const questions = module.querySelectorAll('.pregunta');
@@ -55,11 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-       //promedio de los porcentajes por consola
+      //promedio de los porcentajes por consola
       const averagePercentage = totalPercentage / totalQuestions;
       console.log(`Module ${module.id} has ${totalQuestions} questions, ${answeredQuestions} answered. Average response percentage: ${averagePercentage.toFixed(2)}%.`);
     });
-  }*/
+  }
 
   showQuestion(currentQuestion);
   addChangeListenerToQuestions();

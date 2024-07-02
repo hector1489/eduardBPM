@@ -88,7 +88,7 @@
     <h2 id="module-title" class="text-center">BPM - Buenas Prácticas de Manufactura</h2>
 
     <!-- Sección de Infraestructura -->
-    <div id="module-infraestructura" class="module-section active p-2">
+    <div id="module-infraestructura" class="module-section p-2">
       <h3 class="text-center">Evaluación de Infraestructura</h3>
 
       <form id="form-infraestructura">
@@ -135,17 +135,11 @@
       <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('infraestructura', 'ficha')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('infraestructura', 'legales')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('infraestructura', 'ficha')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('infraestructura', 'legales')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -226,17 +220,11 @@
 
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('legales', 'infraestructura')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('legales', 'poes-control-productos')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('legales', 'infraestructura')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('legales', 'poes-control-productos')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -302,18 +290,13 @@
 
         <div class="btn-form-group p-2">
           
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poes-control-productos', 'legales')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poes-control-productos', 'poes-control-agua')">
             <i class="fa-solid fa-check"></i>
           </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poes-control-productos', 'legales')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poes-control-productos', 'poes-control-agua')">
-            <i class="fa-solid fa-angles-right"></i>
-          </button>
+
 
         </div>
 
@@ -335,7 +318,7 @@
 
       <form id="form-poes-control-agua">
 
-        <div class="form-group">
+        <div class="form-group pregunta active">
           <label for="agua">Agua potable suministrada por empresa sanitaria u otra fuente autorizada, con registro
             sanitario (evidencia):</label>
           <select class="form-control" id="agua" name="agua" onchange="calculateAverage('poes-control-agua')">
@@ -353,18 +336,13 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poes-control-agua', 'poes-control-productos')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poes-control-agua', 'poes-superficies')">
             <i class="fa-solid fa-check"></i>
           </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poes-control-agua', 'poes-control-productos')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poes-control-agua', 'poes-superficies')">
-            <i class="fa-solid fa-angles-right"></i>
-          </button>
+
 
         </div>
 
@@ -488,22 +466,22 @@
           </select>
         </div>
 
+      </form>
 
-        <form id="form-lum">
-          <div class="form-group pregunta">
-            <label for="luminometro">Calibración y uso de luminómetro:</label>
-            <select class="form-control" id="luminometro" name="luminometro"
-              onchange="calculateAverage('poes-superficies')">
-              <option value="100">100 NOTA 7 /EXCELENTE / 0-50 URL/MUY LIMPIO / SIN RIESGO </option>
-              <option value="90">90 NOTA 6 /MUY BUENO / >51 - 150 URL / LIMPIO SIN RIESGO</option>
-              <option value="75">75 NOTA 5 / BUENO />151 - 250 URL / MEDIANAMENTE SUCIO / BAJO RIESGO </option>
-              <option value="50">50 NOTA 4 REGULAR / >251 -500 URL / ALERTA / RIESGO (LEVE) </option>
-              <option value="25">25 NOTA3 DEFICIENTE / >501- 1000 URL/ SUCIO /MEDIANO RIESGO (GRAVE)</option>
-              <option value="0">0 NOTA 2 MALA />1001 URL / MUY SUCIO/ALTO RIESGO (MUY GRAVE) </option>
-            </select>
-          </div>
+      <form id="form-lum">
 
-        </form>
+        <div class="form-group pregunta">
+          <label for="luminometro">Calibración y uso de luminómetro:</label>
+          <select class="form-control" id="luminometro" name="luminometro"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100 NOTA 7 /EXCELENTE / 0-50 URL/MUY LIMPIO / SIN RIESGO </option>
+            <option value="90">90 NOTA 6 /MUY BUENO / >51 - 150 URL / LIMPIO SIN RIESGO</option>
+            <option value="75">75 NOTA 5 / BUENO />151 - 250 URL / MEDIANAMENTE SUCIO / BAJO RIESGO </option>
+            <option value="50">50 NOTA 4 REGULAR / >251 -500 URL / ALERTA / RIESGO (LEVE) </option>
+            <option value="25">25 NOTA3 DEFICIENTE / >501- 1000 URL/ SUCIO /MEDIANO RIESGO (GRAVE)</option>
+            <option value="0">0 NOTA 2 MALA />1001 URL / MUY SUCIO/ALTO RIESGO (MUY GRAVE) </option>
+          </select>
+        </div>
 
       </form>
 
@@ -511,18 +489,13 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poes-superficies', 'poes-control-agua')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poes-superficies', 'poes-contaminacion-cruzada')">
             <i class="fa-solid fa-check"></i>
           </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poes-superficies', 'poes-control-agua')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poes-superficies', 'poes-contaminacion-cruzada')">
-            <i class="fa-solid fa-angles-right"></i>
-          </button>
+
 
         </div>
 
@@ -577,21 +550,13 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poes-contaminacion-cruzada', 'poes-superficies')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">
             <i class="fa-solid fa-check"></i>
           </button>
-          <button class="btn btn-form btn-orange"
-            onclick="previousModule('poes-contaminacion-cruzada', 'poes-superficies')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray"
-            onclick="sendTicket('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">
-            <i class="fa-solid fa-angles-right"></i>
-          </button>
-
+ 
         </div>
 
         <h3 class="text-center">PROMEDIO: <span id="average-poes-contaminacion-cruzada">100%</span></h3>
@@ -643,19 +608,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poes-sustancias-adulterantes', 'poes-contaminacion-cruzada')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poes-sustancias-adulterantes', 'poes-higiene-empleados')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange"
-            onclick="previousModule('poes-sustancias-adulterantes', 'poes-contaminacion-cruzada')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray"
-            onclick="sendTicket('poes-sustancias-adulterantes', 'poes-higiene-empleados')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -747,18 +704,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poes-higiene-empleados', 'poes-sustancias-adulterantes')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poes-higiene-empleados', 'poes-control-plagas')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange"
-            onclick="previousModule('poes-higiene-empleados', 'poes-sustancias-adulterantes')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poes-higiene-empleados', 'poes-control-plagas')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -813,18 +763,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poes-control-plagas', 'poes-higiene-empleados')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poes-control-plagas', 'poes-instalaciones')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange"
-            onclick="previousModule('poes-control-plagas', 'poes-higiene-empleados')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poes-control-plagas', 'poes-instalaciones')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -879,17 +822,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poes-instalaciones', 'poes-control-plagas')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poes-instalaciones', 'poe-recepcion')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poes-instalaciones', 'poes-control-plagas')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poes-instalaciones', 'poe-recepcion')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -954,17 +891,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-recepcion', 'poes-instalaciones')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-recepcion', 'poe-almacenamiento')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poe-recepcion', 'poes-instalaciones')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poe-recepcion', 'poe-almacenamiento')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
         
         </div>
@@ -1092,17 +1023,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-almacenamiento', 'poe-recepcion')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-almacenamiento', 'poe-preelaboraciones')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poe-almacenamiento', 'poe-recepcion')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poe-almacenamiento', 'poe-preelaboraciones')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -1196,17 +1121,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-preelaboraciones', 'poe-almacenamiento')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-preelaboraciones', 'poe-elaboracion')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poe-preelaboraciones', 'poe-almacenamiento')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poe-preelaboraciones', 'poe-elaboracion')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -1362,17 +1281,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-elaboracion', 'poe-preelaboraciones')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-elaboracion', 'poe-mantencion')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poe-elaboracion', 'poe-preelaboraciones')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poe-elaboracion', 'poe-mantencion')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -1395,7 +1308,7 @@
 
       <form id="form-poe-mantencion">
 
-        <div class="form-group">
+        <div class="form-group pregunta active">
           <label for="control-tiempo-temperatura">Control de tiempo y Tº del equipo, al inicio y término de la
             mantención en frío o caliente:</label>
           <select class="form-control" id="control-tiempo-temperatura" name="control-tiempo-temperatura"
@@ -1414,17 +1327,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-mantencion', 'poe-elaboracion')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-mantencion', 'poe-transporte')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poe-mantencion', 'poe-elaboracion')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poe-mantencion', 'poe-transporte')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -1477,17 +1384,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-transporte', 'poe-mantencion')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-transporte', 'poe-servicio')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poe-transporte', 'poe-mantencion')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poe-transporte', 'poe-servicio')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -1578,17 +1479,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-servicio', 'poe-transporte')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-servicio', 'poe-lavado-ollas-vajilla')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poe-servicio', 'poe-transporte')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poe-servicio', 'poe-lavado-ollas-vajilla')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -1654,18 +1549,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-lavado-ollas-vajilla', 'poe-servicio')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-lavado-ollas-vajilla', 'poe-control-calidad')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('poe-lavado-ollas-vajilla', 'poe-servicio')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray"
-            onclick="sendTicket('poe-lavado-ollas-vajilla', 'poe-control-calidad')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -1745,18 +1633,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('poe-control-calidad', 'poe-lavado-ollas-vajilla')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-control-calidad', 'ma')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange"
-            onclick="previousModule('poe-control-calidad', 'poe-lavado-ollas-vajilla')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('poe-control-calidad', 'ma')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
         
         </div>
@@ -1868,17 +1749,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('ma', 'poe-control-calidad')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('ma', 'doc')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('ma', 'poe-control-calidad')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('ma', 'doc')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -1979,17 +1854,11 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('doc', 'ma')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('doc', 'tra')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('doc', 'ma')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('doc', 'tra')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -2155,19 +2024,13 @@
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('tra', 'doc')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('tra', 'lum')">
             <i class="fa-solid fa-check"></i>
           </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('tra', 'doc')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('tra', 'lum')">
-            <i class="fa-solid fa-angles-right"></i>
-          </button>
-        
+
         </div>
 
         <h3 class="text-center">PROMEDIO: <span id="average-tra">100%</span></h3>
@@ -2188,7 +2051,7 @@
 
       <form id="form-lum">
 
-        <div class="form-group">
+        <div class="form-group pregunta active">
           <label for="luminometro">Calibración y uso de luminómetro:</label>
           <select class="form-control" id="luminometro" name="luminometro" onchange="calculateAverage('lum')">
             <option value="100"> NOTA 7 /EXCELENTE / 0-50 URL/MUY LIMPIO / SIN RIESGO </option>
@@ -2202,23 +2065,15 @@
 
       </form>
 
-
-      <script></script>
       <div class="d-flex flex-column justify-content-center align-items-center">
         
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion()">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('lum', 'tra')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion()">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('lum', 'resumen')">
             <i class="fa-solid fa-check"></i>
-          </button>
-          <button class="btn btn-form btn-orange" onclick="previousModule('lum', 'tra')">
-            <i class="fa-solid fa-angles-left"></i>
-          </button>
-          <button class="btn btn-form btn-gray" onclick="sendTicket('lum', 'resumen')">
-            <i class="fa-solid fa-angles-right"></i>
           </button>
 
         </div>
@@ -2339,7 +2194,7 @@
         </div>
       </div>
       <button class="btn btn-secondary btn-block" onclick="previousModule('resumen', 'lum')">Anterior</button>
-      <button class="btn btn-blue btn-block" onclick="nextModule('resumen', '#')">Enviar</button>
+      <button class="btn btn-secondary btn-block" onclick="nextModule('resumen', '#')">Enviar</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

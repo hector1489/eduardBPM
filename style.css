@@ -86,11 +86,13 @@ h3 {
 }
 
 .btn-gray {
+  display: none;
   background-color: #979A9A;
   color: white;
 }
 
 .btn-orange {
+  display: none;
   background-color: #F39C12;
   color: white;
 }
