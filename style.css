@@ -25,7 +25,7 @@ body {
 
 h2,
 h3 {
-  margin: 20px 0;
+  margin: 30px 0;
 }
 
 .module-section {
@@ -51,6 +51,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin: 10px 0;
  
 }
 
@@ -86,13 +87,11 @@ h3 {
 }
 
 .btn-gray {
-  display: none;
   background-color: #979A9A;
   color: white;
 }
 
 .btn-orange {
-  display: none;
   background-color: #F39C12;
   color: white;
 }
