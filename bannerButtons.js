@@ -14,13 +14,46 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
 });
 
 // botón de "Comentario"
-document.getElementById('#comment-btn').addEventListener('click', function () {
 
-  alert('Comentario Enviado');
+// Función para manejar el envío del comentario
+function enviarComentario() {
+  let input = document.getElementById('comment-input');
+  if (input) {
+    let comentario = input.value.trim();
+    if (comentario) {
+      alert('Comentario Enviado: ' + comentario);
+      input.value = '';
+      input.parentNode.removeChild(input);
+    } else {
+      alert('Por favor escribe un comentario.');
+    }
+  }
+}
+
+// Agregar el listener al botón "Comentario" para crear el input
+document.getElementById('comment-btn').addEventListener('click', function () {
+
+  if (!document.getElementById('comment-input')) {
+ 
+    let input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Escribe tu comentario...';
+    input.id = 'comment-input';
+    input.classList.add('form-control', 'mb-2');
+
+    let commentBtn = document.getElementById('comment-btn');
+    commentBtn.parentNode.insertBefore(input, commentBtn.nextSibling);
+
+   
+    input.focus();
+  } else {
+    
+    enviarComentario();
+  }
 });
 
-// botón de "Incidencia"
-document.getElementById('#incident-btn').addEventListener('click', function () {
 
+// botón de "Incidencia"
+document.getElementById('incident-btn').addEventListener('click', function () {
   alert('Incidencia enviada');
 });
