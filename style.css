@@ -64,6 +64,10 @@ h3 {
   align-items: center;
 }
 
+.btn-form i {
+  font-size: 30px;
+}
+
 /*button colors*/
 
 .btn-green {

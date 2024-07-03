@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function sendTicket(currentModuleId, nextModuleId) {
 
-  alert('Ticket enviado correctamente');
+  alert('Ticket enviado. Haz click nuevamente para ir al siguiente modulo');
 
   // Avanzar al siguiente módulo
   nextModule(currentModuleId, nextModuleId);
