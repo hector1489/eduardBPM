@@ -23,6 +23,11 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+h2 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 h2,
 h3 {
   margin: 30px 0;
@@ -66,6 +71,7 @@ h3 {
 
 .btn-form i {
   font-size: 30px;
+  
 }
 
 /*button colors*/
@@ -75,19 +81,34 @@ h3 {
  color: white;
 }
 
+.btn-green:hover {
+  background-color: #F39C12;
+}
+
 .btn-red {
   background-color: #dc3545;
   color: white;
+}
+
+.btn-red:hover {
+  background-color: #F39C12;
 }
 
 .btn-blue {
   background-color: #2D1C7D;
   color: white;
   font-weight: bold;
+  box-shadow: 3px 3px 15px rgba(199, 189, 189, 0.973);
 }
 
 .btn-blue:hover {
   background-color: #F39C12;
+  color: white;
+}
+
+#incident-btn:hover {
+  background-color: #dc3545;
+  color: white;
 }
 
 .btn-gray {

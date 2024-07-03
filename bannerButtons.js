@@ -56,7 +56,7 @@ document.getElementById('comment-btn').addEventListener('click', function () {
 // botón de "Incidencia"
 
 
-// Función para manejar el envío del comentario
+// Función para manejar el envío de la Incidencia
 function enviarIncident() {
   let input = document.getElementById('incident-input');
   if (input) {
