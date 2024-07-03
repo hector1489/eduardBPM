@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const getActiveModule = () => document.querySelector('.module-section.active');
   const getQuestions = () => getActiveModule().querySelectorAll('.pregunta');
 
+  //mostrar una pregunta específica según el índice
   function showQuestion(index) {
     const questions = getQuestions();
     questions.forEach((question, i) => {
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  //verifica si todas las preguntas en un módulo están respondidas
   function allQuestionsAnswered(module) {
     const questions = module.querySelectorAll('.pregunta');
     for (let question of questions) {
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
+  //avanza a la siguiente pregunta 
   function nextQuestion(currentModuleId, nextModuleId) {
     const questions = getQuestions();
     if (currentQuestion < questions.length - 1) {
@@ -36,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  //retrocede a la pregunta anterior
   function previousQuestion(currentModuleId, previousModuleId) {
     const questions = getQuestions();
     if (currentQuestion > 0) {
@@ -46,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  //agrega listeners de cambio a las preguntas
   function addChangeListenerToQuestions() {
     const questions = getActiveModule().querySelectorAll('.pregunta select, .pregunta input');
     questions.forEach(element => {
@@ -82,7 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+   // Muestra la primera pregunta
   showQuestion(currentQuestion);
+   // Agrega listeners de cambio a las preguntas
   addChangeListenerToQuestions();
   countQuestionsInModules();
 

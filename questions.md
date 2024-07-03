@@ -28,4 +28,19 @@ Module module-lum has 0 questions.
 Module module-resumen has 0 questions.
 
 
+Resumen de las funciones para los graficos :
+
+goToDashboard:          Redirige al usuario al dashboard.
+getColorByPercentage:   Devuelve un color basado en un porcentaje (verde, amarillo o rojo).
+getEvaluationText:      Devuelve un texto de evaluación basado en un porcentaje.
+getInterpretationText:  Devuelve un texto de interpretación basado en un porcentaje.
+calculateAverage:       Calcula el promedio de las respuestas de un módulo específico y actualiza la UI.
+calculateOverallAverages: Calcula los promedios de varios módulos y actualiza los promedios generales y las interpretaciones.
+updateAuditTable:       Actualiza la tabla de auditoría con los promedios calculados.
+getFinalInterpretation: Devuelve la interpretación final basada en el promedio general.
+updateFichaResumen:     Actualiza el resumen de la ficha de auditoría con los valores de entrada del usuario.
+
+
+
+
 
