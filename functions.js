@@ -1,17 +1,21 @@
+//ir al dashboard
 function goToDashboard() {
   window.location.href = 'dashboard.html';
 }
 
+//cuando se carga el DOM llama a la función para calcular los promedios generales
 document.addEventListener('DOMContentLoaded', function () {
   calculateOverallAverages();
 });
 
+//color basado en el porcenaje
 function getColorByPercentage(percentage) {
   if (percentage >= 90) return 'green';
   if (percentage >= 75) return 'yellow';
   return 'red';
 }
 
+//obtiene el texto de evaluación basado en el porcentaje
 function getEvaluationText(percentage) {
   if (percentage >= 90) return 'Cumple totalmente con el ítem evaluado';
   if (percentage >= 75) return 'Cumple con observaciones';
@@ -20,12 +24,14 @@ function getEvaluationText(percentage) {
   return 'No cumple con el ítem evaluado';
 }
 
+//obtiene el texto de interpretación basado en el porcentaje
 function getInterpretationText(percentage) {
   if (percentage >= 90) return 'El Administrador debe mejorar las observaciones realizadas en los plazos definidos y debe enviar el plan de acción con evidencias, por correo.';
   if (percentage >= 75) return 'El Administrador debe recibir el plan de acción del Coordinador de Calidad y/o Jefe de Calidad. Debe el Administrador enviar vía correo al Supervisor de alimentación.';
   return 'El Supervisor de Alimentación que realice la auditoría debe: comunicar el resultado al Jefe de Campamento vía correo electrónico.';
 }
 
+//calcula el promedio de un módulo específico
 function calculateAverage(module) {
   const form = document.getElementById(`form-${module}`);
   const selects = form.querySelectorAll('select');
@@ -42,6 +48,7 @@ function calculateAverage(module) {
   calculateOverallAverages();
 }
 
+//calcula los promedios generales de todos los módulos
 function calculateOverallAverages() {
   const bpmModules = ['infraestructura', 'legales'];
   const poesModules = [
@@ -148,13 +155,14 @@ function calculateOverallAverages() {
   document.getElementById('resumen-tra').innerText = `${traAverage}%`;
   document.getElementById('resumen-tra').style.color = getColorByPercentage(traAverage);
 
+  //promedio general
   const overallTotal = bpmTotal + poesTotal + poeTotal + maTotal + docTotal + lumTotal + traTotal;
   const overallCount = bpmCount + poesCount + poeCount + maCount + docCount + lumCount + traCount;
   const overallAverage = (overallTotal / overallCount).toFixed(2);
   document.getElementById('promedio-general').innerText = `${overallAverage}%`;
   document.getElementById('promedio-general').style.color = getColorByPercentage(overallAverage);
 
-  // Obtén la interpretación final
+  // interpretación final
   const finalInterpretation = getFinalInterpretation(overallAverage);
 
   // Actualiza el elemento de interpretación
@@ -164,13 +172,16 @@ function calculateOverallAverages() {
       <p>Acciones a seguir: ${finalInterpretation.accion}</p>
   `;
 
+  //actualiza la tabla de auditorias
   updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
+  //renderiza el grafico
   renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
 
   // Actualiza la información de la ficha en el resumen
   updateFichaResumen();
 }
 
+//actualiza la tabla de auditoría con los promedios calculados
 function updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage) {
   const weights = {
     infraestructura: 4,
@@ -182,6 +193,7 @@ function updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAve
     lum: 10
   };
 
+  // Actualiza las notas y puntajes en la tabla de auditoría
   document.getElementById('nota-infraestructura').innerText = `${bpmAverage}%`;
   document.getElementById('puntaje-infraestructura').innerText = `${(bpmAverage * weights.infraestructura / 100).toFixed(1)}%`;
 
@@ -216,6 +228,7 @@ function updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAve
   document.getElementById('promedio-ponderado').innerText = `${weightedAverage.toFixed(1)}%`;
 }
 
+//obtener la interpretación final basada en el porcentaje
 function getFinalInterpretation(percentage) {
   if (percentage >= 90) {
     return {
@@ -235,6 +248,7 @@ function getFinalInterpretation(percentage) {
   }
 }
 
+//Actualiza el resumen de la ficha
 function updateFichaResumen() {
   document.getElementById('resumen-nombre-establecimiento').innerText = document.getElementById('nombre-establecimiento').value;
   document.getElementById('resumen-numero-auditoria').innerText = document.getElementById('numero-auditoria').value;

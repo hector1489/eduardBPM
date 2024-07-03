@@ -1,4 +1,5 @@
 Module module-ficha has 0 questions.
+
 Module module-infraestructura has 3 questions.
 Module module-legales has 4 questions.
 Module module-poes-control-productos has 3 questions.
@@ -21,6 +22,8 @@ Module module-poe-control-calidad has 4 questions.
 Module module-ma has 7 questions.
 Module module-doc has 6 questions.
 Module module-tra has 11 questions.
+Total = 102 questions
+
 Module module-lum has 0 questions.
 Module module-resumen has 0 questions.
 

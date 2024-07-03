@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function countQuestionsInModules() {
     const modules = document.querySelectorAll('.module-section');
+    
     modules.forEach(module => {
       const questions = module.querySelectorAll('.pregunta');
       const totalQuestions = questions.length;
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   showQuestion(currentQuestion);
   addChangeListenerToQuestions();
-  //countQuestionsInModules();
+  countQuestionsInModules();
 
   window.nextQuestion = nextQuestion;
   window.previousQuestion = previousQuestion;
