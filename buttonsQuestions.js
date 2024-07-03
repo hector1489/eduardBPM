@@ -30,8 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
       showQuestion(currentQuestion);
     } else if (allQuestionsAnswered(getActiveModule())) {
       sendTicket(currentModuleId, nextModuleId);
+      currentQuestion = 0;
     } else {
-      alert('Por favor, responda todas las preguntas antes de continuar.');
+      alert('Por favor termina las preguntas antes de continuar')
     }
   }
 
@@ -52,17 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function allQuestionsAnswered(module) {
-    const questions = module.querySelectorAll('.pregunta');
-    for (let question of questions) {
-      const select = question.querySelector('select');
-      const input = question.querySelector('input');
-      if ((select && !select.value) || (input && !input.value)) {
-        return false;
-      }
-    }
-    return true;
-  }
+
 
   function countQuestionsInModules() {
     const modules = document.querySelectorAll('.module-section');
