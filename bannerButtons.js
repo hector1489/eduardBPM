@@ -54,6 +54,43 @@ document.getElementById('comment-btn').addEventListener('click', function () {
 
 
 // botón de "Incidencia"
+
+
+// Función para manejar el envío del comentario
+function enviarIncident() {
+  let input = document.getElementById('incident-input');
+  if (input) {
+    let incidencia = input.value.trim();
+    if (incidencia) {
+      alert('Reporte de Incidencia Enviado: ' + incidencia);
+      input.value = '';
+      input.parentNode.removeChild(input);
+    } else {
+      alert('Por favor envie su reporte...');
+    }
+  }
+}
+
+
 document.getElementById('incident-btn').addEventListener('click', function () {
-  alert('Incidencia enviada');
+  
+  
+  if (!document.getElementById('incident-input')) {
+ 
+    let input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Reporta tu Incidencia...';
+    input.id = 'incident-input';
+    input.classList.add('form-control', 'mb-2');
+
+    let incidentBtn = document.getElementById('incident-btn');
+    incidentBtn.parentNode.insertBefore(input, incidentBtn.nextSibling);
+
+   
+    input.focus();
+  } else {
+    
+    enviarIncident();
+  }
+
 });
