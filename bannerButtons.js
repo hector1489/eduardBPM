@@ -24,6 +24,7 @@ function enviarComentario() {
       alert('Comentario Enviado: ' + comentario);
       input.value = '';
       input.parentNode.removeChild(input);
+      enviarComentario = 0;
     } else {
       alert('Por favor escribe un comentario.');
     }
@@ -37,7 +38,7 @@ document.getElementById('comment-btn').addEventListener('click', function () {
  
     let input = document.createElement('input');
     input.type = 'text';
-    input.placeholder = 'Escribe tu comentario...';
+    input.placeholder = 'Escribe y presiona nuevamente en comentario...';
     input.id = 'comment-input';
     input.classList.add('form-control', 'mb-2');
 
@@ -65,6 +66,7 @@ function enviarIncident() {
       alert('Reporte de Incidencia Enviado: ' + incidencia);
       input.value = '';
       input.parentNode.removeChild(input);
+      enviarIncident = 0;
     } else {
       alert('Por favor envie su reporte...');
     }
@@ -79,7 +81,7 @@ document.getElementById('incident-btn').addEventListener('click', function () {
  
     let input = document.createElement('input');
     input.type = 'text';
-    input.placeholder = 'Reporta tu Incidencia...';
+    input.placeholder = 'Escribe y presiona nuevamente en Incidencia...';
     input.id = 'incident-input';
     input.classList.add('form-control', 'mb-2');
 
