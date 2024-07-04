@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   showQuestion(currentQuestion);
    // Agrega listeners de cambio a las preguntas
   addChangeListenerToQuestions();
-  countQuestionsInModules();
+  //countQuestionsInModules();
 
   window.nextQuestion = nextQuestion;
   window.previousQuestion = previousQuestion;

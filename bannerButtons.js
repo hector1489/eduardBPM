@@ -24,7 +24,7 @@ function enviarComentario() {
       alert('Comentario Enviado: ' + comentario);
       input.value = '';
       input.parentNode.removeChild(input);
-      enviarComentario = 0;
+
     } else {
       alert('Por favor escribe un comentario.');
     }
@@ -66,7 +66,7 @@ function enviarIncident() {
       alert('Reporte de Incidencia Enviado: ' + incidencia);
       input.value = '';
       input.parentNode.removeChild(input);
-      enviarIncident = 0;
+
     } else {
       alert('Por favor envie su reporte...');
     }
