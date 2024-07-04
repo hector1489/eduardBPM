@@ -26,7 +26,7 @@ body {
 
 h2,
 h3 {
-  margin: 20px 0;
+  margin: 30px 0;
 }
 
 hr {
@@ -34,9 +34,9 @@ hr {
   background-color: #F39C12;
 }
 
-/*.h3-promedio {
-
-}*/
+.h3-promedio {
+  margin: 10px;
+}
 
 .module-section {
   display: none;
