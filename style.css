@@ -33,6 +33,10 @@ h3 {
   margin: 30px 0;
 }
 
+.h3-promedio {
+  display: none;
+}
+
 .module-section {
   display: none;
 }
@@ -50,13 +54,16 @@ h3 {
   display: block;
 }
 
+
+/*button colors*/
+
 .btn-form-group {
   width: 100%;
   height: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 10px 0;
+  margin: 30px 0;
  
 }
 
@@ -74,7 +81,15 @@ h3 {
   
 }
 
-/*button colors*/
+.banner-buttons {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
 
 .btn-green {
  background-color: #28a745;
