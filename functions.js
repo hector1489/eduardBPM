@@ -31,7 +31,7 @@ function getInterpretationText(percentage) {
   return 'El Supervisor de Alimentación que realice la auditoría debe: comunicar el resultado al Jefe de Campamento vía correo electrónico.';
 }
 
-//calcula el promedio de un módulo específico
+// Calcula el promedio de un módulo específico
 function calculateAverage(module) {
   const form = document.getElementById(`form-${module}`);
   const selects = form.querySelectorAll('select');
@@ -45,8 +45,50 @@ function calculateAverage(module) {
 
   const average = (total / count).toFixed(2);
   document.getElementById(`average-${module}`).innerText = `${average}%`;
+
+  // Actualizar los promedios de lum y tra
+  updateLumAndTraAverages();
+
   calculateOverallAverages();
 }
+
+// Calcula los promedios de lum y tra basándose en las preguntas compartidas
+function updateLumAndTraAverages() {
+  const lumModules = ['poes-superficies'];
+  const traModules = [
+    'poes-higiene-empleados', 'poe-preelaboraciones', 'poe-elaboracion',
+    'poe-mantencion', 'poe-transporte', 'poe-servicio', 'doc'
+  ];
+
+  // Calcular promedio para lum
+  let lumTotal = 0;
+  let lumCount = 0;
+  lumModules.forEach(module => {
+    const form = document.getElementById(`form-${module}`);
+    const selects = form.querySelectorAll('select');
+    selects.forEach(select => {
+      lumTotal += parseInt(select.value);
+      lumCount++;
+    });
+  });
+  const lumAverage = (lumTotal / lumCount).toFixed(2);
+  document.getElementById('average-lum').innerText = `${lumAverage}%`;
+
+  // Calcular promedio para tra
+  let traTotal = 0;
+  let traCount = 0;
+  traModules.forEach(module => {
+    const form = document.getElementById(`form-${module}`);
+    const selects = form.querySelectorAll('select');
+    selects.forEach(select => {
+      traTotal += parseInt(select.value);
+      traCount++;
+    });
+  });
+  const traAverage = (traTotal / traCount).toFixed(2);
+  document.getElementById('average-tra').innerText = `${traAverage}%`;
+}
+
 
 //calcula los promedios generales de todos los módulos
 function calculateOverallAverages() {
@@ -172,9 +214,8 @@ function calculateOverallAverages() {
       <p>Acciones a seguir: ${finalInterpretation.accion}</p>
   `;
 
-  //actualiza la tabla de auditorias
+
   updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
-  //renderiza el grafico
   renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
 
   // Actualiza la información de la ficha en el resumen
