@@ -137,5 +137,72 @@ hr {
   color: white;
 }
 
+/*report-table*/
+#module-details .details-table {
+  width: 100%;
+  overflow-x: auto;
+}
 
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table th, .table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered th, .table-bordered td {
+  border: 1px solid #dee2e6;
+}
+
+.table-label {
+  background-color: #3498DB ;
+  color: #FBFCFC ;
+  font-weight: bold;
+  text-align: center;
+}
+
+.tr-label {
+  background-color: #e9ecef;
+}
+
+.th-details {
+  background-color: #95A5A6 ;
+  color: #FBFCFC ;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .table th, .table td {
+    padding: 0.5rem;
+  }
+  .table-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .table th, .table td {
+    padding: 0.25rem;
+  }
+  .table-label {
+    font-size: 0.8rem;
+  }
+}
 

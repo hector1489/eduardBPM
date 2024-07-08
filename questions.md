@@ -52,7 +52,7 @@ Module module-poes-higiene-empleados has 5 questions.
 
   -Uniforme completo de todos, limpio y en buen estado - Sin accesorios adicionales (reloj, joyas, celular, otros):
   -Cubre-pelo (gorro o cofia), mascarilla y guantes usados correctamente:
-  Lavado y sanitizado correcto de manos y uñas:
+  -Lavado y sanitizado correcto de manos y uñas:
   -Manos sin heridas desprotegidas, uñas cortas y sin esmalte:
   -Exámenes de todos los manipuladores, ecónomos y administradores. Ausencia de malestares o infecciones:
 
@@ -181,6 +181,7 @@ Total = 103 questions
 ## Preguntas Repetidas entre modulos :
 
 Calibración y uso de luminómetro:
+
   module-poes-superficies
   Module module-lum 
 
@@ -241,6 +242,8 @@ Aplicación y eficiencia del programa de higiene, publicado e implementado por �
 
 
 ## Resumen de las funciones para los graficos :
+
+Resume:
 
   goToDashboard:          Redirige al usuario al dashboard.
   getColorByPercentage:   Devuelve un color basado en un porcentaje (verde, amarillo o rojo).
