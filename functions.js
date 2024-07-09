@@ -89,7 +89,6 @@ function updateLumAndTraAverages() {
   document.getElementById('average-tra').innerText = `${traAverage}%`;
 }
 
-
 //calcula los promedios generales de todos los módulos
 function calculateOverallAverages() {
   const bpmModules = ['infraestructura', 'legales'];
@@ -217,6 +216,7 @@ function calculateOverallAverages() {
 
   updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
   renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
+  updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
 
   // Actualiza la información de la ficha en el resumen
   updateFichaResumen();
@@ -299,6 +299,85 @@ function updateFichaResumen() {
   document.getElementById('resumen-auditor-externo').innerText = document.getElementById('auditor-externo').value;
   document.getElementById('resumen-fecha-auditoria').innerText = document.getElementById('fecha-auditoria').value;
 }
+
+//Actualiza tabla details 
+function updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage) {
+  const moduleAverages = {
+    infraestructura: bpmAverage,
+    legales: bpmAverage,
+    quimicos: poesAverage,
+    agua: poesAverage,
+    superficies: poesAverage,
+    contaminacion: poesAverage,
+    adulterantes: poesAverage,
+    higiene: poesAverage,
+    plagas: poesAverage,
+    instalaciones: poesAverage,
+    recepcion: poeAverage,
+    almacenamiento: poeAverage,
+    preelaboraciones: poeAverage,
+    elaboraciones: poeAverage,
+    mantencion: poeAverage,
+    transporte: poeAverage,
+    servicio: poeAverage,
+    vajilla: poeAverage,
+    control: poeAverage,
+    proteccion: poeAverage,
+    documentacion: docAverage,
+    bpm: bpmAverage,
+    poes: poesAverage,
+    doc: docAverage,
+    tra: traAverage,
+    lum: lumAverage,
+    final: overallAverage
+  };
+
+  document.getElementById('promedio-infraestructura').innerText = `${moduleAverages.infraestructura}%`;
+  document.getElementById('promedio-legales').innerText = `${moduleAverages.legales}%`;
+  document.getElementById('promedio-quimicos').innerText = `${moduleAverages.quimicos}%`;
+  document.getElementById('promedio-agua').innerText = `${moduleAverages.agua}%`;
+  document.getElementById('promedio-superficies').innerText = `${moduleAverages.superficies}%`;
+  document.getElementById('promedio-contaminacion').innerText = `${moduleAverages.contaminacion}%`;
+  document.getElementById('promedio-adulterantes').innerText = `${moduleAverages.adulterantes}%`;
+  document.getElementById('promedio-higiene').innerText = `${moduleAverages.higiene}%`;
+  document.getElementById('promedio-plagas').innerText = `${moduleAverages.plagas}%`;
+  document.getElementById('promedio-instalaciones').innerText = `${moduleAverages.instalaciones}%`;
+  document.getElementById('promedio-recepcion').innerText = `${moduleAverages.recepcion}%`;
+  document.getElementById('promedio-almacenamiento').innerText = `${moduleAverages.almacenamiento}%`;
+  document.getElementById('promedio-pre-elaboraciones').innerText = `${moduleAverages.preelaboraciones}%`;
+  document.getElementById('promedio-elaboraciones').innerText = `${moduleAverages.elaboraciones}%`;
+  document.getElementById('promedio-mantencion').innerText = `${moduleAverages.mantencion}%`;
+  document.getElementById('promedio-transporte').innerText = `${moduleAverages.transporte}%`;
+  document.getElementById('promedio-servicio').innerText = `${moduleAverages.servicio}%`;
+  document.getElementById('promedio-vajilla').innerText = `${moduleAverages.vajilla}%`;
+  document.getElementById('promedio-control').innerText = `${moduleAverages.control}%`;
+  document.getElementById('promedio-proteccion').innerText = `${moduleAverages.proteccion}%`;
+  document.getElementById('promedio-documentacion').innerText = `${moduleAverages.documentacion}%`;
+  document.getElementById('promedio-bpm').innerText = `${moduleAverages.bpm}%`;
+  document.getElementById('promedio-poes').innerText = `${moduleAverages.poes}%`;
+  document.getElementById('promedio-doc').innerText = `${moduleAverages.doc}%`;
+  document.getElementById('promedio-tra').innerText = `${moduleAverages.tra}%`;
+  document.getElementById('promedio-lum').innerText = `${moduleAverages.lum}%`;
+  document.getElementById('promedio-final').innerText = `${moduleAverages.final}%`;
+}
+
+/*function updateTableDetailsNotas(module) {
+  const form = document.getElementById(`form-${module}`);
+  const selects = form.querySelectorAll('select');
+  let total = 0;
+  let count = 0;
+
+  selects.forEach(select => {
+    total += parseInt(select.value);
+    count++;
+  });
+
+  const averageQuestions = (total / count).toFixed(2);
+
+  document.getElementById(`nota-separaciones-${module}`).innerText = `${averageQuestions}%`;
+  document.getElementById(`nota-equipos-${module}`).innerText = `${averageQuestions}%`;
+  document.getElementById(`nota-cuenta-${module}`).innerText = `${averageQuestions}%`;
+}*/
 
 
 

@@ -169,7 +169,7 @@ Module module-tra has 11 questions.
   -Informes de auditoría sanitaria, plan de acción, verificación de cumplimiento, por Administrador:
   -Registros del cumplimiento al 100% del programa de charlas en Calidad y Medio Ambiente:
 
-Module module-lum has 11 questions.
+Module module-lum has 1 questions.
 
   Calibración y uso de luminómetro:
 
