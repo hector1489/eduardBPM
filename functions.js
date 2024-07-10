@@ -301,7 +301,7 @@ function updateFichaResumen() {
 }
 
 //Actualiza tabla details 
-function updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage) {
+function updateTableDetails(bpmAverage, poesAverage, poeAverage, docAverage, lumAverage, traAverage, overallAverage) {
   const moduleAverages = {
     infraestructura: bpmAverage,
     legales: bpmAverage,
@@ -356,28 +356,23 @@ function updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docA
   document.getElementById('promedio-bpm').innerText = `${moduleAverages.bpm}%`;
   document.getElementById('promedio-poes').innerText = `${moduleAverages.poes}%`;
   document.getElementById('promedio-doc').innerText = `${moduleAverages.doc}%`;
-  document.getElementById('promedio-tra').innerText = `${moduleAverages.tra}%`;
-  document.getElementById('promedio-lum').innerText = `${moduleAverages.lum}%`;
   document.getElementById('promedio-final').innerText = `${moduleAverages.final}%`;
 }
 
-/*function updateTableDetailsNotas(module) {
+function updateTableDetailsNotas(module) {
   const form = document.getElementById(`form-${module}`);
   const selects = form.querySelectorAll('select');
-  let total = 0;
-  let count = 0;
 
   selects.forEach(select => {
-    total += parseInt(select.value);
-    count++;
+    const id = select.id;
+    const value = parseInt(select.value);
+    const notaId = `nota-${id}`;
+    console.log(select);
+
+    document.getElementById(notaId).innerText = `${value}%`;
   });
 
-  const averageQuestions = (total / count).toFixed(2);
-
-  document.getElementById(`nota-separaciones-${module}`).innerText = `${averageQuestions}%`;
-  document.getElementById(`nota-equipos-${module}`).innerText = `${averageQuestions}%`;
-  document.getElementById(`nota-cuenta-${module}`).innerText = `${averageQuestions}%`;
-}*/
+}
 
 
 
