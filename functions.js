@@ -6,7 +6,39 @@ function goToDashboard() {
 //cuando se carga el DOM llama a la función para calcular los promedios generales
 document.addEventListener('DOMContentLoaded', function () {
   calculateOverallAverages();
+  initializeSelectChangeListeners();
 });
+
+// Función para inicializar los event listeners en los selects
+function initializeSelectChangeListeners() {
+  const modules = [
+    'infraestructura', 'legales', 'poes-control-productos', 'poes-control-agua', 'poes-superficies',
+    'poes-contaminacion-cruzada', 'poes-sustancias-adulterantes', 'poes-higiene-empleados', 
+    'poes-control-plagas', 'poes-instalaciones', 'poe-recepcion', 'poe-almacenamiento', 
+    'poe-preelaboraciones', 'poe-elaboracion', 'poe-mantencion', 'poe-transporte', 'poe-servicio',
+    'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'ma', 'doc'
+  ];
+
+  modules.forEach(module => {
+    const form = document.getElementById(`form-${module}`);
+    if (form) {
+      const selects = form.querySelectorAll('select');
+      selects.forEach(select => {
+        select.addEventListener('change', function (event) {
+          const id = event.target.id;
+          const value = parseInt(event.target.value);
+          const notaId = `nota-${id}`;
+
+          const notaElement = document.getElementById(notaId);
+          if (notaElement) {
+            notaElement.innerText = `${value}%`;
+          }
+        });
+      });
+    }
+  });
+}
+
 
 //color basado en el porcenaje
 function getColorByPercentage(percentage) {
@@ -364,14 +396,18 @@ function updateTableDetailsNotas(module) {
   const selects = form.querySelectorAll('select');
 
   selects.forEach(select => {
-    const id = select.id;
-    const value = parseInt(select.value);
-    const notaId = `nota-${id}`;
-    console.log(select);
+    select.addEventListener('change', event => {
+      const id = event.target.id;
+      const value = parseInt(event.target.value);
+      const notaId = `nota-${id}`;
+      console.log(select);
 
-    document.getElementById(notaId).innerText = `${value}%`;
+      const notaElement = document.getElementById(notaId);
+      if (notaElement) {
+        notaElement.innerText = `${value}%`;
+      }
+    });
   });
-
 }
 
 
