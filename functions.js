@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function initializeSelectChangeListeners() {
   const modules = [
     'infraestructura', 'legales', 'poes-control-productos', 'poes-control-agua', 'poes-superficies',
-    'poes-contaminacion-cruzada', 'poes-sustancias-adulterantes', 'poes-higiene-empleados', 
-    'poes-control-plagas', 'poes-instalaciones', 'poe-recepcion', 'poe-almacenamiento', 
+    'poes-contaminacion-cruzada', 'poes-sustancias-adulterantes', 'poes-higiene-empleados',
+    'poes-control-plagas', 'poes-instalaciones', 'poe-recepcion', 'poe-almacenamiento',
     'poe-preelaboraciones', 'poe-elaboracion', 'poe-mantencion', 'poe-transporte', 'poe-servicio',
     'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'ma', 'doc'
   ];
@@ -28,10 +28,17 @@ function initializeSelectChangeListeners() {
           const id = event.target.id;
           const value = parseInt(event.target.value);
           const notaId = `nota-${id}`;
+          const observationId = `observacion-${id}`;
 
           const notaElement = document.getElementById(notaId);
+          const observationElement = document.getElementById(observationId);
+
           if (notaElement) {
             notaElement.innerText = `${value}%`;
+          }
+
+          if (observationElement) {
+            observationElement.innerText = getObservationText(value);
           }
         });
       });
@@ -39,8 +46,17 @@ function initializeSelectChangeListeners() {
   });
 }
 
+// Obtener el texto de observación basado en el porcentaje
+function getObservationText(percentage) {
+  if (percentage === 100) return '';
+  if (percentage >= 90) return 'Cumple totalmente con el ítem evaluado';
+  if (percentage >= 75) return 'Cumple con observaciones';
+  if (percentage >= 50) return 'Parcialmente cumple con observaciones';
+  if (percentage >= 25) return 'No cumple más del 70%';
+  return 'No cumple con el ítem evaluado';
+}
 
-//color basado en el porcenaje
+//color basado en el porcentaje
 function getColorByPercentage(percentage) {
   if (percentage >= 90) return 'green';
   if (percentage >= 75) return 'yellow';
@@ -147,8 +163,11 @@ function calculateOverallAverages() {
     }
   });
   const bpmAverage = (bpmTotal / bpmCount).toFixed(2);
-  document.getElementById('resumen-bpm').innerText = `${bpmAverage}%`;
-  document.getElementById('resumen-bpm').style.color = getColorByPercentage(bpmAverage);
+  const resumenBpm = document.getElementById('resumen-bpm');
+  if (resumenBpm) {
+    resumenBpm.innerText = `${bpmAverage}%`;
+    resumenBpm.style.color = getColorByPercentage(bpmAverage);
+  }
 
   let poesTotal = 0, poesCount = 0;
   poesModules.forEach(module => {
@@ -160,8 +179,11 @@ function calculateOverallAverages() {
     }
   });
   const poesAverage = (poesTotal / poesCount).toFixed(2);
-  document.getElementById('resumen-poes').innerText = `${poesAverage}%`;
-  document.getElementById('resumen-poes').style.color = getColorByPercentage(poesAverage);
+  const resumenPoes = document.getElementById('resumen-poes');
+  if (resumenPoes) {
+    resumenPoes.innerText = `${poesAverage}%`;
+    resumenPoes.style.color = getColorByPercentage(poesAverage);
+  }
 
   let poeTotal = 0, poeCount = 0;
   poeModules.forEach(module => {
@@ -173,8 +195,11 @@ function calculateOverallAverages() {
     }
   });
   const poeAverage = (poeTotal / poeCount).toFixed(2);
-  document.getElementById('resumen-poe').innerText = `${poeAverage}%`;
-  document.getElementById('resumen-poe').style.color = getColorByPercentage(poeAverage);
+  const resumenPoe = document.getElementById('resumen-poe');
+  if (resumenPoe) {
+    resumenPoe.innerText = `${poeAverage}%`;
+    resumenPoe.style.color = getColorByPercentage(poeAverage);
+  }
 
   let maTotal = 0, maCount = 0;
   maModules.forEach(module => {
@@ -186,8 +211,11 @@ function calculateOverallAverages() {
     }
   });
   const maAverage = (maTotal / maCount).toFixed(2);
-  document.getElementById('resumen-ma').innerText = `${maAverage}%`;
-  document.getElementById('resumen-ma').style.color = getColorByPercentage(maAverage);
+  const resumenMa = document.getElementById('resumen-ma');
+  if (resumenMa) {
+    resumenMa.innerText = `${maAverage}%`;
+    resumenMa.style.color = getColorByPercentage(maAverage);
+  }
 
   let docTotal = 0, docCount = 0;
   docModules.forEach(module => {
@@ -199,8 +227,11 @@ function calculateOverallAverages() {
     }
   });
   const docAverage = (docTotal / docCount).toFixed(2);
-  document.getElementById('resumen-doc').innerText = `${docAverage}%`;
-  document.getElementById('resumen-doc').style.color = getColorByPercentage(docAverage);
+  const resumenDoc = document.getElementById('resumen-doc');
+  if (resumenDoc) {
+    resumenDoc.innerText = `${docAverage}%`;
+    resumenDoc.style.color = getColorByPercentage(docAverage);
+  }
 
   let lumTotal = 0, lumCount = 0;
   lumModules.forEach(module => {
@@ -212,8 +243,11 @@ function calculateOverallAverages() {
     }
   });
   const lumAverage = (lumTotal / lumCount).toFixed(2);
-  document.getElementById('resumen-lum').innerText = `${lumAverage}%`;
-  document.getElementById('resumen-lum').style.color = getColorByPercentage(lumAverage);
+  const resumenLum = document.getElementById('resumen-lum');
+  if (resumenLum) {
+    resumenLum.innerText = `${lumAverage}%`;
+    resumenLum.style.color = getColorByPercentage(lumAverage);
+  }
 
   let traTotal = 0, traCount = 0;
   traModules.forEach(module => {
@@ -225,188 +259,80 @@ function calculateOverallAverages() {
     }
   });
   const traAverage = (traTotal / traCount).toFixed(2);
-  document.getElementById('resumen-tra').innerText = `${traAverage}%`;
-  document.getElementById('resumen-tra').style.color = getColorByPercentage(traAverage);
-
-  //promedio general
-  const overallTotal = bpmTotal + poesTotal + poeTotal + maTotal + docTotal + lumTotal + traTotal;
-  const overallCount = bpmCount + poesCount + poeCount + maCount + docCount + lumCount + traCount;
-  const overallAverage = (overallTotal / overallCount).toFixed(2);
-  document.getElementById('promedio-general').innerText = `${overallAverage}%`;
-  document.getElementById('promedio-general').style.color = getColorByPercentage(overallAverage);
-
-  // interpretación final
-  const finalInterpretation = getFinalInterpretation(overallAverage);
-
-  // Actualiza el elemento de interpretación
-  const interpretationContainer = document.getElementById('interpretacion-final');
-  interpretationContainer.innerHTML = `
-      <h5>Nota: ${finalInterpretation.nota}</h5>
-      <p>Acciones a seguir: ${finalInterpretation.accion}</p>
-  `;
-
-
-  updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
-  renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
-  updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
-
-  // Actualiza la información de la ficha en el resumen
-  updateFichaResumen();
-}
-
-//actualiza la tabla de auditoría con los promedios calculados
-function updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage) {
-  const weights = {
-    infraestructura: 4,
-    poes: 25,
-    poe: 25,
-    ma: 4,
-    doc: 10,
-    traz: 21,
-    lum: 10
-  };
-
-  // Actualiza las notas y puntajes en la tabla de auditoría
-  document.getElementById('nota-infraestructura').innerText = `${bpmAverage}%`;
-  document.getElementById('puntaje-infraestructura').innerText = `${(bpmAverage * weights.infraestructura / 100).toFixed(1)}%`;
-
-  document.getElementById('nota-poes').innerText = `${poesAverage}%`;
-  document.getElementById('puntaje-poes').innerText = `${(poesAverage * weights.poes / 100).toFixed(1)}%`;
-
-  document.getElementById('nota-poe').innerText = `${poeAverage}%`;
-  document.getElementById('puntaje-poe').innerText = `${(poeAverage * weights.poe / 100).toFixed(1)}%`;
-
-  document.getElementById('nota-ma').innerText = `${maAverage}%`;
-  document.getElementById('puntaje-ma').innerText = `${(maAverage * weights.ma / 100).toFixed(1)}%`;
-
-  document.getElementById('nota-doc').innerText = `${docAverage}%`;
-  document.getElementById('puntaje-doc').innerText = `${(docAverage * weights.doc / 100).toFixed(1)}%`;
-
-  document.getElementById('nota-traz').innerText = `${traAverage}%`;
-  document.getElementById('puntaje-traz').innerText = `${(traAverage * weights.traz / 100).toFixed(1)}%`;
-
-  document.getElementById('nota-lum').innerText = `${lumAverage}%`;
-  document.getElementById('puntaje-lum').innerText = `${(lumAverage * weights.lum / 100).toFixed(1)}%`;
-
-  const weightedAverage = (
-    (bpmAverage * weights.infraestructura) +
-    (poesAverage * weights.poes) +
-    (poeAverage * weights.poe) +
-    (maAverage * weights.ma) +
-    (docAverage * weights.doc) +
-    (traAverage * weights.traz) +
-    (lumAverage * weights.lum)
-  ) / 100;
-
-  document.getElementById('promedio-ponderado').innerText = `${weightedAverage.toFixed(1)}%`;
-}
-
-//obtener la interpretación final basada en el porcentaje
-function getFinalInterpretation(percentage) {
-  if (percentage >= 90) {
-    return {
-      nota: "CUMPLE",
-      accion: "El Administrador debe mejorar las observaciones realizadas en los plazos definidos y debe enviar el plan de acción con evidencias, por correo."
-    };
-  } else if (percentage >= 75) {
-    return {
-      nota: "EN ALERTA",
-      accion: "El Administrador debe recibir el plan de acción del Coordinador de Calidad y/o Jefe de Calidad. Debe el Administrador enviar vía correo al Supervisor de alimentación."
-    };
-  } else {
-    return {
-      nota: "CRITICO",
-      accion: "El Supervisor de Alimentación que realice la auditoria debe: comunicar el resultado al Jefe de Campamento vía correo electrónico."
-    };
+  const resumenTra = document.getElementById('resumen-tra');
+  if (resumenTra) {
+    resumenTra.innerText = `${traAverage}%`;
+    resumenTra.style.color = getColorByPercentage(traAverage);
   }
-}
 
-//Actualiza el resumen de la ficha
-function updateFichaResumen() {
-  document.getElementById('resumen-nombre-establecimiento').innerText = document.getElementById('nombre-establecimiento').value;
-  document.getElementById('resumen-numero-auditoria').innerText = document.getElementById('numero-auditoria').value;
-  document.getElementById('resumen-gerente-establecimiento').innerText = document.getElementById('gerente-establecimiento').value;
-  document.getElementById('resumen-administrador-establecimiento').innerText = document.getElementById('administrador-establecimiento').value;
-  document.getElementById('resumen-supervisor-establecimiento').innerText = document.getElementById('supervisor-establecimiento').value;
-  document.getElementById('resumen-auditor-externo').innerText = document.getElementById('auditor-externo').value;
-  document.getElementById('resumen-fecha-auditoria').innerText = document.getElementById('fecha-auditoria').value;
-}
+  // Actualiza la tabla de auditoría
+  updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
+  renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
 
-//Actualiza tabla details 
-function updateTableDetails(bpmAverage, poesAverage, poeAverage, docAverage, lumAverage, traAverage, overallAverage) {
-  const moduleAverages = {
-    infraestructura: bpmAverage,
-    legales: bpmAverage,
-    quimicos: poesAverage,
-    agua: poesAverage,
-    superficies: poesAverage,
-    contaminacion: poesAverage,
-    adulterantes: poesAverage,
-    higiene: poesAverage,
-    plagas: poesAverage,
-    instalaciones: poesAverage,
-    recepcion: poeAverage,
-    almacenamiento: poeAverage,
-    preelaboraciones: poeAverage,
-    elaboraciones: poeAverage,
-    mantencion: poeAverage,
-    transporte: poeAverage,
-    servicio: poeAverage,
-    vajilla: poeAverage,
-    control: poeAverage,
-    proteccion: poeAverage,
-    documentacion: docAverage,
-    bpm: bpmAverage,
-    poes: poesAverage,
-    doc: docAverage,
-    tra: traAverage,
-    lum: lumAverage,
-    final: overallAverage
-  };
+  // Actualiza la tabla de auditoría con las notas y puntajes
+  function updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage) {
+    const weights = {
+      infraestructura: 4,
+      poes: 25,
+      poe: 25,
+      ma: 4,
+      doc: 10,
+      traz: 21,
+      lum: 10
+    };
 
-  document.getElementById('promedio-infraestructura').innerText = `${moduleAverages.infraestructura}%`;
-  document.getElementById('promedio-legales').innerText = `${moduleAverages.legales}%`;
-  document.getElementById('promedio-quimicos').innerText = `${moduleAverages.quimicos}%`;
-  document.getElementById('promedio-agua').innerText = `${moduleAverages.agua}%`;
-  document.getElementById('promedio-superficies').innerText = `${moduleAverages.superficies}%`;
-  document.getElementById('promedio-contaminacion').innerText = `${moduleAverages.contaminacion}%`;
-  document.getElementById('promedio-adulterantes').innerText = `${moduleAverages.adulterantes}%`;
-  document.getElementById('promedio-higiene').innerText = `${moduleAverages.higiene}%`;
-  document.getElementById('promedio-plagas').innerText = `${moduleAverages.plagas}%`;
-  document.getElementById('promedio-instalaciones').innerText = `${moduleAverages.instalaciones}%`;
-  document.getElementById('promedio-recepcion').innerText = `${moduleAverages.recepcion}%`;
-  document.getElementById('promedio-almacenamiento').innerText = `${moduleAverages.almacenamiento}%`;
-  document.getElementById('promedio-pre-elaboraciones').innerText = `${moduleAverages.preelaboraciones}%`;
-  document.getElementById('promedio-elaboraciones').innerText = `${moduleAverages.elaboraciones}%`;
-  document.getElementById('promedio-mantencion').innerText = `${moduleAverages.mantencion}%`;
-  document.getElementById('promedio-transporte').innerText = `${moduleAverages.transporte}%`;
-  document.getElementById('promedio-servicio').innerText = `${moduleAverages.servicio}%`;
-  document.getElementById('promedio-vajilla').innerText = `${moduleAverages.vajilla}%`;
-  document.getElementById('promedio-control').innerText = `${moduleAverages.control}%`;
-  document.getElementById('promedio-proteccion').innerText = `${moduleAverages.proteccion}%`;
-  document.getElementById('promedio-documentacion').innerText = `${moduleAverages.documentacion}%`;
-  document.getElementById('promedio-bpm').innerText = `${moduleAverages.bpm}%`;
-  document.getElementById('promedio-poes').innerText = `${moduleAverages.poes}%`;
-  document.getElementById('promedio-doc').innerText = `${moduleAverages.doc}%`;
-  document.getElementById('promedio-final').innerText = `${moduleAverages.final}%`;
-}
+    // Actualiza las notas y puntajes en la tabla de auditoría
+    document.getElementById('nota-infraestructura').innerText = `${bpmAverage}%`;
+    document.getElementById('puntaje-infraestructura').innerText = `${(bpmAverage * weights.infraestructura / 100).toFixed(1)}%`;
 
-function updateTableDetailsNotas(module) {
-  const form = document.getElementById(`form-${module}`);
-  const selects = form.querySelectorAll('select');
+    document.getElementById('nota-poes').innerText = `${poesAverage}%`;
+    document.getElementById('puntaje-poes').innerText = `${(poesAverage * weights.poes / 100).toFixed(1)}%`;
 
-  selects.forEach(select => {
-    select.addEventListener('change', event => {
-      const id = event.target.id;
-      const value = parseInt(event.target.value);
-      const notaId = `nota-${id}`;
-      console.log(select);
+    document.getElementById('nota-poe').innerText = `${poeAverage}%`;
+    document.getElementById('puntaje-poe').innerText = `${(poeAverage * weights.poe / 100).toFixed(1)}%`;
 
-      const notaElement = document.getElementById(notaId);
-      if (notaElement) {
-        notaElement.innerText = `${value}%`;
-      }
-    });
+    document.getElementById('nota-ma').innerText = `${maAverage}%`;
+    document.getElementById('puntaje-ma').innerText = `${(maAverage * weights.ma / 100).toFixed(1)}%`;
+
+    document.getElementById('nota-doc').innerText = `${docAverage}%`;
+    document.getElementById('puntaje-doc').innerText = `${(docAverage * weights.doc / 100).toFixed(1)}%`;
+
+    document.getElementById('nota-traz').innerText = `${traAverage}%`;
+    document.getElementById('puntaje-traz').innerText = `${(traAverage * weights.traz / 100).toFixed(1)}%`;
+
+    document.getElementById('nota-lum').innerText = `${lumAverage}%`;
+    document.getElementById('puntaje-lum').innerText = `${(lumAverage * weights.lum / 100).toFixed(1)}%`;
+
+    const weightedAverage = (
+      (bpmAverage * weights.infraestructura) +
+      (poesAverage * weights.poes) +
+      (poeAverage * weights.poe) +
+      (maAverage * weights.ma) +
+      (docAverage * weights.doc) +
+      (traAverage * weights.traz) +
+      (lumAverage * weights.lum)
+    ) / 100;
+
+    document.getElementById('promedio-ponderado').innerText = `${weightedAverage.toFixed(1)}%`;
+  }
+
+
+  // Lógica adicional para actualizar las observaciones basadas en los promedios generales
+  const overallModules = ['bpm', 'poes', 'poe', 'ma', 'doc', 'lum', 'tra'];
+  overallModules.forEach(module => {
+    const averageText = document.getElementById(`resumen-${module}`).innerText;
+    const average = parseFloat(averageText.replace('%', ''));
+    const evaluationText = getEvaluationText(average);
+    const interpretationText = getInterpretationText(average);
+
+    const observationElement = document.getElementById(`observacion-${module}`);
+    const interpretationElement = document.getElementById(`interpretacion-${module}`);
+    if (observationElement) {
+      observationElement.innerText = evaluationText;
+    }
+    if (interpretationElement) {
+      interpretationElement.innerText = interpretationText;
+    }
   });
 }
 
