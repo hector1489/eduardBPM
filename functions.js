@@ -58,9 +58,9 @@ function getObservationText(percentage) {
 
 //color basado en el porcentaje
 function getColorByPercentage(percentage) {
-  if (percentage >= 90) return 'green';
-  if (percentage >= 75) return 'yellow';
-  return 'red';
+  if (percentage >= 90) return '#2E86C1';
+  if (percentage >= 75) return '#5DADE2';
+  return '#AED6F1';
 }
 
 //obtiene el texto de evaluación basado en el porcentaje
@@ -274,7 +274,7 @@ function calculateOverallAverages() {
 
   // Actualiza la tabla de auditoría
   updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
-  renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, overallAverage);
+  renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
   updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
 
   // Actualiza la tabla de auditoría con las notas y puntajes
