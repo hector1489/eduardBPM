@@ -138,6 +138,7 @@ function agregarFila() {
   actualizarFiltros();
 }
 
+
 // Función para crear un combo box (select) con opciones específicas
 function crearComboBox(options) {
   let html = '<select class="form-control">';
@@ -202,5 +203,64 @@ function actualizarFiltros() {
     });
   });
 }
+
+
+// Obtener los datos de la tabla y guardarlos en localStorage
+function guardarDatosTabla() {
+  const tabla = document.getElementById('tabla-desviaciones');
+
+  if (!tabla) {
+    console.error('Error: No se encontró la tabla con el ID "tabla-desviaciones".');
+    alert('Error: No se encontró la tabla con el ID "tabla-desviaciones".');
+    return;
+  }
+
+  const filas = tabla.getElementsByTagName('tr');
+
+  if (!filas || filas.length === 0) {
+    console.error('Error: La tabla no contiene filas.');
+    alert('Error: La tabla no contiene filas.');
+    return;
+  }
+
+  const datos = [];
+
+  for (let i = 1; i < filas.length; i++) {
+    const fila = filas[i];
+    const celdas = fila.cells;
+
+    if (!celdas || celdas.length === 0) {
+      console.error(`Error: La fila ${i} no contiene celdas.`);
+      continue;
+    }
+
+    const filaDatos = {};
+    for (let j = 0; j < celdas.length; j++) {
+      filaDatos[`columna${j + 1}`] = celdas[j].innerText;
+    }
+    datos.push(filaDatos);
+  }
+
+  localStorage.setItem('tablaDatos', JSON.stringify(datos));
+  alert('Datos guardados correctamente.');
+}
+
+
+
+// Descargar la tabla como archivo Excel
+function descargarTablaExcel() {
+  const tabla = document.getElementById('module-details');
+  const ws = XLSX.utils.table_to_sheet(tabla);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  XLSX.writeFile(wb, 'tabla.xlsx');
+}
+
+
+
+
+
+
 
 
