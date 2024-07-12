@@ -34,9 +34,19 @@ function agregarFilaConDatos(dato) {
     fila.appendChild(celda);
   });
 
+  const celdaEliminar = document.createElement('td');
+  const botonEliminar = document.createElement('button');
+  botonEliminar.innerText = 'Eliminar';
+  botonEliminar.addEventListener('click', function () {
+    eliminarFila(fila);
+  });
+  celdaEliminar.appendChild(botonEliminar);
+  fila.appendChild(celdaEliminar);
+
   tabla.appendChild(fila);
   actualizarFiltros();
 }
+
 
 // Función para inicializar los filtros de la tabla
 function inicializarFiltros() {
@@ -148,11 +158,27 @@ function agregarFila() {
   foto.innerHTML = '<input type="text" class="form-control">';
   fila.appendChild(foto);
 
+  const celdaEliminar = document.createElement('td');
+  const botonEliminar = document.createElement('button');
+  botonEliminar.innerText = 'Eliminar';
+  botonEliminar.addEventListener('click', function () {
+    eliminarFila(fila);
+  });
+  celdaEliminar.appendChild(botonEliminar);
+  fila.appendChild(celdaEliminar);
+
   tabla.appendChild(fila);
 
   actualizarFiltros();
 }
 
+//eliminar fila
+function eliminarFila(fila) {
+  const tabla = fila.closest('tbody');
+  fila.remove();
+  guardarDatosTabla();
+  actualizarFiltros();
+}
 
 // Función para crear un combo box (select) con opciones específicas
 function crearComboBox(options) {
