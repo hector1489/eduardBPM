@@ -23,6 +23,21 @@ function cargarDatosDesdeLocalStorage() {
   }
 }
 
+// Agregar función para agregar fila con datos desde localStorage
+function agregarFilaConDatos(dato) {
+  const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+  const fila = document.createElement('tr');
+
+  Object.keys(dato).forEach((key, index) => {
+    const celda = document.createElement('td');
+    celda.innerText = dato[key];
+    fila.appendChild(celda);
+  });
+
+  tabla.appendChild(fila);
+  actualizarFiltros();
+}
+
 // Función para inicializar los filtros de la tabla
 function inicializarFiltros() {
   const selects = document.querySelectorAll('.filter-select');
@@ -245,8 +260,6 @@ function guardarDatosTabla() {
   alert('Datos guardados correctamente.');
 }
 
-
-
 // Descargar la tabla como archivo Excel
 function descargarTablaExcel() {
   const tabla = document.getElementById('module-details');
@@ -256,6 +269,7 @@ function descargarTablaExcel() {
 
   XLSX.writeFile(wb, 'tabla.xlsx');
 }
+
 
 
 
