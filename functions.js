@@ -264,7 +264,7 @@ function calculateOverallAverages() {
     resumenTra.innerText = `${traAverage}%`;
     resumenTra.style.color = getColorByPercentage(traAverage);
   }
-  
+
   //promedio general
   const overallTotal = bpmTotal + poesTotal + poeTotal + maTotal + docTotal + lumTotal + traTotal;
   const overallCount = bpmCount + poesCount + poeCount + maCount + docCount + lumCount + traCount;
@@ -401,6 +401,65 @@ function calculateOverallAverages() {
     }
   });
 }
+
+// Obtener los datos de la tabla y guardarlos en localStorage
+function guardarDatosTabla() {
+  const modulo = document.getElementById('module-details');
+  const tablas = modulo.querySelectorAll('table');
+
+  // Check if there are tables
+  if (!tablas || tablas.length === 0) {
+    console.error('Error: No se encontró ninguna tabla dentro de "module-details".');
+    alert('Error: No se encontró ninguna tabla dentro de "module-details".');
+    return;
+  }
+
+  const datos = [];
+
+  tablas.forEach((tabla, index) => {
+    const filas = tabla.rows;
+
+    // Check if the table rows exist
+    if (!filas || filas.length === 0) {
+      console.error(`Error: La tabla ${index + 1} no contiene filas.`);
+      alert(`Error: La tabla ${index + 1} no contiene filas.`);
+      return;
+    }
+
+    for (let i = 1; i < filas.length; i++) { // Start from 1 to skip the header row
+      const fila = filas[i];
+      const celdas = fila.cells;
+
+      // Check if the row cells exist
+      if (!celdas || celdas.length === 0) {
+        console.error(`Error: La fila ${i} en la tabla ${index + 1} no contiene celdas.`);
+        continue;
+      }
+
+      const filaDatos = {};
+      for (let j = 0; j < celdas.length; j++) {
+        filaDatos[`columna${j + 1}`] = celdas[j].innerText;
+      }
+      datos.push(filaDatos);
+    }
+  });
+
+  localStorage.setItem('tablaDatos', JSON.stringify(datos));
+  alert('Datos guardados correctamente.');
+}
+
+
+// Descargar la tabla como archivo Excel
+function descargarTablaExcel() {
+  const tabla = document.getElementById('module-details');
+  const ws = XLSX.utils.table_to_sheet(tabla);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  XLSX.writeFile(wb, 'tabla.xlsx');
+}
+
+
 
 
 

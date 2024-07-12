@@ -193,3 +193,34 @@ function actualizarFiltros() {
     });
   });
 }
+
+//capturar y guardar incidentes 
+
+document.addEventListener('DOMContentLoaded', function () {
+  const notaSpans = document.querySelectorAll('.details-table span[id^="nota-"]');
+  notaSpans.forEach(span => {
+    span.addEventListener('input', function () {
+      const spanId = this.id; 
+      const nuevoTexto = this.innerText; 
+
+     
+      captureIncident(spanId, nuevoTexto);
+    });
+  });
+});
+
+// Función para capturar incidencia
+let incidencias = []; 
+console.log(incidencias);
+
+function captureIncident(spanId, nuevoTexto) {
+  const incidencia = {
+    id: spanId,
+    texto: nuevoTexto
+  };
+
+  incidencias.push(incidencia);
+
+  console.log('Incidencia registrada:', incidencia);
+}
+

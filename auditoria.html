@@ -54,7 +54,7 @@
           <label for="fecha-auditoria">Fecha:</label>
           <input type="date" class="form-control" id="fecha-auditoria" name="fecha-auditoria">
         </div>
-        <button type="button" class="btn btn-blue btn-block" onclick="nextModule('ficha', 'infraestructura')">Siguiente</button>
+        <button type="button" class="btn btn-blue btn-block" onclick="nextModule('ficha', 'details')">Siguiente</button>
       </form>
 
     </div>
@@ -2928,6 +2928,8 @@
       </div>
 
       <button class="btn btn-secondary btn-block" onclick="previousModule('details', 'resumen')">Anterior</button>
+      <button class="btn btn-secondary btn-block" onclick="guardarDatosTabla()">Guardar Tabla</button>
+      <button class="btn btn-secondary btn-block" onclick="descargarTablaExcel()">Descargar Excel</button>
 
 
 
@@ -2938,6 +2940,8 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
