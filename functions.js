@@ -406,8 +406,7 @@ function calculateOverallAverages() {
 function guardarDatosTabla() {
   const modulo = document.getElementById('module-details');
   const tablas = modulo.querySelectorAll('table');
-
-  // Check if there are tables
+  
   if (!tablas || tablas.length === 0) {
     console.error('Error: No se encontró ninguna tabla dentro de "module-details".');
     alert('Error: No se encontró ninguna tabla dentro de "module-details".');
@@ -419,18 +418,16 @@ function guardarDatosTabla() {
   tablas.forEach((tabla, index) => {
     const filas = tabla.rows;
 
-    // Check if the table rows exist
     if (!filas || filas.length === 0) {
       console.error(`Error: La tabla ${index + 1} no contiene filas.`);
       alert(`Error: La tabla ${index + 1} no contiene filas.`);
       return;
     }
 
-    for (let i = 1; i < filas.length; i++) { // Start from 1 to skip the header row
+    for (let i = 1; i < filas.length; i++) {
       const fila = filas[i];
       const celdas = fila.cells;
 
-      // Check if the row cells exist
       if (!celdas || celdas.length === 0) {
         console.error(`Error: La fila ${i} en la tabla ${index + 1} no contiene celdas.`);
         continue;

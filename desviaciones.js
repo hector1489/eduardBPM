@@ -12,7 +12,16 @@ const auditores = ['Auditor 1', 'Auditor 2'];
 // Espera a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
   inicializarFiltros();
+  cargarDatosDesdeLocalStorage();
 });
+
+// Función para cargar datos desde localStorage y agregarlos a la tabla de desviaciones
+function cargarDatosDesdeLocalStorage() {
+  const datos = JSON.parse(localStorage.getItem('tablaDatos'));
+  if (datos) {
+    datos.forEach(dato => agregarFilaConDatos(dato));
+  }
+}
 
 // Función para inicializar los filtros de la tabla
 function inicializarFiltros() {
@@ -194,33 +203,4 @@ function actualizarFiltros() {
   });
 }
 
-//capturar y guardar incidentes 
-
-document.addEventListener('DOMContentLoaded', function () {
-  const notaSpans = document.querySelectorAll('.details-table span[id^="nota-"]');
-  notaSpans.forEach(span => {
-    span.addEventListener('input', function () {
-      const spanId = this.id; 
-      const nuevoTexto = this.innerText; 
-
-     
-      captureIncident(spanId, nuevoTexto);
-    });
-  });
-});
-
-// Función para capturar incidencia
-let incidencias = []; 
-console.log(incidencias);
-
-function captureIncident(spanId, nuevoTexto) {
-  const incidencia = {
-    id: spanId,
-    texto: nuevoTexto
-  };
-
-  incidencias.push(incidencia);
-
-  console.log('Incidencia registrada:', incidencia);
-}
 
