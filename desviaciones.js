@@ -17,13 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Función para cargar datos desde localStorage y agregarlos a la tabla de desviaciones
 function cargarDatosDesdeLocalStorage() {
+  const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+  tabla.innerHTML = ''; // Limpiar la tabla antes de cargar datos
   const datos = JSON.parse(localStorage.getItem('tablaDatos'));
   if (datos) {
     datos.forEach(dato => agregarFilaConDatos(dato));
   }
 }
 
-// Agregar función para agregar fila con datos desde localStorage
+// Función para agregar fila con datos desde localStorage
 function agregarFilaConDatos(dato) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
@@ -46,7 +48,6 @@ function agregarFilaConDatos(dato) {
   tabla.appendChild(fila);
   actualizarFiltros();
 }
-
 
 // Función para inicializar los filtros de la tabla
 function inicializarFiltros() {
@@ -172,7 +173,7 @@ function agregarFila() {
   actualizarFiltros();
 }
 
-//eliminar fila
+// Función para eliminar fila
 function eliminarFila(fila) {
   const tabla = fila.closest('tbody');
   fila.remove();
@@ -227,80 +228,76 @@ function actualizarEstado(event) {
 function actualizarFiltros() {
   const table = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const rows = table.getElementsByTagName('tr');
-  const filters = document.querySelectorAll('.filter-select');
 
-  filters.forEach(filter => {
-    const columnIndex = filter.getAttribute('data-column');
-    const uniqueValues = new Set();
-    for (let i = 0; i < rows.length; i++) {
-      const cellValue = rows[i].getElementsByTagName('td')[columnIndex].innerText;
-      if (cellValue) {
-        uniqueValues.add(cellValue);
-      }
-    }
-    filter.innerHTML = '<option value="">Todos</option>';
-    uniqueValues.forEach(value => {
-      filter.innerHTML += `<option value="${value}">${value}</option>`;
-    });
-  });
+  const filters = {
+    prioridad: new Set(),
+    estado: new Set(),
+    entidad: new Set(),
+    responsableDesviacion: new Set(),
+    auditor: new Set()
+  };
+
+  for (let i = 0; i < rows.length; i++) {
+    filters.prioridad.add(rows[i].cells[4].innerText);
+    filters.estado.add(rows[i].cells[5].innerText);
+    filters.entidad.add(rows[i].cells[11].innerText);
+    filters.responsableDesviacion.add(rows[i].cells[12].innerText);
+    filters.auditor.add(rows[i].cells[13].innerText);
+  }
+
+  document.getElementById('filterPrioridad').innerHTML = generarOpcionesFiltro([...filters.prioridad]);
+  document.getElementById('filterEstado').innerHTML = generarOpcionesFiltro([...filters.estado]);
+  document.getElementById('filterEntidad').innerHTML = generarOpcionesFiltro([...filters.entidad]);
+  document.getElementById('filterResponsableDesviacion').innerHTML = generarOpcionesFiltro([...filters.responsableDesviacion]);
+  document.getElementById('filterAuditor').innerHTML = generarOpcionesFiltro([...filters.auditor]);
 }
 
+// Función para generar opciones de filtro
+function generarOpcionesFiltro(options) {
+  let html = '<option value="">Todos</option>';
+  options.forEach(option => {
+    html += `<option value="${option}">${option}</option>`;
+  });
+  return html;
+}
 
-// Obtener los datos de la tabla y guardarlos en localStorage
+// Función para guardar datos de la tabla en localStorage
 function guardarDatosTabla() {
-  const tabla = document.getElementById('tabla-desviaciones');
-
-  if (!tabla) {
-    console.error('Error: No se encontró la tabla con el ID "tabla-desviaciones".');
-    alert('Error: No se encontró la tabla con el ID "tabla-desviaciones".');
-    return;
-  }
-
+  const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const filas = tabla.getElementsByTagName('tr');
-
-  if (!filas || filas.length === 0) {
-    console.error('Error: La tabla no contiene filas.');
-    alert('Error: La tabla no contiene filas.');
-    return;
-  }
-
   const datos = [];
 
-  for (let i = 1; i < filas.length; i++) {
+  for (let i = 0; i < filas.length; i++) {
     const fila = filas[i];
-    const celdas = fila.cells;
-
-    if (!celdas || celdas.length === 0) {
-      console.error(`Error: La fila ${i} no contiene celdas.`);
-      continue;
-    }
-
-    const filaDatos = {};
-    for (let j = 0; j < celdas.length; j++) {
-      filaDatos[`columna${j + 1}`] = celdas[j].innerText;
-    }
+    const celdas = fila.getElementsByTagName('td');
+    const filaDatos = {
+      numeroPC: celdas[0].innerText,
+      numeroPregunta: celdas[1].querySelector('input').value,
+      criterio: celdas[2].querySelector('input').value,
+      desviacion: celdas[3].querySelector('input').value,
+      prioridad: celdas[4].querySelector('select').value,
+      estado: celdas[5].querySelector('select').value,
+      planAccion: celdas[6].querySelector('input').value,
+      fechaCambioEstado: celdas[7].innerText,
+      fechaRecepcionSolicitud: celdas[8].innerText,
+      fechaSolucionProgramada: celdas[9].innerText,
+      cantidadDias: celdas[10].innerText,
+      entidad: celdas[11].querySelector('select').value,
+      responsableDesviacion: celdas[12].querySelector('select').value,
+      auditor: celdas[13].querySelector('select').value,
+      contacto: celdas[14].querySelector('input').value,
+      correo: celdas[15].querySelector('input').value,
+      fechaUltimaModificacion: celdas[16].innerText,
+      foto: celdas[17].querySelector('input').value
+    };
     datos.push(filaDatos);
   }
 
   localStorage.setItem('tablaDatos', JSON.stringify(datos));
-  alert('Datos guardados correctamente.');
 }
 
-// Descargar la tabla como archivo Excel
-function descargarTablaExcel() {
-  const tabla = document.getElementById('module-details');
-  const ws = XLSX.utils.table_to_sheet(tabla);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-  XLSX.writeFile(wb, 'tabla.xlsx');
-}
-
-
-
-
-
-
-
-
-
+// Evento para guardar los datos de la tabla al agregar una nueva fila
+document.getElementById('agregarFilaBtn').addEventListener('click', function () {
+  agregarFila();
+  guardarDatosTabla();
+});
