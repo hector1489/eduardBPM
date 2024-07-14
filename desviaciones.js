@@ -250,5 +250,5 @@ function guardarDatosTabla() {
     };
   });
   localStorage.setItem('tablaDatos', JSON.stringify(datos));
-  alert('Datos guardados correctamente.');
+  alert('Lista de Desviaciones actualizada.');
 }

@@ -83,6 +83,18 @@
       color: white;
     }
 
+    .btn-blue {
+      background-color: #1F618D;
+      color: white;
+      font-weight: bold;
+
+    }
+
+    .btn-blue:hover {
+      background-color: #F39C12;
+      color: white;
+    }
+
     /* Estilos responsivos */
     @media (max-width: 767.98px) {
       .container {
@@ -190,15 +202,15 @@
         </tbody>
       </table>
     </div>
-    <button class="btn btn-primary mt-3" onclick="agregarFila()"><i class="fas fa-plus"></i> Agregar Desviación</button>
-    <button class="btn btn-primary mt-3" onclick="guardarDatosTabla()">Guardar Tabla</button>
-    <button class="btn btn-primary mt-3" onclick="descargarTablaExcel()">Descargar Excel</button>
+    <button class="btn btn-blue mt-3" onclick="agregarFila()"><i class="fas fa-plus"></i> Agregar Desviación</button>
+    <button class="btn btn-blue mt-3" onclick="guardarDatosTabla()">Guardar Tabla</button>
+    <button class="btn btn-blue mt-3" onclick="descargarTablaExcel()">Descargar Excel</button>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
   <script src="./desviaciones.js"></script>
- 
+
 </body>
 
 </html>
