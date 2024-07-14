@@ -320,5 +320,13 @@ function guardarDatosTabla() {
   alert('Lista de Desviaciones actualizada.');
 }
 
+// Descargar la tabla como archivo Excel
+function descargarTablaExcel() {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const ws = XLSX.utils.table_to_sheet(tabla);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
+  XLSX.writeFile(wb, 'tabla.xlsx');
+}
 
