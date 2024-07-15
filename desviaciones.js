@@ -139,16 +139,17 @@ const questions = [
 const criterio = [ 'no cumple', 'cumple parcialmente', 'cumple', 'cumple totalmente' ];
 
 //obtener preguntas por modulo
-function preguntasPorModulo(modulo) {
-  const moduloEncontrado = questions.find(q => q.module === modulo);
-  return moduloEncontrado ? moduloEncontrado.question : [];
+function obtenerTodasLasPreguntas() {
+  let todasLasPreguntas = [];
+  questions.forEach(modulo => {
+    if (Array.isArray(modulo.question)) {
+      todasLasPreguntas = todasLasPreguntas.concat(modulo.question);
+    } else {
+      todasLasPreguntas.push(modulo.question);
+    }
+  });
+  return todasLasPreguntas;
 }
-
-// Espera a que el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', function () {
-  inicializarFiltros();
-  cargarDatosDesdeLocalStorage();
-});
 
 // cargar datos desde localStorage y agregarlos a la tabla de desviaciones
 function cargarDatosDesdeLocalStorage() {
@@ -171,7 +172,7 @@ function agregarFilaConDatos(dato) {
   }
 
   fila.appendChild(crearCelda(dato.numeroPC));
-  fila.appendChild(crearCeldaConInput(dato.numeroPregunta, preguntasPorModulo(dato.modulo)));
+  fila.appendChild(crearCeldaConInput(dato.numeroPregunta, crearComboBoxTodasLasPreguntas(dato.numeroPregunta)));
   fila.appendChild(crearCeldaConInput(dato.criterio));
   fila.appendChild(crearCeldaConInput(dato.desviacion));
 
@@ -219,13 +220,15 @@ function crearCelda(texto) {
 }
 
 // crear una celda con un input
-function crearCeldaConInput(valor) {
+function crearCeldaConInput(valor, elemento) {
   const celda = document.createElement('td');
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.className = 'form-control';
-  input.value = valor;
-  celda.appendChild(input);
+  if (!elemento) {
+    elemento = document.createElement('input');
+    elemento.type = 'text';
+    elemento.className = 'form-control';
+    elemento.value = valor;
+  }
+  celda.appendChild(elemento);
   return celda;
 }
 
@@ -281,62 +284,35 @@ function filtrarTabla() {
 function agregarFila() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
-  const numeroPC = document.createElement('td');
-  numeroPC.innerText = tabla.rows.length + 1;
-  fila.appendChild(numeroPC);
-  const numeroPregunta = document.createElement('td');
-  numeroPregunta.innerHTML = crearComboBoxPreguntas(preguntasPorModulo('infraestructura'));
-  fila.appendChild(numeroPregunta);
-  const criterio = document.createElement('td');
-  criterio.innerHTML = '<input type="text" class="form-control">';
-  fila.appendChild(criterio);
-  const desviacion = document.createElement('td');
-  desviacion.innerHTML = '<input type="text" class="form-control">';
-  fila.appendChild(desviacion);
-  const prioridad = document.createElement('td');
-  prioridad.innerHTML = crearComboBoxPrioridades();
-  prioridad.querySelector('select').addEventListener('change', actualizarPrioridad);
-  fila.appendChild(prioridad);
-  const estado = document.createElement('td');
-  estado.innerHTML = crearComboBox(estados);
-  estado.querySelector('select').addEventListener('change', actualizarEstado);
-  fila.appendChild(estado);
-  const planAccion = document.createElement('td');
-  planAccion.innerHTML = '<input type="text" class="form-control">';
-  fila.appendChild(planAccion);
-  const fechaCambioEstado = document.createElement('td');
-  fechaCambioEstado.innerText = '';
-  fila.appendChild(fechaCambioEstado);
-  const fechaRecepcionSolicitud = document.createElement('td');
-  fechaRecepcionSolicitud.innerText = new Date().toLocaleDateString('es-ES');
-  fila.appendChild(fechaRecepcionSolicitud);
-  const fechaSolucionProgramada = document.createElement('td');
-  fechaSolucionProgramada.innerText = '';
-  fila.appendChild(fechaSolucionProgramada);
-  const cantidadDias = document.createElement('td');
-  cantidadDias.innerText = '';
-  fila.appendChild(cantidadDias);
-  const entidad = document.createElement('td');
-  entidad.innerHTML = crearComboBox(entidades);
-  fila.appendChild(entidad);
-  const responsableDesviacion = document.createElement('td');
-  responsableDesviacion.innerHTML = crearComboBox(responsablesDesviacion);
-  fila.appendChild(responsableDesviacion);
-  const auditor = document.createElement('td');
-  auditor.innerHTML = crearComboBox(auditores);
-  fila.appendChild(auditor);
-  const contacto = document.createElement('td');
-  contacto.innerHTML = '<input type="text" class="form-control">';
-  fila.appendChild(contacto);
-  const correo = document.createElement('td');
-  correo.innerHTML = '<input type="email" class="form-control">';
-  fila.appendChild(correo);
-  const fechaUltimaModificacion = document.createElement('td');
-  fechaUltimaModificacion.innerText = '';
-  fila.appendChild(fechaUltimaModificacion);
-  const foto = document.createElement('td');
-  foto.innerHTML = '<input type="text" class="form-control">';
-  fila.appendChild(foto);
+
+  fila.appendChild(crearCelda(tabla.rows.length + 1));
+  fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas('')));
+  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCeldaConInput(''));
+
+  const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
+  prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
+  fila.appendChild(prioridadCelda);
+
+  const estadoCelda = crearCeldaConSelect(estados, estados[0]);
+  estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
+  fila.appendChild(estadoCelda);
+
+  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCelda(''));
+  fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
+  fila.appendChild(crearCelda(''));
+  fila.appendChild(crearCelda(''));
+
+  fila.appendChild(crearCeldaConSelect(entidades, entidades[0]));
+  fila.appendChild(crearCeldaConSelect(responsablesDesviacion, responsablesDesviacion[0]));
+  fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
+
+  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCelda(''));
+  fila.appendChild(crearCeldaConInput(''));
+
   const celdaEliminar = document.createElement('td');
   const botonEliminar = document.createElement('button');
   botonEliminar.innerText = 'Eliminar';
@@ -345,6 +321,7 @@ function agregarFila() {
   });
   celdaEliminar.appendChild(botonEliminar);
   fila.appendChild(celdaEliminar);
+
   tabla.appendChild(fila);
   actualizarFiltros();
 }
@@ -379,18 +356,22 @@ function crearComboBoxPrioridades() {
 }
 
 //combo box preguntas
-function crearComboBoxPreguntas(preguntas) {
+function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
+  const preguntas = obtenerTodasLasPreguntas();
   const select = document.createElement('select');
   select.className = 'form-control';
-
+  
   preguntas.forEach(pregunta => {
     const option = document.createElement('option');
     option.value = pregunta;
     option.text = pregunta;
+    if (pregunta === valorSeleccionado) {
+      option.selected = true;
+    }
     select.appendChild(option);
   });
 
-  return select.outerHTML;
+  return select;
 }
 
 
