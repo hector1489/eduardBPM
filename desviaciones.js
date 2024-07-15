@@ -1,13 +1,148 @@
-// Definición de arrays y constantes
+// Definición de Arrays
 const prioridades = [
   { valor: 'Leve', clase: 'prioridad-leve', dias: 45 },
   { valor: 'Moderado', clase: 'prioridad-moderada', dias: 30 },
   { valor: 'Crítico', clase: 'prioridad-critica', dias: 15 }
 ];
+
 const estados = ['Cerrado', 'Abierto'];
 const entidades = ['Entidad 1', 'Entidad 2'];
 const responsablesDesviacion = ['Responsable 1', 'Responsable 2'];
 const auditores = ['Auditor 1', 'Auditor 2'];
+
+const questions = [
+  { module: 'infraestructura', question: [
+    'separaciones',
+    'equipos',
+    'servicios',
+  ]},
+  { module: 'legales', question: [
+    'trazabilidad',
+    'registros',
+    'correctiva',
+    'entrenamiento'
+  ]},
+  { module: 'quimicos', question: [
+    'almacenamiento',
+    'rotulacion',
+    'cantidad'
+  ]},
+  { module: 'agua', question: 'agua'},
+  { module: 'superficies', question: [
+    'utensilios',
+    'higiene-tablas',
+    'desinfeccion-equipos',
+    'desengrasado-equipos',
+    'desincrustacion-maquinas',
+    'limpieza-mesas',
+    'higiene-programa',
+    'alarma-sanitaria',
+    'luminometro'
+  ]},
+  { module: 'contaminacion', question: [
+    'contaminacion-utensilios',
+    'ubicacion-equipos'
+  ]},
+  { module: 'adulterantes', question: [
+    'pulverizadores',
+    'proteccion-mp'
+  ]},
+  { module: 'higiene', question: [
+    'uniformes',
+    'cubrepelo',
+    'lavado-manos',
+    'manos-heridas',
+    'examenes'
+  ]},
+  { module: 'plagas', question: [
+    'barreras-fisicas',
+    'programa-plagas'
+  ]},{ module: 'instalaciones', question: [
+    'lavamanos',
+    'servicios-higienicos'
+  ]},
+  { module: 'recepcion', question: [
+    'registro-recepcion',
+    'balanza',
+    'tiempo-exposicion'
+  ]},
+  { module: 'almacenamiento', question: [
+    'practicas-higienicas',
+    'identificacion-areas',
+    'receptaculos',
+    'fifo-fefo',
+    'productos-no-conforme',
+    'nivel-piso',
+    'separacion-materias',
+    'entrega-produccion'
+  ]},
+  { module: 'pre-elaboraciones', question: [
+    'preelaborados',
+    'materias-primas',
+    'separacion-productos',
+    'manitizado'
+  ]},
+  { module: 'elaboraciones', question: [
+    'recepcion-materias',
+    'orden-limpieza',
+    'productos-transito',
+    'respetan-temperaturas',
+    'uso-equipos-frio',
+    'sistema-extraccion',
+    'estantes',
+    'especieros',
+    'montajes-rapidos',
+    'tiempo-elaboracion-consumo'
+  ]},
+  { module: 'mantencion', question: 'control-tiempo-temperatura'},
+  { module: 'transporte', question: [
+    'traslado-alimentos',
+    'observacion-vehiculo'
+  ]},
+  { module: 'servicio', question: [
+    'mantenimiento-baño-maria',
+    'variedad-autoservicio',
+    'equipos-suficientes',
+    'reposicion-preparaciones',
+    'observacion-vajilla'
+  ]},
+  { module: 'vajilla', question: [
+    'desconche',
+    'procedimiento-higiene',
+    'orden-area'
+  ]},
+  { module: 'control', question: [
+    'termometros-balanzas',
+    'monitoreo-controles',
+    'acciones-correctivas',
+    'registro-contramuestras'
+  ]},
+  { module: 'proteccion', question: [
+    'dosificacion',
+    'productos',
+    'basureros',
+    'retiro-basura',
+    'limpieza-area-basura',
+    'manejo-aceites',
+    'separacion-residuos'
+  ]},
+  { module: 'documentacion', question: [
+    'autorizaciones',
+    'libro-inspeccion',
+    'informes-microbio',
+    'informes-auditoria',
+    'programa-charlas',
+    'reporte-proveedor'
+  ]},
+]
+
+const criterio = [ 'no cumple', 'cumple parcialmente', 'cumple', 'cumple totalmente' ];
+
+//obtener preguntas por modulo
+function preguntasPorModulo(modulo) {
+  const moduloEncontrado = questions.find(q => q.module === modulo);
+  return moduloEncontrado ? moduloEncontrado.question : [];
+}
 
 // Espera a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
@@ -18,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // cargar datos desde localStorage y agregarlos a la tabla de desviaciones
 function cargarDatosDesdeLocalStorage() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
-  tabla.innerHTML = ''; // Limpia el contenido de la tabla
+  tabla.innerHTML = '';
   const datos = JSON.parse(localStorage.getItem('tablaDatos'));
   if (datos) {
     datos.forEach(dato => agregarFilaConDatos(dato));
@@ -36,7 +171,7 @@ function agregarFilaConDatos(dato) {
   }
 
   fila.appendChild(crearCelda(dato.numeroPC));
-  fila.appendChild(crearCeldaConInput(dato.numeroPregunta));
+  fila.appendChild(crearCeldaConInput(dato.numeroPregunta, preguntasPorModulo(dato.modulo)));
   fila.appendChild(crearCeldaConInput(dato.criterio));
   fila.appendChild(crearCeldaConInput(dato.desviacion));
 
@@ -112,8 +247,6 @@ function crearCeldaConSelect(opciones, valorSeleccionado) {
   return celda;
 }
 
-
-
 // inicializar los filtros de la tabla
 function inicializarFiltros() {
   const selects = document.querySelectorAll('.filter-select');
@@ -152,7 +285,7 @@ function agregarFila() {
   numeroPC.innerText = tabla.rows.length + 1;
   fila.appendChild(numeroPC);
   const numeroPregunta = document.createElement('td');
-  numeroPregunta.innerHTML = '<input type="text" class="form-control">';
+  numeroPregunta.innerHTML = crearComboBoxPreguntas(preguntasPorModulo('infraestructura'));
   fila.appendChild(numeroPregunta);
   const criterio = document.createElement('td');
   criterio.innerHTML = '<input type="text" class="form-control">';
@@ -244,6 +377,22 @@ function crearComboBoxPrioridades() {
   html += '</select>';
   return html;
 }
+
+//combo box preguntas
+function crearComboBoxPreguntas(preguntas) {
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  preguntas.forEach(pregunta => {
+    const option = document.createElement('option');
+    option.value = pregunta;
+    option.text = pregunta;
+    select.appendChild(option);
+  });
+
+  return select.outerHTML;
+}
+
 
 // actualizar la prioridad y calcular fechas relacionadas
 function actualizarPrioridad(event) {
