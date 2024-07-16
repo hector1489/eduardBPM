@@ -170,7 +170,9 @@ const questions = [
       'Informes-Microbio',
       'Informes-Auditoria',
       'Programa-Charlas',
-      'Reporte-Proveedor'
+      'Reporte-Proveedor',
+      'Existe-programa',
+      'Existe-capacitacion'
     ]
   },
 ]

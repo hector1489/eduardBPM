@@ -69,7 +69,7 @@
     </div>
 
     <script>
-      let currentAuditNumber = 1; // Número de auditoría inicial
+      let currentAuditNumber = 1;
 
       document.addEventListener('DOMContentLoaded', function () {
         setAutomaticDate();
@@ -81,7 +81,7 @@
         const today = new Date().toISOString().split('T')[0];
         const dateInput = document.getElementById('fecha-auditoria');
         dateInput.value = today;
-        dateInput.setAttribute('readonly', true); // Hace que el campo de fecha sea de solo lectura
+        dateInput.setAttribute('readonly', true);
       }
 
       function setAuditNumber() {
@@ -1914,6 +1914,28 @@
           </select>
         </div>
 
+        <div class="form-group pregunta">
+          <label for="existe-programa">
+            Existe un programa escrito y con sus registros correspondientes de capacitación del personal en materia de manipulación higiénica de los alimentos e higiene personal. (Art. 52, 69)
+          </label>
+          <select class="form-control" id="existe-programa" name="existe-programa"
+            onchange="calculateAverage('doc')">
+            <option value="100">100%: Existe un programa escrito</option>
+            <option value="0">No existe programa</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="existe-capacitacion">
+            Existe un programa escrito de capacitación del personal de aseo en técnicas de limpieza y sus registros correspondientes.  (Art. 41, 69)
+          </label>
+          <select class="form-control" id="existe-capacitacion" name="existe-capacitacion"
+            onchange="calculateAverage('doc')">
+            <option value="100">100%: Existe un programa escrito</option>
+            <option value="0">No existe programa</option>
+          </select>
+        </div>
+
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
@@ -2943,7 +2965,7 @@
             </tr>
 
             <tr>
-              <th rowspan="7" class="tr-label">Documentación</th>
+              <th rowspan="9" class="tr-label">Documentación</th>
               <td colspan="5">Autorizaciones Sanitarias (casino y verduras crudas)</td>
               <td>Nota : <span id="nota-autorizaciones">0%</span></td>
               <td colspan="5"><span id="observacion-autorizaciones"></span></td>
@@ -2975,6 +2997,16 @@
               <td colspan="5">Reporte de proveedor productos químicos</td>
               <td>Nota : <span id="nota-reporte-proveedor">0%</span></td>
               <td colspan="5"><span id="observacion-reporte-proveedor"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">Reporte de proveedor productos químicos</td>
+              <td>Nota : <span id="nota-existe-programa">0%</span></td>
+              <td colspan="5"><span id="observacion-existe-programa"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">Reporte de proveedor productos químicos</td>
+              <td>Nota : <span id="nota-existe-capacitacion">0%</span></td>
+              <td colspan="5"><span id="observacion-existe-capacitacion"></span></td>
             </tr>
             <tr>
               <td colspan="9">Promedio : <span id="promedio-documentacion">0%</span></td>
