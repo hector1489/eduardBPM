@@ -406,7 +406,7 @@ function calculateOverallAverages() {
 function guardarDatosTabla() {
   const modulo = document.getElementById('module-details');
   const tablas = modulo.querySelectorAll('table');
-  
+
   if (!tablas || tablas.length === 0) {
     console.error('Error: No se encontró ninguna tabla dentro de "module-details".');
     alert('Error: No se encontró ninguna tabla dentro de "module-details".');
@@ -455,8 +455,3 @@ function descargarTablaExcel() {
 
   XLSX.writeFile(wb, 'tabla.xlsx');
 }
-
-
-
-
-

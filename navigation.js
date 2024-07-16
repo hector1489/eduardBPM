@@ -1,8 +1,7 @@
-
 function nextModule(currentModule, nextModule) {
   document.getElementById(`module-${currentModule}`).classList.remove('active');
   document.getElementById(`module-${nextModule}`).classList.add('active');
-  window.scrollTo(0, 0); // Desplaza la pantalla al inicio
+  window.scrollTo(0, 0);
 
   if (nextModule.startsWith('poes')) {
     document.getElementById('module-title').innerText = 'POES - Procedimientos Operacionales Estandarizados de Saneamiento';
@@ -64,6 +63,3 @@ function previousModule(currentModule, previousModule) {
     document.getElementById('module-title').style.display = 'block';
   }
 }
-
-
-

@@ -18,7 +18,7 @@
   <div class="container">
 
     <img id="form-logo" src="./logo.jpg" alt="Logo"
-      style="position: relative; top: 5px; left: 10px; width: 50px; height: auto;">
+      style="position: relative; top: 5px; left: 50%; transform: translateX(-50%); width: 180px; height: auto;">
 
     <!-- Sección de Ficha -->
     <div id="module-ficha" class="module-section active">
@@ -54,7 +54,16 @@
           <label for="fecha-auditoria">Fecha:</label>
           <input type="date" class="form-control" id="fecha-auditoria" name="fecha-auditoria">
         </div>
-        <button type="button" class="btn btn-blue btn-block" onclick="nextModule('ficha', 'infraestructura')">Siguiente</button>
+
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-form btn-green" onclick="nextModule('ficha', 'infraestructura')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+
+        <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('ficha', 'resumen')">
+          <i class="fa-solid fa-check"></i>
+        </button>
       </form>
 
     </div>
@@ -446,8 +455,8 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="higiene-programa">Aplicación y eficiencia del programa de higiene, publicado e implementado por
-            áreas:</label>
+          <label for="higiene-programa" style="color:red">Aplicacion y eficiencia del programa de higiene, publicado e
+            implementado por areas,( Art. 41, 43, 44, 64, 69):</label>
           <select class="form-control" id="higiene-programa" name="higiene-programa"
             onchange="calculateAverage('poes-superficies')">
             <option value="100">100%: Aplicado, adaptado, publicado completo</option>
@@ -677,7 +686,7 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="lavado-manos">Lavado y sanitizado correcto de manos y uñas:</label>
+          <label for="lavado-manos" style="color:red">Lavado y sanitizado correcto de manos y uñas:</label>
           <select class="form-control" id="lavado-manos" name="lavado-manos"
             onchange="calculateAverage('poes-higiene-empleados')">
             <option value="100">100%: Doble ciclo,frecuente</option>
@@ -701,7 +710,8 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="examenes">Exámenes de todos los manipuladores, ecónomos y administradores. Ausencia de malestares
+          <label for="examenes" style="color:red">Exámenes de todos los manipuladores, ecónomos y administradores.
+            Ausencia de malestares
             o infecciones:</label>
           <select class="form-control" id="examenes" name="examenes"
             onchange="calculateAverage('poes-higiene-empleados')">
@@ -1084,7 +1094,8 @@
       <form id="form-poe-preelaboraciones">
 
         <div class="form-group pregunta active">
-          <label for="descongelacion">Verificar descongelación en equipos de refrigeración, en agua corriendo sólo en
+          <label for="descongelacion" style="color:red">Verificar descongelación en equipos de refrigeración, en agua
+            corriendo sólo en
             caso de emergencias:</label>
           <select class="form-control" id="descongelacion" name="descongelacion"
             onchange="calculateAverage('poe-preelaboraciones')">
@@ -1222,7 +1233,8 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="respetan-temperaturas">Respetan las T° y los tiempos correctos de cocción y enfriamiento (fríos y
+          <label for="respetan-temperaturas" style="color:red">Respetan las T° y los tiempos correctos de cocción y
+            enfriamiento (fríos y
             calientes):</label>
           <select class="form-control" id="respetan-temperaturas" name="respetan-temperaturas"
             onchange="calculateAverage('poe-elaboracion')">
@@ -1297,7 +1309,7 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="tiempo-elaboracion-consumo">Tiempo entre elaboración y consumo:</label>
+          <label for="tiempo-elaboracion-consumo" style="color:red">Tiempo entre elaboración y consumo:</label>
           <select class="form-control" id="tiempo-elaboracion-consumo" name="tiempo-elaboracion-consumo"
             onchange="calculateAverage('poe-elaboracion')">
             <option value="100">100%: Elaboran durante el día (cocina tradicional)</option>
@@ -1344,7 +1356,8 @@
       <form id="form-poe-mantencion">
 
         <div class="form-group pregunta active">
-          <label for="control-tiempo-temperatura">Control de tiempo y Tº del equipo, al inicio y término de la
+          <label for="control-tiempo-temperatura" style="color:red">Control de tiempo y Tº del equipo, al inicio y
+            término de la
             mantención en frío o caliente:</label>
           <select class="form-control" id="control-tiempo-temperatura" name="control-tiempo-temperatura"
             onchange="calculateAverage('poe-mantencion')">
@@ -1393,7 +1406,8 @@
       <form id="form-poe-transporte">
 
         <div class="form-group pregunta active">
-          <label for="traslado-alimentos">Traslado de alimentos cumpliendo; protección, rotulación, estiba y registros
+          <label for="traslado-alimentos" style="color:red">Traslado de alimentos cumpliendo; protección, rotulación,
+            estiba y registros
             al inicio y término:</label>
           <select class="form-control" id="traslado-alimentos" name="traslado-alimentos"
             onchange="calculateAverage('poe-transporte')">
@@ -1478,7 +1492,8 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="equipos-suficientes">Equipos suficientes para la correcta mantención de productos calientes y
+          <label for="equipos-suficientes" style="color:red">Equipos suficientes para la correcta mantención de
+            productos calientes y
             fríos:</label>
           <select class="form-control" id="equipos-suficientes" name="equipos-suficientes"
             onchange="calculateAverage('poe-servicio')">
@@ -1549,7 +1564,8 @@
       <form id="form-poe-lavado-ollas-vajilla">
 
         <div class="form-group pregunta active">
-          <label for="desconche">Desconche de ollas y vajilla:</label>
+          <label for="desconche"> Desconche de ollas y vajilla limpio, ordenado, separado lo limpio de lo sucio. No hay
+            contaminación cruzada:</label>
           <select class="form-control" id="desconche" name="desconche"
             onchange="calculateAverage('poe-lavado-ollas-vajilla')">
             <option value="100">100%: Elimina todo resto de alimentos y separa percolados</option>
@@ -1661,7 +1677,7 @@
 
         <div class="form-group pregunta">
           <label for="registro-contramuestras">Verificar registro y toma de contramuestras, considerar menú y gramaje
-            (150 a 200 gramos):</label>
+            (100 a 200 gramos):</label>
           <select class="form-control" id="registro-contramuestras" name="registro-contramuestras"
             onchange="calculateAverage('poe-control-calidad')">
             <option value="100">100%: Contramuestras y registros al día</option>
@@ -1860,7 +1876,8 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="informes-auditoria">Informes de auditoría sanitaria, plan de acción, verificación de cumplimiento,
+          <label for="informes-auditoria" style="color:red">Informes de auditoría sanitaria, plan de acción,
+            verificación de cumplimiento,
             por Administrador y Jefe Op.:</label>
           <select class="form-control" id="informes-auditoria" name="informes-auditoria"
             onchange="calculateAverage('doc')">
@@ -1873,7 +1890,8 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="programa-charlas">Registros del cumplimiento al 100% del programa de charlas en Calidad y Medio
+          <label for="programa-charlas" style="color:red">Registros del cumplimiento al 100% del programa de charlas en
+            Calidad y Medio
             Ambiente:</label>
           <select class="form-control" id="programa-charlas" name="programa-charlas" onchange="calculateAverage('doc')">
             <option value="100">100%: Charlas al día, el personal se verifica capacitado</option>
@@ -2147,37 +2165,80 @@
 
     <!-- Resumen -->
     <div id="module-resumen" class="module-section">
-      <h3 class="text-center">Resumen de Auditoría</h3>
+
+
+
 
       <!-- Información de la Ficha -->
-      <div id="ficha-resumen" class="text-center">
-        <h4>Ficha de Auditoría</h4>
-        <p><strong>Nombre de Establecimiento:</strong> <span id="resumen-nombre-establecimiento"></span></p>
-        <p><strong>N° de Auditoría:</strong> <span id="resumen-numero-auditoria"></span></p>
-        <p><strong>Gerente de Establecimiento:</strong> <span id="resumen-gerente-establecimiento"></span></p>
-        <p><strong>Administrador de Establecimiento:</strong> <span id="resumen-administrador-establecimiento"></span>
-        </p>
-        <p><strong>Supervisor del Establecimiento:</strong> <span id="resumen-supervisor-establecimiento"></span></p>
-        <p><strong>Auditor Externo:</strong> <span id="resumen-auditor-externo"></span></p>
-        <p><strong>Fecha:</strong> <span id="resumen-fecha-auditoria"></span></p>
+      <div id="ficha-resumen" style="display: flex; justify-content: space-around; align-items: flex-start;">
+        <div style="font-size: smaller; width: 45%;">
+          <table border="1" style="border-collapse: collapse; width: 100%;">
+            <tr>
+              <td style="width: 50%;"><strong>Nombre de Establecimiento:</strong></td>
+              <td style="width: 50%;"><span id="resumen-nombre-establecimiento"
+                  style="display: inline-block; width: 100%;"></span></td>
+            </tr>
+            <tr>
+              <td><strong>N° de Auditoría:</strong></td>
+              <td><span id="resumen-numero-auditoria" style="display: inline-block; width: 100%;"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Gerente de Establecimiento:</strong></td>
+              <td><span id="resumen-gerente-establecimiento" style="display: inline-block; width: 100%;"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Administrador de Establecimiento:</strong></td>
+              <td><span id="resumen-administrador-establecimiento" style="display: inline-block; width: 100%;"></span>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Supervisor del Establecimiento:</strong></td>
+              <td><span id="resumen-supervisor-establecimiento" style="display: inline-block; width: 100%;"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Auditor Externo:</strong></td>
+              <td><span id="resumen-auditor-externo" style="display: inline-block; width: 100%;"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Fecha:</strong></td>
+              <td><span id="resumen-fecha-auditoria" style="display: inline-block; width: 100%;"></span></td>
+            </tr>
+          </table>
+        </div>
+
+        <div style="text-align: center; max-width: 25%;">
+          <h4 style="font-size: smaller;">PUNTAJE PONDERADO</h4>
+          <div
+            style="font-size: medium; background-color: rgb(241, 247, 238); padding: 5px; border: 1px solid black; width: 100%;">
+            <h4 class="text-center"><span id="promedio-general">0%</span></h4>
+          </div>
+          <div style="font-size: smaller; margin-top: 10px;">
+            <div style="background-color: green; padding: 3px; border: 1px solid black; width: 100%;">
+              CUMPLE 90% - 100%
+            </div>
+            <div style="background-color: yellow; padding: 3px; border: 1px solid black; margin-top: 3px; width: 100%;">
+              EN ALERTA 75% - 89%
+            </div>
+            <div style="background-color: red; padding: 3px; border: 1px solid black; margin-top: 3px; width: 100%;">
+              CRITICO 0% a 74%
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Promedios -->
-      <h4 class="text-center">Promedio BPM: <span id="resumen-bpm">0%</span></h4>
-      <h4 class="text-center">Promedio POES: <span id="resumen-poes">0%</span></h4>
-      <h4 class="text-center">Promedio POE: <span id="resumen-poe">0%</span></h4>
-      <h4 class="text-center">Promedio MA: <span id="resumen-ma">0%</span></h4>
-      <h4 class="text-center">Promedio DOC: <span id="resumen-doc">0%</span></h4>
-      <h4 class="text-center">Promedio TRA: <span id="resumen-tra">0%</span></h4>
-      <h4 class="text-center">Promedio LUM: <span id="resumen-lum">0%</span></h4>
-      <h4 class="text-center">Promedio General: <span id="promedio-general">0%</span></h4>
-      <div id="interpretacion-final" class="text-center"></div>
+
+
+
       <canvas id="resultChart" width="400" height="200"></canvas>
 
+
+
+
+
       <!-- Tabla de Auditoría -->
-      <div class="audit-summary">
+      <div class="audit-summary" style="font-size: smaller;">
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered table-sm" style="width: 100%;">
             <thead>
               <tr>
                 <th>N°</th>
@@ -2189,52 +2250,52 @@
             </thead>
             <tbody id="audit-table-body">
               <tr>
-                <td>1</td>
-                <td>BPM INFRAESTRUCTURA Y REQUERIMIENTOS LEGALES</td>
-                <td>5%</td>
-                <td><span id="nota-infraestructura">0%</span></td>
+                <td>BPM</td>
+                <td>INFRAESTRUCTURA Y REQUERIMIENTOS LEGALES</td>
+                <td>4%</td>
+                <td><span class="nota-item" id="nota-infraestructura">0%</span></td>
                 <td><span id="puntaje-infraestructura">0%</span></td>
               </tr>
               <tr>
-                <td>2</td>
-                <td>POES PROCEDIMIENTOS OP. DE SANITIZACION</td>
+                <td>POES</td>
+                <td>PROCEDIMIENTOS OP. DE SANITIZACION</td>
                 <td>25%</td>
-                <td><span id="nota-poes">0%</span></td>
+                <td><span class="nota-item" id="nota-poes">0%</span></td>
                 <td><span id="puntaje-poes">0%</span></td>
               </tr>
               <tr>
-                <td>3</td>
-                <td>POE PROCEDIMIENTOS OP. DEL PROCESO</td>
+                <td>POE</td>
+                <td>PROCEDIMIENTOS OP. DEL PROCESO</td>
                 <td>25%</td>
-                <td><span id="nota-poe">0%</span></td>
+                <td><span class="nota-item" id="nota-poe">0%</span></td>
                 <td><span id="puntaje-poe">0%</span></td>
               </tr>
               <tr>
-                <td>4</td>
-                <td>MA MANEJO AMBIENTAL</td>
-                <td>5%</td>
-                <td><span id="nota-ma">0%</span></td>
+                <td>MA</td>
+                <td>MANEJO AMBIENTAL</td>
+                <td>4%</td>
+                <td><span class="nota-item" id="nota-ma">0%</span></td>
                 <td><span id="puntaje-ma">0%</span></td>
               </tr>
               <tr>
-                <td>5</td>
-                <td>DOC DOCUMENTACION</td>
+                <td>DOC</td>
+                <td>DOCUMENTACION</td>
                 <td>10%</td>
-                <td><span id="nota-doc">0%</span></td>
+                <td><span class="nota-item" id="nota-doc">0%</span></td>
                 <td><span id="puntaje-doc">0%</span></td>
               </tr>
               <tr>
-                <td>6</td>
-                <td>TRAZ TRAZADORES DE POSIBLE BROTE ETA</td>
+                <td>TRAZ</td>
+                <td>TRAZADORES DE POSIBLE BROTE ETA</td>
                 <td>21%</td>
-                <td><span id="nota-traz">0%</span></td>
+                <td><span class="nota-item" id="nota-traz">0%</span></td>
                 <td><span id="puntaje-traz">0%</span></td>
               </tr>
               <tr>
-                <td>7</td>
-                <td>LUM LUMINOMETRIA</td>
+                <td>LUM</td>
+                <td>LUMINOMETRIA</td>
                 <td>10%</td>
-                <td><span id="nota-lum">0%</span></td>
+                <td><span class="nota-item" id="nota-lum">0%</span></td>
                 <td><span id="puntaje-lum">0%</span></td>
               </tr>
             </tbody>
@@ -2249,12 +2310,29 @@
       </div>
 
 
+      <!-- Promedios -->
+      <h4 class="text-center d-none">Promedio BPM: <span id="resumen-bpm">0%</span></h4>
+      <h4 class="text-center d-none">Promedio POES: <span id="resumen-poes">0%</span></h4>
+      <h4 class="text-center d-none">Promedio POE: <span id="resumen-poe">0%</span></h4>
+      <h4 class="text-center d-none">Promedio MA: <span id="resumen-ma">0%</span></h4>
+      <h4 class="text-center d-none">Promedio DOC: <span id="resumen-doc">0%</span></h4>
+      <h4 class="text-center d-none">Promedio TRA: <span id="resumen-tra">0%</span></h4>
+      <h4 class="text-center d-none">Promedio LUM: <span id="resumen-lum">0%</span></h4>
+      <h4 class="text-center d-none">Promedio General: <span id="promedio-general">0%</span></h4>
+      <div id="interpretacion-final" class="text-center d-none"></div>
 
 
-
-      <button class="btn btn-secondary btn-block" onclick="previousModule('resumen', 'doc')">Anterior</button>
-      <button class="btn btn-blue btn-block" onclick="nextModule('resumen', 'details')">Detalle</button>
-      <button class="btn btn-blue btn-block" onclick="nextModule('resumen', '#')">Enviar</button>
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-form btn-red mx-2" onclick="previousModule('resumen', 'doc')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button class="btn btn-form btn-orange mx-2" onclick="nextModule('resumen', 'details')">
+          <i class="fa-solid fa-recycle"></i>
+        </button>
+        <button class="btn btn-form btn-success mx-2" onclick="window.location.href='formatobase.html'" title="Enviar">
+          <i class="fas fa-check"></i>
+        </button>
+      </div>
 
     </div>
 
@@ -2787,7 +2865,7 @@
             <tr>
               <th rowspan="5" class="tr-label">Control de Calidad</th>
               <td colspan="5">Termómetros y balanzas suficientes, en correcto estado y limpios</td>
-              <td>Nota : <span  id="nota-termometros-balanzas">0%</span></td>
+              <td>Nota : <span id="nota-termometros-balanzas">0%</span></td>
               <td colspan="5"><span id="observacion-termometros-balanzas"></span></td>
             </tr>
             <tr>
@@ -2927,11 +3005,17 @@
 
       </div>
 
-      <button class="btn btn-secondary btn-block" onclick="previousModule('details', 'resumen')">Anterior</button>
-      <button class="btn btn-blue btn-block" onclick="guardarDatosTabla()">Guardar Tabla</button>
-      <button class="btn btn-blue btn-block" onclick="descargarTablaExcel()">Descargar Excel</button>
-
-
+      <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-form btn-red mx-3" onclick="previousModule('resumen', 'doc')" title="Volver">
+          <i class="fas fa-xmark"></i>
+        </button>
+        <button class="btn btn-form btn-blue mx-3" onclick="guardarDatosTabla()" title="Guardar Tabla">
+          <i class="fas fa-save"></i>
+        </button>
+        <button class="btn btn-form btn-green mx-3" onclick="descargarTablaExcel()" title="Descargar Excel">
+          <i class="fas fa-file-excel"></i>
+        </button>
+      </div>
 
     </div>
 
@@ -2945,14 +3029,13 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Al cargar la página, muestra solo el módulo del formulario inicial
+
       let modules = document.getElementsByClassName('module-section');
       for (var i = 0; i < modules.length; i++) {
         modules[i].classList.remove('active');
       }
       document.getElementById('module-ficha').classList.add('active');
 
-      // Oculta el título cuando está en el módulo ficha
       const titleElement = document.getElementById('module-title');
       titleElement.style.display = 'none';
     });
@@ -2972,7 +3055,7 @@
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="..//Front/auditoria.js"></script>
+  <script src="auditoria.js"></script>
 
 
 </body>

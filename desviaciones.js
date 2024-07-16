@@ -9,134 +9,171 @@ const estados = ['Cerrado', 'Abierto'];
 const entidades = ['Entidad 1', 'Entidad 2'];
 const responsablesDesviacion = ['Responsable 1', 'Responsable 2'];
 const auditores = ['Auditor 1', 'Auditor 2'];
+const criterio = ['No Cumple', 'Parcialmente', 'Cumple', 'Cumple Totalmente'];
 
 const questions = [
-  { module: 'infraestructura', question: [
-    'separaciones',
-    'equipos',
-    'servicios',
-  ]},
-  { module: 'legales', question: [
-    'trazabilidad',
-    'registros',
-    'correctiva',
-    'entrenamiento'
-  ]},
-  { module: 'quimicos', question: [
-    'almacenamiento',
-    'rotulacion',
-    'cantidad'
-  ]},
-  { module: 'agua', question: 'agua'},
-  { module: 'superficies', question: [
-    'utensilios',
-    'higiene-tablas',
-    'desinfeccion-equipos',
-    'desengrasado-equipos',
-    'desincrustacion-maquinas',
-    'limpieza-mesas',
-    'higiene-programa',
-    'alarma-sanitaria',
-    'luminometro'
-  ]},
-  { module: 'contaminacion', question: [
-    'contaminacion-utensilios',
-    'ubicacion-equipos'
-  ]},
-  { module: 'adulterantes', question: [
-    'pulverizadores',
-    'proteccion-mp'
-  ]},
-  { module: 'higiene', question: [
-    'uniformes',
-    'cubrepelo',
-    'lavado-manos',
-    'manos-heridas',
-    'examenes'
-  ]},
-  { module: 'plagas', question: [
-    'barreras-fisicas',
-    'programa-plagas'
-  ]},{ module: 'instalaciones', question: [
-    'lavamanos',
-    'servicios-higienicos'
-  ]},
-  { module: 'recepcion', question: [
-    'registro-recepcion',
-    'balanza',
-    'tiempo-exposicion'
-  ]},
-  { module: 'almacenamiento', question: [
-    'practicas-higienicas',
-    'identificacion-areas',
-    'receptaculos',
-    'fifo-fefo',
-    'productos-no-conforme',
-    'nivel-piso',
-    'separacion-materias',
-    'entrega-produccion'
-  ]},
-  { module: 'pre-elaboraciones', question: [
-    'preelaborados',
-    'materias-primas',
-    'separacion-productos',
-    'manitizado'
-  ]},
-  { module: 'elaboraciones', question: [
-    'recepcion-materias',
-    'orden-limpieza',
-    'productos-transito',
-    'respetan-temperaturas',
-    'uso-equipos-frio',
-    'sistema-extraccion',
-    'estantes',
-    'especieros',
-    'montajes-rapidos',
-    'tiempo-elaboracion-consumo'
-  ]},
-  { module: 'mantencion', question: 'control-tiempo-temperatura'},
-  { module: 'transporte', question: [
-    'traslado-alimentos',
-    'observacion-vehiculo'
-  ]},
-  { module: 'servicio', question: [
-    'mantenimiento-baño-maria',
-    'variedad-autoservicio',
-    'equipos-suficientes',
-    'reposicion-preparaciones',
-    'observacion-vajilla'
-  ]},
-  { module: 'vajilla', question: [
-    'desconche',
-    'procedimiento-higiene',
-    'orden-area'
-  ]},
-  { module: 'control', question: [
-    'termometros-balanzas',
-    'monitoreo-controles',
-    'acciones-correctivas',
-    'registro-contramuestras'
-  ]},
-  { module: 'proteccion', question: [
-    'dosificacion',
-    'productos',
-    'basureros',
-    'retiro-basura',
-    'limpieza-area-basura',
-    'manejo-aceites',
-    'separacion-residuos'
-  ]},
-  { module: 'documentacion', question: [
-    'autorizaciones',
-    'libro-inspeccion',
-    'informes-microbio',
-    'informes-auditoria',
-    'programa-charlas',
-    'reporte-proveedor'
-  ]},
+  {
+    module: 'infraestructura', question: [
+      'Separaciones',
+      'Equipos',
+      'Servicios',
+    ]
+  },
+  {
+    module: 'legales', question: [
+      'Trazabilidad',
+      'Registros',
+      'Correctiva',
+      'Entrenamiento'
+    ]
+  },
+  {
+    module: 'quimicos', question: [
+      'Almacenamiento',
+      'Rotulacion',
+      'Cantidad'
+    ]
+  },
+  { module: 'Agua', question: 'Agua' },
+  {
+    module: 'superficies', question: [
+      'Utensilios',
+      'Higiene-tablas',
+      'Desinfeccion-equipos',
+      'Desengrasado-equipos',
+      'Desincrustacion-maquinas',
+      'Limpieza-mesas',
+      'Higiene-programa',
+      'Alarma-Sanitaria',
+      'Luminometro'
+    ]
+  },
+  {
+    module: 'contaminacion', question: [
+      'Contaminacion-Utensilios',
+      'Ubicacion-Equipos'
+    ]
+  },
+  {
+    module: 'adulterantes', question: [
+      'Pulverizadores',
+      'Proteccion-MP'
+    ]
+  },
+  {
+    module: 'higiene', question: [
+      'Uniformes',
+      'Cubrepelo',
+      'Lavado-Manos',
+      'Manos-Heridas',
+      'Examenes'
+    ]
+  },
+  {
+    module: 'plagas', question: [
+      'Barreras-Fisicas',
+      'Programa-Plagas'
+    ]
+  }, {
+    module: 'instalaciones', question: [
+      'Lavamanos',
+      'Servicios-Higienicos'
+    ]
+  },
+  {
+    module: 'recepcion', question: [
+      'Registro-Recepcion',
+      'Balanza',
+      'Tiempo-Exposicion'
+    ]
+  },
+  {
+    module: 'almacenamiento', question: [
+      'Practicas-Higienicas',
+      'Identificacion-Areas',
+      'Receptaculos',
+      'Fifo-Fefo',
+      'Productos-No-Conforme',
+      'Nivel-Piso',
+      'Separacion-Materias',
+      'Entrega-Produccion'
+    ]
+  },
+  {
+    module: 'pre-elaboraciones', question: [
+      'Preelaborados',
+      'Materias-Primas',
+      'Separacion-Productos',
+      'Manitizado'
+    ]
+  },
+  {
+    module: 'elaboraciones', question: [
+      'Recepcion-Materias',
+      'Orden-Limpieza',
+      'Productos-Transito',
+      'Pespetan-Temperaturas',
+      'Uso-Equipos-Frio',
+      'Sistema-Extraccion',
+      'Estantes',
+      'Especieros',
+      'Montajes-Rapidos',
+      'Tiempo-Elaboracion-Consumo'
+    ]
+  },
+  { module: 'mantencion', question: 'control-tiempo-temperatura' },
+  {
+    module: 'transporte', question: [
+      'Traslado-Alimentos',
+      'Observacion-Vehiculo'
+    ]
+  },
+  {
+    module: 'servicio', question: [
+      'Mantenimiento-Baño-Maria',
+      'Variedad-Autoservicio',
+      'Equipos-Suficientes',
+      'Reposicion-Preparaciones',
+      'Observacion-Vajilla'
+    ]
+  },
+  {
+    module: 'vajilla', question: [
+      'Desconche',
+      'Procedimiento-Higiene',
+      'Orden-Area'
+    ]
+  },
+  {
+    module: 'control', question: [
+      'Termometros-Balanzas',
+      'Monitoreo-Controles',
+      'Acciones-Correctivas',
+      'Registro-Contramuestras'
+    ]
+  },
+  {
+    module: 'proteccion', question: [
+      'Dosificacion',
+      'Productos',
+      'Basureros',
+      'Retiro-Basura',
+      'Limpieza-Area-Basura',
+      'Manejo-Aceites',
+      'Separacion-Residuos'
+    ]
+  },
+  {
+    module: 'documentacion', question: [
+      'Autorizaciones',
+      'Libro-Inspeccion',
+      'Informes-Microbio',
+      'Informes-Auditoria',
+      'Programa-Charlas',
+      'Reporte-Proveedor'
+    ]
+  },
 ]
-
-const criterio = [ 'no cumple', 'cumple parcialmente', 'cumple', 'cumple totalmente' ];
 
 //obtener preguntas por modulo
 function obtenerTodasLasPreguntas() {
@@ -173,7 +210,7 @@ function agregarFilaConDatos(dato) {
 
   fila.appendChild(crearCelda(dato.numeroPC));
   fila.appendChild(crearCeldaConInput(dato.numeroPregunta, crearComboBoxTodasLasPreguntas(dato.numeroPregunta)));
-  fila.appendChild(crearCeldaConInput(dato.criterio));
+  fila.appendChild(crearCeldaConSelect(criterio, dato.criterio));
   fila.appendChild(crearCeldaConInput(dato.desviacion));
 
   const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), dato.prioridad);
@@ -287,7 +324,7 @@ function agregarFila() {
 
   fila.appendChild(crearCelda(tabla.rows.length + 1));
   fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas('')));
-  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCeldaConSelect(criterio, ''));
   fila.appendChild(crearCeldaConInput(''));
 
   const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
@@ -355,12 +392,12 @@ function crearComboBoxPrioridades() {
   return html;
 }
 
-//combo box preguntas
+// combo box preguntas
 function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
   const preguntas = obtenerTodasLasPreguntas();
   const select = document.createElement('select');
   select.className = 'form-control';
-  
+
   preguntas.forEach(pregunta => {
     const option = document.createElement('option');
     option.value = pregunta;
@@ -371,6 +408,22 @@ function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
     select.appendChild(option);
   });
 
+  return select;
+}
+
+// combo box de criterios
+function crearComboBoxCriterios(valorSeleccionado) {
+  const select = document.createElement('select');
+  select.className = 'form-control';
+  criterio.forEach(criterio => {
+    const option = document.createElement('option');
+    option.value = criterio;
+    option.text = criterio;
+    if (criterio === valorSeleccionado) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
   return select;
 }
 

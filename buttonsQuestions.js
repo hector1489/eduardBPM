@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function countQuestionsInModules() {
     const modules = document.querySelectorAll('.module-section');
-    
+
     modules.forEach(module => {
       const questions = module.querySelectorAll('.pregunta');
       const totalQuestions = questions.length;
@@ -87,9 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-   // Muestra la primera pregunta
+  // Muestra la primera pregunta
   showQuestion(currentQuestion);
-   // Agrega listeners de cambio a las preguntas
+  // Agrega listeners de cambio a las preguntas
   addChangeListenerToQuestions();
   //countQuestionsInModules();
 
@@ -102,9 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function sendTicket(currentModuleId, nextModuleId) {
 
-  alert('Ticket enviado. Haz click nuevamente para ir al siguiente modulo');
+  // alert('Ticket enviado. Haz click nuevamente para ir al siguiente modulo');
 
   // Avanzar al siguiente módulo
   nextModule(currentModuleId, nextModuleId);
 }
-

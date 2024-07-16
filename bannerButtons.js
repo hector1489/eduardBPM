@@ -1,4 +1,3 @@
-
 // botón de "Fotos"
 document.querySelectorAll('#capture-btn').forEach(btn => {
   btn.addEventListener('click', function () {
@@ -45,7 +44,7 @@ function enviarComentario(button) {
       let nuevoComentario = {
         id: Date.now(),
         texto: comentario,
-        questionId: select ? select.id : null 
+        questionId: select ? select.id : null
       };
       comentarios.push(nuevoComentario);
 
@@ -65,7 +64,7 @@ function enviarComentario(button) {
 document.querySelectorAll('#comment-btn').forEach(btn => {
   btn.addEventListener('click', function () {
     let input = this.nextSibling;
-    
+
     if (!input || input.id !== 'comment-input') {
       input = document.createElement('input');
       input.type = 'text';
@@ -105,7 +104,7 @@ function enviarIncident(btn) {
 document.querySelectorAll('#incident-btn').forEach(btn => {
   btn.addEventListener('click', function () {
     let input = this.nextSibling;
-    
+
     if (!input || input.id !== 'incident-input') {
       input = document.createElement('input');
       input.type = 'text';
@@ -120,5 +119,3 @@ document.querySelectorAll('#incident-btn').forEach(btn => {
     }
   });
 });
-
-
