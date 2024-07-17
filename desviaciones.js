@@ -1006,7 +1006,7 @@ function obtenerTodasLasPreguntas() {
   return todasLasPreguntas;
 }
 
-//obtener plan a seguir
+//obtener todas las actions
 function obtenerTodasLasAction() {
   let todasLasAction = [];
   accionCorrectivas.forEach(question => {
@@ -1057,7 +1057,7 @@ function agregarFilaConDatos(dato) {
   fila.appendChild(crearCelda(dato.fechaCambioEstado));
   fila.appendChild(crearCelda(dato.fechaRecepcionSolicitud));
   fila.appendChild(crearCelda(dato.fechaSolucionProgramada));
-  fila.appendChild(crearCelda(dato.cantidadDias));
+  fila.appendChild(crearCeldaConInput(dato.cantidadDias, crearComboBoxCantidadDeDias(dato.cantidadDias)));
 
   fila.appendChild(crearCeldaConSelect(entidades, dato.entidad));
   fila.appendChild(crearCeldaConSelect(responsablesDesviacion, dato.responsableDesviacion));
@@ -1170,10 +1170,10 @@ function agregarFila() {
   fila.appendChild(estadoCelda);
 
   fila.appendChild(crearCeldaConInput('',  crearComboBoxTodasLasAction('')));
-  fila.appendChild(crearCelda(''));
+  fila.appendChild(crearCeldaConInput('   /   /   '));
   fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
-  fila.appendChild(crearCelda(''));
-  fila.appendChild(crearCelda(''));
+  fila.appendChild(crearCeldaConInput('   /   /   '));
+  fila.appendChild(crearCeldaConInput('', crearComboBoxCantidadDeDias('')));
 
   fila.appendChild(crearCeldaConSelect(entidades, entidades[0]));
   fila.appendChild(crearCeldaConSelect(responsablesDesviacion, responsablesDesviacion[0]));
@@ -1181,7 +1181,7 @@ function agregarFila() {
 
   fila.appendChild(crearCeldaConInput(''));
   fila.appendChild(crearCeldaConInput(''));
-  fila.appendChild(crearCelda(''));
+  fila.appendChild(crearCeldaConInput('   /   /   '));
   fila.appendChild(crearCeldaConInput(''));
 
   const celdaEliminar = document.createElement('td');
@@ -1242,6 +1242,25 @@ function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
     }
     select.appendChild(option);
   });
+  
+  return select;
+}
+
+// combo box plan de accion
+function crearComboBoxTodasLasAction(valorSeleccionado) {
+  const actions = obtenerTodasLasAction();
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  actions.forEach(action => {
+    const option = document.createElement('option');
+    option.value = action;
+    option.text = action;
+    if (action === valorSeleccionado) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
 
   return select;
 }
@@ -1278,17 +1297,17 @@ function crearComboBoxDesviaciones(valorSeleccionado) {
   return select;
 }
 
-// combo box plan de accion
-function crearComboBoxTodasLasAction(valorSeleccionado) {
-  const actions = obtenerTodasLasAction();
+//combo box cantidad de dias
+function crearComboBoxCantidadDeDias(valorSeleccionado) {
+  const dias = [10, 15, 30, 45];
   const select = document.createElement('select');
   select.className = 'form-control';
 
-  actions.forEach(action => {
+  dias.forEach(dia => {
     const option = document.createElement('option');
-    option.value = action;
-    option.text = action;
-    if (action === valorSeleccionado) {
+    option.value = dia;
+    option.text = `${dia} días`;
+    if (dia === valorSeleccionado) {
       option.selected = true;
     }
     select.appendChild(option);
