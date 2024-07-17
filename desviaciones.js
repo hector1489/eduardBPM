@@ -1,3 +1,8 @@
+
+document.addEventListener('DOMContentLoaded', () => {
+  cargarDatosDesdeLocalStorage();
+});
+
 // Definición de Arrays
 const prioridades = [
   { valor: 'Leve', clase: 'prioridad-leve', dias: 45 },
@@ -177,6 +182,20 @@ const questions = [
   },
 ]
 
+const desviaciones = [
+  '1-Gerente De Contrato',
+  '2-Administrador',
+  '3-Supervisor De Mantencion',
+  '4-Supervisor De Casino',
+  '5-Spervisor De Aseo',
+  '6-Coordinador De Calidad',
+  '7-Asesor SSO',
+  '8-Asesor Medio Ambiente',
+  '9-Jefe RH',
+  '10-Bodeguero',
+  '11-Chef'
+];
+
 //obtener preguntas por modulo
 function obtenerTodasLasPreguntas() {
   let todasLasPreguntas = [];
@@ -213,7 +232,7 @@ function agregarFilaConDatos(dato) {
   fila.appendChild(crearCelda(dato.numeroPC));
   fila.appendChild(crearCeldaConInput(dato.numeroPregunta, crearComboBoxTodasLasPreguntas(dato.numeroPregunta)));
   fila.appendChild(crearCeldaConSelect(criterio, dato.criterio));
-  fila.appendChild(crearCeldaConInput(dato.desviacion));
+  fila.appendChild(crearCeldaConInput(dato.desviacion, crearComboBoxDesviaciones(dato.desviacion)));
 
   const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), dato.prioridad);
   prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
@@ -250,6 +269,7 @@ function agregarFilaConDatos(dato) {
   tabla.appendChild(fila);
   actualizarFiltros();
 }
+
 
 // crear una celda con texto
 function crearCelda(texto) {
@@ -319,6 +339,7 @@ function filtrarTabla() {
   }
 }
 
+
 // agregar una fila a la tabla de desviaciones
 function agregarFila() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
@@ -327,7 +348,7 @@ function agregarFila() {
   fila.appendChild(crearCelda(tabla.rows.length + 1));
   fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas('')));
   fila.appendChild(crearCeldaConSelect(criterio, ''));
-  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
 
   const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
   prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
@@ -364,6 +385,7 @@ function agregarFila() {
   tabla.appendChild(fila);
   actualizarFiltros();
 }
+
 
 // eliminar una fila de la tabla de desviaciones
 function eliminarFila(fila) {
@@ -429,6 +451,21 @@ function crearComboBoxCriterios(valorSeleccionado) {
   return select;
 }
 
+//combo box desviaciones
+function crearComboBoxDesviaciones(valorSeleccionado) {
+  const select = document.createElement('select');
+  select.className = 'form-control';
+  desviaciones.forEach(desviacion => {
+    const option = document.createElement('option');
+    option.value = desviacion;
+    option.text = desviacion;
+    if (desviacion === valorSeleccionado) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
+  return select;
+}
 
 // actualizar la prioridad y calcular fechas relacionadas
 function actualizarPrioridad(event) {
@@ -474,33 +511,38 @@ function actualizarFiltros() {
   });
 }
 
+
+//Buttons
+
 // guardar datos de la tabla en localStorage
 function guardarDatosTabla() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const filas = tabla.getElementsByTagName('tr');
   const datos = Array.from(filas).map(fila => {
     const celdas = fila.getElementsByTagName('td');
+
     return {
-      numeroPC: celdas[0].innerText,
-      numeroPregunta: celdas[1].getElementsByTagName('input')[0].value,
-      criterio: celdas[2].getElementsByTagName('input')[0].value,
-      desviacion: celdas[3].getElementsByTagName('input')[0].value,
-      prioridad: celdas[4].getElementsByTagName('select')[0].value,
-      estado: celdas[5].getElementsByTagName('select')[0].value,
-      planAccion: celdas[6].getElementsByTagName('input')[0].value,
-      fechaCambioEstado: celdas[7].innerText,
-      fechaRecepcionSolicitud: celdas[8].innerText,
-      fechaSolucionProgramada: celdas[9].innerText,
-      cantidadDias: celdas[10].innerText,
-      entidad: celdas[11].getElementsByTagName('select')[0].value,
-      responsableDesviacion: celdas[12].getElementsByTagName('select')[0].value,
-      auditor: celdas[13].getElementsByTagName('select')[0].value,
-      contacto: celdas[14].getElementsByTagName('input')[0].value,
-      correo: celdas[15].getElementsByTagName('input')[0].value,
-      fechaUltimaModificacion: celdas[16].innerText,
-      foto: celdas[17].getElementsByTagName('input')[0].value
+      numeroPC: celdas[0]?.innerText || '',
+      numeroPregunta: celdas[1]?.querySelector('select')?.value || '',
+      criterio: celdas[2]?.querySelector('select')?.value || '',
+      desviacion: celdas[3]?.querySelector('select')?.value || '',
+      prioridad: celdas[4]?.querySelector('select')?.value || '',
+      estado: celdas[5]?.querySelector('select')?.value || '',
+      planAccion: celdas[6]?.querySelector('input')?.value || '',
+      fechaCambioEstado: celdas[7]?.innerText || '',
+      fechaRecepcionSolicitud: celdas[8]?.innerText || '',
+      fechaSolucionProgramada: celdas[9]?.innerText || '',
+      cantidadDias: celdas[10]?.innerText || '',
+      entidad: celdas[11]?.querySelector('select')?.value || '',
+      responsableDesviacion: celdas[12]?.querySelector('select')?.value || '',
+      auditor: celdas[13]?.querySelector('select')?.value || '',
+      contacto: celdas[14]?.querySelector('input')?.value || '',
+      correo: celdas[15]?.querySelector('input')?.value || '',
+      fechaUltimaModificacion: celdas[16]?.innerText || '',
+      foto: celdas[17]?.querySelector('input')?.value || ''
     };
   });
+
   localStorage.setItem('tablaDatos', JSON.stringify(datos));
   alert('Lista de Desviaciones actualizada.');
 }
