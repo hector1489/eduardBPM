@@ -324,6 +324,20 @@ function calculateOverallAverages() {
     document.getElementById('promedio-ponderado').innerText = `${weightedAverage.toFixed(1)}%`;
   }
 
+  
+  //Actualizar datos desde ficha
+
+  function updateFichaResumen() {
+    document.getElementById('resumen-nombre-establecimiento').innerText = document.getElementById('nombre-establecimiento').value;
+    document.getElementById('resumen-numero-auditoria').innerText = document.getElementById('numero-auditoria').value;
+    document.getElementById('resumen-gerente-establecimiento').innerText = document.getElementById('gerente-establecimiento').value;
+    document.getElementById('resumen-administrador-establecimiento').innerText = document.getElementById('administrador-establecimiento').value;
+    document.getElementById('resumen-supervisor-establecimiento').innerText = document.getElementById('supervisor-establecimiento').value;
+    document.getElementById('resumen-auditor-externo').innerText = document.getElementById('auditor-externo').value;
+    document.getElementById('resumen-fecha-auditoria').innerText = document.getElementById('fecha-auditoria').value;
+  }
+
+
   //Actualiza tabla details 
   function updateTableDetails(bpmAverage, poesAverage, poeAverage, docAverage, lumAverage, traAverage, overallAverage) {
     const moduleAverages = {
@@ -400,6 +414,8 @@ function calculateOverallAverages() {
       interpretationElement.innerText = interpretationText;
     }
   });
+
+  updateFichaResumen();
 }
 
 // Obtener los datos de la tabla y guardarlos en localStorage
