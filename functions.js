@@ -364,6 +364,7 @@ function calculateOverallAverages() {
       vajilla: poeAverage,
       control: poeAverage,
       proteccion: poeAverage,
+      ppt: poeAverage,
       documentacion: docAverage,
       bpm: bpmAverage,
       poes: poesAverage,
@@ -393,6 +394,7 @@ function calculateOverallAverages() {
     document.getElementById('promedio-vajilla').innerText = `${moduleAverages.vajilla}%`;
     document.getElementById('promedio-control').innerText = `${moduleAverages.control}%`;
     document.getElementById('promedio-proteccion').innerText = `${moduleAverages.proteccion}%`;
+    document.getElementById('promedio-poe-ppt').innerText = `${moduleAverages.ppt}%`;
     document.getElementById('promedio-documentacion').innerText = `${moduleAverages.documentacion}%`;
     document.getElementById('promedio-bpm').innerText = `${moduleAverages.bpm}%`;
     document.getElementById('promedio-poes').innerText = `${moduleAverages.poes}%`;

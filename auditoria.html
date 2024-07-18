@@ -1804,18 +1804,18 @@
     </div>
 
 
-     <!-- Sección de POE - Procesos y Productos Terminados  -->
-     <div id="module-poe-ppt" class="module-section p-2">
+    <!-- Sección de POE - Procesos y Productos Terminados  -->
+    <div id="module-poe-ppt" class="module-section p-2">
       <h3 class="text-center">Procesos y Productos Terminados</h3>
 
       <form id="form-poe-ppt">
 
         <div class="form-group pregunta active">
           <label for="ppt-flujo">
-            El flujo del personal, vehículos y de materias primas en las distintas etapas del proceso, es ordenado y conocido por todos los que participan en la elaboración, para evitar contaminación cruzada. (Art. 63)
+            El flujo del personal, vehículos y de materias primas en las distintas etapas del proceso, es ordenado y
+            conocido por todos los que participan en la elaboración, para evitar contaminación cruzada. (Art. 63)
           </label>
-          <select class="form-control" id="ppt-flujo" name="ppt-flujo"
-            onchange="calculateAverage('poe-ppt')">
+          <select class="form-control" id="ppt-flujo" name="ppt-flujo" onchange="calculateAverage('poe-ppt')">
             <option value="100">100%: Cumple buen estado y limpieza</option>
             <option value="0">0%: no operativos.</option>
           </select>
@@ -1823,10 +1823,10 @@
 
         <div class="form-group pregunta">
           <label for="ppt-cuenta">
-            Se cuenta con procedimientos escritos de los procesos  (Formulación del producto, flujos de operación, procesos productivos). (Art. 3, 11, 63, 66, 69, 132)
+            Se cuenta con procedimientos escritos de los procesos (Formulación del producto, flujos de operación,
+            procesos productivos). (Art. 3, 11, 63, 66, 69, 132)
           </label>
-          <select class="form-control" id="ppt-cuenta" name="ppt-cuenta"
-            onchange="calculateAverage('poe-ppt')">
+          <select class="form-control" id="ppt-cuenta" name="ppt-cuenta" onchange="calculateAverage('poe-ppt')">
             <option value="100">100%: Al día, revisados y firmados</option>
             <option value="0">0%: Sin mayor control evidente</option>
           </select>
@@ -1834,7 +1834,8 @@
 
         <div class="form-group pregunta">
           <label for="ppt-almacenamiento">
-            Los productos se almacenan en condiciones que eviten su deterioro y contaminación (envases, temperatura, humedad, etc.). (Art.11, 67)
+            Los productos se almacenan en condiciones que eviten su deterioro y contaminación (envases, temperatura,
+            humedad, etc.). (Art.11, 67)
           </label>
           <select class="form-control" id="ppt-almacenamiento" name="ppt-almacenamiento"
             onchange="calculateAverage('poe-ppt')">
@@ -1845,7 +1846,8 @@
 
         <div class="form-group pregunta">
           <label for="ppt-distribucion">
-            La distribución de los productos terminados se realiza en vehículos autorizados, limpios y en buen estado. (Art. 11, 68)
+            La distribución de los productos terminados se realiza en vehículos autorizados, limpios y en buen estado.
+            (Art. 11, 68)
           </label>
           <select class="form-control" id="ppt-distribucion" name="ppt-distribucion"
             onchange="calculateAverage('poe-ppt')">
@@ -1856,10 +1858,10 @@
 
         <div class="form-group pregunta">
           <label for="ppt-envasado">
-            Para envasar los productos se utilizan materiales adecuadas, los cuales son mantenidos en condiciones que eviten su contaminación. (Art. 11, 123)
+            Para envasar los productos se utilizan materiales adecuadas, los cuales son mantenidos en condiciones que
+            eviten su contaminación. (Art. 11, 123)
           </label>
-          <select class="form-control" id="ppt-envasado" name="ppt-envasado"
-            onchange="calculateAverage('poe-ppt')">
+          <select class="form-control" id="ppt-envasado" name="ppt-envasado" onchange="calculateAverage('poe-ppt')">
             <option value="100">100%: Contramuestras y registros al día</option>
             <option value="0">0%: Sin contramuestras, sin registros al día</option>
           </select>
@@ -1869,8 +1871,7 @@
           <label for="ppt-etiqueta">
             Los productos se etiquetan de acuerdo a las exigencias reglamentarias. (Art. 107 al 121)
           </label>
-          <select class="form-control" id="ppt-etiqueta" name="ppt-etiqueta"
-            onchange="calculateAverage('poe-ppt')">
+          <select class="form-control" id="ppt-etiqueta" name="ppt-etiqueta" onchange="calculateAverage('poe-ppt')">
             <option value="100">100%: Etiquetas al día</option>
             <option value="0">0%: Sin etiquetas al día</option>
           </select>
@@ -1892,7 +1893,7 @@
 
         </div>
 
-        <h3 class="h3-promedio text-center">PROMEDIO: <span id="average-poe-control-calidad">100%</span></h3>
+        <h3 class="h3-promedio text-center">PROMEDIO: <span id="average-poe-ppt">100%</span></h3>
 
         <div class="banner-buttons">
 
@@ -3150,6 +3151,64 @@
             </tr>
             <tr>
               <td colspan="9">Promedio : <span id="promedio-control">0%</span></td>
+              <td colspan="5"></td>
+            </tr>
+
+            <tr>
+              <td colspan="14" class="table-label">POE - Procesos y Productos Terminados</td>
+            </tr>
+
+            <tr>
+              <th rowspan="7" class="tr-label">Procesos y Productos Terminados</th>
+              <td colspan="5">
+                PPT - El flujo del personal, vehículos y de materias primas en las distintas etapas del proceso, es
+                ordenado y conocido por todos los que participan en la elaboración, para evitar contaminación cruzada.
+                (Art. 63)
+              </td>
+              <td>Nota : <span id="nota-ppt-flujo">0%</span></td>
+              <td colspan="5"><span id="observacion-ppt-flujo"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                PPT - Se cuenta con procedimientos escritos de los procesos (Formulación del producto, flujos de
+                operación, procesos productivos). (Art. 3, 11, 63, 66, 69, 132)
+              </td>
+              <td>Nota : <span id="nota-ppt-cuenta">0%</span></td>
+              <td colspan="5"><span id="observacion-ppt-cuenta"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                PPT - Los productos se almacenan en condiciones que eviten su deterioro y contaminación (envases,
+                temperatura, humedad, etc.). (Art.11, 67)
+              </td>
+              <td>Nota : <span id="nota-ppt-almacenamiento">0%</span></td>
+              <td colspan="5"><span id="observacion-ppt-almacenamiento"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                PPT - La distribución de los productos terminados se realiza en vehículos autorizados, limpios y en buen
+                estado. (Art. 11, 68)
+              </td>
+              <td>Nota : <span id="nota-ppt-distribucion">0%</span></td>
+              <td colspan="5"><span id="observacion-ppt-distribucion"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                PPT - Para envasar los productos se utilizan materiales adecuadas, los cuales son mantenidos en
+                condiciones que eviten su contaminación. (Art. 11, 123)
+              </td>
+              <td>Nota : <span id="nota-ppt-envasado">0%</span></td>
+              <td colspan="5"><span id="observacion-ppt-envasado"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                PPT Los productos se etiquetan de acuerdo a las exigencias reglamentarias. (Art. 107 al 121)
+              </td>
+              <td>Nota : <span id="nota-ppt-etiqueta">0%</span></td>
+              <td colspan="5"><span id="observacion-ppt-etiqueta"></span></td>
+            </tr>
+            <tr>
+              <td colspan="9">Promedio : <span id="promedio-poe-ppt">0%</span></td>
               <td colspan="5"></td>
             </tr>
 
