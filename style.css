@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: auto;
   background: white;
   padding: 40px;
   border-radius: 8px;
@@ -168,3 +168,30 @@ hr {
   padding: 2px 4px;
   border-radius: 4px;
 }
+
+
+    .audit-summary {
+      font-size: 10px;
+  }
+  .table-sm td, .table-sm th {
+      padding: 0.3rem;
+  }
+  @media (max-width: 576px) {
+      .audit-summary {
+          font-size: 8px;
+      }
+      .table-sm td, .table-sm th {
+          padding: 0.2rem;
+      }
+  }
+
+  .bg-cyan {
+    background-color: #1cd6d6 
+} @media (max-width: 576px) {
+  .bg-cyan  {
+      font-size: 10px;
+  }
+}
+
+
+      

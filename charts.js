@@ -24,11 +24,11 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
   // Fixed gradient for the right indicator bar
   function getFixedBarGradient(ctx) {
     const barGradient = ctx.createLinearGradient(0, 400, 0, 0);
-    barGradient.addColorStop(0, 'red'); // 0% to 74% Red
+    barGradient.addColorStop(0, 'red');
     barGradient.addColorStop(0.74, 'red');
-    barGradient.addColorStop(0.75, 'yellow'); // 75% to 89% Yellow
+    barGradient.addColorStop(0.75, 'yellow');
     barGradient.addColorStop(0.89, 'yellow');
-    barGradient.addColorStop(0.90, 'green'); // 90% to 100% Green
+    barGradient.addColorStop(0.90, 'green');
     barGradient.addColorStop(1, 'green');
     return barGradient;
   }
@@ -46,9 +46,9 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
         getBarGradient(ctx),
         getBarGradient(ctx),
         getBarGradient(ctx),
-        'transparent', // Empty space for visual separation
-        getPromGradient(ctx), // Gradient for overall average
-        getFixedBarGradient(ctx) // Fixed gradient for the right indicator bar
+        'transparent',
+        getPromGradient(ctx),
+        getFixedBarGradient(ctx)
       ],
       borderColor: 'black',
       borderWidth: 1
@@ -64,7 +64,7 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
         ticks: {
           stepSize: 10,
           callback: function (value) {
-            return value + '%'; // Show percentage values
+            return value + '%';
           },
           color: 'black',
           font: {
@@ -121,8 +121,8 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
     },
     layout: {
       padding: {
-        top: 30, // Add padding to the top to show labels above 100%
-        right: 50 // Space for the color rule
+        top: 30,
+        right: 50
       }
     }
   };
@@ -138,7 +138,7 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
           const data = dataset.data[index];
           if (data !== null) {
             const labelX = bar.x - 15;
-            const labelY = bar.y - 35; // Adjust Y position for the box above the bar
+            const labelY = bar.y - 35;
             const boxSize = 35;
 
             // Draw a small square box above the bar with subtle gradient
@@ -186,9 +186,9 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
 
       positions.forEach(pos => {
         const yPos = yScale.getPixelForValue(pos.value);
-        const xPos = xScale.getPixelForValue('') + barWidth + 28.3; // Position on the right bar
+        const xPos = xScale.getPixelForValue('') + barWidth + 28.3;
         ctx.save();
-        ctx.font = 'bold 7px Arial'; // Smaller font size for fitting inside the bar
+        ctx.font = 'bold 7px Arial';
         ctx.fillStyle = 'black';
         ctx.fillText(pos.text, xPos, yPos);
         ctx.restore();
@@ -214,7 +214,7 @@ function getEvaluationText(average) {
   return 'CRITICO';
 }
 
-// Function to get color by percentage
+//*Function to get color by percentage
 function getColorByPercentage(average) {
   if (average >= 90) return 'green';
   if (average >= 75) return 'yellow';
