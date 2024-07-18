@@ -480,6 +480,26 @@
           </select>
         </div>
 
+        <div class="form-group pregunta">
+          <label for="cs-registro">Los registros generados son coherentes con lo especificado en el programa. (Art.
+            69)</label>
+          <select class="form-control" id="cs-registro" name="cs-registro"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Sistemática en los manipuladores directos</option>
+            <option value="0">0%: No se aplica normativa. No hay dispositivo</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="cs-medidas">Se adoptan las medidas necesarias para evitar la contaminación de los equipos después
+            de limpiarse y desinfectarse. (Art.42)</label>
+          <select class="form-control" id="cs-medidas" name="cs-medidas"
+            onchange="calculateAverage('poes-superficies')">
+            <option value="100">100%: Sistemática en los manipuladores directos</option>
+            <option value="0">0%: No se aplica normativa. No hay dispositivo</option>
+          </select>
+        </div>
+
       </form>
 
       <form id="form-lum">
@@ -623,6 +643,19 @@
           </select>
         </div>
 
+        <div class="form-group pregunta">
+          <label for="producto-mp">Consultar al personal por metodo de proteccion, previa a la aplicacion del control de
+            plagas</label>
+          <select class="form-control" id="producto-mp" name="producto-mp"
+            onchange="calculateAverage('poes-sustancias-adulterantes')">
+            <option value="100">100%: Todo protegido</option>
+            <option value="75">75%: Alguna instalcion desprotegida</option>
+            <option value="50">50%: instalaciones mal protegidas</option>
+            <option value="25">25%: Producto terminado mal protegido</option>
+            <option value="0">0%: instalaciones desprotegidas</option>
+          </select>
+        </div>
+
       </form>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
@@ -723,6 +756,16 @@
           </select>
         </div>
 
+        <div class="form-group pregunta">
+          <label for="csh-programa">Existe un programa de higiene del personal y sus registros correspondientes. (Art.
+            55, 56, 60, 69) </label>
+          <select class="form-control" id="csh-programa" name="csh-programa"
+            onchange="calculateAverage('poes-higiene-empleados')">
+            <option value="100">100%: Existe programa</option>
+            <option value="0">0%: No se encuentra programa</option>
+          </select>
+        </div>
+
 
       </form>
 
@@ -783,6 +826,26 @@
             <option value="75">75%: Cero presencia, falta un certificado</option>
             <option value="50">50%: Cero presencia, falta evidencia de varios certificados</option>
             <option value="25">25%: Presencia de vectores en alguna área</option>
+            <option value="0">0%: Hay presencia - no cuentan con registros</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="cp-programa">La empresa a cargo del programa de aplicación de agentes químicos o biológicos para
+            el control de plagas cuenta con Autorización sanitaria. (Art. 48)</label>
+          <select class="form-control" id="cp-programa" name="cp-programa"
+            onchange="calculateAverage('poes-control-plagas')">
+            <option value="100">100%: Cero presencia y certificados al día</option>
+            <option value="0">0%: Hay presencia - no cuentan con registros</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="cp-derechos">Los desechos se disponen de forma de impedir el acceso y proliferación de plagas.
+            (Art. 40)</label>
+          <select class="form-control" id="cp-derechos" name="cp-derechos"
+            onchange="calculateAverage('poes-control-plagas')">
+            <option value="100">100%: Cero presencia y certificados al día</option>
             <option value="0">0%: Hay presencia - no cuentan con registros</option>
           </select>
         </div>
@@ -918,6 +981,29 @@
             <option value="50">50%: Algunos expuestos a T° ambiente</option>
             <option value="25">25%: Se pierde cadena de frío por lapso mayor (ej: 1 hora)</option>
             <option value="0">0%: Se RMP y se mantiene al ambiente</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="materias-recepcion">
+            Las materias primas utilizadas provienen de establecimientos autorizados y debidamente rotuladas y/o
+            identificadas. (Art. 61, 96)
+          </label>
+          <select class="form-control" id="materias-recepcion" name="materias-recepcion"
+            onchange="calculateAverage('poe-recepcion')">
+            <option value="100">100%: Hay materias primas autorizadas</option>
+            <option value="0">0%: No existen</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="prima-recepcion">
+            Se cuenta con las especificaciones escritas para cada materia prima.
+          </label>
+          <select class="form-control" id="prima-recepcion" name="prima-recepcion"
+            onchange="calculateAverage('poe-recepcion')">
+            <option value="100">100%: Hay materias primas autorizadas</option>
+            <option value="0">0%: No existen</option>
           </select>
         </div>
 
@@ -1698,7 +1784,7 @@
             onclick="previousQuestion('poe-control-calidad', 'poe-lavado-ollas-vajilla')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-control-calidad', 'ma')">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-control-calidad', 'poe-ppt')">
             <i class="fa-solid fa-check"></i>
           </button>
 
@@ -1716,6 +1802,109 @@
         </div>
       </div>
     </div>
+
+
+     <!-- Sección de POE - Procesos y Productos Terminados  -->
+     <div id="module-poe-ppt" class="module-section p-2">
+      <h3 class="text-center">Procesos y Productos Terminados</h3>
+
+      <form id="form-poe-ppt">
+
+        <div class="form-group pregunta active">
+          <label for="ppt-flujo">
+            El flujo del personal, vehículos y de materias primas en las distintas etapas del proceso, es ordenado y conocido por todos los que participan en la elaboración, para evitar contaminación cruzada. (Art. 63)
+          </label>
+          <select class="form-control" id="ppt-flujo" name="ppt-flujo"
+            onchange="calculateAverage('poe-ppt')">
+            <option value="100">100%: Cumple buen estado y limpieza</option>
+            <option value="0">0%: no operativos.</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="ppt-cuenta">
+            Se cuenta con procedimientos escritos de los procesos  (Formulación del producto, flujos de operación, procesos productivos). (Art. 3, 11, 63, 66, 69, 132)
+          </label>
+          <select class="form-control" id="ppt-cuenta" name="ppt-cuenta"
+            onchange="calculateAverage('poe-ppt')">
+            <option value="100">100%: Al día, revisados y firmados</option>
+            <option value="0">0%: Sin mayor control evidente</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="ppt-almacenamiento">
+            Los productos se almacenan en condiciones que eviten su deterioro y contaminación (envases, temperatura, humedad, etc.). (Art.11, 67)
+          </label>
+          <select class="form-control" id="ppt-almacenamiento" name="ppt-almacenamiento"
+            onchange="calculateAverage('poe-ppt')">
+            <option value="100">100%: Aplican y verifican acciones correctivas</option>
+            <option value="0">0%: Sin acciones correctivas, pese desviaciones</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="ppt-distribucion">
+            La distribución de los productos terminados se realiza en vehículos autorizados, limpios y en buen estado. (Art. 11, 68)
+          </label>
+          <select class="form-control" id="ppt-distribucion" name="ppt-distribucion"
+            onchange="calculateAverage('poe-ppt')">
+            <option value="100">100%: Contramuestras y registros al día</option>
+            <option value="0">0%: Sin contramuestras, sin registros al día</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="ppt-envasado">
+            Para envasar los productos se utilizan materiales adecuadas, los cuales son mantenidos en condiciones que eviten su contaminación. (Art. 11, 123)
+          </label>
+          <select class="form-control" id="ppt-envasado" name="ppt-envasado"
+            onchange="calculateAverage('poe-ppt')">
+            <option value="100">100%: Contramuestras y registros al día</option>
+            <option value="0">0%: Sin contramuestras, sin registros al día</option>
+          </select>
+        </div>
+
+        <div class="form-group pregunta">
+          <label for="ppt-etiqueta">
+            Los productos se etiquetan de acuerdo a las exigencias reglamentarias. (Art. 107 al 121)
+          </label>
+          <select class="form-control" id="ppt-etiqueta" name="ppt-etiqueta"
+            onchange="calculateAverage('poe-ppt')">
+            <option value="100">100%: Etiquetas al día</option>
+            <option value="0">0%: Sin etiquetas al día</option>
+          </select>
+        </div>
+
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+
+        <div class="btn-form-group p-2">
+
+          <button type="button" class="btn btn-form btn-red"
+            onclick="previousQuestion('poe-ppt', 'poe-control-calidad')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-ppt', 'ma')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+
+        </div>
+
+        <h3 class="h3-promedio text-center">PROMEDIO: <span id="average-poe-control-calidad">100%</span></h3>
+
+        <div class="banner-buttons">
+
+          <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+              class="fa-solid fa-file-lines"></i> Comentario</button>
+          <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+              class="fa-solid fa-camera-retro"></i> Fotos</button>
+
+        </div>
+      </div>
+    </div>
+
 
     <!-- Módulo MA - MANEJO Y PROTECCIÓN AMBIENTAL -->
     <div id="module-ma" class="module-section p-2">
@@ -1916,10 +2105,10 @@
 
         <div class="form-group pregunta">
           <label for="existe-programa">
-            Existe un programa escrito y con sus registros correspondientes de capacitación del personal en materia de manipulación higiénica de los alimentos e higiene personal. (Art. 52, 69)
+            Existe un programa escrito y con sus registros correspondientes de capacitación del personal en materia de
+            manipulación higiénica de los alimentos e higiene personal. (Art. 52, 69)
           </label>
-          <select class="form-control" id="existe-programa" name="existe-programa"
-            onchange="calculateAverage('doc')">
+          <select class="form-control" id="existe-programa" name="existe-programa" onchange="calculateAverage('doc')">
             <option value="100">100%: Existe un programa escrito</option>
             <option value="0">No existe programa</option>
           </select>
@@ -1927,7 +2116,8 @@
 
         <div class="form-group pregunta">
           <label for="existe-capacitacion">
-            Existe un programa escrito de capacitación del personal de aseo en técnicas de limpieza y sus registros correspondientes.  (Art. 41, 69)
+            Existe un programa escrito de capacitación del personal de aseo en técnicas de limpieza y sus registros
+            correspondientes. (Art. 41, 69)
           </label>
           <select class="form-control" id="existe-capacitacion" name="existe-capacitacion"
             onchange="calculateAverage('doc')">
@@ -2471,7 +2661,7 @@
             </tr>
 
             <tr>
-              <th rowspan="10" class="tr-label">Control de Superficies Contacto con Alimentos e Instalaciones</th>
+              <th rowspan="12" class="tr-label">Control de Superficies Contacto con Alimentos e Instalaciones</th>
               <td colspan="5">Higiene de utensilios almacenados, limpios y tapados</td>
               <td>Nota : <span id="nota-utensilios">0%</span></td>
               <td colspan="5"><span id="observacion-utensilios"></span></td>
@@ -2515,6 +2705,17 @@
               <td colspan="5"><span id="observacion-alarma-sanitaria"></span></td>
             </tr>
             <tr>
+              <td colspan="5">Los registros generados son coherentes con lo especificado en el programa. (Art. 69)</td>
+              <td>Nota : <span id="nota-cs-registro">0%</span></td>
+              <td colspan="5"><span id="observacion-cs-registro"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">Se adoptan las medidas necesarias para evitar la contaminación de los equipos después de
+                limpiarse y desinfectarse. (Art.42)</td>
+              <td>Nota : <span id="nota-cs-medidas">0%</span></td>
+              <td colspan="5"><span id="observacion-cs-medidas"></span></td>
+            </tr>
+            <tr>
               <td colspan="5">Calibración y uso de luminómetro</td>
               <td>Nota : <span id="nota-luminometro">0%</span></td>
               <td colspan="5"><span id="observacion-luminometro"></span></td>
@@ -2543,7 +2744,7 @@
             </tr>
 
             <tr>
-              <th rowspan="3" class="tr-label">Control de Sustancias Adulterantes</th>
+              <th rowspan="4" class="tr-label">Control de Sustancias Adulterantes</th>
               <td colspan="5">Pulverizadores de productos químicos separados de las materias primas-preparaciones en
                 producción</td>
               <td>Nota : <span id="nota-pulverizadores">0%</span></td>
@@ -2555,12 +2756,18 @@
               <td colspan="5"><span id="observacion-proteccion-mp"></span></td>
             </tr>
             <tr>
+              <td colspan="5">CSA - Consultar al personal por metodo de proteccion, previa a la aplicacion del control
+                de plagas</td>
+              <td>Nota : <span id="nota-producto-mp">0%</span></td>
+              <td colspan="5"><span id="observacion-producto-mp"></span></td>
+            </tr>
+            <tr>
               <td colspan="9">Promedio : <span id="promedio-adulterantes">0%</span></td>
               <td colspan="5"></td>
             </tr>
 
             <tr>
-              <th rowspan="6" class="tr-label">Control de Salud e Higiene de Empleados</th>
+              <th rowspan="7" class="tr-label">Control de Salud e Higiene de Empleados</th>
               <td colspan="5">Uniforme completo de todos, limpio y en buen estado - Sin accesorios adicionales (reloj,
                 joyas, celular, otros)</td>
               <td>Nota : <span id="nota-uniformes">0%</span></td>
@@ -2588,12 +2795,18 @@
               <td colspan="5"><span id="observacion-examenes"></span></td>
             </tr>
             <tr>
+              <td colspan="5">Existe un programa de higiene del personal y sus registros correspondientes. (Art. 55, 56,
+                60, 69)</td>
+              <td>Nota : <span id="nota-csh-programa">0%</span></td>
+              <td colspan="5"><span id="observacion-csh-programa"></span></td>
+            </tr>
+            <tr>
               <td colspan="9">Promedio : <span id="promedio-higiene">0%</span></td>
               <td colspan="5"></td>
             </tr>
 
             <tr>
-              <th rowspan="3" class="tr-label">Control de Plagas</th>
+              <th rowspan="5" class="tr-label">Control de Plagas</th>
               <td colspan="5">Barreras físicas para ingreso de vectores y/o plagas (puertas, ventanas, grietas,
                 desagües, otros)</td>
               <td>Nota : <span id="nota-barreras-fisicas">0%</span></td>
@@ -2604,6 +2817,18 @@
                 visual)</td>
               <td>Nota : <span id="nota-programa-plagas">0%</span></td>
               <td colspan="5"><span id="observacion-programa-plagas"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">La empresa a cargo del programa de aplicación de agentes químicos o biológicos para el
+                control de plagas cuenta con Autorización sanitaria. (Art. 48) </td>
+              <td>Nota : <span id="nota-cp-programa">0%</span></td>
+              <td colspan="5"><span id="observacion-cp-programa"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">Los desechos se disponen de forma de impedir el acceso y proliferación de plagas. (Art.
+                40)</td>
+              <td>Nota : <span id="nota-cp-derechos">0%</span></td>
+              <td colspan="5"><span id="observacion-cp-derechos"></span></td>
             </tr>
             <tr>
               <td colspan="9">Promedio : <span id="promedio-plagas">0%</span></td>
@@ -2629,7 +2854,7 @@
             </tr>
 
             <tr>
-              <th rowspan="4" class="tr-label">Recepción</th>
+              <th rowspan="6" class="tr-label">Recepción</th>
               <td colspan="5">Verificar registro recepción materias primas, inventario, ordenes de compra y guías de
                 despacho</td>
               <td>Nota : <span id="nota-registro-recepcion">0%</span></td>
@@ -2645,6 +2870,21 @@
               <td>Nota : <span id="nota-tiempo-exposicion">0%</span></td>
               <td colspan="5"><span id="observacion-tiempo-exposicion"></span></td>
             </tr>
+            <tr>
+              <td colspan="5">
+                Las materias primas utilizadas provienen de establecimientos autorizados y debidamente rotuladas y/o
+                identificadas. (Art. 61, 96)</td>
+              <td>Nota : <span id="nota-materias-recepcion">0%</span></td>
+              <td colspan="5"><span id="observacion-materias-recepcion"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                Se cuenta con las especificaciones escritas para cada materia prima.
+              </td>
+              <td>Nota : <span id="nota-prima-recepcion">0%</span></td>
+              <td colspan="5"><span id="observacion-prima-recepcion"></span></td>
+            </tr>
+
             <tr>
               <td colspan="9">Promedio : <span id="promedio-recepcion">0%</span></td>
               <td colspan="5"></td>
@@ -2999,12 +3239,14 @@
               <td colspan="5"><span id="observacion-reporte-proveedor"></span></td>
             </tr>
             <tr>
-              <td colspan="5"> Existe un programa escrito y con sus registros correspondientes de capacitación del personal en materia de manipulación higiénica de los alimentos e higiene personal</td>
+              <td colspan="5"> Existe un programa escrito y con sus registros correspondientes de capacitación del
+                personal en materia de manipulación higiénica de los alimentos e higiene personal</td>
               <td>Nota : <span id="nota-existe-programa">0%</span></td>
               <td colspan="5"><span id="observacion-existe-programa"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Existe un programa escrito de capacitación del personal de aseo en técnicas de limpieza y sus registros correspondientes.</td>
+              <td colspan="5">Existe un programa escrito de capacitación del personal de aseo en técnicas de limpieza y
+                sus registros correspondientes.</td>
               <td>Nota : <span id="nota-existe-capacitacion">0%</span></td>
               <td colspan="5"><span id="observacion-existe-capacitacion"></span></td>
             </tr>

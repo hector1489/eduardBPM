@@ -16,7 +16,7 @@ function initializeSelectChangeListeners() {
     'poes-contaminacion-cruzada', 'poes-sustancias-adulterantes', 'poes-higiene-empleados',
     'poes-control-plagas', 'poes-instalaciones', 'poe-recepcion', 'poe-almacenamiento',
     'poe-preelaboraciones', 'poe-elaboracion', 'poe-mantencion', 'poe-transporte', 'poe-servicio',
-    'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'ma', 'doc'
+    'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'poe-ppt', 'ma', 'doc', 'lum', 'tra'
   ];
 
   modules.forEach(module => {
@@ -146,7 +146,7 @@ function calculateOverallAverages() {
   ];
   const poeModules = [
     'poe-recepcion', 'poe-almacenamiento', 'poe-preelaboraciones', 'poe-elaboracion', 'poe-mantencion',
-    'poe-transporte', 'poe-servicio', 'poe-lavado-ollas-vajilla', 'poe-control-calidad'
+    'poe-transporte', 'poe-servicio', 'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'poe-ppt'
   ];
   const maModules = ['ma'];
   const docModules = ['doc'];
@@ -187,14 +187,17 @@ function calculateOverallAverages() {
 
   let poeTotal = 0, poeCount = 0;
   poeModules.forEach(module => {
-    const averageText = document.getElementById(`average-${module}`).innerText;
-    const average = parseFloat(averageText.replace('%', ''));
-    if (!isNaN(average)) {
-      poeTotal += average;
-      poeCount++;
+    const averageElement = document.getElementById(`average-${module}`);
+    if (averageElement) {
+      const averageText = averageElement.innerText;
+      const average = parseFloat(averageText.replace('%', ''));
+      if (!isNaN(average)) {
+        poeTotal += average;
+        poeCount++;
+      }
     }
   });
-  const poeAverage = (poeTotal / poeCount).toFixed(2);
+  const poeAverage = poeCount ? (poeTotal / poeCount).toFixed(2) : 0;
   const resumenPoe = document.getElementById('resumen-poe');
   if (resumenPoe) {
     resumenPoe.innerText = `${poeAverage}%`;

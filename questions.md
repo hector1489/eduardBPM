@@ -37,6 +37,7 @@ Module module-poes-superficies has 9 questions.
   -Aplicación de alarma sanitaria (equipo), durante la auditoría, con frecuencia y responsable definido (si aplica):
   -Calibración y uso de luminómetro:
 
+
 Module module-poes-contaminacion-cruzada has 2 questions.
 
   -Separación de utensilios por área, y separación alimentos (cocido - crudo - sucio, otros):
