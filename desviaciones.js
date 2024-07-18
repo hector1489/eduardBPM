@@ -51,6 +51,8 @@ const questions = [
       'Limpieza-mesas',
       'Higiene-programa',
       'Alarma-Sanitaria',
+      'cs-registro',
+      'cs-medidas',
       'Luminometro'
     ]
   },
@@ -63,7 +65,8 @@ const questions = [
   {
     module: 'adulterantes', question: [
       'Pulverizadores',
-      'Proteccion-MP'
+      'Proteccion-MP',
+      'producto-mp',
     ]
   },
   {
@@ -72,13 +75,16 @@ const questions = [
       'Cubrepelo',
       'Lavado-Manos',
       'Manos-Heridas',
-      'Examenes'
+      'Examenes',
+      'csh-programa'
     ]
   },
   {
     module: 'plagas', question: [
       'Barreras-Fisicas',
-      'Programa-Plagas'
+      'Programa-Plagas',
+      'cp-programa',
+      'cp-desechos'
     ]
   }, {
     module: 'instalaciones', question: [
@@ -90,7 +96,9 @@ const questions = [
     module: 'recepcion', question: [
       'Registro-Recepcion',
       'Balanza',
-      'Tiempo-Exposicion'
+      'Tiempo-Exposicion',
+      'materias-recepcion',
+      'prima-recepcion'
     ]
   },
   {
@@ -170,6 +178,16 @@ const questions = [
     ]
   },
   {
+    module: 'poe-ppt', question: [
+      'ppt-flujo',
+      'ppt-cuenta',
+      'ppt-almacenamiento',
+      'ppt-distribucion',
+      'ppt-envasado',
+      'ppt-etiqueta'
+    ]
+  },
+  {
     module: 'documentacion', question: [
       'Autorizaciones',
       'Libro-Inspeccion',
@@ -178,7 +196,7 @@ const questions = [
       'Programa-Charlas',
       'Reporte-Proveedor',
       'Existe-programa',
-      'Existe-capacitacion'
+      'Existe-capacitacion',
     ]
   },
 ]
@@ -375,6 +393,24 @@ const accionCorrectivas = [
     ]
   },
   {
+    question: 'cs-registro',
+    action: [
+      'REALIZAR REGISTRO DE MONITOREO DE LIMPIEZAS',   
+      'CAPACITAR A PERSONAL EN PROGRAMA DE HIGIENE',     
+      'REALIZAR CHARLAS DEL CORRECTO LLENADO DE LOS REGISTROS',
+      'SOLICITAR CAPACITACION EN USO DE QUIMICOS',
+    ]
+  },
+  {
+    question: 'cs-medidas',
+    action: [
+      'REALIZAR LUMINOMETRIA',
+      'CAPACITAR A PERSONAL EN TEMAS DE CONTAMINACIÓN CRUZADA',
+      'DESARROLLO DE PROCEDIMIENTO DE LIMPIEZA Y DESINFECCIÓN',
+      'SOLICITAR CAPACITACION EN USO DE QUIMICOS',
+    ]
+  },
+  {
     question: 'Luminometro',
     action:[
       
@@ -418,6 +454,15 @@ const accionCorrectivas = [
       'REALIZAR CHECKLIST DE PROTECCION ANTES DE APLICAR LA FUMIGACIÓN ',
       'SUGERIR A PROVEEDOR CONTROL DE PLAGAS INSTRUCTIVO DE PROTECCIÓN DE EQUIPOS ANTES DE CONTROL DE PLAGAS',
       'REALIZAR CAPACITACIÓN DE LIMPIEZA Y DESINFECCION DE EQUIPOS DESPUES DE LA APLICAION FUMIGACION',
+    ]
+  },
+  {
+    question: 'producto-mp',
+    action: [
+      'COMPRAR CANASTOS PARA ALMACENAR LOS P.Q',
+      'INSTALAR REJILLAS PARA ALMACENAS',
+      'REALIZAR CHARLA DE MANTENCIÓN DE PRODUCTOS QUIMICOS SEPARADOS DE LAS M.P',
+      'COLOCAR CARTELERIA DE UBICACIÓN DE LOS P.Q',
     ]
   },
   {
@@ -468,6 +513,15 @@ const accionCorrectivas = [
     ]
   },
   {
+    question: 'csh-programa',
+    action: [
+      'REALIZAR PLANILLA DE SEGUIMIENTO CONTROL DE EXAMENES CON ALERTAS',
+      'REALIZAR CAPACITACIÓN DE CONTROL DE SALUD (EXAMENES)',
+      'LEVANTAR NO CONFORMIDAD POR INCUMPLIMIENTO',
+      'REALIZAR HOJA DE VIDA DE CADA MANIPULADOR Y SUS EXAMENES',
+    ]
+  },
+  {
     question: 'Barreras-Fisicas',
     action:[
       'ALMACENAR REGISTROS DE CONTROL DE PLAGAS',
@@ -483,6 +537,23 @@ const accionCorrectivas = [
       'ALMACENAR REGISTROS DE CONTROL DE PLAGAS',
       'APLICAR AUDITORIA BPM',
       'REALIZAR CHECKLIST PARA CONTROL DE PLAGAS SEMANAL',
+    ]
+  },
+  {
+    question: 'cp-programa',
+    action: [
+      'ALMACENAR RESOLUCION SANITARIA DE EMPRESA CONTROL DE PLAGAS',
+      'ALMACENAR CROQUIS CEBADERO',
+      'MANTENER INFORMES DE CONTROL DE PLAGA',
+    ]
+  },
+  {
+    question: 'cp-desechos',
+    action: [
+      'CONTAR CON BATEAS PARA ELIMINACIÓN DE DESECHOS',
+      'CONTAR CON FRECUENCIA DE LABADO LOZA DONDE SE MANYIENE LA BATEA',
+      'MANTENER BOLSAS CON DESECHOS CERRADAS',
+      'DEFINIR LA SEPARACION DE DESECHOS (DOMESTICOS, INDUSTRIALES, CARTONES)',
     ]
   },
   {
@@ -523,6 +594,23 @@ const accionCorrectivas = [
     action:[
       'REALIZAR CHECKLIST DE CONTROL DE TEMPERATURAS DE EQUIPOS DE FRIO',
       'IMPLEMENTAR TECNOLOGIA DE SENSORES DE TEMPERATURA CON ALARMA',
+    ]
+  },
+  {
+    question: 'materias-recepcion',
+    action: [
+      'ALMACENAR RESOLUCIONES SANOTARIAS DE LOS PROVEEDORES',
+      'MANTENER FICHAS TECNICAS DE LAS M.PROVEEDORES',
+      'REALIZAR CHECKLIST DE CONTROL ROTULACIONES',
+      'REALIZAR AUDITORIAS A PROVEEDORES EXTERNOS',                                                                                                                                                 
+    ]
+  },
+  {
+    question: 'prima-recepcion',
+    action: [
+      'ALMACENAR REGISTROS DE RECEPCION DE M.P',
+      'ALMACENAR IREGISTROS DE FACTURAS Y GUIAS DE DESPACHO',
+      'IMPLEMENTAR PLATAFORMA DE CONTROL DE INVENTARIO Y ORDENES DE COMPRA',
     ]
   },
   {
@@ -928,6 +1016,58 @@ const accionCorrectivas = [
     ]
   },
   {
+    question: 'ppt-flujo',
+    action:[
+      'REALIZAR FLUJOS OPERACIONALES DE PERSONAL, DESECHOS.  PRODUCTOS Y VEHICULOS',
+      'CAPACITAR AL PERSONAL EN LOS FLUJOS OPERACIONALES',
+      'PUBLICAR LOS FLUJOS OPERACIONALES',
+    ]
+  },
+  {
+    question: 'ppt-cuenta',
+    action:[
+      'MANTENER ARCHIVADOS LOS PROCEDIMIENTOS',
+      'REALIZAR PROGRAMA DE CAPACITACION DE LOS PROCEDIMIENTOS DE LOS PROCESOS',
+      'CAPACITAR DE FORMA CONSTANTE LOS PROCEDIMIENTOS DE LOS PROCESO',
+    ]
+  },
+  {
+    question: 'ppt-almacenamiento',
+    action:[
+      'CUMPLIR PROGRAMA DE HIGIENE',
+      'REALIZAR PROGRAMA DE HIGIENE',
+      'REALIZAR REGISTRO DE MONITOREO Y VERIFICACIÓN DE ASEO',
+      'CARTAS DE AMONESTACIÓN POR INCUMPLIMIENTO',
+    ]
+  },
+  {
+    question: 'ppt-distribucion',
+    action:[
+      'REVISAR A TRAVES DE CHECKLIST LA LIMPIEZA DE LAS CAMIONETAS',
+      'REALIZAR INSPECCIÓN VISUAL DE LOS VEHICULOS',
+      'ARCHIVAR RESOLUCIÓN SANITARIA DE LOS VEHICULOS',
+      'REVISAR DOCUMENTOS DE LA MANTENCIÓN DE LOS VEHICULOS',
+    ]
+  },
+  {
+    question: 'ppt-envasado',
+    action:[
+      'COMPRAR TAPAS CON SELLADO AL VACIO',
+      'ORDENAR LA ESTIBA DE LOS ALIMENTOS',
+      'COLOCAR PALLET O WENCOS PARA EVITAR TENER ALIMENTOS AL PISO',
+      'CONTROLAR TEMPERATURA INICIAL DEL VEHICULO',
+    ]
+  },
+  {
+    question: 'ppt-etiqueta',
+    action:[
+      'COMPRAR ROTULADORA ZEBRA',
+      'REALIZAR ETIQUETAS SEGUN ART. 107',
+      'CAPACITACR A PERSONAL EN TEMAS DE ROTULACIÓN',
+      'CARTAS DE AMONESTACIÓN POR INCUMPLIMIENTO',
+    ]
+  },
+  {
     question: 'Autorizaciones',
     action:[
       'ARCHIVAR RESOLUCIONES SANITARIAS',
@@ -1102,7 +1242,7 @@ function crearCeldaConInput(valor, elemento) {
   return celda;
 }
 
-// crear una celda con un select
+// crear una celda con un selectu
 function crearCeldaConSelect(opciones, valorSeleccionado) {
   const celda = document.createElement('td');
   const select = document.createElement('select');
