@@ -9,102 +9,120 @@
   <title>Gestión de Desviaciones</title>
   <style>
     body {
-      background-color: #f8f9fa;
-    }
+  background-color: #f8f9fa;
+}
 
-    .container {
-      margin-top: 20px;
-      background-color: #ffffff;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-    }
+.container {
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
 
-    h2 {
-      font-size: 2rem;
-      color: #343a40;
-    }
+h2 {
+  font-size: 2rem;
+  color: #343a40;
+}
 
-    .table {
-      margin-top: 20px;
-      border-radius: 0.5rem;
-      overflow: hidden;
-    }
+.table {
+  margin-top: 20px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: 100%;
+  border-collapse: collapse;
+}
 
-    th,
-    td {
-      vertical-align: middle;
-    }
+th, td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 10px;
+}
 
-    th {
-      background-color: #343a40;
-      color: #ffffff;
-      text-align: center;
-    }
+th {
+  background-color: #343a40;
+  color: #ffffff;
+  text-align: center;
+}
 
-    tr {
-      transition: background-color 0.2s ease;
-    }
+tr {
+  transition: background-color 0.2s ease;
+}
 
-    tr:hover {
-      background-color: #e9ecef;
-    }
+tr:hover {
+  background-color: #e9ecef;
+}
 
-    .form-control {
-      min-width: 150px;
-    }
+.form-control {
+  min-width: 150px;
+}
 
-    .filter-select {
-      width: 100%;
-    }
+.filter-select {
+  width: 100%;
+}
 
-    .btn-primary {
-      background-color: #007bff;
-      border-color: #007bff;
-    }
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
 
-    .btn-primary:hover {
-      background-color: #0056b3;
-      border-color: #004085;
-    }
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
 
-    .prioridad-critica {
-      background-color: red;
-      color: white;
-    }
+.prioridad-critica {
+  background-color: red;
+  color: white;
+}
 
-    .prioridad-moderada {
-      background-color: yellow;
-      color: black;
-    }
+.prioridad-moderada {
+  background-color: yellow;
+  color: black;
+}
 
-    .prioridad-leve {
-      background-color: green;
-      color: white;
-    }
+.prioridad-leve {
+  background-color: green;
+  color: white;
+}
 
-    .btn-blue {
-      background-color: #1F618D;
-      color: white;
-      font-weight: bold;
+.btn-blue {
+  background-color: #1F618D;
+  color: white;
+  font-weight: bold;
+}
 
-    }
+.btn-blue:hover {
+  background-color: #F39C12;
+  color: white;
+}
 
-    .btn-blue:hover {
-      background-color: #F39C12;
-      color: white;
-    }
+.td-foto {
+  width: 100%;
+  height: auto;
+}
 
-    /* Estilos responsivos */
-    @media (max-width: 767.98px) {
-      .container {
-        padding: 10px;
-      }
+.td-foto input {
+  max-width: 160px;
+  margin: 5px;
+}
 
-      .table-responsive {
-        overflow-x: auto;
-      }
-    }
+/* Estilos responsivos */
+@media (max-width: 767.98px) {
+  .container {
+    padding: 10px;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  td input[type="file"],
+  td button {
+    width: 100%;
+  }
+}
+
   </style>
 
 </head>

@@ -218,7 +218,7 @@ const desviaciones = [
 const accionCorrectivas = [
   {
     question: 'Separaciones',
-    action:[
+    action: [
       'SEPARAR VIRTUALMENTE AREA CALIENTE -AREA FRIA',
       'PONER PANELES DIVISORIOS',
       'DEFINIR FLUJOS OPERACIONALES',
@@ -227,7 +227,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Equipos',
-    action:[
+    action: [
       'REVISAR CAPACIDAD DE EQUIPAMIENTO-USAR COCINAS A GAS Y CAMARAS DE FRIO',
       'COTIZAR EQUIPOS DE COCCION Y ENFRIAMIENTO',
       'COMPRAR EQUIPOS DE COCCION Y ENFRAIMIENTO',
@@ -251,7 +251,7 @@ const accionCorrectivas = [
       'REALIZAR CHARLA DEL CORRECTO LLENADO DE REGISTROS',
       'IMPLEMENTAR FORMATO ADECUADO DE TRAZABILIDAD',
       'COLOCAR CARTA DE AMONESTACIÓN A RESPONSABLE DE AREA QUE NO CUMPLE',
-      'COTIZAR TECNOLOGIA DE CONTROL DE PROCESOS'      
+      'COTIZAR TECNOLOGIA DE CONTROL DE PROCESOS'
     ]
   },
   {
@@ -260,7 +260,7 @@ const accionCorrectivas = [
       'REALIZAR CHARLA DE COMO COMPLETAR LOS REGISTROS',
       'DEFINIR LUGAR DE ALMACENAMIENTO  DE LOS REGISTROS',
       'MANTER ORDEN DE LA DOCUMENTACIÓN',
-      'EVITAR DOBLE ESTANDAR LLEVANDO CONTROL DE DOCUMENTOS'      
+      'EVITAR DOBLE ESTANDAR LLEVANDO CONTROL DE DOCUMENTOS'
     ]
   },
   {
@@ -269,7 +269,7 @@ const accionCorrectivas = [
       'REALIZAR PROGRAMA DE MANTENCIÓN PREVENTIVA',
       'GENERAR ORDENES DE TRABAJO',
       'LLEVAR HOJA DE VIDA DE CADA EQUIPO',
-      'CONTAR CON EL CONTROL DE EQUIPOS CRITICOS',  
+      'CONTAR CON EL CONTROL DE EQUIPOS CRITICOS',
     ]
   },
   {
@@ -278,7 +278,7 @@ const accionCorrectivas = [
       'REALIZAR INDUCCIÓN HOMBRE NIUEVO',
       'REALIZAR PROGRAMA DE CAPACITACIÓN',
       'MANTENER REGISTROS DE CAHRLAS JUNTO A EVALUACIONES DE PROCEDIMIENTOS',
-      'REALIZAR PLANILLA DE SEGUIMIENTO DE CAPACITACIONES'       
+      'REALIZAR PLANILLA DE SEGUIMIENTO DE CAPACITACIONES'
     ]
   },
   {
@@ -287,7 +287,7 @@ const accionCorrectivas = [
       'SOLICITAR CAPACITACION DE QUIMICOS A PROVEEDOR',
       'DEFINIR ESTANTERIAS PARA ORDENAR POR PH',
       'IMPLEMENTAR ARCHIVADOR CON HOJAS DE SEGURIDAD',
-      'DEFINIR LUGAR A PARTE PARA EPP'    
+      'DEFINIR LUGAR A PARTE PARA EPP'
     ]
   },
   {
@@ -319,7 +319,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Utensilios',
-    action:[
+    action: [
       'REALIZAR CAPACITACIÓN PROCEDIMIENTO LIMPIESA Y SANITIZACIÓN',
       'LEVANTAR NO CONFORMIDAD POR INCUMPLIMIENTO',
       'APLICAR CON FRECUENCIA DIARIA LUMINOMETRIA',
@@ -329,7 +329,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Higiene-tablas',
-    action:[
+    action: [
       'REALIZAR CAPACITACIÓN PROCEDIMIENTO LIMPIESA Y SANITIZACIÓN',
       'LEVANTAR NO CONFORMIDAD POR INCUMPLIMIENTO',
       'APLICAR CON FRECUENCIA DIARIA LUMINOMETRIA',
@@ -339,7 +339,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Desinfeccion-equipos',
-    action:[
+    action: [
       'REALIZAR CAPACITACIÓN PROCEDIMIENTO LIMPIESA Y SANITIZACIÓN',
       'LEVANTAR NO CONFORMIDAD POR INCUMPLIMIENTO',
       'APLICAR CON FRECUENCIA DIARIA LUMINOMETRIA',
@@ -349,7 +349,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Desengrasado-equipos',
-    action:[
+    action: [
       'PEDIR A PROVEEDOR DE QUIMICOS PROCEDIMIENTO DE DESENGRASAMIENTO',
       'IMPLEMENTAR CUBA DE DESENGRASADO',
       'COMPRAR QUIMICOS ESPECIALES PARA DESENGRASAR',
@@ -358,7 +358,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Desincrustacion-maquinas',
-    action:[
+    action: [
       'PEDIR A PROVEEDOR DE QUIMICOS PROCEDIMIENTO DE RETIRO DE SARRO',
       'APLICAR PROGRAMA DE HIGIENE CON FRECUENCIA DE LAVADO',
       'COMPRAR QUIMICOS ESPECIALES PARA DESINCRUSTACIÓN',
@@ -367,7 +367,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Limpieza-mesas',
-    action:[
+    action: [
       'PEDIR A PROVEEDOR DE QUIMICOS PROCEDIMIENTO DE RETIRO DE SARRO',
       'APLICAR PROGRAMA DE HIGIENE CON FRECUENCIA DE LAVADO',
       'COMPRAR QUIMICOS ESPECIALES PARA DESINCRUSTACIÓN',
@@ -376,7 +376,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Higiene-programa',
-    action:[
+    action: [
       'PUBLICAR PROGRAMA DE HIGIENE',
       'CAPACITAR AL PERSONAL EN FRECUENCIA DE LIMPIEZA TERMINAL',
       'COMPRAR QUIMICOS ESPECIALES PARA DESINCRUSTACIÓN',
@@ -385,7 +385,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Alarma-Sanitaria',
-    action:[
+    action: [
       'REALIZARCHECKLIST DE ALARMA SANITARIA',
       'REALIZAR CHARLA DE RESPONSABILIDAD DE LA ALARMA SANITARIA',
       'CAPACITAR A PERSONAL EN LA DETENCIÓN DE ACTIVIDADES CUANDO SUENA EL TIEMBRE SANITARIO',
@@ -395,8 +395,8 @@ const accionCorrectivas = [
   {
     question: 'cs-registro',
     action: [
-      'REALIZAR REGISTRO DE MONITOREO DE LIMPIEZAS',   
-      'CAPACITAR A PERSONAL EN PROGRAMA DE HIGIENE',     
+      'REALIZAR REGISTRO DE MONITOREO DE LIMPIEZAS',
+      'CAPACITAR A PERSONAL EN PROGRAMA DE HIGIENE',
       'REALIZAR CHARLAS DEL CORRECTO LLENADO DE LOS REGISTROS',
       'SOLICITAR CAPACITACION EN USO DE QUIMICOS',
     ]
@@ -412,13 +412,13 @@ const accionCorrectivas = [
   },
   {
     question: 'Luminometro',
-    action:[
-      
+    action: [
+
     ]
   },
   {
     question: 'Contaminacion-Utensilios',
-    action:[
+    action: [
       'REALIZAR CHARLA DE CONTAMINACIÓN CRUZADA',
       'DEFINIR ESTANDARIZACION TABLAS DE COLORES',
       'COLOCAR BARRAS IMANTADAS PARA SEPARAR UTENSILIOS',
@@ -429,7 +429,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Ubicacion-Equipos',
-    action:[
+    action: [
       'REALIZAR CHARLA DE CONTAMINACIÓN CRUZADA',
       'DEFINIR ESTANDARIZACION TABLAS DE COLORES',
       'COLOCAR BARRAS IMANTADAS PARA SEPARAR UTENSILIOS',
@@ -440,7 +440,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Pulverizadores',
-    action:[
+    action: [
       'COMPRAR CANASTOS PARA ALMACENAR LOS P.Q',
       'INSTALAR REJILLAS PARA ALMACENAS',
       'REALIZAR CHARLA DE MANTENCIÓN DE PRODUCTOS QUIMICOS SEPARADOS DE LAS M.P',
@@ -449,7 +449,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Proteccion-MP',
-    action:[
+    action: [
       'REALIZAR CAPACITACIÓN Y EVALUACION PROCEDIMIENTO CONTROL DE PLAGAS',
       'REALIZAR CHECKLIST DE PROTECCION ANTES DE APLICAR LA FUMIGACIÓN ',
       'SUGERIR A PROVEEDOR CONTROL DE PLAGAS INSTRUCTIVO DE PROTECCIÓN DE EQUIPOS ANTES DE CONTROL DE PLAGAS',
@@ -467,7 +467,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Uniformes',
-    action:[
+    action: [
       'REALIZAR CHECKLIST DE HIGIENE DE PERSONAL',
       'REALIZAR PLANILLA DE RECAMBIOS DE UNIFORMES',
       'CARTA DE AMONESTACION A PERSONAL QUE NO CUMPLA CON LA HIGIENE',
@@ -476,7 +476,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Cubrepelo',
-    action:[
+    action: [
       'REALIZAR CHECKLIST DE HIGIENE DE PERSONAL',
       'REALIZAR PLANILLA DE RECAMBIOS DE UNIFORMES',
       'CARTA DE AMONESTACION A PERSONAL QUE NO CUMPLA CON LA HIGIENE',
@@ -486,7 +486,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Lavado-Manos',
-    action:[
+    action: [
       'REALIZARCHECKLIST DE ALARMA SANITARIA',
       'REALIZAR CHARLA DE TECNICA DE LAVADO DE MANOS',
       'REALIZAR CAMPAÑA DEL CORRECTO LAVADO DE MANOS',
@@ -495,7 +495,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Manos-Heridas',
-    action:[
+    action: [
       'REALIZAR CHECKLIST DE HIGIENE DE PERSONAL',
       'REALIZAR PLANILLA DE RECAMBIOS DE UNIFORMES',
       'CARTA DE AMONESTACION A PERSONAL QUE NO CUMPLA CON LA HIGIENE',
@@ -505,7 +505,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Examenes',
-    action:[
+    action: [
       'REALIZAR PLANILLA DE SEGUIMIENTO CONTROL DE EXAMENES CON ALERTAS',
       'REALIZAR CAPACITACIÓN DE CONTROL DE SALUD (EXAMENES)',
       'LEVANTAR NO CONFORMIDAD POR INCUMPLIMIENTO',
@@ -523,7 +523,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Barreras-Fisicas',
-    action:[
+    action: [
       'ALMACENAR REGISTROS DE CONTROL DE PLAGAS',
       'IMPLEMENTAR TRAMPAS UV',
       'COLOCAR MALLAS PROTECTORAS EN VENTANAS',
@@ -533,7 +533,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Programa-Plagas',
-    action:[
+    action: [
       'ALMACENAR REGISTROS DE CONTROL DE PLAGAS',
       'APLICAR AUDITORIA BPM',
       'REALIZAR CHECKLIST PARA CONTROL DE PLAGAS SEMANAL',
@@ -558,7 +558,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Lavamanos',
-    action:[
+    action: [
       'JEFE DE COCINA DEBE REALIZAR REVISION DIARIA DE INSUMOS PARA HIGIENE DE MANOS',
       'SOLICITAR A PROVEEDOR DE QUIMICOS REVISIÓN DE SEÑALETICAS PARA LAVAMANOS',
       'REALIZAR CAPACITACIÓN DE TECNICA LAVADO DE MANOS',
@@ -566,7 +566,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Servicios-Higienicos',
-    action:[
+    action: [
       'PERSONAL DE ASEO REALIZAR CHECKLIST DE INSUMOS EN LOS BAÑOS',
       'IMPLEMENTAR MONITOREO DE ASEO CON FRECUENCIA',
       'IDENTIFICAR CASILLEROS Y DEJAR CON CANDADOS',
@@ -574,7 +574,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Registro-Recepcion',
-    action:[
+    action: [
       'ALMACENAR REGISTROS DE RECEPCION DE M.P',
       'ALMACENAR IREGISTROS DE FACTURAS Y GUIAS DE DESPACHO',
       'IMPLEMENTAR PLATAFORMA DE CONTROL DE INVENTARIO Y ORDENES DE COMPRA',
@@ -582,7 +582,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Balanza',
-    action:[
+    action: [
       'REALIZAR VERIFICACIÓN DE BALANZAS',
       'IMPLEMENTAR CODIFICACIÓN',
       'INCLUIR EN PROGRAMA DE HIGIENE FRECUENCIA DE LIMPIEZA',
@@ -591,7 +591,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Tiempo-Exposicion',
-    action:[
+    action: [
       'REALIZAR CHECKLIST DE CONTROL DE TEMPERATURAS DE EQUIPOS DE FRIO',
       'IMPLEMENTAR TECNOLOGIA DE SENSORES DE TEMPERATURA CON ALARMA',
     ]
@@ -602,7 +602,7 @@ const accionCorrectivas = [
       'ALMACENAR RESOLUCIONES SANOTARIAS DE LOS PROVEEDORES',
       'MANTENER FICHAS TECNICAS DE LAS M.PROVEEDORES',
       'REALIZAR CHECKLIST DE CONTROL ROTULACIONES',
-      'REALIZAR AUDITORIAS A PROVEEDORES EXTERNOS',                                                                                                                                                 
+      'REALIZAR AUDITORIAS A PROVEEDORES EXTERNOS',
     ]
   },
   {
@@ -615,7 +615,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Practicas-Higienicas',
-    action:[
+    action: [
       'REALIZAR IMPLEMENTACIÓN DE LAVADO DE WENCOS EN PROGAMA DE HIGIENE',
       'REALIZAR INSPECCIONES VISUALES DE  LA LIMIPEZA DE LOS ENVASES',
       'DEFINIR WENCOS DE COLORES PARA DIFERENTES PROTEICOS',
@@ -623,7 +623,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Identificacion-Areas',
-    action:[
+    action: [
       'IMPLEMENTAR SISTEMA DE ROTULACION POR FAMILIA SEGUN REGLAMENTO SANOTARIO',
       'IMPLEMENTAR ORDEN POR ABECEDARIO',
       'HACER SEPARACIONES EN ESTANTERIAS',
@@ -633,7 +633,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Receptaculos',
-    action:[
+    action: [
       'REALIZAR IMPLEMENTACIÓN DE LAVADO DE WENCOS EN PROGAMA DE HIGIENE',
       'REALIZAR INSPECCIONES VISUALES DE  LA LIMIPEZA DE LOS ENVASES',
       'DEFINIR WENCOS DE COLORES PARA DIFERENTES PROTEICOS',
@@ -641,7 +641,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Fifo-Fefo',
-    action:[
+    action: [
       'REALIZAR MANUAL DE ESPECIFICAIONES DE M.P',
       'REALIZAR CONTROL DE MUESTREOS NCH 44',
       'REALIZAR CONTROL VERIFICACIÓN ROTACION FIFO - FEFO',
@@ -651,7 +651,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Productos-No-Conforme',
-    action:[
+    action: [
       'IDENTIFICAR SECTOR DE PRODUCTO NO CONFORME',
       'REALIZAR RECLAMOS NO CONFORMES DE PRODUCTO',
       'REALIZAR PLANILLAS DE CONTROL DE DEVOLUCIÓN DE PRODUCTOS',
@@ -660,14 +660,14 @@ const accionCorrectivas = [
   },
   {
     question: 'Nivel-Piso',
-    action:[
+    action: [
       'REALIZAR CHARLA DE NO MANTENER PRODUCTOS EN EL PISO',
       'REALIZAR CHECKLIST REVISIÓN ALMACENAMIENTO CORRECTO DE ALIMENTOS NO A NIVEL DE PISO',
     ]
   },
   {
     question: 'Separacion-Materias',
-    action:[
+    action: [
       'CONTAR CON ESTANTERIAS SEPARADAS E IDENTIFICADAS',
       'LLEVAR UN CONTROL ESCRITO DE N.A, Y QUIMICOS',
       'CONTAR CON JAULAS PARA PRODUCTOS QUIMICOS',
@@ -676,7 +676,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Entrega-Produccion',
-    action:[
+    action: [
       'REALIAR REGISTRO DE PEDIDOS A BODEGA',
       'REALIZAR REGISTRO DE PEDIDO A BODEGA ADICIONAL ',
       'ARMAR CANASTAS PARA LAS AREAS SEGUN PEDIDOS',
@@ -685,7 +685,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Preelaborados',
-    action:[
+    action: [
       'REALIZAR CHECKLIST CONTROL DE CALIDAD M.P PREELABORADOS',
       'MANTENER RORULACION ADECUADA',
       'LLEVAR CONTROL FIFO-FEFO',
@@ -694,7 +694,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Materias-Primas',
-    action:[
+    action: [
       'MANTENER ROTULACION CON FECHAS DE ELABORACIÓN-VENCIMIENTO Y HORA',
       'APLICAR ALMACENAMIENTO SEGUN PRODUCTOS LISTOS.PREELABORADOS Y CRUDOS',
       'REALIZAR INSPECCIÓN VISUAL DIARIA PARA CUMPLIMIENTO',
@@ -703,7 +703,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Separacion-Productos',
-    action:[
+    action: [
       'DEFINIR A TRAVES DE CARTELERÍA SEPARACIÓN UTENSILIOS, PRODUCTOS, TABLAS',
       'COMPRAR ATRILES PARA TABLAS, BARRAS IMANTADAS PARA UTENSILIOS, DEPOSITOS PLASTICOS PARA EPP',
       'REALIZAR INSPECCIÓN VISUAL DIARIA PARA CUMPLIMIENTO',
@@ -712,7 +712,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Manitizado',
-    action:[
+    action: [
       'SOLICITAR A PROVEEDOR DE QUIMICOS CINTAS DE MEDICIÓN PARA CONCENTRACIÓN',
       'IMPLEMENTAR REGISTROS DE CONTROL DE LAS CONCENTRACIONES',
       'CAPACITAR AL PERSONAL EN LA CORRECTA APLICAION DE LAS CONCENTRACIONES',
@@ -721,7 +721,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Recepcion-Materias',
-    action:[
+    action: [
       'CONTAR CON TAPAS PARA TODAS LAS GASTRONORM',
       'HACER CHARLA A PERSONAL SOBRE PROTEGER LOS ALIMENTOS',
       'MANTENER RORULACION PARA CADA ELABORACIÓN',
@@ -730,7 +730,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Orden-Limpieza',
-    action:[
+    action: [
       'CONTAR CON TERMOGRAFOS EN CADA EQUIPO DE FRIO',
       'REALIZAR REGISTRO DE CONTROL DE T° CON CIERTA FRECUENCIA',
       'IMPLEMENTAR EN PROGRAMA DE HIGIENE FRECUENCIA DE LAVADO DE EQUIPOS DE FRIO',
@@ -739,7 +739,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Productos-Transito',
-    action:[
+    action: [
       'REALIZAR Y PUBLICAR TABLA DE PERECIBILIDAD',
       'COLOCAR ROTULACIÓN DE PRODUCTOS EN TRANSITO DEFINIR COLOR',
       'DESIGNAR LUGAR DE ALMACENAMIENTO PRODUCTOS EN TRANSITO',
@@ -748,7 +748,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Pespetan-Temperaturas',
-    action:[
+    action: [
       'COTIZAR SISTEMA DE SENSORES PARA PREPARACIONES  CONTROL DE TEMPERATURA',
       'CARTA DE AMONESTACIÓN PARA PERSONAL QUE NO CONTROLE T°',
       'CAPACITACIÓN AL PERSONAL EN TEMAS DE T° ZONA DE PELIGRO',
@@ -757,7 +757,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Uso-Equipos-Frio',
-    action:[
+    action: [
       'LLEVAR REGISTROS DE CONTROL DE T° PARA MANTENEDORES-EQUIPOS DE FRIO',
       'IMPLEMENTAR TERMOCUPLAS PARA CONTROL COCCIÓN',
       'CAPACITACIÓN AL PERSONAL EN TEMAS DE USO DE EQUIPOS O PEDIR A PROVEEDOR DE EQUIPAMIENTO',
@@ -767,7 +767,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Sistema-Extraccion',
-    action:[
+    action: [
       'INCLUIR EN PROGRAMA DE MANTENCIÓN DUCTOS',
       'COTIZAR EMPRESA QUE REALICE LI,PIEZA DE DUCTOS',
       'DEFINIR FRECUENCIA DE LIMPIEZA TRIMESTRAL O SEMESTRAL',
@@ -775,7 +775,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Estantes',
-    action:[
+    action: [
       'IMPLEMENTAR EN PROGRAMA DE HIIGIENE LIMPIEZA DE ESTANTERIAS',
       'DEFINIR CANTIDAD DE PESO POR REPISA SEGÚN AREA PREVENCIÓN',
       'HACER SEPARACIONES SEGUN CARTELERÍA',
@@ -784,7 +784,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Especieros',
-    action:[
+    action: [
       'COMPRAR ESPECIEROS PARA ORDENAR',
       'MANTENER ROTULACIÓN SEGUN TABLA DE PERECIBILIDAD',
       'HIMPLEMENTAR FRECUENCIA DE LAVADO EN PROGRAMA DE HIGIENE',
@@ -792,7 +792,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Montajes-Rapidos',
-    action:[
+    action: [
       'COTIZAR SISTEMA DE SENSORES PARA PREPARACIONES',
       'CARTA DE AMONESTACIÓN PARA PERSONAL QUE NO CONTROLE T°',
       'CAPACITACIÓN AL PERSONAL EN TEMAS DE T° ZONA DE PELIGRO',
@@ -801,7 +801,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Tiempo-Elaboracion-Consumo',
-    action:[
+    action: [
       'COTIZAR SISTEMA DE SENSORES PARA PREPARACIONES  CONTROL DE TIEMPO',
       'CARTA DE AMONESTACIÓN PARA PERSONAL QUE NO CONTROLE TIEMPOS',
       'CAPACITACIÓN AL PERSONAL EN TEMAS DE CONDICIONES DE LOS M.O',
@@ -810,7 +810,7 @@ const accionCorrectivas = [
   },
   {
     question: 'control-tiempo-temperatura',
-    action:[
+    action: [
       'COTIZAR SISTEMA DE SENSORES PARA PREPARACIONES  CONTROL DE TIEMPO  Y TEMPERATURA',
       'CARTA DE AMONESTACIÓN PARA PERSONAL QUE NO CONTROLE TIEMPOS Y T°',
       'CAPACITACIÓN AL PERSONAL EN TEMAS DE CONDICIONES DE LOS M.O',
@@ -819,7 +819,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Traslado-Alimentos',
-    action:[
+    action: [
       'COTIZAR SISTEMA DE SENSORES PARA PREPARACIONES  CONTROL DE TIEMPO  Y TEMPERATURA',
       'REALIZAR CHECKLIST DE CONDICIONES DE TRASLADO DE ALIMENTOS',
       'REALIZAR REGISTROS DE TRASLADO DE ALIMENTOS (SALIDA-LLEGADA)',
@@ -828,7 +828,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Observacion-Vehiculo',
-    action:[
+    action: [
       'COTIZAR SISTEMA DE SENSORES PARA PREPARACIONES  CONTROL DE TIEMPO  Y TEMPERATURA',
       'REALIZAR CHECKLIST DE CONDICIONES DE TRASLADO DE ALIMENTOS',
       'REALIZAR REGISTROS DE TRASLADO DE ALIMENTOS (SALIDA-LLEGADA)',
@@ -838,7 +838,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Mantenimiento-Baño-Maria',
-    action:[
+    action: [
       'REALIZAR PROGRAMA DE MANTENCIÓN PREVENTIVA',
       'REALIZAR LISTADO DE EQUIPOS CRITICOS',
       'CONTAR CON UN SECTOR COMO PAÑON PARA REPUESTOS',
@@ -847,7 +847,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Variedad-Autoservicio',
-    action:[
+    action: [
       'REVISAR REQUISICIONES EN DEGUSTACIÓN',
       'REALIZAR PLANILLA DE SEGUIMIENTO CUMPLIMIENTO DE MINUTA',
       'CONTAR CON CAMBIO DE MENU PARA INFORMAR AL CLIENTE',
@@ -860,7 +860,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Equipos-Suficientes',
-    action:[
+    action: [
       'REALIZAR PROGRAMA DE MANTENCIÓN PREVENTIVA',
       'REALIZAR LISTADO DE EQUIPOS CRITICOS',
       'CONTAR CON UN SECTOR COMO PAÑON PARA REPUESTOS',
@@ -868,7 +868,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Reposicion-Preparaciones',
-    action:[
+    action: [
       'DETERMINACIÓN DE RENDIMIENTO PERSONAL',
       'PUBLICAR FUNCIONES DEL PERSONAL',
       'CAPACITAR A LA LINEA DE MANDO MEDIA EN TEMAS DE SERVICIO',
@@ -876,7 +876,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Observacion-Vajilla',
-    action:[
+    action: [
       'REALIZAR CONTROL DE INVENTARIO SEMANAL',
       'CUMPLIR CON % DE 1.6 SOBRE LA BASE DE LOS COMENSALES',
       'CAPACITAR EN LIMPIEZA Y DESINFECCION DE CUBIERTOS',
@@ -886,7 +886,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Desconche',
-    action:[
+    action: [
       'DEFINIR  Y PUBLICAR FLUJO OPERACIONAL ZONA LIMPIA-SUCIO',
       'CALCULAR RENDIMIENTO PARA CUMPLIR CON EL CORRECTO LAVADO',
       'CAPACITAR EN LIMPIEZA Y DESINFECCION DE OLLAS',
@@ -896,7 +896,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Procedimiento-Higiene',
-    action:[
+    action: [
       'COLOCAR LAVADERO O CUBA PARA SANITIZACIÓN',
       'PUBLICAR FLUJO OPERACIONAL',
       'CAPACITAR EN LIMPIEZA Y DESINFECCION DE VAJILLAS Y UTENSILIOS',
@@ -906,7 +906,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Orden-Area',
-    action:[
+    action: [
       'COMPRAR MAQUINA LAVAVAJILLAS',
       'PUBLICAR FLUJO OPERACIONAL',
       'CAPACITAR EN LIMPIEZA Y DESINFECCION DE VAJILLAS Y UTENSILIOS',
@@ -916,7 +916,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Termometros-Balanzas',
-    action:[
+    action: [
       'CODIFICAR INSTRUMENTOS PARA CADA AREA',
       'LLEVAR REGISTROS DE VERIFICACIÓN DE LOS INSTRUMENTOS',
       'TENER DEPOSITOS DE ALMACENAMIENTO PARA INSTRUMENTOS',
@@ -927,7 +927,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Monitoreo-Controles',
-    action:[
+    action: [
       'SOLICITAR REGISTROS DE CONTROLES DE PROCESO EN DEGUSTACIÓN',
       'CARTAS DE AMONESTACIÓN POR INCUMPLIMIENTO MAL LLENADO DE REGISTROS',
       'CAPACITAR A PERSONAL EN EL CORRECTO LLENADO DE REGISTROS',
@@ -936,7 +936,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Acciones-Correctivas',
-    action:[
+    action: [
       'SOLICITAR REGISTROS DE CONTROLES DE PROCESO EN DEGUSTACIÓN',
       'CARTAS DE AMONESTACIÓN POR INCUMPLIMIENTO MAL LLENADO DE REGISTROS Y TOMA DE ACCIONES CORRECTIVAS',
       'CAPACITAR A PERSONAL EN EL CORRECTO LLENADO DE REGISTROS',
@@ -945,7 +945,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Registro-Contramuestras',
-    action:[
+    action: [
       'REALIZAR REGISTRO REVISIÓN CONTROL DE CONTRAMUESTRAS',
       'CARTAS DE AMONESTACIÓN POR INCUMPLIMIENTO DE GRAMAJES Y NO REALIZAR REGISTRO',
       'CAPACITAR A PERSONAL EN TEMAS DE CONTRAMUESTRAS',
@@ -954,7 +954,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Dosificacion',
-    action:[
+    action: [
       'SOLICITAR A PROVEEDOR DE QUIMICOS CAPACITACION DE DILUCIONES',
       'IMPLEMENTAR DILUTORES AUTOMATICOS',
       'LLEVAR PLANILLA DE CONTROL PARA DILUCIONES MANUALES',
@@ -962,7 +962,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Productos',
-    action:[
+    action: [
       'ARCHIVAR AUTORIZACIÓN SANITARIA DE EMPRESA DE QUIMICOS',
       'SOLICITAR A PROVEEDOR DE QUIMICOS PROGRAMA DE VISITA',
       'SOLICITAR PROGRAMA DE CAPACITACIÓN PARA USO DE QUIMICOS',
@@ -971,7 +971,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Basureros',
-    action:[
+    action: [
       'IMPLEMENTAR EN PROGRAMA DE HIGIENE LA LIMPIEZA Y SANITIZACION DE BASUREROS',
       'COMPRAR BASUREROS CON PEDAL',
       'HACER CHARLA EN CAPACIDAD DE LLENADO DE LAS BOLSAS',
@@ -980,7 +980,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Retiro-Basura',
-    action:[
+    action: [
       'IMPLEMENTAR EN PROGRAMA DE HIGIENE LA LIMPIEZA Y SANITIZACION DE BASUREROS',
       'COMPRAR BASUREROS CON PEDAL',
       'HACER CHARLA EN CAPACIDAD DE LLENADO DE LAS BOLSAS',
@@ -990,7 +990,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Limpieza-Area-Basura',
-    action:[
+    action: [
       'IMPLEMENTAR EN PROGRAMA DE HIGIENE LA LIMPIEZA Y SANITIZACION DE SALA DE BASURA',
       'PEDIR A PROVEEDOR DE QUIMICO USO DE QUIMICOS PARA EL CORRECTO LAVADO DE LAS SALAS DE BASURA',
       'HACER CHARLA MEDIO AMBIENTAL NO TIRAR BASURA A CANALETAS',
@@ -999,7 +999,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Manejo-Aceites',
-    action:[
+    action: [
       'CONTAR CON UNA EMPRESA DE RETIRO DE ACEITES',
       'DEFINIR UN LUGAR DE ALMACENBAMIENTO',
       'HACER CHARLA MEDIO AMBIENTAL SOBRE EL MANEJO DE ACEITES',
@@ -1008,7 +1008,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Separacion-Residuos',
-    action:[
+    action: [
       'IMPLEMENTAR COLADORES PARA SEPARAR LOS SOLIDOS DE LAS GRASAS',
       'COLOCAR FILTROS DE SOLIDOS EN LAS CANALETAS',
       'HACER CHARLA MEDIO AMBIENTAL SOBRE LA ELIMINACION DE RESIDUOS',
@@ -1017,7 +1017,7 @@ const accionCorrectivas = [
   },
   {
     question: 'ppt-flujo',
-    action:[
+    action: [
       'REALIZAR FLUJOS OPERACIONALES DE PERSONAL, DESECHOS.  PRODUCTOS Y VEHICULOS',
       'CAPACITAR AL PERSONAL EN LOS FLUJOS OPERACIONALES',
       'PUBLICAR LOS FLUJOS OPERACIONALES',
@@ -1025,7 +1025,7 @@ const accionCorrectivas = [
   },
   {
     question: 'ppt-cuenta',
-    action:[
+    action: [
       'MANTENER ARCHIVADOS LOS PROCEDIMIENTOS',
       'REALIZAR PROGRAMA DE CAPACITACION DE LOS PROCEDIMIENTOS DE LOS PROCESOS',
       'CAPACITAR DE FORMA CONSTANTE LOS PROCEDIMIENTOS DE LOS PROCESO',
@@ -1033,7 +1033,7 @@ const accionCorrectivas = [
   },
   {
     question: 'ppt-almacenamiento',
-    action:[
+    action: [
       'CUMPLIR PROGRAMA DE HIGIENE',
       'REALIZAR PROGRAMA DE HIGIENE',
       'REALIZAR REGISTRO DE MONITOREO Y VERIFICACIÓN DE ASEO',
@@ -1042,7 +1042,7 @@ const accionCorrectivas = [
   },
   {
     question: 'ppt-distribucion',
-    action:[
+    action: [
       'REVISAR A TRAVES DE CHECKLIST LA LIMPIEZA DE LAS CAMIONETAS',
       'REALIZAR INSPECCIÓN VISUAL DE LOS VEHICULOS',
       'ARCHIVAR RESOLUCIÓN SANITARIA DE LOS VEHICULOS',
@@ -1051,7 +1051,7 @@ const accionCorrectivas = [
   },
   {
     question: 'ppt-envasado',
-    action:[
+    action: [
       'COMPRAR TAPAS CON SELLADO AL VACIO',
       'ORDENAR LA ESTIBA DE LOS ALIMENTOS',
       'COLOCAR PALLET O WENCOS PARA EVITAR TENER ALIMENTOS AL PISO',
@@ -1060,7 +1060,7 @@ const accionCorrectivas = [
   },
   {
     question: 'ppt-etiqueta',
-    action:[
+    action: [
       'COMPRAR ROTULADORA ZEBRA',
       'REALIZAR ETIQUETAS SEGUN ART. 107',
       'CAPACITACR A PERSONAL EN TEMAS DE ROTULACIÓN',
@@ -1069,21 +1069,21 @@ const accionCorrectivas = [
   },
   {
     question: 'Autorizaciones',
-    action:[
+    action: [
       'ARCHIVAR RESOLUCIONES SANITARIAS',
       'DEFINIR LUGAR DE UBICACIÓN DE LA DOCUMENTACIÓN SEREMI',
     ]
   },
   {
     question: 'Libro-Inspeccion',
-    action:[
+    action: [
       'ARCHIVAR VISITAS DEL SEREMI',
       'DEFINIR LUGAR DE UBICACIÓN DE LA DOCUMENTACIÓN SEREMI',
     ]
   },
   {
     question: 'Informes-Microbio',
-    action:[
+    action: [
       'ARCHIVAR ANALISIS MICROBIOLOGICOS DE FORMA DIGITAL',
       'MANTENER PLANILLA DE CONTROL DE ANALISIS MIRCOBIOLOGICOS',
       'REALIZAR PLAN DE ACCIÓN DE LAS DESVIACIONES',
@@ -1092,7 +1092,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Informes-Auditoria',
-    action:[
+    action: [
       'ARCHIVAR AUDITORIAS, INSPECCIONES DE FORMA DIGITAL',
       'REALIZAR CONSOLIDADO DE PLANES DE ACCIÓN',
       'REALIZAR ESTADISTICA DE AVANCES DE CIERRES DE PLANES DE ACCIÓN',
@@ -1100,7 +1100,7 @@ const accionCorrectivas = [
   },
   {
     question: 'Programa-Charlas',
-    action:[
+    action: [
       'ARCHIVAR CHARLAS Y CAPACITACIONES DE CALIDAD  Y MEDIO AMBIENTE',
       'REALIZAR PLANILLA DE SEGUIMIENTO CAPACAITACIÓN',
       'REALIZAR ESTADISTICA DE CUMPLIMIENTO DE CAPACITACIONES',
@@ -1108,14 +1108,14 @@ const accionCorrectivas = [
   },
   {
     question: 'Reporte-Proveedor',
-    action:[
+    action: [
       'SOLICITAR A PROVEEDOR DE QUIMICOS LOS REPORTES DE VISITA',
       'MANTENER DE FORMA DIGITAL REPORTES DE PROVEEDOR DE QUIMICOS',
     ]
   },
   {
     question: 'Existe-programa',
-    action:[
+    action: [
       'ARCHIVAR CHARLAS Y CAPACITACIONES DE CALIDAD  Y MANIPULACION HIGIENICA',
       'REALIZAR PLANILLA DE SEGUIMIENTO CAPACAITACIÓN',
       'REALIZAR ESTADISTICA DE CUMPLIMIENTO DE CAPACITACIONES',
@@ -1123,13 +1123,13 @@ const accionCorrectivas = [
   },
   {
     question: 'Existe-capacitacion',
-    action:[
+    action: [
       'ARCHIVAR CHARLAS Y CAPACITACIONES DE ASEO EN TECNICAS DE LIMPIEZA',
       'REALIZAR PLANILLA DE SEGUIMIENTO CAPACAITACIÓN',
       'REALIZAR ESTADISTICA DE CUMPLIMIENTO DE CAPACITACIONES',
     ]
   },
- 
+
 ];
 
 
@@ -1309,7 +1309,7 @@ function agregarFila() {
   estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
   fila.appendChild(estadoCelda);
 
-  fila.appendChild(crearCeldaConInput('',  crearComboBoxTodasLasAction('')));
+  fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
   fila.appendChild(crearCeldaConInput('   /   /   '));
   fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
   fila.appendChild(crearCeldaConInput('   /   /   '));
@@ -1322,8 +1322,11 @@ function agregarFila() {
   fila.appendChild(crearCeldaConInput(''));
   fila.appendChild(crearCeldaConInput(''));
   fila.appendChild(crearCeldaConInput('   /   /   '));
-  fila.appendChild(crearCeldaConInput(''));
 
+  // foto
+  fila.appendChild(crearCeldaConInputFoto());
+
+  //eliminar
   const celdaEliminar = document.createElement('td');
   const botonEliminar = document.createElement('button');
   botonEliminar.innerText = 'Eliminar';
@@ -1387,7 +1390,7 @@ function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
     const preguntaSeleccionada = event.target.value;
     actualizarComboBoxActions(preguntaSeleccionada);
   });
-  
+
   return select;
 }
 
@@ -1484,6 +1487,62 @@ function crearComboBoxCantidadDeDias(valorSeleccionado) {
   });
 
   return select;
+}
+
+// Función para enviar la imagen a la API
+function crearCeldaConInputFoto() {
+  const td = document.createElement('td');
+  td.classList.add('td-foto')
+
+  const inputFile = document.createElement('input');
+  inputFile.type = 'file';
+  inputFile.accept = 'image/*';
+
+
+  const uploadButton = document.createElement('button');
+  uploadButton.innerText = 'Enviar';
+  uploadButton.classList.add('btn-blue');
+  uploadButton.style.display = 'none';
+
+  inputFile.addEventListener('change', function () {
+    if (inputFile.files.length > 0) {
+      inputFile.style.display = 'none';
+      uploadButton.style.display = 'inline-block';
+    }
+  });
+
+  uploadButton.addEventListener('click', function () {
+    const file = inputFile.files[0];
+    if (file) {
+      enviarImagen(file);
+    } else {
+      alert('Por favor, selecciona una imagen primero.');
+    }
+  });
+
+  td.appendChild(inputFile);
+  td.appendChild(uploadButton);
+
+  return td;
+}
+
+
+function enviarImagen(file) {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  fetch('URL_DE_TU_API', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Imagen subida correctamente:', data);
+
+    })
+    .catch(error => {
+      console.error('Error al subir la imagen:', error);
+    });
 }
 
 // actualizar la prioridad y calcular fechas relacionadas
