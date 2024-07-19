@@ -1382,15 +1382,44 @@ function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
     }
     select.appendChild(option);
   });
+
+  select.addEventListener('change', (event) => {
+    const preguntaSeleccionada = event.target.value;
+    actualizarComboBoxActions(preguntaSeleccionada);
+  });
   
   return select;
 }
 
-// combo box plan de accion
+// Combo box plan de accion
+
+// Obtener acciones para una pregunta seleccionada
+function obtenerAccionesPorPregunta(preguntaSeleccionada) {
+  const question = accionCorrectivas.find(q => q.question === preguntaSeleccionada);
+  return question ? question.action : [];
+}
+
+function actualizarComboBoxActions(preguntaSeleccionada) {
+  const actions = obtenerAccionesPorPregunta(preguntaSeleccionada);
+  const selectActions = document.getElementById('select-actions');
+
+  selectActions.innerHTML = '';
+
+  actions.forEach(action => {
+    const option = document.createElement('option');
+    option.value = action;
+    option.text = action;
+    selectActions.appendChild(option);
+  });
+}
+
 function crearComboBoxTodasLasAction(valorSeleccionado) {
-  const actions = obtenerTodasLasAction();
   const select = document.createElement('select');
   select.className = 'form-control';
+  select.id = 'select-actions';
+
+  const preguntaInicial = document.querySelector('select').value;
+  const actions = obtenerAccionesPorPregunta(preguntaInicial);
 
   actions.forEach(action => {
     const option = document.createElement('option');
@@ -1404,6 +1433,7 @@ function crearComboBoxTodasLasAction(valorSeleccionado) {
 
   return select;
 }
+
 
 // combo box de criterios
 function crearComboBoxCriterios(valorSeleccionado) {
