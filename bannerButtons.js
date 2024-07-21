@@ -58,23 +58,6 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
   });
 });
 
-
-/* botón de "Fotos"
-document.querySelectorAll('#capture-btn').forEach(btn => {
-  btn.addEventListener('click', function () {
-    const module = this.closest('.module-section');
-
-    html2canvas(module).then(canvas => {
-      let link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
-      link.download = module.id + '_screenshot.png';
-      link.click();
-    });
-  });
-});
-*/
-
-
 // botón de "Comentario"
 let comentarios = [];
 

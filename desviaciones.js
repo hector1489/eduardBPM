@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   cargarDatosDesdeLocalStorage();
   inicializarFiltros();
+  loadTableDetails();
 });
 
 // Definición de Arrays
@@ -1170,6 +1171,42 @@ function cargarDatosDesdeLocalStorage() {
   }
 }
 
+// datos details  desde localStorage
+function loadTableDetails() {
+  const tableId = 'tabla-details';
+  const data = JSON.parse(localStorage.getItem(`tablaDatos-${tableId}`));
+
+  if (!data) {
+    console.log('No se encontraron datos en localStorage para la tabla especificada.');
+    return;
+  }
+
+  console.log(`Datos recuperados para ${tableId}:`, data);
+
+  data.forEach(rowData => {
+    if (rowData[`columna4`]) {
+      const id = rowData[`idColumna4`];
+      if (id) {
+        const idPart = id.replace('observacion-', '');
+        
+        const match = questions.find(module =>
+          Array.isArray(module.question)
+            ? module.question.find(q => q.toLowerCase() === idPart.toLowerCase())
+            : module.question.toLowerCase() === idPart.toLowerCase()
+        );
+
+        if (match) {
+          console.log(`Columna4: ${rowData[`columna4`]}, ID Columna4: ${id}`);
+          console.log(`Pregunta: ${idPart}`);
+        } else {
+          console.log(`No se encontró acción para el ID ${id}`);
+        }
+      }
+    }
+  });
+}
+
+
 // agregar fila con datos desde localStorage
 function agregarFilaConDatos(dato) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
@@ -1634,4 +1671,8 @@ function descargarTablaExcel() {
 
   XLSX.writeFile(wb, 'tabla.xlsx');
 }
+
+
+
+
 

@@ -436,37 +436,43 @@ function guardarDatosTabla() {
     return;
   }
 
-  const datos = [];
-
-  tablas.forEach((tabla, index) => {
+  tablas.forEach((tabla) => {
     const filas = tabla.rows;
 
     if (!filas || filas.length === 0) {
-      console.error(`Error: La tabla ${index + 1} no contiene filas.`);
-      alert(`Error: La tabla ${index + 1} no contiene filas.`);
+      console.error(`Error: La tabla con ID ${tabla.id} no contiene filas.`);
+      alert(`Error: La tabla con ID ${tabla.id} no contiene filas.`);
       return;
     }
 
+    const datos = [];
     for (let i = 1; i < filas.length; i++) {
       const fila = filas[i];
       const celdas = fila.cells;
 
       if (!celdas || celdas.length === 0) {
-        console.error(`Error: La fila ${i} en la tabla ${index + 1} no contiene celdas.`);
+        console.error(`Error: La fila ${i} en la tabla con ID ${tabla.id} no contiene celdas.`);
         continue;
       }
 
       const filaDatos = {};
       for (let j = 0; j < celdas.length; j++) {
-        filaDatos[`columna${j + 1}`] = celdas[j].innerText;
+        const celda = celdas[j];
+        const span = celda.querySelector('span');
+
+        filaDatos[`columna${j + 1}`] = span ? span.innerText : celda.innerText;
+        filaDatos[`idColumna${j + 1}`] = span ? span.id : 'N/A';
       }
       datos.push(filaDatos);
     }
+
+    localStorage.setItem(`tablaDatos-${tabla.id}`, JSON.stringify(datos));
   });
 
-  localStorage.setItem('tablaDatos', JSON.stringify(datos));
   alert('Datos guardados correctamente.');
 }
+
+
 
 
 // Descargar la tabla como archivo Excel
