@@ -138,6 +138,12 @@ hr {
 .btn-orange:hover {
   background-color: rgb(240, 106, 17);
   color: white;
+  font-weight: bold;
+}
+
+.btn-na {
+  background-color: #839192  ;
+  color: white;
 }
 
 
@@ -194,8 +200,7 @@ hr {
 }
 
 .td-promedio {
-  background-color: #F39C12;
-  color: #f8f9fa;
+  background-color: yellow;
   font-weight: bold;
 }
 

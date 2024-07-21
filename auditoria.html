@@ -60,17 +60,18 @@
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-        
-        <a href=".//dashboard.html"><i class="fas fa-sign-out-alt" style="padding: 12px 24px; font-size: 30px;color:black" title="Salir"></i></a>
-        
-         <!-- <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('ficha', 'resumen')">
+
+        <a href=".//dashboard.html"><i class="fas fa-sign-out-alt"
+            style="padding: 12px 24px; font-size: 30px;color:black" title="Salir"></i></a>
+
+        <!-- <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('ficha', 'resumen')">
           <i class="fa-solid fa-check"></i>
         </button>-->
       </form>
 
     </div>
 
-   
+
 
     <h2 id="module-title" class="text-center">BPM - Buenas Prácticas de Manufactura</h2>
 
@@ -127,6 +128,9 @@
           </button>
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('infraestructura', 'legales')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('infraestructura', 'legales')">
+            N/A
           </button>
 
         </div>
@@ -213,6 +217,9 @@
             onclick="nextQuestion('legales', 'poes-control-productos')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('legales', 'poes-control-productos')">
+            N/A
+          </button>
 
         </div>
 
@@ -287,6 +294,10 @@
             onclick="nextQuestion('poes-control-productos', 'poes-control-agua')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poes-control-productos', 'poes-control-agua')">
+            N/A
+          </button>
 
 
         </div>
@@ -335,6 +346,10 @@
           <button type="button" class="btn btn-form btn-green"
             onclick="nextQuestion('poes-control-agua', 'poes-superficies')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poes-control-agua', 'poes-superficies')">
+            N/A
           </button>
 
 
@@ -512,6 +527,10 @@
             onclick="nextQuestion('poes-superficies', 'poes-contaminacion-cruzada')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poes-superficies', 'poes-contaminacion-cruzada')">
+            N/A
+          </button>
 
         </div>
 
@@ -575,6 +594,10 @@
           <button type="button" class="btn btn-form btn-green"
             onclick="nextQuestion('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poes-contaminacion-cruzada', 'poes-sustancias-adulterantes')">
+            N/A
           </button>
 
         </div>
@@ -650,6 +673,10 @@
           <button type="button" class="btn btn-form btn-green"
             onclick="nextQuestion('poes-sustancias-adulterantes', 'poes-higiene-empleados')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poes-sustancias-adulterantes', 'poes-higiene-empleados')">
+            N/A
           </button>
 
         </div>
@@ -762,6 +789,10 @@
             onclick="nextQuestion('poes-higiene-empleados', 'poes-control-plagas')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poes-higiene-empleados', 'poes-control-plagas')">
+            N/A
+          </button>
 
         </div>
 
@@ -845,6 +876,10 @@
             onclick="nextQuestion('poes-control-plagas', 'poes-instalaciones')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poes-control-plagas', 'poes-instalaciones')">
+            N/A
+          </button>
 
         </div>
 
@@ -906,6 +941,10 @@
           <button type="button" class="btn btn-form btn-green"
             onclick="nextQuestion('poes-instalaciones', 'poe-recepcion')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poes-instalaciones', 'poe-recepcion')">
+            N/A
           </button>
 
         </div>
@@ -979,7 +1018,8 @@
 
         <div class="form-group pregunta">
           <label for="prima-recepcion">
-            Se cuenta con las especificaciones escritas para cada materia prima (condiciones de almacenamiento, duración, uso, etc.)
+            Se cuenta con las especificaciones escritas para cada materia prima (condiciones de almacenamiento,
+            duración, uso, etc.)
           </label>
           <select class="form-control" id="prima-recepcion" name="prima-recepcion"
             onchange="calculateAverage('poe-recepcion')">
@@ -1001,6 +1041,10 @@
           <button type="button" class="btn btn-form btn-green"
             onclick="nextQuestion('poe-recepcion', 'poe-almacenamiento')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poe-recepcion', 'poe-almacenamiento')">
+            N/A
           </button>
 
         </div>
@@ -1136,6 +1180,10 @@
             onclick="nextQuestion('poe-almacenamiento', 'poe-preelaboraciones')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poe-almacenamiento', 'poe-preelaboraciones')">
+            N/A
+          </button>
 
         </div>
 
@@ -1236,6 +1284,10 @@
           <button type="button" class="btn btn-form btn-green"
             onclick="nextQuestion('poe-preelaboraciones', 'poe-elaboracion')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poe-preelaboraciones', 'poe-elaboracion')">
+            N/A
           </button>
 
         </div>
@@ -1399,6 +1451,9 @@
             onclick="nextQuestion('poe-elaboracion', 'poe-mantencion')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('poe-elaboracion', 'poe-mantencion')">
+            N/A
+          </button>
 
         </div>
 
@@ -1447,6 +1502,9 @@
           <button type="button" class="btn btn-form btn-green"
             onclick="nextQuestion('poe-mantencion', 'poe-transporte')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('poe-mantencion', 'poe-transporte')">
+            N/A
           </button>
 
         </div>
@@ -1507,6 +1565,9 @@
           </button>
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-transporte', 'poe-servicio')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('poe-transporte', 'poe-servicio')">
+            N/A
           </button>
 
         </div>
@@ -1607,6 +1668,10 @@
             onclick="nextQuestion('poe-servicio', 'poe-lavado-ollas-vajilla')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poe-servicio', 'poe-lavado-ollas-vajilla')">
+            N/A
+          </button>
 
         </div>
 
@@ -1679,6 +1744,10 @@
           <button type="button" class="btn btn-form btn-green"
             onclick="nextQuestion('poe-lavado-ollas-vajilla', 'poe-control-calidad')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na"
+            onclick="nextQuestion('poe-lavado-ollas-vajilla', 'poe-control-calidad')">
+            N/A
           </button>
 
         </div>
@@ -1765,6 +1834,9 @@
           </button>
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-control-calidad', 'poe-ppt')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('poe-control-calidad', 'poe-ppt')">
+            N/A
           </button>
 
         </div>
@@ -1868,6 +1940,9 @@
           </button>
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('poe-ppt', 'ma')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('poe-ppt', 'ma')">
+            N/A
           </button>
 
         </div>
@@ -1987,6 +2062,9 @@
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('ma', 'doc')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('ma', 'doc')">
+            N/A
+          </button>
 
         </div>
 
@@ -2022,7 +2100,8 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="libro-inspeccion">Libro de inspección SEREMI Salud o Archivador con actas dejadas por la autoridad:</label>
+          <label for="libro-inspeccion">Libro de inspección SEREMI Salud o Archivador con actas dejadas por la
+            autoridad:</label>
           <select class="form-control" id="libro-inspeccion" name="libro-inspeccion" onchange="calculateAverage('doc')">
             <option value="100">100%: Libro timbrado por SEREMI</option>
             <option value="75">75%: Libro timbrado pero mal ubicado (cuesta ubicarlo)</option>
@@ -2096,6 +2175,9 @@
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('doc', 'cap')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('doc', 'cap')">
+            N/A
+          </button>
 
         </div>
 
@@ -2153,6 +2235,9 @@
           </button>
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('cap', 'resumen')">
             <i class="fa-solid fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('cap', 'resumen')">
+            N/A
           </button>
 
         </div>
@@ -2329,6 +2414,9 @@
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('tra', 'lum')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('tra', 'lum')">
+            N/A
+          </button>
 
         </div>
 
@@ -2377,6 +2465,9 @@
           <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('lum', 'resumen')">
             <i class="fa-solid fa-check"></i>
           </button>
+          <button type="button" class="btn btn-form btn-na" onclick="nextQuestion('lum', 'resumen')">
+            N/A
+          </button>
 
         </div>
 
@@ -2421,7 +2512,8 @@
             </tr>
             <tr>
               <td>Administrador de Establecimiento:</td>
-              <td><span id="resumen-administrador-establecimiento" style="display: inline-block; width: 100%;"></span></td>
+              <td><span id="resumen-administrador-establecimiento" style="display: inline-block; width: 100%;"></span>
+              </td>
             </tr>
             <tr>
               <td>Supervisor del Establecimiento:</td>
@@ -2437,10 +2529,11 @@
             </tr>
           </table>
         </div>
-      
+
         <div class="puntaje-ponderado">
           <h4 style="font-size: smaller;">PUNTAJE PONDERADO</h4>
-          <div style="font-size: medium; background-color: rgb(241, 247, 238); padding: 5px; border: 1px solid black; width: 100%;">
+          <div
+            style="font-size: medium; background-color: rgb(241, 247, 238); padding: 5px; border: 1px solid black; width: 100%;">
             <h4 class="text-center"><span id="promedio-general">0%</span></h4>
           </div>
           <div style="font-size: smaller; margin-top: 10px;">
@@ -2456,123 +2549,123 @@
           </div>
         </div>
       </div>
-      
-      
-      
-      
-        <div class="chart-container">
-              <canvas id="resultChart"></canvas>
-      
-          </div>
-      
-              <!-- Tabla de Auditoría -->
-       <strong>   <div class="audit-summary">
-        <div class="table-responsive">
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th>N°</th>
-                        <th>ASPECTOS EVALUADOS</th>
-                        <th>PONDERACIÓN (%)</th>                  
-                        <th>NOTA POR ITEM</th>
-                        <th>PUNTAJE POR ITEM</th>
-                    </tr>
-                </thead>
-                <tbody id="audit-table-body">
-                    <tr>
-                        <td>BPM</td>
-                        <td>INFRAESTRUCTURA Y REQUERIMIENTOS LEGALES</td>
-                        <td>4%</td>
-                        <td><span class="nota-item" id="nota-infraestructura">0%</span></td>
-                        <td><span id="puntaje-infraestructura">0%</span></td>
-                    </tr>
-                    <tr>
-                        <td>POES</td>
-                        <td>PROCEDIMIENTOS OP. DE SANITIZACION</td>
-                        <td>25%</td>
-                        <td><span class="nota-item" id="nota-poes">0%</span></td>
-                        <td><span id="puntaje-poes">0%</span></td>
-                    </tr>
-                    <tr>
-                        <td>POE</td>
-                        <td>PROCEDIMIENTOS OP. DEL PROCESO</td>
-                        <td>25%</td>
-                        <td><span class="nota-item" id="nota-poe">0%</span></td>
-                        <td><span id="puntaje-poe">0%</span></td>
-                    </tr>
-                    <tr>
-                        <td>MA</td>
-                        <td>MANEJO AMBIENTAL</td>
-                        <td>4%</td>
-                        <td><span class="nota-item" id="nota-ma">0%</span></td>
-                        <td><span id="puntaje-ma">0%</span></td>
-                    </tr>
-                    <tr>
-                        <td>DOC</td>
-                        <td>DOCUMENTACION</td>
-                        <td>10%</td>
-                        <td><span class="nota-item" id="nota-doc">0%</span></td>
-                        <td><span id="puntaje-doc">0%</span></td>
-                    </tr>
-                    <tr>
-                        <td>TRAZ</td>
-                        <td>TRAZADORES DE POSIBLE BROTE ETA</td>
-                        <td>21%</td>
-                        <td><span class="nota-item" id="nota-traz">0%</span></td>
-                        <td><span id="puntaje-traz">0%</span></td>
-                    </tr>
-                    <tr>
-                        <td>LUM</td>
-                        <td>LUMINOMETRIA</td>
-                        <td>10%</td>
-                        <td><span class="nota-item" id="nota-lum">0%</span></td>
-                        <td><span id="puntaje-lum">0%</span></td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4">PROMEDIO FINAL PONDERADO</td>
-                        <td><span id="promedio-ponderado">0%</span></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+
+
+
+
+      <div class="chart-container">
+        <canvas id="resultChart"></canvas>
+
       </div>
-      </strong>
-      
-      
-            <!-- Promedios -->
-            <h4 class="text-center d-none">Promedio BPM: <span id="resumen-bpm">0%</span></h4>
-            <h4 class="text-center d-none">Promedio POES: <span id="resumen-poes">0%</span></h4>
-            <h4 class="text-center d-none">Promedio POE: <span id="resumen-poe">0%</span></h4>
-            <h4 class="text-center d-none">Promedio MA: <span id="resumen-ma">0%</span></h4>
-            <h4 class="text-center d-none">Promedio DOC: <span id="resumen-doc">0%</span></h4>
-            <h4 class="text-center d-none">Promedio TRA: <span id="resumen-tra">0%</span></h4>
-            <h4 class="text-center d-none">Promedio LUM: <span id="resumen-lum">0%</span></h4>
-            <h4 class="text-center d-none">Promedio General: <span id="promedio-general">0%</span></h4>
-            <div id="interpretacion-final" class="text-center d-none"></div>
-      
-      
-            <div class="d-flex justify-content-center">
-              <button class="btn btn-form btn-red mx-2" onclick="previousModule('resumen', 'doc')"title="Volver">
-                <i class="fas fa-arrow-left"></i>
-              </button>
-              <button class="btn btn-form btn-orange mx-2" onclick="nextModule('resumen', 'details') "title="Detalle">
-                <i class="fas fa-info-circle"></i>
-              </button>
-              <button  class="btn btn-form btn-success mx-2"  onclick="capturarYDescargar()" title="Foto">
-                <i class="fas fa-camera"></i>
-            </button>
-      
-            <button class="btn btn-form btn-blue mx-2" onclick="window.location.href='dashboard.html'" title="Salir">
-              <i class="fas fa-sign-out-alt"></i>
-          </button>
-            </div>
-      
-       
+
+      <!-- Tabla de Auditoría -->
+      <strong>
+        <div class="audit-summary">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>ASPECTOS EVALUADOS</th>
+                  <th>PONDERACIÓN (%)</th>
+                  <th>NOTA POR ITEM</th>
+                  <th>PUNTAJE POR ITEM</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body">
+                <tr>
+                  <td>BPM</td>
+                  <td>INFRAESTRUCTURA Y REQUERIMIENTOS LEGALES</td>
+                  <td>4%</td>
+                  <td><span class="nota-item" id="nota-infraestructura">0%</span></td>
+                  <td><span id="puntaje-infraestructura">0%</span></td>
+                </tr>
+                <tr>
+                  <td>POES</td>
+                  <td>PROCEDIMIENTOS OP. DE SANITIZACION</td>
+                  <td>25%</td>
+                  <td><span class="nota-item" id="nota-poes">0%</span></td>
+                  <td><span id="puntaje-poes">0%</span></td>
+                </tr>
+                <tr>
+                  <td>POE</td>
+                  <td>PROCEDIMIENTOS OP. DEL PROCESO</td>
+                  <td>25%</td>
+                  <td><span class="nota-item" id="nota-poe">0%</span></td>
+                  <td><span id="puntaje-poe">0%</span></td>
+                </tr>
+                <tr>
+                  <td>MA</td>
+                  <td>MANEJO AMBIENTAL</td>
+                  <td>4%</td>
+                  <td><span class="nota-item" id="nota-ma">0%</span></td>
+                  <td><span id="puntaje-ma">0%</span></td>
+                </tr>
+                <tr>
+                  <td>DOC</td>
+                  <td>DOCUMENTACION</td>
+                  <td>10%</td>
+                  <td><span class="nota-item" id="nota-doc">0%</span></td>
+                  <td><span id="puntaje-doc">0%</span></td>
+                </tr>
+                <tr>
+                  <td>TRAZ</td>
+                  <td>TRAZADORES DE POSIBLE BROTE ETA</td>
+                  <td>21%</td>
+                  <td><span class="nota-item" id="nota-traz">0%</span></td>
+                  <td><span id="puntaje-traz">0%</span></td>
+                </tr>
+                <tr>
+                  <td>LUM</td>
+                  <td>LUMINOMETRIA</td>
+                  <td>10%</td>
+                  <td><span class="nota-item" id="nota-lum">0%</span></td>
+                  <td><span id="puntaje-lum">0%</span></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4">PROMEDIO FINAL PONDERADO</td>
+                  <td><span id="promedio-ponderado">0%</span></td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
-      
-      
+        </div>
+      </strong>
+
+
+      <!-- Promedios -->
+      <h4 class="text-center d-none">Promedio BPM: <span id="resumen-bpm">0%</span></h4>
+      <h4 class="text-center d-none">Promedio POES: <span id="resumen-poes">0%</span></h4>
+      <h4 class="text-center d-none">Promedio POE: <span id="resumen-poe">0%</span></h4>
+      <h4 class="text-center d-none">Promedio MA: <span id="resumen-ma">0%</span></h4>
+      <h4 class="text-center d-none">Promedio DOC: <span id="resumen-doc">0%</span></h4>
+      <h4 class="text-center d-none">Promedio TRA: <span id="resumen-tra">0%</span></h4>
+      <h4 class="text-center d-none">Promedio LUM: <span id="resumen-lum">0%</span></h4>
+      <h4 class="text-center d-none">Promedio General: <span id="promedio-general">0%</span></h4>
+      <div id="interpretacion-final" class="text-center d-none"></div>
+
+
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-form btn-red mx-2" onclick="previousModule('resumen', 'doc')" title="Volver">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="btn btn-form btn-orange mx-2" onclick="nextModule('resumen', 'details') " title="Detalle">
+          <i class="fas fa-info-circle"></i>
+        </button>
+        <button class="btn btn-form btn-success mx-2" onclick="capturarYDescargar()" title="Foto">
+          <i class="fas fa-camera"></i>
+        </button>
+
+        <button class="btn btn-form btn-blue mx-2" onclick="window.location.href='dashboard.html'" title="Salir">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+
+    </div>
+
+
 
 
     <!-- Tabla de Reporte -->
@@ -2903,7 +2996,8 @@
             </tr>
             <tr>
               <td colspan="5">
-                Se cuenta con las especificaciones escritas para cada materia prima (condiciones de almacenamiento, duración, uso, etc.)
+                Se cuenta con las especificaciones escritas para cada materia prima (condiciones de almacenamiento,
+                duración, uso, etc.)
               </td>
               <td>Nota : <span id="nota-prima-recepcion">0%</span></td>
               <td colspan="5"><span id="observacion-prima-recepcion"></span></td>

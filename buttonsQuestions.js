@@ -91,8 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Show the first question
   showQuestion(currentQuestion);
-  addChangeListenerToQuestions();
 
+  addChangeListenerToQuestions();
+  // countQuestionsInModules();
 
   window.nextQuestion = nextQuestion;
   window.previousQuestion = previousQuestion;
@@ -100,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Ticket function
 function sendTicket(currentModuleId, nextModuleId) {
+ 
+  // alert('Ticket enviado. Haz click nuevamente para ir al siguiente modulo');
 
   nextModule(currentModuleId, nextModuleId);
 }
