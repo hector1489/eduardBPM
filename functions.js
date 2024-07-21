@@ -399,6 +399,8 @@ function calculateOverallAverages() {
     document.getElementById('promedio-bpm').innerText = `${moduleAverages.bpm}%`;
     document.getElementById('promedio-poes').innerText = `${moduleAverages.poes}%`;
     document.getElementById('promedio-doc').innerText = `${moduleAverages.doc}%`;
+    document.getElementById('promedio-tra').innerText = `${moduleAverages.tra}%`;
+    document.getElementById('promedio-lum').innerText = `${moduleAverages.lum}%`;
     document.getElementById('promedio-final').innerText = `${moduleAverages.final}%`;
   }
 
