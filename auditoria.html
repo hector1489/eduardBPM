@@ -60,36 +60,17 @@
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
-
-        <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('ficha', 'resumen')">
+        
+        <a href=".//dashboard.html"><i class="fas fa-sign-out-alt" style="padding: 12px 24px; font-size: 30px;color:black" title="Salir"></i></a>
+        
+         <!-- <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('ficha', 'resumen')">
           <i class="fa-solid fa-check"></i>
-        </button>
+        </button>-->
       </form>
 
     </div>
 
-    <script>
-      let currentAuditNumber = 1;
-
-      document.addEventListener('DOMContentLoaded', function () {
-        setAutomaticDate();
-        setAuditNumber();
-        calculateOverallAverages();
-      });
-
-      function setAutomaticDate() {
-        const today = new Date().toISOString().split('T')[0];
-        const dateInput = document.getElementById('fecha-auditoria');
-        dateInput.value = today;
-        dateInput.setAttribute('readonly', true);
-      }
-
-      function setAuditNumber() {
-        const auditNumber = currentAuditNumber.toString().padStart(6, '0');
-        document.getElementById('numero-auditoria').value = auditNumber;
-        currentAuditNumber++;
-      }
-    </script>
+   
 
     <h2 id="module-title" class="text-center">BPM - Buenas Prácticas de Manufactura</h2>
 
@@ -379,7 +360,7 @@
 
       <form id="form-poes-superficies">
 
-        <div class="form-group pregunta active">
+        <!-- <div class="form-group pregunta active">
           <label for="utensilios">Higiene de utensilios almacenados, limpios y tapados:</label>
           <select class="form-control" id="utensilios" name="utensilios"
             onchange="calculateAverage('poes-superficies')">
@@ -389,9 +370,9 @@
             <option value="25">25%: Ordenado, tapado, pero SUCIO</option>
             <option value="0">0%: Desorden, sucio, sin tapa/mueble cerrado</option>
           </select>
-        </div>
+        </div> -->
 
-        <div class="form-group pregunta">
+        <div class="form-group pregunta active">
           <label for="higiene-tablas">Aplicación de procedimiento de higiene de tablas, cuchillos y mesones:</label>
           <select class="form-control" id="higiene-tablas" name="higiene-tablas"
             onchange="calculateAverage('poes-superficies')">
@@ -443,7 +424,7 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="limpieza-mesas">Limpieza de mesas y sillas de comedor:</label>
+          <label for="limpieza-mesas">Higiene de mesas y sillas de comedor:</label>
           <select class="form-control" id="limpieza-mesas" name="limpieza-mesas"
             onchange="calculateAverage('poes-superficies')">
             <option value="100">100%: Todos limpios</option>
@@ -505,7 +486,7 @@
       <form id="form-lum">
 
         <div class="form-group pregunta">
-          <label for="luminometro">Calibración y uso de luminómetro:</label>
+          <label for="luminometro">Toma de muestra y uso de luminómetro:</label>
           <select class="form-control" id="luminometro" name="luminometro"
             onchange="calculateAverage('poes-superficies')">
             <option value="100">100 NOTA 7 /EXCELENTE / 0-50 URL/MUY LIMPIO / SIN RIESGO </option>
@@ -620,7 +601,7 @@
 
         <div class="form-group pregunta active">
           <label for="pulverizadores">Pulverizadores de productos químicos separados de las materias
-            primas-preparaciones en producción:</label>
+            primas-preparaciones en producción (Art. 50, 51) :</label>
           <select class="form-control" id="pulverizadores" name="pulverizadores"
             onchange="calculateAverage('poes-sustancias-adulterantes')">
             <option value="100">100%: Ubicación correcta, separados de alimentos</option>
@@ -632,7 +613,7 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="proteccion-mp">Protección de materias primas, producto terminado:</label>
+          <label for="proteccion-mp">Protección de materias primas, producto terminado y utensilios :</label>
           <select class="form-control" id="proteccion-mp" name="proteccion-mp"
             onchange="calculateAverage('poes-sustancias-adulterantes')">
             <option value="100">100%: Todo protegido (use criterio en postres)</option>
@@ -695,7 +676,7 @@
 
         <div class="form-group pregunta active">
           <label for="uniformes">Uniforme completo de todos, limpio y en buen estado - Sin accesorios adicionales
-            (reloj, joyas, celular, otros):</label>
+            (reloj, joyas, celular, otros)(Art.56):</label>
           <select class="form-control" id="uniformes" name="uniformes"
             onchange="calculateAverage('poes-higiene-empleados')">
             <option value="100">100%: Uniforme completo y sin joyas, incluye ADM</option>
@@ -707,7 +688,7 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="cubrepelo">Cubre-pelo (gorro o cofia), mascarilla y guantes usados correctamente:</label>
+          <label for="cubrepelo">Cubre-pelo (gorro o cofia), mascarilla y guantes usados correctamente (Art.56):</label>
           <select class="form-control" id="cubrepelo" name="cubrepelo"
             onchange="calculateAverage('poes-higiene-empleados')">
             <option value="100">100%: Cubrepelo, mascarilla sobre nariz y guantes ok</option>
@@ -745,7 +726,7 @@
         <div class="form-group pregunta">
           <label for="examenes" style="color:red">Exámenes de todos los manipuladores, ecónomos y administradores.
             Ausencia de malestares
-            o infecciones:</label>
+            o infecciones (Art. 52, 53):</label>
           <select class="form-control" id="examenes" name="examenes"
             onchange="calculateAverage('poes-higiene-empleados')">
             <option value="100">100%: Al día, incluído Adm, ecónomo y choferes</option>
@@ -818,8 +799,8 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="programa-plagas">Revisar programa y evaluar eficacia y eficiencia (certificados 6 meses atrás e
-            inspección visual):</label>
+          <label for="programa-plagas">Revisar programa y evaluar eficacia y eficiencia (certificados 3 meses atrás e
+            inspección visual)(Art. 47, 69) :</label>
           <select class="form-control" id="programa-plagas" name="programa-plagas"
             onchange="calculateAverage('poes-control-plagas')">
             <option value="100">100%: Cero presencia y certificados al día</option>
@@ -950,7 +931,7 @@
 
         <div class="form-group pregunta active">
           <label for="registro-recepcion">Verificar registro recepción materias primas, inventario, ordenes de compra y
-            guías de despacho:</label>
+            guías de despacho (Art. 61, 69) :</label>
           <select class="form-control" id="registro-recepcion" name="registro-recepcion"
             onchange="calculateAverage('poe-recepcion')">
             <option value="100">100%: Cumple los 4 puntos</option>
@@ -998,7 +979,7 @@
 
         <div class="form-group pregunta">
           <label for="prima-recepcion">
-            Se cuenta con las especificaciones escritas para cada materia prima.
+            Se cuenta con las especificaciones escritas para cada materia prima (condiciones de almacenamiento, duración, uso, etc.)
           </label>
           <select class="form-control" id="prima-recepcion" name="prima-recepcion"
             onchange="calculateAverage('poe-recepcion')">
@@ -1045,7 +1026,7 @@
 
         <div class="form-group pregunta active">
           <label for="practicas-higienicas">Verificar prácticas higiénicas en el trasvasije de envases - Evitar contacto
-            directo entre diferentes tipos de carne:</label>
+            directo entre diferentes tipos de carne (Art.62):</label>
           <select class="form-control" id="practicas-higienicas" name="practicas-higienicas"
             onchange="calculateAverage('poe-almacenamiento')">
             <option value="100">100%: Cumple prácticas y no hay contacto</option>
@@ -1057,8 +1038,7 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="identificacion-areas">Identificación de áreas y estantes, por OPX - Rotulación de productos según
-            ISO-OPX (se acepta fotocopia):</label>
+          <label for="identificacion-areas">Identificación de áreas y estantes, por familias de productos:</label>
           <select class="form-control" id="identificacion-areas" name="identificacion-areas"
             onchange="calculateAverage('poe-almacenamiento')">
             <option value="100">100%: Estantes rotulados, productos c/rótulo completo</option>
@@ -1220,8 +1200,7 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="separacion-productos">Se separan productos por tipo y/o riesgo de contaminación (lavaderos,
-            mesones, equipos, utensilios):</label>
+          <label for="separacion-productos">Se separan productos por tipo y/o riesgo de contaminación:</label>
           <select class="form-control" id="separacion-productos" name="separacion-productos"
             onchange="calculateAverage('poe-preelaboraciones')">
             <option value="100">100%: Separan físicamente por tipo de MP</option>
@@ -2024,6 +2003,7 @@
       </div>
     </div>
 
+
     <!-- Módulo DOC - DOCUMENTACION -->
     <div id="module-doc" class="module-section p-2">
       <h3 class="text-center">Documentación</h3>
@@ -2042,7 +2022,7 @@
         </div>
 
         <div class="form-group pregunta">
-          <label for="libro-inspeccion">Libro de inspección SEREMI Salud:</label>
+          <label for="libro-inspeccion">Libro de inspección SEREMI Salud o Archivador con actas dejadas por la autoridad:</label>
           <select class="form-control" id="libro-inspeccion" name="libro-inspeccion" onchange="calculateAverage('doc')">
             <option value="100">100%: Libro timbrado por SEREMI</option>
             <option value="75">75%: Libro timbrado pero mal ubicado (cuesta ubicarlo)</option>
@@ -2068,7 +2048,7 @@
         <div class="form-group pregunta">
           <label for="informes-auditoria" style="color:red">Informes de auditoría sanitaria, plan de acción,
             verificación de cumplimiento,
-            por Administrador y Jefe Op.:</label>
+            por Administrador:</label>
           <select class="form-control" id="informes-auditoria" name="informes-auditoria"
             onchange="calculateAverage('doc')">
             <option value="100">100%: Inf ok, plan cerrado ok, verif por Adm y JOP</option>
@@ -2104,7 +2084,42 @@
           </select>
         </div>
 
-        <div class="form-group pregunta">
+      </form>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+
+        <div class="btn-form-group p-2">
+
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('doc', 'ma')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('doc', 'cap')">
+            <i class="fa-solid fa-check"></i>
+          </button>
+
+        </div>
+
+        <h3 class="h3-promedio text-center">PROMEDIO: <span id="average-doc">100%</span></h3>
+
+        <div class="banner-buttons">
+
+          <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="comment-btn"><i
+              class="fa-solid fa-file-lines"></i> Comentario</button>
+          <button class="btn btn-blue btn-block rounded-pill w-75 m-3" id="capture-btn"><i
+              class="fa-solid fa-camera-retro"></i> Fotos</button>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Módulo DOC - DOCUMENTACION -->
+    <div id="module-cap" class="module-section p-2">
+      <h3 class="text-center">CAPACITACION</h3>
+
+      <form id="form-cap">
+
+        <div class="form-group pregunta active">
           <label for="existe-programa">
             Existe un programa escrito y con sus registros correspondientes de capacitación del personal en materia de
             manipulación higiénica de los alimentos e higiene personal. (Art. 52, 69)
@@ -2133,10 +2148,10 @@
 
         <div class="btn-form-group p-2">
 
-          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('doc', 'ma')">
+          <button type="button" class="btn btn-form btn-red" onclick="previousQuestion('cap', 'doc')">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('doc', 'resumen')">
+          <button type="button" class="btn btn-form btn-green" onclick="nextQuestion('cap', 'resumen')">
             <i class="fa-solid fa-check"></i>
           </button>
 
@@ -2153,7 +2168,11 @@
 
         </div>
       </div>
+
     </div>
+
+
+
 
     <!-- Módulo TRA - TRAZADORES DE POSIBLE BROTE ETA -->
     <div id="module-tra" class="module-section p-2">
@@ -2186,7 +2205,7 @@
 
         <div class="form-group pregunta">
           <label for="examenes-manipuladores">Exámenes de todos los manipuladores, ecónomos y administradores. Ausencia
-            de malestares o infecciones:</label>
+            de malestares o infecciones (Art. 52, 53):</label>
           <select class="form-control" id="examenes-manipuladores" name="examenes-manipuladores"
             onchange="calculateAverage('tra')">
             <option value="100">100%: Uno</option>
@@ -2335,7 +2354,7 @@
       <form id="form-lum">
 
         <div class="form-group pregunta active">
-          <label for="luminometro">Calibración y uso de luminómetro:</label>
+          <label for="luminometro">Toma de muestra y uso de luminómetro:</label>
           <select class="form-control" id="luminometro" name="luminometro" onchange="calculateAverage('lum')">
             <option value="100"> NOTA 7 /EXCELENTE / 0-50 URL/MUY LIMPIO / SIN RIESGO </option>
             <option value="90">NOTA 6 /MUY BUENO / >51 - 150 URL / LIMPIO SIN RIESGO</option>
@@ -2377,52 +2396,51 @@
     </div>
 
     <!-- Resumen -->
+    <!-- Resumen -->
     <div id="module-resumen" class="module-section">
 
 
 
 
       <!-- Información de la Ficha -->
-      <div id="ficha-resumen" style="display: flex; justify-content: space-around; align-items: flex-start;">
-        <div style="font-size: smaller; width: 45%;">
+      <div id="ficha-resumen" class="responsive-container">
+        <div class="ficha-resumen-table">
           <table border="1" style="border-collapse: collapse; width: 100%;">
             <tr>
-              <td style="width: 50%;"><strong>Nombre de Establecimiento:</strong></td>
+              <td style="width: 50%;">Nombre de Establecimiento:</td>
               <td style="width: 50%;"><span id="resumen-nombre-establecimiento"
                   style="display: inline-block; width: 100%;"></span></td>
             </tr>
             <tr>
-              <td><strong>N° de Auditoría:</strong></td>
+              <td>N° de Auditoría:</td>
               <td><span id="resumen-numero-auditoria" style="display: inline-block; width: 100%;"></span></td>
             </tr>
             <tr>
-              <td><strong>Gerente de Establecimiento:</strong></td>
+              <td>Gerente de Establecimiento:</td>
               <td><span id="resumen-gerente-establecimiento" style="display: inline-block; width: 100%;"></span></td>
             </tr>
             <tr>
-              <td><strong>Administrador de Establecimiento:</strong></td>
-              <td><span id="resumen-administrador-establecimiento" style="display: inline-block; width: 100%;"></span>
-              </td>
+              <td>Administrador de Establecimiento:</td>
+              <td><span id="resumen-administrador-establecimiento" style="display: inline-block; width: 100%;"></span></td>
             </tr>
             <tr>
-              <td><strong>Supervisor del Establecimiento:</strong></td>
+              <td>Supervisor del Establecimiento:</td>
               <td><span id="resumen-supervisor-establecimiento" style="display: inline-block; width: 100%;"></span></td>
             </tr>
             <tr>
-              <td><strong>Auditor Externo:</strong></td>
+              <td>Auditor Externo:</td>
               <td><span id="resumen-auditor-externo" style="display: inline-block; width: 100%;"></span></td>
             </tr>
             <tr>
-              <td><strong>Fecha:</strong></td>
+              <td>Fecha:</td>
               <td><span id="resumen-fecha-auditoria" style="display: inline-block; width: 100%;"></span></td>
             </tr>
           </table>
         </div>
-
-        <div style="text-align: center; max-width: 25%;">
+      
+        <div class="puntaje-ponderado">
           <h4 style="font-size: smaller;">PUNTAJE PONDERADO</h4>
-          <div
-            style="font-size: medium; background-color: rgb(241, 247, 238); padding: 5px; border: 1px solid black; width: 100%;">
+          <div style="font-size: medium; background-color: rgb(241, 247, 238); padding: 5px; border: 1px solid black; width: 100%;">
             <h4 class="text-center"><span id="promedio-general">0%</span></h4>
           </div>
           <div style="font-size: smaller; margin-top: 10px;">
@@ -2438,118 +2456,123 @@
           </div>
         </div>
       </div>
-
-
-
-
-      <canvas id="resultChart" width="400" height="200"></canvas>
-
-
-
-
-
-      <!-- Tabla de Auditoría -->
-      <div class="audit-summary" style="font-size: smaller;">
+      
+      
+      
+      
+        <div class="chart-container">
+              <canvas id="resultChart"></canvas>
+      
+          </div>
+      
+              <!-- Tabla de Auditoría -->
+       <strong>   <div class="audit-summary">
         <div class="table-responsive">
-          <table class="table table-bordered table-sm" style="width: 100%;">
-            <thead>
-              <tr>
-                <th>N°</th>
-                <th>ASPECTOS EVALUADOS</th>
-                <th>PONDERACIÓN (%)</th>
-                <th>NOTA POR ITEM</th>
-                <th>PUNTAJE POR ITEM</th>
-              </tr>
-            </thead>
-            <tbody id="audit-table-body">
-              <tr>
-                <td>BPM</td>
-                <td>INFRAESTRUCTURA Y REQUERIMIENTOS LEGALES</td>
-                <td>4%</td>
-                <td><span class="nota-item" id="nota-infraestructura">0%</span></td>
-                <td><span id="puntaje-infraestructura">0%</span></td>
-              </tr>
-              <tr>
-                <td>POES</td>
-                <td>PROCEDIMIENTOS OP. DE SANITIZACION</td>
-                <td>25%</td>
-                <td><span class="nota-item" id="nota-poes">0%</span></td>
-                <td><span id="puntaje-poes">0%</span></td>
-              </tr>
-              <tr>
-                <td>POE</td>
-                <td>PROCEDIMIENTOS OP. DEL PROCESO</td>
-                <td>25%</td>
-                <td><span class="nota-item" id="nota-poe">0%</span></td>
-                <td><span id="puntaje-poe">0%</span></td>
-              </tr>
-              <tr>
-                <td>MA</td>
-                <td>MANEJO AMBIENTAL</td>
-                <td>4%</td>
-                <td><span class="nota-item" id="nota-ma">0%</span></td>
-                <td><span id="puntaje-ma">0%</span></td>
-              </tr>
-              <tr>
-                <td>DOC</td>
-                <td>DOCUMENTACION</td>
-                <td>10%</td>
-                <td><span class="nota-item" id="nota-doc">0%</span></td>
-                <td><span id="puntaje-doc">0%</span></td>
-              </tr>
-              <tr>
-                <td>TRAZ</td>
-                <td>TRAZADORES DE POSIBLE BROTE ETA</td>
-                <td>21%</td>
-                <td><span class="nota-item" id="nota-traz">0%</span></td>
-                <td><span id="puntaje-traz">0%</span></td>
-              </tr>
-              <tr>
-                <td>LUM</td>
-                <td>LUMINOMETRIA</td>
-                <td>10%</td>
-                <td><span class="nota-item" id="nota-lum">0%</span></td>
-                <td><span id="puntaje-lum">0%</span></td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="4">PROMEDIO FINAL PONDERADO</td>
-                <td><span id="promedio-ponderado">0%</span></td>
-              </tr>
-            </tfoot>
-          </table>
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>ASPECTOS EVALUADOS</th>
+                        <th>PONDERACIÓN (%)</th>                  
+                        <th>NOTA POR ITEM</th>
+                        <th>PUNTAJE POR ITEM</th>
+                    </tr>
+                </thead>
+                <tbody id="audit-table-body">
+                    <tr>
+                        <td>BPM</td>
+                        <td>INFRAESTRUCTURA Y REQUERIMIENTOS LEGALES</td>
+                        <td>4%</td>
+                        <td><span class="nota-item" id="nota-infraestructura">0%</span></td>
+                        <td><span id="puntaje-infraestructura">0%</span></td>
+                    </tr>
+                    <tr>
+                        <td>POES</td>
+                        <td>PROCEDIMIENTOS OP. DE SANITIZACION</td>
+                        <td>25%</td>
+                        <td><span class="nota-item" id="nota-poes">0%</span></td>
+                        <td><span id="puntaje-poes">0%</span></td>
+                    </tr>
+                    <tr>
+                        <td>POE</td>
+                        <td>PROCEDIMIENTOS OP. DEL PROCESO</td>
+                        <td>25%</td>
+                        <td><span class="nota-item" id="nota-poe">0%</span></td>
+                        <td><span id="puntaje-poe">0%</span></td>
+                    </tr>
+                    <tr>
+                        <td>MA</td>
+                        <td>MANEJO AMBIENTAL</td>
+                        <td>4%</td>
+                        <td><span class="nota-item" id="nota-ma">0%</span></td>
+                        <td><span id="puntaje-ma">0%</span></td>
+                    </tr>
+                    <tr>
+                        <td>DOC</td>
+                        <td>DOCUMENTACION</td>
+                        <td>10%</td>
+                        <td><span class="nota-item" id="nota-doc">0%</span></td>
+                        <td><span id="puntaje-doc">0%</span></td>
+                    </tr>
+                    <tr>
+                        <td>TRAZ</td>
+                        <td>TRAZADORES DE POSIBLE BROTE ETA</td>
+                        <td>21%</td>
+                        <td><span class="nota-item" id="nota-traz">0%</span></td>
+                        <td><span id="puntaje-traz">0%</span></td>
+                    </tr>
+                    <tr>
+                        <td>LUM</td>
+                        <td>LUMINOMETRIA</td>
+                        <td>10%</td>
+                        <td><span class="nota-item" id="nota-lum">0%</span></td>
+                        <td><span id="puntaje-lum">0%</span></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">PROMEDIO FINAL PONDERADO</td>
+                        <td><span id="promedio-ponderado">0%</span></td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
       </div>
-
-
-      <!-- Promedios -->
-      <h4 class="text-center d-none">Promedio BPM: <span id="resumen-bpm">0%</span></h4>
-      <h4 class="text-center d-none">Promedio POES: <span id="resumen-poes">0%</span></h4>
-      <h4 class="text-center d-none">Promedio POE: <span id="resumen-poe">0%</span></h4>
-      <h4 class="text-center d-none">Promedio MA: <span id="resumen-ma">0%</span></h4>
-      <h4 class="text-center d-none">Promedio DOC: <span id="resumen-doc">0%</span></h4>
-      <h4 class="text-center d-none">Promedio TRA: <span id="resumen-tra">0%</span></h4>
-      <h4 class="text-center d-none">Promedio LUM: <span id="resumen-lum">0%</span></h4>
-      <h4 class="text-center d-none">Promedio General: <span id="promedio-general">0%</span></h4>
-      <div id="interpretacion-final" class="text-center d-none"></div>
-
-
-      <div class="d-flex justify-content-center">
-        <button class="btn btn-form btn-red mx-2" onclick="previousModule('resumen', 'doc')">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <button class="btn btn-form btn-orange mx-2" onclick="nextModule('resumen', 'details')">
-          <i class="fa-solid fa-recycle"></i>
-        </button>
-        <button class="btn btn-form btn-success mx-2" onclick="window.location.href='formatobase.html'" title="Enviar">
-          <i class="fas fa-check"></i>
-        </button>
-      </div>
-
-    </div>
-
-
+      </strong>
+      
+      
+            <!-- Promedios -->
+            <h4 class="text-center d-none">Promedio BPM: <span id="resumen-bpm">0%</span></h4>
+            <h4 class="text-center d-none">Promedio POES: <span id="resumen-poes">0%</span></h4>
+            <h4 class="text-center d-none">Promedio POE: <span id="resumen-poe">0%</span></h4>
+            <h4 class="text-center d-none">Promedio MA: <span id="resumen-ma">0%</span></h4>
+            <h4 class="text-center d-none">Promedio DOC: <span id="resumen-doc">0%</span></h4>
+            <h4 class="text-center d-none">Promedio TRA: <span id="resumen-tra">0%</span></h4>
+            <h4 class="text-center d-none">Promedio LUM: <span id="resumen-lum">0%</span></h4>
+            <h4 class="text-center d-none">Promedio General: <span id="promedio-general">0%</span></h4>
+            <div id="interpretacion-final" class="text-center d-none"></div>
+      
+      
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-form btn-red mx-2" onclick="previousModule('resumen', 'doc')"title="Volver">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+              <button class="btn btn-form btn-orange mx-2" onclick="nextModule('resumen', 'details') "title="Detalle">
+                <i class="fas fa-info-circle"></i>
+              </button>
+              <button  class="btn btn-form btn-success mx-2"  onclick="capturarYDescargar()" title="Foto">
+                <i class="fas fa-camera"></i>
+            </button>
+      
+            <button class="btn btn-form btn-blue mx-2" onclick="window.location.href='dashboard.html'" title="Salir">
+              <i class="fas fa-sign-out-alt"></i>
+          </button>
+            </div>
+      
+       
+          </div>
+      
+      
 
 
     <!-- Tabla de Reporte -->
@@ -2690,7 +2713,7 @@
               <td colspan="5"><span id="observacion-desincrustacion-maquinas"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Limpieza de mesas y sillas de comedor</td>
+              <td colspan="5">Higiene de mesas y sillas de comedor</td>
               <td>Nota : <span id="nota-limpieza-mesas">0%</span></td>
               <td colspan="5"><span id="observacion-limpieza-mesas"></span></td>
             </tr>
@@ -2717,7 +2740,7 @@
               <td colspan="5"><span id="observacion-cs-medidas"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Calibración y uso de luminómetro</td>
+              <td colspan="5">Toma de muestra y uso de luminómetro</td>
               <td>Nota : <span id="nota-luminometro">0%</span></td>
               <td colspan="5"><span id="observacion-luminometro"></span></td>
             </tr>
@@ -2752,7 +2775,7 @@
               <td colspan="5"><span id="observacion-pulverizadores"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Protección de materias primas, producto terminado</td>
+              <td colspan="5">Protección de materias primas, producto terminado y utensilios</td>
               <td>Nota : <span id="nota-proteccion-mp">0%</span></td>
               <td colspan="5"><span id="observacion-proteccion-mp"></span></td>
             </tr>
@@ -2770,12 +2793,12 @@
             <tr>
               <th rowspan="7" class="tr-label">Control de Salud e Higiene de Empleados</th>
               <td colspan="5">Uniforme completo de todos, limpio y en buen estado - Sin accesorios adicionales (reloj,
-                joyas, celular, otros)</td>
+                joyas, celular, otros)(Art.56)</td>
               <td>Nota : <span id="nota-uniformes">0%</span></td>
               <td colspan="5"><span id="observacion-uniformes"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Cubre-pelo (gorro o cofia), mascarilla y guantes usados correctamente</td>
+              <td colspan="5">Cubre-pelo (gorro o cofia), mascarilla y guantes usados correctamente (Art.56)</td>
               <td>Nota : <span id="nota-cubrepelo">0%</span></td>
               <td colspan="5"><span id="observacion-cubrepelo"></span></td>
             </tr>
@@ -2791,7 +2814,7 @@
             </tr>
             <tr>
               <td colspan="5">Exámenes de todos los manipuladores, ecónomos y administradores. Ausencia de malestares o
-                infecciones</td>
+                infecciones(Art. 52, 53)</td>
               <td>Nota : <span id="nota-examenes">0%</span></td>
               <td colspan="5"><span id="observacion-examenes"></span></td>
             </tr>
@@ -2814,8 +2837,8 @@
               <td colspan="5"><span id="observacion-barreras-fisicas"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Revisar programa y evaluar eficacia y eficiencia (certificados 6 meses atrás e inspección
-                visual)</td>
+              <td colspan="5">Revisar programa y evaluar eficacia y eficiencia (certificados 3 meses atrás e inspección
+                visual)(Art. 47, 69) </td>
               <td>Nota : <span id="nota-programa-plagas">0%</span></td>
               <td colspan="5"><span id="observacion-programa-plagas"></span></td>
             </tr>
@@ -2857,7 +2880,7 @@
             <tr>
               <th rowspan="6" class="tr-label">Recepción</th>
               <td colspan="5">Verificar registro recepción materias primas, inventario, ordenes de compra y guías de
-                despacho</td>
+                despacho (Art. 61, 69)</td>
               <td>Nota : <span id="nota-registro-recepcion">0%</span></td>
               <td colspan="5"><span id="observacion-registro-recepcion"></span></td>
             </tr>
@@ -2880,7 +2903,7 @@
             </tr>
             <tr>
               <td colspan="5">
-                Se cuenta con las especificaciones escritas para cada materia prima.
+                Se cuenta con las especificaciones escritas para cada materia prima (condiciones de almacenamiento, duración, uso, etc.)
               </td>
               <td>Nota : <span id="nota-prima-recepcion">0%</span></td>
               <td colspan="5"><span id="observacion-prima-recepcion"></span></td>
@@ -2894,13 +2917,12 @@
             <tr>
               <th rowspan="9" class="tr-label">Almacenamiento</th>
               <td colspan="5">Verificar prácticas higiénicas en el trasvasije de envases - Evitar contacto directo entre
-                diferentes tipos de carne</td>
+                diferentes tipos de carne (Art.62)</td>
               <td>Nota : <span id="nota-practicas-higienicas">0%</span></td>
               <td colspan="5"><span id="observacion-practicas-higienicas"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Identificación de áreas y estantes, por OPX - Rotulación de productos según ISO-OPX (se
-                acepta fotocopia)</td>
+              <td colspan="5">Identificación de áreas y estantes, por familias de productos:</td>
               <td>Nota : <span id="nota-identificacion-areas">0%</span></td>
               <td colspan="5"><span id="observacion-identificacion-areas"></span></td>
             </tr>
@@ -2959,8 +2981,7 @@
               <td colspan="5"><span id="observacion-materias-primas"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Se separan productos por tipo y/o riesgo de contaminación (lavaderos, mesones, equipos,
-                utensilios)</td>
+              <td colspan="5">Se separan productos por tipo y/o riesgo de contaminación</td>
               <td>Nota : <span id="nota-separacion-productos">0%</span></td>
               <td colspan="5"><span id="observacion-separacion-productos"></span></td>
             </tr>
@@ -3270,7 +3291,7 @@
               <td colspan="5"><span id="observacion-autorizaciones"></span></td>
             </tr>
             <tr>
-              <td colspan="5">Libro de inspección SEREMI Salud</td>
+              <td colspan="5">Libro de inspección SEREMI Salud o Archivador con actas dejadas por la autoridad</td>
               <td>Nota : <span id="nota-libro-inspeccion">0%</span></td>
               <td colspan="5"><span id="observacion-libro-inspeccion"></span></td>
             </tr>
@@ -3282,7 +3303,7 @@
             </tr>
             <tr>
               <td colspan="5">Informes de auditoría sanitaria, plan de acción, verificación de cumplimiento, por
-                Administrador y Jefe Op.</td>
+                Administrador</td>
               <td>Nota : <span id="nota-informes-auditoria">0%</span></td>
               <td colspan="5"><span id="observacion-informes-auditoria"></span></td>
             </tr>
@@ -3317,27 +3338,27 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="10">PROMEDIO BPM</td>
+              <td class="td-promedio" colspan="10">PROMEDIO BPM</td>
               <td><span id="promedio-bpm">0%</span></td>
             </tr>
             <tr>
-              <td colspan="10">PROMEDIO POES</td>
+              <td class="td-promedio" colspan="10">PROMEDIO POES</td>
               <td><span id="promedio-poes">0%</span></td>
             </tr>
             <tr>
-              <td colspan="10">PROMEDIO DOC</td>
+              <td class="td-promedio" colspan="10">PROMEDIO DOC</td>
               <td><span id="promedio-doc">0%</span></td>
             </tr>
             <tr>
-              <td colspan="10">PROMEDIO TRA</td>
+              <td class="td-promedio" colspan="10">PROMEDIO TRA</td>
               <td><span id="promedio-tra">0%</span></td>
             </tr>
             <tr>
-              <td colspan="10">PROMEDIO LUM</td>
+              <td class="td-promedio" colspan="10">PROMEDIO LUM</td>
               <td><span id="promedio-lum">0%</span></td>
             </tr>
             <tr>
-              <td colspan="10">PROMEDIO FINAL</td>
+              <td class="td-promedio" colspan="10">PROMEDIO FINAL</td>
               <td><span id="promedio-final">0%</span></td>
             </tr>
           </tfoot>
@@ -3347,7 +3368,7 @@
       </div>
 
       <div class="d-flex justify-content-center mt-3">
-        <button class="btn btn-form btn-red mx-3" onclick="previousModule('resumen', 'doc')" title="Volver">
+        <button class="btn btn-form btn-red mx-3" onclick="previousModule('details', 'resumen')" title="Volver">
           <i class="fas fa-xmark"></i>
         </button>
         <button class="btn btn-form btn-blue mx-3" onclick="guardarDatosTabla()" title="Guardar Tabla">
@@ -3367,7 +3388,28 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
+  <script>
+    let currentAuditNumber = 1;
 
+    document.addEventListener('DOMContentLoaded', function () {
+      setAutomaticDate();
+      setAuditNumber();
+      calculateOverallAverages();
+    });
+
+    function setAutomaticDate() {
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.getElementById('fecha-auditoria');
+      dateInput.value = today;
+      dateInput.setAttribute('readonly', true);
+    }
+
+    function setAuditNumber() {
+      const auditNumber = currentAuditNumber.toString().padStart(6, '0');
+      document.getElementById('numero-auditoria').value = auditNumber;
+      currentAuditNumber++;
+    }
+  </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
 

@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-  max-width: auto;
+  max-width: 600px;
   background: white;
   padding: 40px;
   border-radius: 8px;
@@ -97,7 +97,7 @@ hr {
 }
 
 .btn-green:hover {
-  background-color: #F39C12;
+  background-color: green;
 }
 
 .btn-red {
@@ -106,7 +106,7 @@ hr {
 }
 
 .btn-red:hover {
-  background-color: #F39C12;
+  background-color: red;
 }
 
 .btn-blue {
@@ -117,7 +117,7 @@ hr {
 }
 
 .btn-blue:hover {
-  background-color: #F39C12;
+  background-color: rgb(6, 6, 51);
   color: white;
 }
 
@@ -132,9 +132,15 @@ hr {
 }
 
 .btn-orange {
-  background-color: #F39C12;
+  background-color: goldenrod;
   color: white;
 }
+.btn-orange:hover {
+  background-color: rgb(240, 106, 17);
+  color: white;
+}
+
+
 
 /*report-table*/
 .audit-summary {
@@ -170,28 +176,86 @@ hr {
 }
 
 
-    .audit-summary {
-      font-size: 10px;
-  }
-  .table-sm td, .table-sm th {
-      padding: 0.3rem;
-  }
-  @media (max-width: 576px) {
-      .audit-summary {
-          font-size: 8px;
-      }
-      .table-sm td, .table-sm th {
-          padding: 0.2rem;
-      }
+/*ficha y leyenda de colores para pantallas peques*/
+.responsive-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ficha-resumen-table {
+  width: 90%;
+  margin-bottom: 20px;
+}
+
+.puntaje-ponderado {
+  text-align: center;
+  width: 90%;
+}
+
+.td-promedio {
+  background-color: #F39C12;
+  color: #f8f9fa;
+  font-weight: bold;
+}
+
+@media (min-width: 769px) {
+  .responsive-container {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
   }
 
-  .bg-cyan {
-    background-color: #1cd6d6 
-} @media (max-width: 576px) {
-  .bg-cyan  {
-      font-size: 10px;
+  .ficha-resumen-table,
+  .puntaje-ponderado {
+    width: 45%;
+    margin-bottom: 0;
   }
 }
 
 
-      
+  /* Estilos personalizados para la tabla de auditoria para la pantallas chicas y grandes */
+  .audit-summary {
+    font-size: 10px;
+}
+.table-sm td, .table-sm th {
+    padding: 0.3rem;
+}
+@media (max-width: 576px) {
+    .audit-summary {
+        font-size: 8px;
+    }
+    .table-sm td, .table-sm th {
+        padding: 0.2rem;
+    }
+}
+
+
+
+/* Estilo para pantallas grandes */
+.chart-container {
+  position: relative;
+  height: 43vh;
+  width: 100%;
+}
+
+/* Estilo para pantallas medianas */
+@media (max-width: 1024px) {
+  .chart-container {
+      height: 35vh;
+  }
+}
+
+/* Estilo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .chart-container {
+      height: 23vh;
+  }
+}
+
+/* Estilo para pantallas muy pequeñas */
+@media (max-width: 576px) {
+  .chart-container {
+      height: 21vh;
+  }
+}

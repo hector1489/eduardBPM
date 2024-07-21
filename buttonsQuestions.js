@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const getActiveModule = () => document.querySelector('.module-section.active');
   const getQuestions = () => getActiveModule().querySelectorAll('.pregunta');
 
-  //mostrar una pregunta específica según el índice
+  // Show a specific question based on the index
   function showQuestion(index) {
     const questions = getQuestions();
     questions.forEach((question, i) => {
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  //verifica si todas las preguntas en un módulo están respondidas
+  // Check if all questions in a module are answered
   function allQuestionsAnswered(module) {
     const questions = module.querySelectorAll('.pregunta');
     for (let question of questions) {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
-  //avanza a la siguiente pregunta 
+  // Advance to the next question
   function nextQuestion(currentModuleId, nextModuleId) {
     const questions = getQuestions();
     if (currentQuestion < questions.length - 1) {
@@ -34,12 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (allQuestionsAnswered(getActiveModule())) {
       sendTicket(currentModuleId, nextModuleId);
       currentQuestion = 0;
+      nextModule(currentModuleId, nextModuleId);
+      showQuestion(currentQuestion);
     } else {
-      alert('Por favor termina las preguntas antes de continuar')
+      alert('Por favor termina las preguntas antes de continuar');
     }
   }
 
-  //retrocede a la pregunta anterior
+  // Go back to the previous question
   function previousQuestion(currentModuleId, previousModuleId) {
     const questions = getQuestions();
     if (currentQuestion > 0) {
@@ -47,22 +49,24 @@ document.addEventListener('DOMContentLoaded', () => {
       showQuestion(currentQuestion);
     } else {
       previousModule(currentModuleId, previousModuleId);
+      currentQuestion = getQuestions().length - 1;
+      showQuestion(currentQuestion);
     }
   }
 
-  //agrega listeners de cambio a las preguntas
+  // Add change listeners to the questions
   function addChangeListenerToQuestions() {
     const questions = getActiveModule().querySelectorAll('.pregunta select, .pregunta input');
     questions.forEach(element => {
-      element.addEventListener('change', nextQuestion);
+      element.addEventListener('change', () => {
+        nextQuestion(element.closest('.module-section').id, nextModuleId);
+      });
     });
   }
 
-
-
+  // Count questions in modules
   function countQuestionsInModules() {
     const modules = document.querySelectorAll('.module-section');
-
     modules.forEach(module => {
       const questions = module.querySelectorAll('.pregunta');
       const totalQuestions = questions.length;
@@ -72,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
       questions.forEach(question => {
         const select = question.querySelector('select');
         const input = question.querySelector('input');
-        //suma valores seleccionados
         if (select && select.value) {
           totalPercentage += parseInt(select.value, 10);
           answeredQuestions++;
@@ -81,29 +84,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      //promedio de los porcentajes por consola
       const averagePercentage = totalPercentage / totalQuestions;
       console.log(`Module ${module.id} has ${totalQuestions} questions, ${answeredQuestions} answered. Average response percentage: ${averagePercentage.toFixed(2)}%.`);
     });
   }
 
-  // Muestra la primera pregunta
+  // Show the first question
   showQuestion(currentQuestion);
-  // Agrega listeners de cambio a las preguntas
   addChangeListenerToQuestions();
-  //countQuestionsInModules();
+
 
   window.nextQuestion = nextQuestion;
   window.previousQuestion = previousQuestion;
 });
 
-
-/*ticket*/
-
+// Ticket function
 function sendTicket(currentModuleId, nextModuleId) {
 
-  // alert('Ticket enviado. Haz click nuevamente para ir al siguiente modulo');
-
-  // Avanzar al siguiente módulo
   nextModule(currentModuleId, nextModuleId);
 }

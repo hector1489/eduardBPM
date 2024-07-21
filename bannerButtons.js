@@ -1,5 +1,66 @@
 // botón de "Fotos"
 document.querySelectorAll('#capture-btn').forEach(btn => {
+  btn.addEventListener('click', async function () {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      
+      if (isMobile) {
+          // Si es un dispositivo móvil, tomar una foto con la cámara
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+
+          try {
+              // Solicitar acceso a la cámara del dispositivo
+              const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+              const track = stream.getVideoTracks()[0];
+
+              // Crear un elemento video para capturar una imagen
+              const video = document.createElement('video');
+              video.srcObject = stream;
+
+              // Esperar a que el video se cargue
+              await new Promise(resolve => video.addEventListener('loadedmetadata', resolve));
+
+              // Configurar el canvas con las dimensiones del video
+              canvas.width = video.videoWidth;
+              canvas.height = video.videoHeight;
+
+              // Esperar un breve momento para estabilizar la imagen
+              setTimeout(() => {
+                  // Dibujar el frame actual del video en el canvas
+                  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                  // Detener el stream de video
+                  track.stop();
+                  stream.getTracks().forEach(track => track.stop());
+
+                  // Crear un enlace para descargar la imagen
+                  let link = document.createElement('a');
+                  link.href = canvas.toDataURL('image/png');
+                  link.download = 'captura_foto.png';
+                  link.click();
+
+              }, 100); // Esperar 100 ms
+
+          } catch (error) {
+              console.error('Error accediendo a la cámara: ', error);
+          }
+      } else {
+          // Si es una pantalla grande, hacer un screenshot de la pantalla actual
+          const module = this.closest('.module-section');
+
+          html2canvas(module).then(canvas => {
+              let link = document.createElement('a');
+              link.href = canvas.toDataURL('image/png');
+              link.download = module.id + '_screenshot.png';
+              link.click();
+          });
+      }
+  });
+});
+
+
+/* botón de "Fotos"
+document.querySelectorAll('#capture-btn').forEach(btn => {
   btn.addEventListener('click', function () {
     const module = this.closest('.module-section');
 
@@ -11,7 +72,7 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
     });
   });
 });
-
+*/
 
 
 // botón de "Comentario"
@@ -119,3 +180,14 @@ document.querySelectorAll('#incident-btn').forEach(btn => {
     }
   });
 });
+
+//saca una foto al resumen y la descarga "edo"
+
+function capturarYDescargar() {
+  html2canvas(document.body).then(canvas => {
+      let link = document.createElement('a');
+      link.download = 'captura-auditoria.png';
+      link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      link.click();
+  });
+}
