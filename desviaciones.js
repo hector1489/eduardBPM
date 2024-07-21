@@ -1181,8 +1181,6 @@ function loadTableDetails() {
     return;
   }
 
-  console.log(`Datos recuperados para ${tableId}:`, data);
-
   data.forEach(rowData => {
     if (rowData[`columna4`]) {
       const id = rowData[`idColumna4`];
@@ -1196,8 +1194,7 @@ function loadTableDetails() {
         );
 
         if (match) {
-          console.log(`Columna4: ${rowData[`columna4`]}, ID Columna4: ${id}`);
-          console.log(`Pregunta: ${idPart}`);
+          agregarFilaDesdeID(id);
         } else {
           console.log(`No se encontró acción para el ID ${id}`);
         }
@@ -1206,6 +1203,69 @@ function loadTableDetails() {
   });
 }
 
+// Agregar una fila a la tabla de desviaciones con datos del ID
+function agregarFilaDesdeID(id) {
+  const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+  const fila = document.createElement('tr');
+
+  // Extraer la pregunta usando el ID
+  const idPart = id.replace('observacion-', '');
+  const match = questions.find(module =>
+    Array.isArray(module.question)
+      ? module.question.find(q => q.toLowerCase() === idPart.toLowerCase())
+      : module.question.toLowerCase() === idPart.toLowerCase()
+  );
+
+  if (match) {
+    // Crear celdas con la pregunta encontrada
+    fila.appendChild(crearCelda(tabla.rows.length + 1));
+    fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas(match.question[0])));
+
+    fila.appendChild(crearCeldaConSelect(criterio, ''));
+    fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
+
+    // Prioridad y estado con valores predeterminados
+    const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
+    prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
+    fila.appendChild(prioridadCelda);
+
+    const estadoCelda = crearCeldaConSelect(estados, estados[0]);
+    estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
+    fila.appendChild(estadoCelda);
+
+    fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
+    fila.appendChild(crearCeldaConInput('   /   /   '));
+    fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
+    fila.appendChild(crearCeldaConInput('   /   /   '));
+    fila.appendChild(crearCeldaConInput('', crearComboBoxCantidadDeDias('')));
+
+    fila.appendChild(crearCeldaConSelect(entidades, entidades[0])); 
+    fila.appendChild(crearCeldaConSelect(responsablesDesviacion, responsablesDesviacion[0]));
+    fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
+
+    fila.appendChild(crearCeldaConInput(''));
+    fila.appendChild(crearCeldaConInput(''));
+    fila.appendChild(crearCeldaConInput('   /   /   '));
+
+    // Foto
+    fila.appendChild(crearCeldaConInputFoto());
+
+    // Eliminar
+    const celdaEliminar = document.createElement('td');
+    const botonEliminar = document.createElement('button');
+    botonEliminar.innerText = 'Eliminar';
+    botonEliminar.addEventListener('click', function () {
+      eliminarFila(fila);
+    });
+    celdaEliminar.appendChild(botonEliminar);
+    fila.appendChild(celdaEliminar);
+
+    tabla.appendChild(fila);
+    actualizarFiltros();
+  } else {
+    console.log(`No se encontró una pregunta para el ID ${id}`);
+  }
+}
 
 // agregar fila con datos desde localStorage
 function agregarFilaConDatos(dato) {
