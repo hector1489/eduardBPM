@@ -1170,7 +1170,7 @@ function cargarDatosDesdeLocalStorage() {
   }
 }
 
-// datos details  desde localStorage
+// datos details desde localStorage
 function loadTableDetails() {
   const tableId = 'tabla-details';
   const data = JSON.parse(localStorage.getItem(`tablaDatos-${tableId}`));
@@ -1181,11 +1181,12 @@ function loadTableDetails() {
   }
 
   data.forEach(rowData => {
+
     if (rowData[`columna4`]) {
       const id = rowData[`idColumna4`];
       if (id) {
         const idPart = id.replace('observacion-', '');
-        
+
         const match = questions.find(module =>
           Array.isArray(module.question)
             ? module.question.find(q => q.toLowerCase() === idPart.toLowerCase())
@@ -1200,6 +1201,7 @@ function loadTableDetails() {
       }
     }
   });
+
 }
 
 // Agregar una fila a la tabla de desviaciones con datos del ID
@@ -1238,7 +1240,7 @@ function agregarFilaDesdeID(id) {
     fila.appendChild(crearCeldaConInput('   /   /   '));
     fila.appendChild(crearCeldaConInput('', crearComboBoxCantidadDeDias('')));
 
-    fila.appendChild(crearCeldaConSelect(entidades, entidades[0])); 
+    fila.appendChild(crearCeldaConSelect(entidades, entidades[0]));
     fila.appendChild(crearCeldaConSelect(responsablesDesviacion, responsablesDesviacion[0]));
     fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
 

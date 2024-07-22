@@ -1,60 +1,60 @@
 // botón de "Fotos"
 document.querySelectorAll('#capture-btn').forEach(btn => {
   btn.addEventListener('click', async function () {
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      
-      if (isMobile) {
-          // Si es un dispositivo móvil, tomar una foto con la cámara
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-          try {
-              // Solicitar acceso a la cámara del dispositivo
-              const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-              const track = stream.getVideoTracks()[0];
+    if (isMobile) {
+      // Si es un dispositivo móvil, tomar una foto con la cámara
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
 
-              // Crear un elemento video para capturar una imagen
-              const video = document.createElement('video');
-              video.srcObject = stream;
+      try {
+        // Solicitar acceso a la cámara del dispositivo
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const track = stream.getVideoTracks()[0];
 
-              // Esperar a que el video se cargue
-              await new Promise(resolve => video.addEventListener('loadedmetadata', resolve));
+        // Crear un elemento video para capturar una imagen
+        const video = document.createElement('video');
+        video.srcObject = stream;
 
-              // Configurar el canvas con las dimensiones del video
-              canvas.width = video.videoWidth;
-              canvas.height = video.videoHeight;
+        // Esperar a que el video se cargue
+        await new Promise(resolve => video.addEventListener('loadedmetadata', resolve));
 
-              // Esperar un breve momento para estabilizar la imagen
-              setTimeout(() => {
-                  // Dibujar el frame actual del video en el canvas
-                  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // Configurar el canvas con las dimensiones del video
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
 
-                  // Detener el stream de video
-                  track.stop();
-                  stream.getTracks().forEach(track => track.stop());
+        // Esperar un breve momento para estabilizar la imagen
+        setTimeout(() => {
+          // Dibujar el frame actual del video en el canvas
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                  // Crear un enlace para descargar la imagen
-                  let link = document.createElement('a');
-                  link.href = canvas.toDataURL('image/png');
-                  link.download = 'auditoria.png';
-                  link.click();
+          // Detener el stream de video
+          track.stop();
+          stream.getTracks().forEach(track => track.stop());
 
-              }, 100); // Esperar 100 ms
+          // Crear un enlace para descargar la imagen
+          let link = document.createElement('a');
+          link.href = canvas.toDataURL('image/png');
+          link.download = 'auditoria.png';
+          link.click();
 
-          } catch (error) {
-              console.error('Error accediendo a la cámara: ', error);
-          }
-      } else {
-          // Si es una pantalla grande, hacer un screenshot de la pantalla actual
-          const module = this.closest('.module-section');
+        }, 100); // Esperar 100 ms
 
-          html2canvas(module).then(canvas => {
-              let link = document.createElement('a');
-              link.href = canvas.toDataURL('image/png');
-              link.download = module.id + '_screenshot.png';
-              link.click();
-          });
+      } catch (error) {
+        console.error('Error accediendo a la cámara: ', error);
       }
+    } else {
+      // Si es una pantalla grande, hacer un screenshot de la pantalla actual
+      const module = this.closest('.module-section');
+
+      html2canvas(module).then(canvas => {
+        let link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = module.id + '_screenshot.png';
+        link.click();
+      });
+    }
   });
 });
 
@@ -168,9 +168,9 @@ document.querySelectorAll('#incident-btn').forEach(btn => {
 
 function capturarYDescargar() {
   html2canvas(document.body).then(canvas => {
-      let link = document.createElement('a');
-      link.download = 'captura-auditoria.png';
-      link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      link.click();
+    let link = document.createElement('a');
+    link.download = 'captura-auditoria.png';
+    link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    link.click();
   });
 }

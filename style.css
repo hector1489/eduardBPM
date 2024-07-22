@@ -135,6 +135,7 @@ hr {
   background-color: goldenrod;
   color: white;
 }
+
 .btn-orange:hover {
   background-color: rgb(240, 106, 17);
   color: white;
@@ -142,11 +143,9 @@ hr {
 }
 
 .btn-na {
-  background-color: gold  ;
+  background-color: gold;
   color: white;
 }
-
-
 
 /*report-table*/
 .audit-summary {
@@ -219,20 +218,25 @@ hr {
 }
 
 
-  /* Estilos personalizados para la tabla de auditoria para la pantallas chicas y grandes */
-  .audit-summary {
-    font-size: 10px;
+/* Estilos personalizados para la tabla de auditoria para la pantallas chicas y grandes */
+.audit-summary {
+  font-size: 10px;
 }
-.table-sm td, .table-sm th {
-    padding: 0.3rem;
+
+.table-sm td,
+.table-sm th {
+  padding: 0.3rem;
 }
+
 @media (max-width: 576px) {
-    .audit-summary {
-        font-size: 8px;
-    }
-    .table-sm td, .table-sm th {
-        padding: 0.2rem;
-    }
+  .audit-summary {
+    font-size: 8px;
+  }
+
+  .table-sm td,
+  .table-sm th {
+    padding: 0.2rem;
+  }
 }
 
 
@@ -247,20 +251,20 @@ hr {
 /* Estilo para pantallas medianas */
 @media (max-width: 1024px) {
   .chart-container {
-      height: 35vh;
+    height: 35vh;
   }
 }
 
 /* Estilo para pantallas pequeñas */
 @media (max-width: 768px) {
   .chart-container {
-      height: 23vh;
+    height: 23vh;
   }
 }
 
 /* Estilo para pantallas muy pequeñas */
 @media (max-width: 576px) {
   .chart-container {
-      height: 21vh;
+    height: 21vh;
   }
 }

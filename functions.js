@@ -327,9 +327,8 @@ function calculateOverallAverages() {
     document.getElementById('promedio-ponderado').innerText = `${weightedAverage.toFixed(1)}%`;
   }
 
-  
-  //Actualizar datos desde ficha
 
+  //Actualizar datos desde ficha
   function updateFichaResumen() {
     document.getElementById('resumen-nombre-establecimiento').innerText = document.getElementById('nombre-establecimiento').value;
     document.getElementById('resumen-numero-auditoria').innerText = document.getElementById('numero-auditoria').value;
@@ -445,6 +444,8 @@ function guardarDatosTabla() {
       return;
     }
 
+    const maxColumnas = Array.from(filas[0].cells).length;
+
     const datos = [];
     for (let i = 1; i < filas.length; i++) {
       const fila = filas[i];
@@ -456,12 +457,19 @@ function guardarDatosTabla() {
       }
 
       const filaDatos = {};
-      for (let j = 0; j < celdas.length; j++) {
-        const celda = celdas[j];
-        const span = celda.querySelector('span');
+      for (let j = 0; j < maxColumnas; j++) {
+        const celda = celdas[j] || {};
+        if (celda.nodeType === Node.ELEMENT_NODE) {
+          const span = celda.querySelector('span');
 
-        filaDatos[`columna${j + 1}`] = span ? span.innerText : celda.innerText;
-        filaDatos[`idColumna${j + 1}`] = span ? span.id : 'N/A';
+          const contenido = span ? span.innerText : celda.innerText;
+          filaDatos[`columna${j + 1}`] = contenido || '';
+          filaDatos[`idColumna${j + 1}`] = span ? span.id : 'N/A';
+        } else {
+
+          filaDatos[`columna${j + 1}`] = '';
+          filaDatos[`idColumna${j + 1}`] = 'N/A';
+        }
       }
       datos.push(filaDatos);
     }
@@ -471,8 +479,6 @@ function guardarDatosTabla() {
 
   alert('Datos guardados correctamente.');
 }
-
-
 
 
 // Descargar la tabla como archivo Excel
