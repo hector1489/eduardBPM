@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   cargarDatosDesdeLocalStorage();
   inicializarFiltros();
-  loadTableDetails();
 });
 
 // Definición de Arrays
