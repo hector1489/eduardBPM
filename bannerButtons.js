@@ -36,7 +36,7 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
                   // Crear un enlace para descargar la imagen
                   let link = document.createElement('a');
                   link.href = canvas.toDataURL('image/png');
-                  link.download = 'captura_foto.png';
+                  link.download = 'auditoria.png';
                   link.click();
 
               }, 100); // Esperar 100 ms
