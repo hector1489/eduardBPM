@@ -401,6 +401,8 @@ function calculateOverallAverages() {
     document.getElementById('promedio-tra').innerText = `${moduleAverages.tra}%`;
     document.getElementById('promedio-lum').innerText = `${moduleAverages.lum}%`;
     document.getElementById('promedio-final').innerText = `${moduleAverages.final}%`;
+
+
   }
 
   // Lógica adicional para actualizar las observaciones basadas en los promedios generales
@@ -423,6 +425,61 @@ function calculateOverallAverages() {
 
   updateFichaResumen();
 }
+
+
+function updateTableWarning() {
+  const warningMapping = {
+      'warning-cs-registro': 'observacion-cs-registro',
+      'warning-cs-medidas': 'observacion-cs-medidas',
+      'warning-higiene-programa': 'observacion-higiene-programa',
+      'warning-plagas-autorizacion': 'observacion-plagas-autorizacion',
+      'warning-plagas-desechos': 'observacion-plagas-desechos',
+      'warning-recepcion-materias': 'observacion-recepcion-materias',
+      'warning-recepcion-especificaciones': 'observacion-recepcion-especificaciones',
+      'warning-ppt-flujo': 'observacion-ppt-flujo',
+      'warning-ppt-procedimientos': 'observacion-ppt-procedimientos',
+      'warning-ppt-almacenamiento': 'observacion-ppt-almacenamiento',
+      'warning-ppt-distribucion': 'observacion-ppt-distribucion',
+      'warning-ppt-envases': 'observacion-ppt-envases',
+      'warning-ppt-etiquetas': 'observacion-ppt-etiquetas',
+      'warning-cap-manipulacion': 'observacion-cap-manipulacion',
+      'warning-cap-limpieza': 'observacion-cap-limpieza'
+  };
+
+  const observerCallback = (mutationsList) => {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList' || mutation.type === 'characterData') {
+        const observationId = mutation.target.id;
+        const warningId = Object.keys(warningMapping).find(key => warningMapping[key] === observationId);
+
+        if (warningId) {
+          const observationElement = document.querySelector(`#tabla-details #${observationId}`);
+          const warningElement = document.querySelector(`#tabla-warning #${warningId}`);
+
+          if (observationElement && warningElement) {
+            warningElement.innerText = observationElement.innerText;
+          }
+        }
+      }
+    }
+  };
+
+  const observerConfig = {
+    childList: true,
+    characterData: true,
+    subtree: true
+  };
+
+  Object.values(warningMapping).forEach(observationId => {
+    const observationElement = document.querySelector(`#tabla-details #${observationId}`);
+    if (observationElement) {
+      const observer = new MutationObserver(observerCallback);
+      observer.observe(observationElement, observerConfig);
+    }
+  });
+}
+
+updateTableWarning();
 
 
 // Obtener los datos de la tabla y guardarlos en localStorage
