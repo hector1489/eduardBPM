@@ -1180,6 +1180,8 @@ function loadTableDetails() {
     return;
   }
 
+  console.log(data);
+
   data.forEach(rowData => {
 
     if (rowData[`columna4`]) {

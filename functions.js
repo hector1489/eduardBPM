@@ -424,6 +424,7 @@ function calculateOverallAverages() {
   updateFichaResumen();
 }
 
+
 // Obtener los datos de la tabla y guardarlos en localStorage
 function guardarDatosTabla() {
   const modulo = document.getElementById('module-details');
@@ -479,6 +480,7 @@ function guardarDatosTabla() {
 
   alert('Datos guardados correctamente.');
 }
+
 
 
 // Descargar la tabla como archivo Excel
