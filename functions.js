@@ -16,7 +16,7 @@ function initializeSelectChangeListeners() {
     'poes-contaminacion-cruzada', 'poes-sustancias-adulterantes', 'poes-higiene-empleados',
     'poes-control-plagas', 'poes-instalaciones', 'poe-recepcion', 'poe-almacenamiento',
     'poe-preelaboraciones', 'poe-elaboracion', 'poe-mantencion', 'poe-transporte', 'poe-servicio',
-    'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'poe-ppt', 'ma', 'doc', 'lum', 'tra'
+    'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'poe-ppt', 'ma', 'doc','cap', 'lum', 'tra'
   ];
 
   modules.forEach(module => {
@@ -442,8 +442,8 @@ function updateTableWarning() {
       'warning-ppt-distribucion': 'observacion-ppt-distribucion',
       'warning-ppt-envases': 'observacion-ppt-envases',
       'warning-ppt-etiquetas': 'observacion-ppt-etiquetas',
-      'warning-cap-manipulacion': 'observacion-cap-manipulacion',
-      'warning-cap-limpieza': 'observacion-cap-limpieza'
+      'warning-existe-programa': 'observacion-existe-programa',
+      'warning-existe-capacitacion': 'observacion-existe-capacitacion'
   };
 
   const observerCallback = (mutationsList) => {

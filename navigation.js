@@ -17,7 +17,7 @@ function nextModule(currentModule, nextModule) {
       document.getElementById('module-title').innerText = 'DOC - Documentación';
       break;
     case 'cap':
-      document.getElementById('module-title').innerText = 'CAP - CAPACITACION';
+      document.getElementById('module-title').innerText = 'DOC - CAPACITACION';
       break;
     case 'resumen':
       document.getElementById('module-title').innerText = 'Resumen auditoría';
@@ -58,7 +58,7 @@ function previousModule(currentModule, previousModule) {
       document.getElementById('module-title').innerText = 'DOC - Documentación';
       break;
     case 'cap':
-      document.getElementById('module-title').innerText = 'CAP - CAPACITACION';
+      document.getElementById('module-title').innerText = 'DOC - CAPACITACION';
       break;
     case 'resumen':
       document.getElementById('module-title').innerText = 'Resumen auditoría';
