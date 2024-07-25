@@ -39,22 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function previousQuestion(currentModuleId, previousModuleId) {
-    const questions = getQuestions();
-    if (currentQuestion > 0) {
-      currentQuestion--;
-      showQuestion(currentQuestion);
-    } else {
-      previousModule(currentModuleId, previousModuleId);
-      currentQuestion = getQuestions().length - 1;
-      showQuestion(currentQuestion);
-    }
+  const questions = getQuestions();
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    showQuestion(currentQuestion);
+  } else if (previousModuleId) {
+    previousModule(currentModuleId, previousModuleId);
+    const previousQuestions = getQuestions();
+    currentQuestion = previousQuestions.length - 1;
+    showQuestion(currentQuestion);
   }
+}
 
   function addChangeListenerToQuestions() {
     const questions = getActiveModule().querySelectorAll('.pregunta select, .pregunta input');
     questions.forEach(element => {
       element.addEventListener('change', () => {
-        nextQuestion(element.closest('.module-section').id, nextModuleId);
+        nextQuestion(element.closest('.module-section').id, nextModule);
       });
     });
   }
@@ -84,37 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function nextModule(currentModuleId, nextModuleId) {
-    const currentModule = document.getElementById(currentModuleId);
-    const nextModule = document.getElementById(nextModuleId);
-    const moduleTitle = document.getElementById('module-title');
 
-    if (nextModule) {
-      currentModule.classList.remove('active');
-      nextModule.classList.add('active');
-
-      const nextModuleTitle = nextModule.querySelector('h3')?.textContent;
-      if (nextModuleTitle) {
-        moduleTitle.textContent = nextModuleTitle;
-      }
-    }
-  }
-
-  function previousModule(currentModuleId, previousModuleId) {
-    const currentModule = document.getElementById(currentModuleId);
-    const previousModule = document.getElementById(previousModuleId);
-    const moduleTitle = document.getElementById('module-title');
-
-    if (previousModule) {
-      currentModule.classList.remove('active');
-      previousModule.classList.add('active');
-
-      const previousModuleTitle = previousModule.querySelector('h3')?.textContent;
-      if (previousModuleTitle) {
-        moduleTitle.textContent = previousModuleTitle;
-      }
-    }
-  }
+  
 
   // Show the first question
   showQuestion(currentQuestion);
