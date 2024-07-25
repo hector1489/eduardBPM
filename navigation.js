@@ -82,6 +82,12 @@ function nextModule(currentModule, nextModule) {
     case 'ficha':
       document.getElementById('module-title').style.display = 'none';
       break;
+    case 'details':
+      document.getElementById('module-title').style.display = 'none';
+      break;
+    case 'warning':
+      document.getElementById('module-title').style.display = 'none';
+      break;
     default:
       document.getElementById('module-title').innerText = 'BPM - Buenas Prácticas de Manufactura';
   }
@@ -171,6 +177,12 @@ function previousModule(currentModule, previousModule) {
       document.getElementById('module-title').innerText = 'LUM - LUMINOMETRÍA';
       break;
     case 'ficha':
+      document.getElementById('module-title').style.display = 'none';
+      break;
+    case 'details':
+      document.getElementById('module-title').style.display = 'none';
+      break;
+    case 'warning':
       document.getElementById('module-title').style.display = 'none';
       break;
     default:
