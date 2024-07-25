@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const getActiveModule = () => document.querySelector('.module-section.active');
   const getQuestions = () => getActiveModule().querySelectorAll('.pregunta');
 
-  // Show a specific question based on the index
   function showQuestion(index) {
     const questions = getQuestions();
     questions.forEach((question, i) => {
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Check if all questions in a module are answered
   function allQuestionsAnswered(module) {
     const questions = module.querySelectorAll('.pregunta');
     for (let question of questions) {
@@ -25,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
-  // Advance to the next question
   function nextQuestion(currentModuleId, nextModuleId) {
     const questions = getQuestions();
     if (currentQuestion < questions.length - 1) {
@@ -41,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Go back to the previous question
   function previousQuestion(currentModuleId, previousModuleId) {
     const questions = getQuestions();
     if (currentQuestion > 0) {
@@ -54,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Add change listeners to the questions
   function addChangeListenerToQuestions() {
     const questions = getActiveModule().querySelectorAll('.pregunta select, .pregunta input');
     questions.forEach(element => {
@@ -64,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Count questions in modules
+
   function countQuestionsInModules() {
     const modules = document.querySelectorAll('.module-section');
     modules.forEach(module => {
@@ -89,6 +84,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function nextModule(currentModuleId, nextModuleId) {
+    const currentModule = document.getElementById(currentModuleId);
+    const nextModule = document.getElementById(nextModuleId);
+    const moduleTitle = document.getElementById('module-title');
+
+    if (nextModule) {
+      currentModule.classList.remove('active');
+      nextModule.classList.add('active');
+
+      const nextModuleTitle = nextModule.querySelector('h3')?.textContent;
+      if (nextModuleTitle) {
+        moduleTitle.textContent = nextModuleTitle;
+      }
+    }
+  }
+
+  function previousModule(currentModuleId, previousModuleId) {
+    const currentModule = document.getElementById(currentModuleId);
+    const previousModule = document.getElementById(previousModuleId);
+    const moduleTitle = document.getElementById('module-title');
+
+    if (previousModule) {
+      currentModule.classList.remove('active');
+      previousModule.classList.add('active');
+
+      const previousModuleTitle = previousModule.querySelector('h3')?.textContent;
+      if (previousModuleTitle) {
+        moduleTitle.textContent = previousModuleTitle;
+      }
+    }
+  }
+
   // Show the first question
   showQuestion(currentQuestion);
 
@@ -101,8 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Ticket function
 function sendTicket(currentModuleId, nextModuleId) {
- 
   // alert('Ticket enviado. Haz click nuevamente para ir al siguiente modulo');
-
   nextModule(currentModuleId, nextModuleId);
 }
