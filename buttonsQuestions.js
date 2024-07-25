@@ -1,6 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
   let currentQuestion = 0;
 
+  const setAuditNumber = () => {
+    let auditNumber = localStorage.getItem('auditNumber');
+    if (!auditNumber) {
+      auditNumber = 1;
+    } else {
+      auditNumber = parseInt(auditNumber) + 1;
+    }
+    localStorage.setItem('auditNumber', auditNumber);
+    document.getElementById('numero-auditoria').value = auditNumber;
+  };
+
+  const resetAuditNumber = () => {
+    localStorage.setItem('auditNumber', 0);
+  };
+
   const getActiveModule = () => document.querySelector('.module-section.active');
   const getQuestions = () => getActiveModule().querySelectorAll('.pregunta');
 
@@ -39,17 +54,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function previousQuestion(currentModuleId, previousModuleId) {
-  const questions = getQuestions();
-  if (currentQuestion > 0) {
-    currentQuestion--;
-    showQuestion(currentQuestion);
-  } else if (previousModuleId) {
-    previousModule(currentModuleId, previousModuleId);
-    const previousQuestions = getQuestions();
-    currentQuestion = previousQuestions.length - 1;
-    showQuestion(currentQuestion);
+    const questions = getQuestions();
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      showQuestion(currentQuestion);
+    } else if (previousModuleId) {
+      previousModule(currentModuleId, previousModuleId);
+      const previousQuestions = getQuestions();
+      currentQuestion = previousQuestions.length - 1;
+      showQuestion(currentQuestion);
+    }
   }
-}
+
+  function exitDashboard() {
+    resetAuditNumber();
+    window.location.href = 'dashboard.html';
+  }
 
   function addChangeListenerToQuestions() {
     const questions = getActiveModule().querySelectorAll('.pregunta select, .pregunta input');
@@ -86,16 +106,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  
+  // Contador  auditoria
+  setAuditNumber();
 
-  // Show the first question
+
   showQuestion(currentQuestion);
 
   addChangeListenerToQuestions();
   // countQuestionsInModules();
 
+
   window.nextQuestion = nextQuestion;
   window.previousQuestion = previousQuestion;
+
+  document.getElementById('exit-dashboard-button').addEventListener('click', exitDashboard);
 });
 
 // Ticket function
