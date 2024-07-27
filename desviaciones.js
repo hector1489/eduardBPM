@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   cargarDatosDesdeLocalStorage();
   inicializarFiltros();
+  
 });
 
 // Definición de Arrays
@@ -115,6 +116,7 @@ const questions = [
   },
   {
     module: 'pre-elaboraciones', question: [
+      'Descongelacion',
       'Preelaborados',
       'Materias-Primas',
       'Separacion-Productos',
@@ -681,6 +683,15 @@ const accionCorrectivas = [
       'REALIZAR REGISTRO DE PEDIDO A BODEGA ADICIONAL ',
       'ARMAR CANASTAS PARA LAS AREAS SEGUN PEDIDOS',
       'REVISIÓN DIARIA  DE REQUISICIONES SEGUN MINUTA',
+    ]
+  },
+  {
+    question: 'Descongelacion',
+    action: [
+      'REALIZAR REGISTRO DE DESCONGELACIÓN',
+      'ADICIONAR A CADA M.P ROTULACIÓN DE DESCONGELACIÓN',
+      'SEPARAR EN ESTANTERIAS CARNES ROJAS -BLANZA Y PESCADOS',
+      'IMPLEMETAR TIEMPOS DE DESCONGELACIÓN SEGUN TAMAÑO DE M.P'
     ]
   },
   {
@@ -1390,8 +1401,417 @@ function filtrarTabla() {
   }
 }
 
+// Filtros a la cabecera de la tabla
+function agregarFiltrosHead() {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const thead = tabla.getElementsByTagName('thead')[0];
+  const filaFiltro = document.getElementById('tr-filter');
+  
+  filaFiltro.innerHTML = '';
 
-// agregar una fila a la tabla de desviaciones
+  filaFiltro.appendChild(crearCeldaConSelectNumeroTH(''));
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasPreguntasTH('')));
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCriterios('')));
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviaciones('')));
+
+  filaFiltro.appendChild(crearCeldaConSelectPrioridadTH());
+
+  const estadoCelda = crearCeldaConSelect(estados, estados[0]);
+  estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
+  filaFiltro.appendChild( crearCeldaConSelectEstadoTH());
+
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasActionTH('')));
+  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
+  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
+  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCantidadDeDiasTH('')));
+
+  filaFiltro.appendChild(crearCeldaConSelectEntidadTH(entidades, entidades[0]));
+  filaFiltro.appendChild(crearCeldaConSelectResponsableTH(responsablesDesviacion, responsablesDesviacion[0]));
+  filaFiltro.appendChild(crearCeldaConSelectAuditorTH(auditores, auditores[0]));
+
+  filaFiltro.appendChild(crearCeldaTH(''));
+  filaFiltro.appendChild(crearCeldaTH(''));
+  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
+
+  // foto
+  filaFiltro.appendChild(crearCeldaTH(''));
+
+  //eliminar
+  filaFiltro.appendChild(crearCeldaTH(''));
+
+  thead.appendChild(filaFiltro);
+}
+
+//llamada a los filtros head
+agregarFiltrosHead();
+
+// Crea una celda con contenido
+function crearCeldaTH(contenido) {
+  const celda = document.createElement('th');
+  celda.innerHTML = contenido;
+  return celda;
+}
+
+// Crea una celda con un input
+function crearCeldaConInputTH(valor, elemento) {
+  const celda = document.createElement('th');
+  if (!elemento) {
+    elemento = document.createElement('input');
+    elemento.type = 'text';
+    elemento.className = 'form-control';
+    elemento.value = valor;
+  }
+  celda.appendChild(elemento);
+  return celda;
+}
+
+// Crea una celda con un inputNumero
+function crearCeldaConSelectNumeroTH() {
+  const celda = document.createElement('th');
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  for (let i = 1; i <= 1000; i++) {
+    const option = document.createElement('option');
+    option.value = i;
+    option.text = i;
+    select.appendChild(option);
+  }
+
+  select.addEventListener('change', function() {
+    filtrarPorNumero(select.value);
+  });
+
+  celda.appendChild(select);
+  return celda;
+}
+
+// Filtrar por numeroInput
+function filtrarPorNumero(numeroSeleccionado) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+  for (let i = 0; i < filas.length; i++) {
+    const fila = filas[i];
+    const numeroCelda = fila.getElementsByTagName('td')[0].innerText;
+
+    if (numeroSeleccionado === '' || numeroCelda === numeroSeleccionado) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  }
+}
+
+// Crea un combobox (select) con todas las acciones sin restricciones
+function crearComboBoxTodasLasActionTH(valorSeleccionado) {
+  const select = document.createElement('select');
+  select.className = 'form-control';
+  select.id = 'select-actions';
+
+  const todasLasAcciones = accionCorrectivas.reduce((acciones, item) => {
+    return acciones.concat(item.action);
+  }, []);
+
+  todasLasAcciones.forEach(action => {
+    const option = document.createElement('option');
+    option.value = action;
+    option.text = action;
+    if (action === valorSeleccionado) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
+
+  return select;
+}
+
+// Crea un combobox (select) con todas las preguntas sin restricciones
+function crearComboBoxTodasLasPreguntasTH(valorSeleccionado) {
+  const preguntas = obtenerTodasLasPreguntas();
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  preguntas.forEach(pregunta => {
+    const option = document.createElement('option');
+    option.value = pregunta;
+    option.text = pregunta;
+    if (pregunta === valorSeleccionado) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
+
+  return select;
+}
+
+// Crea un combobox (select) de desviaciones sin restricciones
+function crearComboBoxDesviacionesTH(valorSeleccionado) {
+  const select = document.createElement('select');
+  select.className = 'form-control';
+  desviaciones.forEach(desviacion => {
+    const option = document.createElement('option');
+    option.value = desviacion;
+    option.text = desviacion;
+    if (desviacion === valorSeleccionado) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
+  return select;
+}
+
+// Crea un combobox (select) de cantidad de días sin restricciones
+function crearComboBoxCantidadDeDiasTH(valorSeleccionado) {
+  const dias = [10, 15, 30, 45];
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  dias.forEach(dia => {
+    const option = document.createElement('option');
+    option.value = dia;
+    option.text = `${dia} días`;
+    if (dia === valorSeleccionado) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
+
+  return select;
+}
+
+// Crea un input de prioridad
+function crearCeldaConSelectPrioridadTH() {
+  const celda = document.createElement('th');
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  const prioridades = ['Leve', 'Moderado', 'Crítico'];
+  prioridades.forEach(prioridad => {
+    const option = document.createElement('option');
+    option.value = prioridad;
+    option.text = prioridad;
+    select.appendChild(option);
+  });
+
+  select.addEventListener('change', function() {
+    filtrarPorPrioridad(select.value);
+  });
+
+  celda.appendChild(select);
+  return celda;
+}
+
+// Filtrar por prioridad
+function filtrarPorPrioridad(prioridadSeleccionada) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+  for (let i = 0; i < filas.length; i++) {
+    const fila = filas[i];
+    const prioridadCelda = fila.getElementsByTagName('td')[5].innerText;
+
+    if (prioridadSeleccionada === '' || prioridadCelda === prioridadSeleccionada) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  }
+}
+
+// Crea un input de Estado
+function crearCeldaConSelectEstadoTH() {
+  const celda = document.createElement('th');
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  // Agregar opciones para Estado
+  const estados = ['Abierto', 'Cerrado'];
+  estados.forEach(estado => {
+    const option = document.createElement('option');
+    option.value = estado;
+    option.text = estado;
+    select.appendChild(option);
+  });
+
+  select.addEventListener('change', function() {
+    filtrarPorEstado(select.value);
+  });
+
+  celda.appendChild(select);
+  return celda;
+}
+
+// Filtrar por estado
+function filtrarPorEstado(estadoSeleccionado) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+  for (let i = 0; i < filas.length; i++) {
+    const fila = filas[i];
+    const estadoCelda = fila.getElementsByTagName('td')[6].innerText;
+
+    if (estadoSeleccionado === '' || estadoCelda === estadoSeleccionado) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  }
+}
+
+// Crea un input de fecha en la cabecera de la tabla
+function crearCeldaConInputFechaTH(valor) {
+  const celda = document.createElement('th');
+  const inputFecha = document.createElement('input');
+  inputFecha.type = 'date';
+  inputFecha.className = 'form-control';
+  inputFecha.value = valor;
+
+  inputFecha.addEventListener('change', function() {
+    filtrarPorFecha(inputFecha.value);
+  });
+
+  celda.appendChild(inputFecha);
+  return celda;
+}
+
+// Filtrar filas por fecha
+function filtrarPorFecha(fechaSeleccionada) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+  for (let i = 0; i < filas.length; i++) {
+    const fila = filas[i];
+    const fechaCelda = fila.getElementsByTagName('td')[9].innerText;
+    const fechaCeldaDate = new Date(fechaCelda);
+    const fechaFiltroDate = new Date(fechaSeleccionada);
+
+    if (fechaCeldaDate.getTime() === fechaFiltroDate.getTime()) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  }
+}
+
+// Crea un combobox (select) de entidades evaluadas
+function crearCeldaConSelectEntidadTH(opciones) {
+  const celda = document.createElement('th');
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  opciones.forEach(opcion => {
+    const option = document.createElement('option');
+    option.value = opcion;
+    option.text = opcion;
+    select.appendChild(option);
+  });
+
+  select.addEventListener('change', function() {
+    filtrarPorEntidad(select.value);
+  });
+
+  celda.appendChild(select);
+  return celda;
+}
+
+// Filtrar filas por entidad evaluada
+function filtrarPorEntidad(entidadSeleccionada) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+  for (let i = 0; i < filas.length; i++) {
+    const fila = filas[i];
+    const entidadCelda = fila.getElementsByTagName('td')[10].innerText;
+
+    if (entidadCelda === entidadSeleccionada) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  }
+}
+
+// Crea un combobox (select) de Responsable
+function crearCeldaConSelectResponsableTH(opciones) {
+  const celda = document.createElement('th');
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  opciones.forEach(opcion => {
+    const option = document.createElement('option');
+    option.value = opcion;
+    option.text = opcion;
+    select.appendChild(option);
+  });
+
+  select.addEventListener('change', function() {
+    filtrarPorResponsable(select.value);
+  });
+
+  celda.appendChild(select);
+  return celda;
+}
+
+// Filtrar filas por responsable
+function filtrarPorResponsable(responsableSeleccionado) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+  for (let i = 0; i < filas.length; i++) {
+    const fila = filas[i];
+    const responsableCelda = fila.getElementsByTagName('td')[11].innerText;
+
+    if (responsableCelda === responsableSeleccionado) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  }
+}
+
+// Crea un combobox (select) de Auditor
+function crearCeldaConSelectAuditorTH(opciones) {
+  const celda = document.createElement('th');
+  const select = document.createElement('select');
+  select.className = 'form-control';
+
+  opciones.forEach(opcion => {
+    const option = document.createElement('option');
+    option.value = opcion;
+    option.text = opcion;
+    select.appendChild(option);
+  });
+
+  select.addEventListener('change', function() {
+    filtrarPorAuditor(select.value);
+  });
+
+  celda.appendChild(select);
+  return celda;
+}
+
+// Filtrar filas por Auditor
+function filtrarPorAuditor(auditorSeleccionado) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+  for (let i = 0; i < filas.length; i++) {
+    const fila = filas[i];
+    const auditorCelda = fila.getElementsByTagName('td')[12].innerText;
+
+    if (auditorCelda === auditorSeleccionado) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  }
+}
+
+
+
+// Agregar una fila a la tabla de desviaciones
 function agregarFila() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
@@ -1491,6 +1911,7 @@ function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
     actualizarComboBoxActions(preguntaSeleccionada);
   });
 
+  
   return select;
 }
 
