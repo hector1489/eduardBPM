@@ -1191,8 +1191,6 @@ function loadTableDetails() {
     return;
   }
 
-  console.log(data);
-
   data.forEach(rowData => {
 
     if (rowData[`columna4`]) {
@@ -1222,7 +1220,6 @@ function agregarFilaDesdeID(id) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
 
-  // Extraer la pregunta usando el ID
   const idPart = id.replace('observacion-', '');
   const match = questions.find(module =>
     Array.isArray(module.question)
@@ -1231,14 +1228,13 @@ function agregarFilaDesdeID(id) {
   );
 
   if (match) {
-    // Crear celdas con la pregunta encontrada
+ 
     fila.appendChild(crearCelda(tabla.rows.length + 1));
     fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas(match.question[0])));
 
     fila.appendChild(crearCeldaConSelect(criterio, ''));
     fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
 
-    // Prioridad y estado con valores predeterminados
     const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
     prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
     fila.appendChild(prioridadCelda);
@@ -1292,7 +1288,7 @@ function agregarFilaConDatos(dato) {
   }
 
   fila.appendChild(crearCelda(dato.numeroPC));
-  fila.appendChild(crearCeldaConInput(dato.numeroPregunta, crearComboBoxTodasLasPreguntas(dato.numeroPregunta)));
+  fila.appendChild(crearCelda(dato.numeroPregunta));
   fila.appendChild(crearCeldaConSelect(criterio, dato.criterio));
   fila.appendChild(crearCeldaConInput(dato.desviacion, crearComboBoxDesviaciones(dato.desviacion)));
 
@@ -1410,9 +1406,9 @@ function agregarFiltrosHead() {
   filaFiltro.innerHTML = '';
 
   filaFiltro.appendChild(crearCeldaConSelectNumeroTH(''));
-  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasPreguntasTH('')));
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasPreguntasTH()));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCriterios('')));
-  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviaciones('')));
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviacionesTH()));
 
   filaFiltro.appendChild(crearCeldaConSelectPrioridadTH());
 
@@ -1533,6 +1529,11 @@ function crearComboBoxTodasLasPreguntasTH(valorSeleccionado) {
   const select = document.createElement('select');
   select.className = 'form-control';
 
+  const optionDefault = document.createElement('option');
+  optionDefault.value = '';
+  optionDefault.text = 'Todas las Preguntas';
+  select.appendChild(optionDefault);
+
   preguntas.forEach(pregunta => {
     const option = document.createElement('option');
     option.value = pregunta;
@@ -1543,9 +1544,29 @@ function crearComboBoxTodasLasPreguntasTH(valorSeleccionado) {
     select.appendChild(option);
   });
 
+  select.addEventListener('change', (event) => {
+    filtrarPorPregunta(event.target.value);
+  });
+
   return select;
 }
 
+// Filtrar por pregunta 
+function filtrarPorPregunta(valorSeleccionado) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = Array.from(tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
+
+  filas.forEach(fila => {
+    const celdaPregunta = fila.cells[1];
+    const valorCelda = celdaPregunta ? celdaPregunta.textContent.trim() : '';
+
+    if (valorSeleccionado === '' || valorCelda === valorSeleccionado) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  });
+}
 // Crea un combobox (select) de desviaciones sin restricciones
 function crearComboBoxDesviacionesTH(valorSeleccionado) {
   const select = document.createElement('select');
@@ -1560,6 +1581,45 @@ function crearComboBoxDesviacionesTH(valorSeleccionado) {
     select.appendChild(option);
   });
   return select;
+}
+
+// Crea un combobox (select) de desviaciones sin restricciones
+function crearComboBoxDesviacionesTH(valorSeleccionado) {
+  const select = document.createElement('select');
+  select.className = 'form-control';
+  
+  select.addEventListener('change', (event) => {
+    filtrarPorDesviacion(event.target.value);
+  });
+
+  desviaciones.forEach(desviacion => {
+    const option = document.createElement('option');
+    option.value = desviacion;
+    option.text = desviacion;
+    if (desviacion === valorSeleccionado) {
+      option.selected = true;
+    }
+    select.appendChild(option);
+  });
+
+  return select;
+}
+
+// Filtrar por desviacion
+function filtrarPorDesviacion(valorSeleccionado) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.querySelectorAll('tbody tr');
+
+  filas.forEach(fila => {
+    const celdaDesviacion = fila.cells[4];
+    const valorCelda = celdaDesviacion.textContent.trim();
+    
+    if (valorSeleccionado === '' || valorCelda === valorSeleccionado) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  });
 }
 
 // Crea un combobox (select) de cantidad de días sin restricciones
