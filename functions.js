@@ -429,35 +429,71 @@ function calculateOverallAverages() {
 
 function updateTableWarning() {
   const warningMapping = {
-      'warning-cs-registro': 'observacion-cs-registro',
-      'warning-cs-medidas': 'observacion-cs-medidas',
-      'warning-higiene-programa': 'observacion-higiene-programa',
-      'warning-plagas-autorizacion': 'observacion-plagas-autorizacion',
-      'warning-plagas-desechos': 'observacion-plagas-desechos',
-      'warning-recepcion-materias': 'observacion-recepcion-materias',
-      'warning-recepcion-especificaciones': 'observacion-recepcion-especificaciones',
-      'warning-ppt-flujo': 'observacion-ppt-flujo',
-      'warning-ppt-procedimientos': 'observacion-ppt-procedimientos',
-      'warning-ppt-almacenamiento': 'observacion-ppt-almacenamiento',
-      'warning-ppt-distribucion': 'observacion-ppt-distribucion',
-      'warning-ppt-envases': 'observacion-ppt-envases',
-      'warning-ppt-etiquetas': 'observacion-ppt-etiquetas',
-      'warning-existe-programa': 'observacion-existe-programa',
-      'warning-existe-capacitacion': 'observacion-existe-capacitacion'
+    'warning-cs-registro': 'observacion-cs-registro',
+    'warning-cs-medidas': 'observacion-cs-medidas',
+    'warning-higiene-programa': 'observacion-higiene-programa',
+    'warning-plagas-autorizacion': 'observacion-plagas-autorizacion',
+    'warning-plagas-desechos': 'observacion-plagas-desechos',
+    'warning-recepcion-materias': 'observacion-recepcion-materias',
+    'warning-recepcion-especificaciones': 'observacion-recepcion-especificaciones',
+    'warning-ppt-flujo': 'observacion-ppt-flujo',
+    'warning-ppt-procedimientos': 'observacion-ppt-procedimientos',
+    'warning-ppt-almacenamiento': 'observacion-ppt-almacenamiento',
+    'warning-ppt-distribucion': 'observacion-ppt-distribucion',
+    'warning-ppt-envases': 'observacion-ppt-envases',
+    'warning-ppt-etiquetas': 'observacion-ppt-etiquetas',
+    'warning-existe-programa': 'observacion-existe-programa',
+    'warning-existe-capacitacion': 'observacion-existe-capacitacion'
   };
+
+  const mapeoNotas = {
+    'warning-nota-cs-registro': 'nota-cs-registro',
+    'warning-nota-cs-medidas': 'nota-cs-medidas',
+    'warning-nota-higiene-programa': 'nota-higiene-programa',
+    'warning-nota-plagas-autorizacion': 'nota-plagas-autorizacion',
+    'warning-nota-plagas-desechos': 'nota-plagas-desechos',
+    'warning-nota-recepcion-materias': 'nota-recepcion-materias',
+    'warning-nota-recepcion-especificaciones': 'nota-recepcion-especificaciones',
+    'warning-nota-ppt-flujo': 'nota-ppt-flujo',
+    'warning-nota-ppt-procedimientos': 'nota-ppt-procedimientos',
+    'warning-nota-ppt-almacenamiento': 'nota-ppt-almacenamiento',
+    'warning-nota-ppt-distribucion': 'nota-ppt-distribucion',
+    'warning-nota-ppt-envases': 'nota-ppt-envases',
+    'warning-nota-ppt-observaciones': 'nota-ppt-observaciones',
+    'warning-nota-existe-programa': 'nota-existe-programa',
+    'warning-nota-existe-capacitacion': 'nota-existe-capacitacion'
+  };
+
+  const defaultNotaText = 'Nota: 0%';
 
   const observerCallback = (mutationsList) => {
     for (let mutation of mutationsList) {
       if (mutation.type === 'childList' || mutation.type === 'characterData') {
-        const observationId = mutation.target.id;
-        const warningId = Object.keys(warningMapping).find(key => warningMapping[key] === observationId);
 
+        const observationId = mutation.target.id;
+
+        const warningId = Object.keys(warningMapping).find(key => warningMapping[key] === observationId);
         if (warningId) {
           const observationElement = document.querySelector(`#tabla-details #${observationId}`);
           const warningElement = document.querySelector(`#tabla-warning #${warningId}`);
 
           if (observationElement && warningElement) {
             warningElement.innerText = observationElement.innerText;
+          } else if (warningElement) {
+            warningElement.innerText = 'No cumple con el ítem evaluado';
+          }
+        }
+
+        const notaId = mutation.target.id;
+        const warningNotaId = Object.keys(mapeoNotas).find(key => mapeoNotas[key] === notaId);
+        if (warningNotaId) {
+          const notaElement = document.querySelector(`#tabla-details #${notaId}`);
+          const warningNotaElement = document.querySelector(`#tabla-warning #${warningNotaId}`);
+
+          if (notaElement && warningNotaElement) {
+            warningNotaElement.innerText = notaElement.innerText;
+          } else if (warningNotaElement) {
+            warningNotaElement.innerText = defaultNotaText;
           }
         }
       }
@@ -477,7 +513,17 @@ function updateTableWarning() {
       observer.observe(observationElement, observerConfig);
     }
   });
+
+  Object.values(mapeoNotas).forEach(notaId => {
+    const notaElement = document.querySelector(`#tabla-details #${notaId}`);
+    if (notaElement) {
+      const notaObserver = new MutationObserver(observerCallback);
+      notaObserver.observe(notaElement, observerConfig);
+    }
+  });
 }
+
+
 
 updateTableWarning();
 

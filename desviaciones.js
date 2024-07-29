@@ -1143,7 +1143,6 @@ const accionCorrectivas = [
 
 ];
 
-
 //obtener preguntas por modulo
 function obtenerTodasLasPreguntas() {
   let todasLasPreguntas = [];
@@ -1407,7 +1406,7 @@ function agregarFiltrosHead() {
 
   filaFiltro.appendChild(crearCeldaConSelectNumeroTH(''));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasPreguntasTH()));
-  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCriterios('')));
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCriteriosTH('')));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviacionesTH()));
 
   filaFiltro.appendChild(crearCeldaConSelectPrioridadTH());
@@ -1506,11 +1505,19 @@ function crearComboBoxTodasLasActionTH(valorSeleccionado) {
   select.className = 'form-control';
   select.id = 'select-actions';
 
+  const optionDefault = document.createElement('option');
+  optionDefault.value = '';
+  optionDefault.text = 'Todas las Acciones';
+  select.appendChild(optionDefault);
+
   const todasLasAcciones = accionCorrectivas.reduce((acciones, item) => {
     return acciones.concat(item.action);
   }, []);
 
-  todasLasAcciones.forEach(action => {
+  // Eliminar duplicados
+  const accionesUnicas = [...new Set(todasLasAcciones)];
+
+  accionesUnicas.forEach(action => {
     const option = document.createElement('option');
     option.value = action;
     option.text = action;
@@ -1520,8 +1527,30 @@ function crearComboBoxTodasLasActionTH(valorSeleccionado) {
     select.appendChild(option);
   });
 
+  select.addEventListener('change', (event) => {
+    filtrarPorAccion(event.target.value);
+  });
+
   return select;
 }
+
+// Filtrar por acción
+function filtrarPorAccion(valorSeleccionado) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = Array.from(tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
+
+  filas.forEach(fila => {
+    const celdaAccion = fila.cells[2];
+    const valorCelda = celdaAccion ? celdaAccion.textContent.trim() : '';
+
+    if (valorSeleccionado === '' || valorCelda.includes(valorSeleccionado)) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  });
+}
+
 
 // Crea un combobox (select) con todas las preguntas sin restricciones
 function crearComboBoxTodasLasPreguntasTH(valorSeleccionado) {
@@ -1567,21 +1596,46 @@ function filtrarPorPregunta(valorSeleccionado) {
     }
   });
 }
-// Crea un combobox (select) de desviaciones sin restricciones
-function crearComboBoxDesviacionesTH(valorSeleccionado) {
+
+// combo box de criterios
+function crearComboBoxCriteriosTH(valorSeleccionado) {
   const select = document.createElement('select');
   select.className = 'form-control';
-  desviaciones.forEach(desviacion => {
+  criterio.forEach(criterio => {
     const option = document.createElement('option');
-    option.value = desviacion;
-    option.text = desviacion;
-    if (desviacion === valorSeleccionado) {
+    option.value = criterio;
+    option.text = criterio;
+    if (criterio === valorSeleccionado) {
       option.selected = true;
     }
     select.appendChild(option);
   });
+
+
+  select.addEventListener('change', (event) => {
+    filtrarPorCriterio(event.target.value);
+  });
+
   return select;
 }
+
+// Filtrar por criterio
+function filtrarPorCriterio(valorSeleccionado) {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = Array.from(tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
+
+  filas.forEach(fila => {
+    const celdaCriterio = fila.cells[2];
+    const valorCelda = celdaCriterio ? celdaCriterio.textContent.trim() : '';
+
+    if (valorSeleccionado === '' || valorCelda === valorSeleccionado) {
+      fila.style.display = '';
+    } else {
+      fila.style.display = 'none';
+    }
+  });
+}
+
 
 // Crea un combobox (select) de desviaciones sin restricciones
 function crearComboBoxDesviacionesTH(valorSeleccionado) {
