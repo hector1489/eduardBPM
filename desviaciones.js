@@ -1288,8 +1288,8 @@ function agregarFilaConDatos(dato) {
 
   fila.appendChild(crearCelda(dato.numeroPC));
   fila.appendChild(crearCelda(dato.numeroPregunta));
-  fila.appendChild(crearCeldaConSelect(criterio, dato.criterio));
-  fila.appendChild(crearCeldaConInput(dato.desviacion, crearComboBoxDesviaciones(dato.desviacion)));
+  fila.appendChild(crearCelda(dato.criterio));
+  fila.appendChild(crearCelda(dato.desviacion));
 
   const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), dato.prioridad);
   prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
@@ -1662,10 +1662,10 @@ function crearComboBoxDesviacionesTH(valorSeleccionado) {
 // Filtrar por desviacion
 function filtrarPorDesviacion(valorSeleccionado) {
   const tabla = document.getElementById('tabla-desviaciones');
-  const filas = tabla.querySelectorAll('tbody tr');
+  const filas = Array.from(tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
 
   filas.forEach(fila => {
-    const celdaDesviacion = fila.cells[4];
+    const celdaDesviacion = fila.cells[3];
     const valorCelda = celdaDesviacion.textContent.trim();
     
     if (valorSeleccionado === '' || valorCelda === valorSeleccionado) {
@@ -1720,11 +1720,11 @@ function crearCeldaConSelectPrioridadTH() {
 // Filtrar por prioridad
 function filtrarPorPrioridad(prioridadSeleccionada) {
   const tabla = document.getElementById('tabla-desviaciones');
-  const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+  const filas = Array.from(tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
 
   for (let i = 0; i < filas.length; i++) {
     const fila = filas[i];
-    const prioridadCelda = fila.getElementsByTagName('td')[5].innerText;
+    const prioridadCelda = fila.getElementsByTagName('td')[4].innerText;
 
     if (prioridadSeleccionada === '' || prioridadCelda === prioridadSeleccionada) {
       fila.style.display = '';

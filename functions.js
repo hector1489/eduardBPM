@@ -471,11 +471,14 @@ function updateTableWarning() {
       if (mutation.type === 'childList' || mutation.type === 'characterData') {
 
         const observationId = mutation.target.id;
+        console.log('ID de observación detectado:', observationId);
 
         const warningId = Object.keys(warningMapping).find(key => warningMapping[key] === observationId);
         if (warningId) {
           const observationElement = document.querySelector(`#tabla-details #${observationId}`);
           const warningElement = document.querySelector(`#tabla-warning #${warningId}`);
+          console.log('Elemento de observación:', observationElement);
+          console.log('Elemento de advertencia:', warningElement);
 
           if (observationElement && warningElement) {
             warningElement.innerText = observationElement.innerText;
@@ -489,6 +492,8 @@ function updateTableWarning() {
         if (warningNotaId) {
           const notaElement = document.querySelector(`#tabla-details #${notaId}`);
           const warningNotaElement = document.querySelector(`#tabla-warning #${warningNotaId}`);
+          console.log('Elemento de nota:', notaElement);
+          console.log('Elemento de advertencia de nota:', warningNotaElement);
 
           if (notaElement && warningNotaElement) {
             warningNotaElement.innerText = notaElement.innerText;
@@ -522,8 +527,6 @@ function updateTableWarning() {
     }
   });
 }
-
-
 
 updateTableWarning();
 
