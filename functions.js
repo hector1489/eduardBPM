@@ -598,3 +598,15 @@ function descargarTablaExcel() {
 
   XLSX.writeFile(wb, 'tabla.xlsx');
 }
+
+function descargarTablaExcelQuestions() {
+  const tabla = document.getElementById('tabla-warning');
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.table_to_sheet(tabla);
+  XLSX.utils.book_append_sheet(wb, ws, 'TablaWarning');
+
+  XLSX.writeFile(wb, 'tabla-warning.xlsx');
+}
+
+
+
