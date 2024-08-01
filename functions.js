@@ -530,7 +530,6 @@ function updateTableWarning() {
 
 updateTableWarning();
 
-
 // Obtener los datos de la tabla y guardarlos en localStorage
 function guardarDatosTabla() {
   const modulo = document.getElementById('module-details');
