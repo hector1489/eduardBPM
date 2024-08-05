@@ -268,12 +268,32 @@ function calculateOverallAverages() {
     resumenTra.style.color = getColorByPercentage(traAverage);
   }
 
-  //promedio general
-  const overallTotal = bpmTotal + poesTotal + poeTotal + maTotal + docTotal + lumTotal + traTotal;
-  const overallCount = bpmCount + poesCount + poeCount + maCount + docCount + lumCount + traCount;
-  const overallAverage = (overallTotal / overallCount).toFixed(2);
-  document.getElementById('promedio-general').innerText = `${overallAverage}%`;
-  document.getElementById('promedio-general').style.color = getColorByPercentage(overallAverage);
+// Función para obtener el color según el porcentaje
+function getColorByPercentage(percentage) {
+  if (percentage >= 90) {
+    return 'green';
+  } else if (percentage >= 75) {
+    return 'yellow';
+  } else {
+    return 'red';
+  }
+}
+
+// Cálculo del promedio general
+const overallTotal = bpmTotal + poesTotal + poeTotal + maTotal + docTotal + lumTotal + traTotal;
+const overallCount = bpmCount + poesCount + poeCount + maCount + docCount + lumCount + traCount;
+const overallAverage = (overallTotal / overallCount).toFixed(2);
+
+// Actualiza el texto del promedio general
+const promedioGeneralElement = document.getElementById('promedio-general');
+promedioGeneralElement.innerText = `${overallAverage}%`;
+
+// Cambia el color de fondo del contenedor del promedio general
+promedioGeneralElement.parentElement.style.backgroundColor = getColorByPercentage(overallAverage);
+
+
+
+  
 
   // Actualiza la tabla de auditoría
   updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
@@ -429,76 +449,35 @@ function calculateOverallAverages() {
 
 function updateTableWarning() {
   const warningMapping = {
-    'warning-cs-registro': 'observacion-cs-registro',
-    'warning-cs-medidas': 'observacion-cs-medidas',
-    'warning-higiene-programa': 'observacion-higiene-programa',
-    'warning-plagas-autorizacion': 'observacion-plagas-autorizacion',
-    'warning-plagas-desechos': 'observacion-plagas-desechos',
-    'warning-recepcion-materias': 'observacion-recepcion-materias',
-    'warning-recepcion-especificaciones': 'observacion-recepcion-especificaciones',
-    'warning-ppt-flujo': 'observacion-ppt-flujo',
-    'warning-ppt-procedimientos': 'observacion-ppt-procedimientos',
-    'warning-ppt-almacenamiento': 'observacion-ppt-almacenamiento',
-    'warning-ppt-distribucion': 'observacion-ppt-distribucion',
-    'warning-ppt-envases': 'observacion-ppt-envases',
-    'warning-ppt-etiquetas': 'observacion-ppt-etiquetas',
-    'warning-existe-programa': 'observacion-existe-programa',
-    'warning-existe-capacitacion': 'observacion-existe-capacitacion'
+      'warning-cs-registro': 'observacion-cs-registro',
+      'warning-cs-medidas': 'observacion-cs-medidas',
+      'warning-higiene-programa': 'observacion-higiene-programa',
+      'warning-plagas-autorizacion': 'observacion-plagas-autorizacion',
+      'warning-plagas-desechos': 'observacion-plagas-desechos',
+      'warning-recepcion-materias': 'observacion-recepcion-materias',
+      'warning-recepcion-especificaciones': 'observacion-recepcion-especificaciones',
+      'warning-ppt-flujo': 'observacion-ppt-flujo',
+      'warning-ppt-procedimientos': 'observacion-ppt-procedimientos',
+      'warning-ppt-almacenamiento': 'observacion-ppt-almacenamiento',
+      'warning-ppt-distribucion': 'observacion-ppt-distribucion',
+      'warning-ppt-envases': 'observacion-ppt-envases',
+      'warning-ppt-etiquetas': 'observacion-ppt-etiquetas',
+      'warning-existe-programa': 'observacion-existe-programa',
+      'warning-existe-capacitacion': 'observacion-existe-capacitacion'
   };
-
-  const mapeoNotas = {
-    'warning-nota-cs-registro': 'nota-cs-registro',
-    'warning-nota-cs-medidas': 'nota-cs-medidas',
-    'warning-nota-higiene-programa': 'nota-higiene-programa',
-    'warning-nota-plagas-autorizacion': 'nota-plagas-autorizacion',
-    'warning-nota-plagas-desechos': 'nota-plagas-desechos',
-    'warning-nota-recepcion-materias': 'nota-recepcion-materias',
-    'warning-nota-recepcion-especificaciones': 'nota-recepcion-especificaciones',
-    'warning-nota-ppt-flujo': 'nota-ppt-flujo',
-    'warning-nota-ppt-procedimientos': 'nota-ppt-procedimientos',
-    'warning-nota-ppt-almacenamiento': 'nota-ppt-almacenamiento',
-    'warning-nota-ppt-distribucion': 'nota-ppt-distribucion',
-    'warning-nota-ppt-envases': 'nota-ppt-envases',
-    'warning-nota-ppt-observaciones': 'nota-ppt-observaciones',
-    'warning-nota-existe-programa': 'nota-existe-programa',
-    'warning-nota-existe-capacitacion': 'nota-existe-capacitacion'
-  };
-
-  const defaultNotaText = 'Nota: 0%';
 
   const observerCallback = (mutationsList) => {
     for (let mutation of mutationsList) {
       if (mutation.type === 'childList' || mutation.type === 'characterData') {
-
         const observationId = mutation.target.id;
-        console.log('ID de observación detectado:', observationId);
-
         const warningId = Object.keys(warningMapping).find(key => warningMapping[key] === observationId);
+
         if (warningId) {
           const observationElement = document.querySelector(`#tabla-details #${observationId}`);
           const warningElement = document.querySelector(`#tabla-warning #${warningId}`);
-          console.log('Elemento de observación:', observationElement);
-          console.log('Elemento de advertencia:', warningElement);
 
           if (observationElement && warningElement) {
             warningElement.innerText = observationElement.innerText;
-          } else if (warningElement) {
-            warningElement.innerText = 'No cumple con el ítem evaluado';
-          }
-        }
-
-        const notaId = mutation.target.id;
-        const warningNotaId = Object.keys(mapeoNotas).find(key => mapeoNotas[key] === notaId);
-        if (warningNotaId) {
-          const notaElement = document.querySelector(`#tabla-details #${notaId}`);
-          const warningNotaElement = document.querySelector(`#tabla-warning #${warningNotaId}`);
-          console.log('Elemento de nota:', notaElement);
-          console.log('Elemento de advertencia de nota:', warningNotaElement);
-
-          if (notaElement && warningNotaElement) {
-            warningNotaElement.innerText = notaElement.innerText;
-          } else if (warningNotaElement) {
-            warningNotaElement.innerText = defaultNotaText;
           }
         }
       }
@@ -518,17 +497,10 @@ function updateTableWarning() {
       observer.observe(observationElement, observerConfig);
     }
   });
-
-  Object.values(mapeoNotas).forEach(notaId => {
-    const notaElement = document.querySelector(`#tabla-details #${notaId}`);
-    if (notaElement) {
-      const notaObserver = new MutationObserver(observerCallback);
-      notaObserver.observe(notaElement, observerConfig);
-    }
-  });
 }
 
 updateTableWarning();
+
 
 // Obtener los datos de la tabla y guardarlos en localStorage
 function guardarDatosTabla() {
@@ -598,14 +570,39 @@ function descargarTablaExcel() {
   XLSX.writeFile(wb, 'tabla.xlsx');
 }
 
-function descargarTablaExcelQuestions() {
-  const tabla = document.getElementById('tabla-warning');
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.table_to_sheet(tabla);
-  XLSX.utils.book_append_sheet(wb, ws, 'TablaWarning');
+       // Función para obtener el color según el porcentaje
+        function getColorByPercentage(percentage) {
+            if (percentage >= 90) {
+                return 'green';
+            } else if (percentage >= 75) {
+                return 'yellow';
+            } else {
+                return 'red';
+            }
+        }
 
-  XLSX.writeFile(wb, 'tabla-warning.xlsx');
-}
+        // Función para calcular el promedio de las celdas "NOTA POR ITEM" y cambiar el color de fondo del encabezado
+        function updateNotaPorItemHeader() {
+            const notaPorItemCells = document.querySelectorAll('td.nota-por-item');
+            let total = 0;
+            let count = 0;
 
+            notaPorItemCells.forEach(cell => {
+                const value = parseFloat(cell.innerText);
+                if (!isNaN(value)) {
+                    total += value;
+                    count++;
+                }
+            });
 
+            if (count > 0) {
+                const average = (total / count).toFixed(2);
+                const header = document.getElementById('nota-por-item-header');
+                const color = getColorByPercentage(average);
+                header.style.backgroundColor = color;
+                header.innerText = `NOTA POR ITEM (${average}%)`;
+            }
+        }
 
+        // Llama a la función para establecer el color inicial
+        document.addEventListener('DOMContentLoaded', updateNotaPorItemHeader);

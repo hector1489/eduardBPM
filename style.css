@@ -143,8 +143,15 @@ hr {
 }
 
 .btn-na {
+  background-color: orange;
+  color: black;
+}
+
+.btn-na:hover {
   background-color: gold;
-  color: white;
+  color: black
+;
+
 }
 
 /*report-table*/
@@ -268,4 +275,6 @@ hr {
     height: 21vh;
   }
 }
+
+
 

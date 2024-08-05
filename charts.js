@@ -1,35 +1,28 @@
 function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, traAverage, lumAverage, overallAverage) {
   const ctx = document.getElementById('resultChart').getContext('2d');
 
-  // Create gradient for the chart background (0 to 100% area only)
-  const backgroundGradient = ctx.createLinearGradient(0, 400, 0, 0);
-  backgroundGradient.addColorStop(0, 'white');
-  backgroundGradient.addColorStop(1, 'lightblue');
-
-  // Create gradients for bars
   function getBarGradient(ctx) {
-    const barGradient = ctx.createLinearGradient(0, 400, 0, 0);
-    barGradient.addColorStop(0, 'white');
-    barGradient.addColorStop(1, 'cyan');
+    const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    barGradient.addColorStop(0, 'rgba(0, 150, 255, 0.5)');
+    barGradient.addColorStop(1, 'rgba(0, 255, 150, 0.9)');
     return barGradient;
   }
 
   function getPromGradient(ctx) {
-    const barGradient = ctx.createLinearGradient(0, 400, 0, 0);
-    barGradient.addColorStop(0, 'white');
-    barGradient.addColorStop(1, 'blue');
+    const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    barGradient.addColorStop(0, 'rgba(0, 0, 150, 0.5)');
+    barGradient.addColorStop(1, 'rgba(0, 0, 255, 0.9)');
     return barGradient;
   }
 
-  // Fixed gradient for the right indicator bar
   function getFixedBarGradient(ctx) {
-    const barGradient = ctx.createLinearGradient(0, 400, 0, 0);
-    barGradient.addColorStop(0, 'red');
-    barGradient.addColorStop(0.74, 'red');
-    barGradient.addColorStop(0.75, 'yellow');
-    barGradient.addColorStop(0.89, 'yellow');
-    barGradient.addColorStop(0.90, 'green');
-    barGradient.addColorStop(1, 'green');
+    const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    barGradient.addColorStop(0, 'green');      
+    barGradient.addColorStop(0.10, 'green');
+    barGradient.addColorStop(0.11, 'yellow');  
+    barGradient.addColorStop(0.25, 'yellow');
+    barGradient.addColorStop(0.26, 'red');     
+    barGradient.addColorStop(1, 'red');
     return barGradient;
   }
 
@@ -57,6 +50,7 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
@@ -68,24 +62,24 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
           },
           color: 'black',
           font: {
-            size: 14,
+            size: 10,
             weight: 'bold'
           }
         },
         grid: {
-          color: 'black'
+          color: 'rgba(0, 0, 0, 0.1)'
         }
       },
       x: {
         ticks: {
           color: 'black',
           font: {
-            size: 14,
+            size: 10,
             weight: 'bold'
           }
         },
         grid: {
-          color: 'rgba(200, 200, 200, 0.2)'
+          color: 'rgba(0, 0, 0, 0.1)'
         }
       }
     },
@@ -99,11 +93,11 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
         },
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
         titleFont: {
-          size: 16,
+          size: 12,
           weight: 'bold'
         },
         bodyFont: {
-          size: 14
+          size: 10
         },
         borderColor: 'rgba(255, 255, 255, 0.3)',
         borderWidth: 1
@@ -113,7 +107,7 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
         labels: {
           color: 'black',
           font: {
-            size: 14,
+            size: 10,
             weight: 'bold'
           }
         }
@@ -121,13 +115,12 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
     },
     layout: {
       padding: {
-        top: 30,
-        right: 50
+        top: 20,
+        right: 20
       }
     }
   };
 
-  // Add labels on top of the bars
   Chart.register({
     id: 'customLabelPlugin',
     afterDatasetsDraw(chart) {
@@ -137,38 +130,22 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
         meta.data.forEach((bar, index) => {
           const data = dataset.data[index];
           if (data !== null) {
-            const labelX = bar.x - 15;
-            const labelY = bar.y - 35;
-            const boxSize = 35;
+            const labelX = bar.x - 10;
+            const labelY = bar.y - 20;
+            const boxSize = 20;
 
-            // Draw a small square box above the bar with subtle gradient
             ctx.fillStyle = 'white';
             ctx.fillRect(labelX, labelY, boxSize, boxSize);
 
-            // Draw the percentage text inside the box
             ctx.fillStyle = 'black';
-            ctx.font = 'bold 12px Arial';
-            ctx.fillText(Math.round(data) + '%', labelX + 5, labelY + 22);
+            ctx.font = 'bold 8px Arial';
+            ctx.fillText(Math.round(data) + '%', labelX + 3, labelY + 15);
           }
         });
       });
     }
   });
 
-  // Create the background color for the chart
-  const backgroundColorPlugin = {
-    id: 'backgroundColorPlugin',
-    beforeDraw: (chart) => {
-      const ctx = chart.ctx;
-      const chartArea = chart.chartArea;
-      ctx.save();
-      ctx.fillStyle = backgroundGradient;
-      ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
-      ctx.restore();
-    }
-  };
-
-  // Add custom labels on the fixed gradient bar
   const customLabelsPlugin = {
     id: 'customLabelsPlugin',
     afterDraw(chart) {
@@ -177,7 +154,6 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
       const xScale = chart.scales.x;
       const barWidth = xScale.getPixelForValue('PROM') - xScale.getPixelForValue('');
 
-      // Positions for the text labels
       const positions = [
         { value: 95.2, text: 'CUMPLE' },
         { value: 78.2, text: 'ALERTA' },
@@ -203,7 +179,7 @@ function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage,
     type: 'bar',
     data: data,
     options: options,
-    plugins: [backgroundColorPlugin, 'customLabelPlugin', customLabelsPlugin]
+    plugins: ['customLabelPlugin', customLabelsPlugin]
   });
 }
 
@@ -214,7 +190,7 @@ function getEvaluationText(average) {
   return 'CRITICO';
 }
 
-//*Function to get color by percentage
+// Function to get color by percentage
 function getColorByPercentage(average) {
   if (average >= 90) return 'green';
   if (average >= 75) return 'yellow';

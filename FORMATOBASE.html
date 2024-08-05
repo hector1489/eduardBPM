@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <title>Gestión de Desviaciones</title>
   <style>
     body {
-      background-color: #f8f9fa;
+      background-color: #e0f7fa;
     }
 
     .container {
@@ -41,7 +42,7 @@
     }
 
     th {
-      background-color: #343a40;
+      background-color: rgb(9, 133, 250);
       color: #ffffff;
       text-align: center;
     }
@@ -60,16 +61,6 @@
 
     .filter-select {
       width: 100%;
-    }
-
-    .btn-primary {
-      background-color: #007bff;
-      border-color: #007bff;
-    }
-
-    .btn-primary:hover {
-      background-color: #0056b3;
-      border-color: #004085;
     }
 
     .prioridad-critica {
@@ -101,7 +92,6 @@
     .td-foto {
       width: 100%;
       height: auto;
-
     }
 
     .td-foto input {
@@ -109,31 +99,245 @@
       margin: 5px;
     }
 
-    /* Estilos responsivos */
-    @media (max-width: 767.98px) {
-      .container {
-        padding: 10px;
-      }
+    .indicador {
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: white;
+      transition: transform 0.2s ease;
+    }
 
-      .table-responsive {
-        overflow-x: auto;
-      }
+    .indicador.red {
+      background-color: red;
+    }
 
-      td input[type="file"],
-      td button {
-        width: 100%;
-      }
+    .indicador.yellow {
+      background-color: yellow;
+      color: black;
+    }
+
+    .indicador.green {
+      background-color: green;
+    }
+
+    .indicador:hover {
+      transform: scale(1.1);
+    }
+
+    .card {
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      font-weight: bold;
+    }
+
+    .summary-card {
+      margin-top: 20px;
+    }
+
+    .summary-card .card-body {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .summary-card .card {
+      flex: 0 0 30%;
+      text-align: center;
+      margin-bottom: 20px;
+      border: 1px solid black;
+    }
+
+    .summary-card .card h5 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .summary-card .card p {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .bg-dark-green {
+      background-color: #006400;
+      color: white;
+    }
+
+    .bg-blue {
+      background-color: #0000FF;
+      color: white;
+    }
+
+    .bg-italian-red {
+      background-color: #CD5C5C;
+      color: white;
+    }
+
+    .incident-list .incident-item {
+      border: 1px solid #e9ecef;
+      border-radius: 0.5rem;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .incident-item .badge {
+      font-size: 0.9rem;
+    }
+
+    .incident-item .fa-pencil-alt {
+      color: #007bff;
+    }
+
+    .btn-floating {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #dc3545;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .icon-text {
+      display: flex;
+      align-items: center;
+    }
+
+    .icon-text i {
+      font-size: 1.5rem;
+      margin-right: 10px;
+    }
+
+    .bordered-box {
+      border: 1px solid black;
+      border-radius: 0.5rem;
+      padding: 10px;
+      margin-bottom: 20px;
     }
   </style>
-
 </head>
 
 <body>
   <div class="container">
-    <div class="d-flex align-items-center mb-4">
-      <img id="form-logo" src="./logo.jpg" alt="Logo" class="mr-3" style="width: 50px;">
-      <h2>Gestión de Desviaciones</h2>
+    <div class="d-flex justify-content-center align-items-center mb-4">
+      <img id="form-logo" src="./logo.jpg" alt="Logo" style="width: 180px; height: auto;">
     </div>
+    <h2 class="animate__animated animate__fadeInLeft text-center">Gestión de Desviaciones</h2>
+
+    <div class="row justify-content-center">
+      <!-- Tablero de Seguimiento -->
+      <div class="col-md-5">
+        <div class="card animate__animated animate__fadeInUp bordered-box">
+          <div class="card-header bg-primary text-white text-center">
+            <i class="fas fa-exclamation-circle text-warning"></i> Total Incidencias
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">4</h5>
+          </div>
+        </div>
+        <div class="card animate__animated animate__fadeInUp bordered-box">
+          <div class="card-header bg-primary text-white text-center">
+            <i class="fas fa-tasks text-info"></i> Estado
+          </div>
+          <div class="card-body text-center">
+            <p><i class="fas fa-exclamation text-warning"></i> Abiertas: 1</p>
+            <p><i class="fas fa-check text-success"></i> Cerradas: 1</p>
+            <p><i class="fas fa-times-circle text-danger"></i> Fuera de plazo: 2</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Responsables y Total Cerrados por Responsable -->
+      <div class="col-md-5">
+        <div class="card animate__animated animate__fadeInUp bordered-box">
+          <div class="card-header bg-info text-white text-center">
+            <i class="fas fa-users text-light"></i> Responsables y Total Cerrados
+          </div>
+          <div class="card-body">
+            <table class="table table-striped table-hover">
+              <tbody>
+                <tr>
+                  <td><i class="fas fa-user text-primary"></i> Responsable 1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-user text-secondary"></i> Responsable 2</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-user text-success"></i> Responsable 3</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-user text-danger"></i> Responsable 4</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-user text-warning"></i> Responsable 5</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen de Incidencias -->
+    <div class="summary-card">
+      <div class="card animate__animated animate__fadeInUp">
+        <div class="card-header bg-light">
+          <h2>Resumen de Incidencias</h2>
+        </div>
+        <div class="card-body">
+          <div class="card bg-success text-white bordered-box">
+            <div class="card-body">
+              <h5>13</h5>
+              <p>Leve</p>
+            </div>
+          </div>
+          <div class="card bg-warning text-white bordered-box">
+            <div class="card-body">
+              <h5>5</h5>
+              <p>Moderado</p>
+            </div>
+          </div>
+          <div class="card bg-danger text-white bordered-box">
+            <div class="card-body">
+              <h5>10</h5>
+              <p>Crítico</p>
+            </div>
+          </div>
+          <div class="card bg-dark-green text-white bordered-box">
+            <div class="card-body">
+              <h5>13</h5>
+              <p>Abierta</p>
+            </div>
+          </div>
+          <div class="card bg-blue text-white bordered-box">
+            <div class="card-body">
+              <h5>17</h5>
+              <p>Cerrada</p>
+            </div>
+          </div>
+          <div class="card bg-italian-red text-white bordered-box">
+            <div class="card-body">
+              <h5>0</h5>
+              <p>Fuera de plazo</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="table-responsive">
       <table id="tabla-desviaciones" class="table table-bordered table-hover">
         <thead>
@@ -257,19 +461,39 @@
         </tbody>
       </table>
     </div>
-    <button class="btn btn-blue mt-3" onclick="agregarFila()"><i class="fas fa-plus"></i> Agregar Desviación</button>
-    <button class="btn btn-blue mt-3" onclick="guardarDatosTabla()">Guardar Tabla</button>
-    <button class="btn btn-blue mt-3" onclick="descargarTablaExcel()">Descargar Excel</button>
-    <button class="btn btn-blue mt-3" onclick="loadTableDetails()">Cargar desde Auditoria</button>
-    <button class="btn btn-blue mt-3" onclick="window.location.href='dashboard.html'">
-      <i class="fas fa-arrow-left"> Volver a Inicio</i>
-    </button>
+    <div class="text-center d-flex justify-content-center align-items-center flex-wrap">
+      <div class="icon-text m-3" onclick="agregarFila()" style="cursor: pointer;">
+        <i class="fas fa-plus fa-2x text-success"></i>
+        <span class="ml-2">Agregar Desviación</span>
+      </div>
+      <div class="icon-text m-3" onclick="guardarDatosTabla()" style="cursor: pointer;">
+        <i class="fas fa-save fa-2x text-warning"></i>
+        <span class="ml-2">Guardar Tabla</span>
+      </div>
+      <div class="icon-text m-3" onclick="descargarTablaExcel()" style="cursor: pointer;">
+        <i class="fas fa-file-excel fa-2x text-info"></i>
+        <span class="ml-2">Descargar Excel</span>
+      </div>
+      <div class="icon-text m-3" onclick="loadTableDetails()" style="cursor: pointer;">
+        <i class="fas fa-sync-alt fa-2x text-danger"></i>
+        <span class="ml-2">Cargar desde Auditoria</span>
+      </div>
+      <div class="icon-text m-3" onclick="window.location.href='dashboard.html'" style="cursor: pointer;">
+        <i class="fas fa-arrow-left fa-2x text-primary"></i>
+        <span class="ml-2">Volver a Inicio</span>
+      </div>
+    </div>
+
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <script>
+    new WOW().init();
+  </script>
   <script src="./desviaciones.js"></script>
-
 </body>
 
 </html>
