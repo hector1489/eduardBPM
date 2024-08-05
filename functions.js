@@ -16,7 +16,7 @@ function initializeSelectChangeListeners() {
     'poes-contaminacion-cruzada', 'poes-sustancias-adulterantes', 'poes-higiene-empleados',
     'poes-control-plagas', 'poes-instalaciones', 'poe-recepcion', 'poe-almacenamiento',
     'poe-preelaboraciones', 'poe-elaboracion', 'poe-mantencion', 'poe-transporte', 'poe-servicio',
-    'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'poe-ppt', 'ma', 'doc', 'cap','lum', 'tra'
+    'poe-lavado-ollas-vajilla', 'poe-control-calidad', 'poe-ppt', 'ma', 'doc', 'cap', 'lum', 'tra'
   ];
 
   modules.forEach(module => {
@@ -268,32 +268,28 @@ function calculateOverallAverages() {
     resumenTra.style.color = getColorByPercentage(traAverage);
   }
 
-// Función para obtener el color según el porcentaje
-function getColorByPercentage(percentage) {
-  if (percentage >= 90) {
-    return 'green';
-  } else if (percentage >= 75) {
-    return 'yellow';
-  } else {
-    return 'red';
+  // Función para obtener el color según el porcentaje
+  function getColorByPercentage(percentage) {
+    if (percentage >= 90) {
+      return 'green';
+    } else if (percentage >= 75) {
+      return 'yellow';
+    } else {
+      return 'red';
+    }
   }
-}
 
-// Cálculo del promedio general
-const overallTotal = bpmTotal + poesTotal + poeTotal + maTotal + docTotal + lumTotal + traTotal;
-const overallCount = bpmCount + poesCount + poeCount + maCount + docCount + lumCount + traCount;
-const overallAverage = (overallTotal / overallCount).toFixed(2);
+  // Cálculo del promedio general
+  const overallTotal = bpmTotal + poesTotal + poeTotal + maTotal + docTotal + lumTotal + traTotal;
+  const overallCount = bpmCount + poesCount + poeCount + maCount + docCount + lumCount + traCount;
+  const overallAverage = (overallTotal / overallCount).toFixed(2);
 
-// Actualiza el texto del promedio general
-const promedioGeneralElement = document.getElementById('promedio-general');
-promedioGeneralElement.innerText = `${overallAverage}%`;
+  // Actualiza el texto del promedio general
+  const promedioGeneralElement = document.getElementById('promedio-general');
+  promedioGeneralElement.innerText = `${overallAverage}%`;
 
-// Cambia el color de fondo del contenedor del promedio general
-promedioGeneralElement.parentElement.style.backgroundColor = getColorByPercentage(overallAverage);
-
-
-
-  
+  // Cambia el color de fondo del contenedor del promedio general
+  promedioGeneralElement.parentElement.style.backgroundColor = getColorByPercentage(overallAverage);
 
   // Actualiza la tabla de auditoría
   updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
@@ -449,21 +445,21 @@ promedioGeneralElement.parentElement.style.backgroundColor = getColorByPercentag
 
 function updateTableWarning() {
   const warningMapping = {
-      'warning-cs-registro': 'observacion-cs-registro',
-      'warning-cs-medidas': 'observacion-cs-medidas',
-      'warning-higiene-programa': 'observacion-higiene-programa',
-      'warning-plagas-autorizacion': 'observacion-plagas-autorizacion',
-      'warning-plagas-desechos': 'observacion-plagas-desechos',
-      'warning-recepcion-materias': 'observacion-recepcion-materias',
-      'warning-recepcion-especificaciones': 'observacion-recepcion-especificaciones',
-      'warning-ppt-flujo': 'observacion-ppt-flujo',
-      'warning-ppt-procedimientos': 'observacion-ppt-procedimientos',
-      'warning-ppt-almacenamiento': 'observacion-ppt-almacenamiento',
-      'warning-ppt-distribucion': 'observacion-ppt-distribucion',
-      'warning-ppt-envases': 'observacion-ppt-envases',
-      'warning-ppt-etiquetas': 'observacion-ppt-etiquetas',
-      'warning-existe-programa': 'observacion-existe-programa',
-      'warning-existe-capacitacion': 'observacion-existe-capacitacion'
+    'warning-cs-registro': 'observacion-cs-registro',
+    'warning-cs-medidas': 'observacion-cs-medidas',
+    'warning-higiene-programa': 'observacion-higiene-programa',
+    'warning-plagas-autorizacion': 'observacion-plagas-autorizacion',
+    'warning-plagas-desechos': 'observacion-plagas-desechos',
+    'warning-recepcion-materias': 'observacion-recepcion-materias',
+    'warning-recepcion-especificaciones': 'observacion-recepcion-especificaciones',
+    'warning-ppt-flujo': 'observacion-ppt-flujo',
+    'warning-ppt-procedimientos': 'observacion-ppt-procedimientos',
+    'warning-ppt-almacenamiento': 'observacion-ppt-almacenamiento',
+    'warning-ppt-distribucion': 'observacion-ppt-distribucion',
+    'warning-ppt-envases': 'observacion-ppt-envases',
+    'warning-ppt-etiquetas': 'observacion-ppt-etiquetas',
+    'warning-existe-programa': 'observacion-existe-programa',
+    'warning-existe-capacitacion': 'observacion-existe-capacitacion'
   };
 
   const observerCallback = (mutationsList) => {
@@ -570,39 +566,39 @@ function descargarTablaExcel() {
   XLSX.writeFile(wb, 'tabla.xlsx');
 }
 
-       // Función para obtener el color según el porcentaje
-        function getColorByPercentage(percentage) {
-            if (percentage >= 90) {
-                return 'green';
-            } else if (percentage >= 75) {
-                return 'yellow';
-            } else {
-                return 'red';
-            }
-        }
+// Función para obtener el color según el porcentaje
+function getColorByPercentage(percentage) {
+  if (percentage >= 90) {
+    return 'green';
+  } else if (percentage >= 75) {
+    return 'yellow';
+  } else {
+    return 'red';
+  }
+}
 
-        // Función para calcular el promedio de las celdas "NOTA POR ITEM" y cambiar el color de fondo del encabezado
-        function updateNotaPorItemHeader() {
-            const notaPorItemCells = document.querySelectorAll('td.nota-por-item');
-            let total = 0;
-            let count = 0;
+// Función para calcular el promedio de las celdas "NOTA POR ITEM" y cambiar el color de fondo del encabezado
+function updateNotaPorItemHeader() {
+  const notaPorItemCells = document.querySelectorAll('td.nota-por-item');
+  let total = 0;
+  let count = 0;
 
-            notaPorItemCells.forEach(cell => {
-                const value = parseFloat(cell.innerText);
-                if (!isNaN(value)) {
-                    total += value;
-                    count++;
-                }
-            });
+  notaPorItemCells.forEach(cell => {
+    const value = parseFloat(cell.innerText);
+    if (!isNaN(value)) {
+      total += value;
+      count++;
+    }
+  });
 
-            if (count > 0) {
-                const average = (total / count).toFixed(2);
-                const header = document.getElementById('nota-por-item-header');
-                const color = getColorByPercentage(average);
-                header.style.backgroundColor = color;
-                header.innerText = `NOTA POR ITEM (${average}%)`;
-            }
-        }
+  if (count > 0) {
+    const average = (total / count).toFixed(2);
+    const header = document.getElementById('nota-por-item-header');
+    const color = getColorByPercentage(average);
+    header.style.backgroundColor = color;
+    header.innerText = `NOTA POR ITEM (${average}%)`;
+  }
+}
 
-        // Llama a la función para establecer el color inicial
-        document.addEventListener('DOMContentLoaded', updateNotaPorItemHeader);
+// Llama a la función para establecer el color inicial
+document.addEventListener('DOMContentLoaded', updateNotaPorItemHeader);

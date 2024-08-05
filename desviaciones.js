@@ -1227,25 +1227,25 @@ function agregarFilaDesdeID(id) {
     fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas(match.question[0])));
     fila.appendChild(crearCeldaConSelect(criterio, ''));
     fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
+    fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
+    fila.appendChild(crearCeldaConInput(''));
     const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
     prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
     fila.appendChild(prioridadCelda);
+    fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
+    fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
+    fila.appendChild(crearCeldaConInput('   /   /   '));
     const estadoCelda = crearCeldaConSelect(estados, estados[0]);
     estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
     fila.appendChild(estadoCelda);
-    fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
     fila.appendChild(crearCeldaConInput('   /   /   '));
-    fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
-    fila.appendChild(crearCeldaConInput('   /   /   '));
-    fila.appendChild(crearCeldaConInput('', crearComboBoxCantidadDeDias('')));
-    fila.appendChild(crearCeldaConSelect(entidades, entidades[0]));
-    fila.appendChild(crearCeldaConSelect(responsablesDesviacion, responsablesDesviacion[0]));
+    fila.appendChild(crearCeldaConInput(''));
+    fila.appendChild(crearCeldaConInputFoto());
+    fila.appendChild(crearCeldaConInput(''));
     fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
     fila.appendChild(crearCeldaConInput(''));
-    fila.appendChild(crearCeldaConInput(''));
     fila.appendChild(crearCeldaConInput('   /   /   '));
-    // Foto
-    fila.appendChild(crearCeldaConInputFoto());
+    
     // Eliminar
     const celdaEliminar = document.createElement('td');
     const botonEliminar = document.createElement('button');
@@ -1264,7 +1264,15 @@ function agregarFilaDesdeID(id) {
 
 }
 
+
 // agregar fila con datos desde localStorage
+function loadTableDetails() {
+  const datos = JSON.parse(localStorage.getItem('tablaDatos')) || [];
+  datos.forEach(dato => {
+    agregarFilaConDatos(dato);
+  });
+}
+
 function agregarFilaConDatos(dato) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
@@ -1274,32 +1282,31 @@ function agregarFilaConDatos(dato) {
     fila.className = prioridadSeleccionada.clase;
   }
 
-  fila.appendChild(crearCelda(dato.numeroPC));
-  fila.appendChild(crearCelda(dato.numeroPregunta));
-  fila.appendChild(crearCelda(dato.criterio));
-  fila.appendChild(crearCelda(dato.desviacion));
+  fila.appendChild(crearCelda('', dato.numeroPC));
+  fila.appendChild(crearCeldaConInput(dato.numeroPregunta, crearComboBoxTodasLasPreguntas(dato.numeroPregunta)));
+  fila.appendChild(crearCeldaConSelect(criterio, dato.criterio));
+  fila.appendChild(crearCeldaConSelect(desviaciones, dato.desviacion));
+  fila.appendChild(crearCeldaConSelect(desviaciones, dato.desviacion));
+  fila.appendChild(crearCeldaConInput(''));
   const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), dato.prioridad);
   prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
   fila.appendChild(prioridadCelda);
-  const estadoCelda = crearCeldaConSelect(estados, dato.estado);
-  estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
-  fila.appendChild(estadoCelda);
   fila.appendChild(crearCeldaConInput(dato.planAccion, crearComboBoxTodasLasAction(dato.planAccion)));
   fila.appendChild(crearCelda(dato.fechaCambioEstado));
   fila.appendChild(crearCelda(dato.fechaRecepcionSolicitud));
+  const estadoCelda = crearCeldaConSelect(estados, dato.estado);
+  estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
+  fila.appendChild(estadoCelda);
   fila.appendChild(crearCelda(dato.fechaSolucionProgramada));
-  fila.appendChild(crearCeldaConInput(dato.cantidadDias, crearComboBoxCantidadDeDias(dato.cantidadDias)));
-  fila.appendChild(crearCeldaConSelect(entidades, dato.entidad));
-  fila.appendChild(crearCeldaConSelect(responsablesDesviacion, dato.responsableDesviacion));
-  fila.appendChild(crearCeldaConSelect(auditores, dato.auditor));
   fila.appendChild(crearCeldaConInput(dato.contacto));
+  fila.appendChild(crearCeldaConInput(dato.foto));
+  fila.appendChild(crearCeldaConInput(dato.contacto));
+  fila.appendChild(crearCeldaConSelect(auditores, dato.auditor));
   fila.appendChild(crearCeldaConInput(dato.correo));
   fila.appendChild(crearCelda(dato.fechaUltimaModificacion));
-  fila.appendChild(crearCeldaConInput(dato.foto));
 
   const celdaEliminar = document.createElement('td');
   const botonEliminar = document.createElement('button');
-
   botonEliminar.innerText = 'Eliminar';
   botonEliminar.addEventListener('click', function () {
     eliminarFila(fila);
@@ -1309,8 +1316,8 @@ function agregarFilaConDatos(dato) {
   tabla.appendChild(fila);
 
   actualizarFiltros();
-
 }
+
 
 // crear una celda con texto
 function crearCelda(texto) {
@@ -1393,25 +1400,24 @@ function agregarFiltrosHead() {
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasPreguntasTH()));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCriteriosTH('')));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviacionesTH()));
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviacionesTH()));
+  filaFiltro.appendChild(crearCeldaConInputTH(''));
   filaFiltro.appendChild(crearCeldaConSelectPrioridadTH());
+  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasActionTH('')));
+  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
+  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
 
   const estadoCelda = crearCeldaConSelect(estados, estados[0]);
   estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
   filaFiltro.appendChild(crearCeldaConSelectEstadoTH());
-
-  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasActionTH('')));
   filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
-  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
-  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
-  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCantidadDeDiasTH('')));
-  filaFiltro.appendChild(crearCeldaConSelectEntidadTH(entidades, entidades[0]));
-  filaFiltro.appendChild(crearCeldaConSelectResponsableTH(responsablesDesviacion, responsablesDesviacion[0]));
+  filaFiltro.appendChild(crearCeldaTH(''));
+  filaFiltro.appendChild(crearCeldaTH(''));
+  filaFiltro.appendChild(crearCeldaTH(''));
   filaFiltro.appendChild(crearCeldaConSelectAuditorTH(auditores, auditores[0]));
   filaFiltro.appendChild(crearCeldaTH(''));
-  filaFiltro.appendChild(crearCeldaTH(''));
   filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
-  // foto
-  filaFiltro.appendChild(crearCeldaTH(''));
+
   //eliminar
   filaFiltro.appendChild(crearCeldaTH(''));
   thead.appendChild(filaFiltro);
@@ -1865,29 +1871,34 @@ function filtrarPorAuditor(auditorSeleccionado) {
 function agregarFila() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
+
   fila.appendChild(crearCelda(tabla.rows.length + 1));
   fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas('')));
   fila.appendChild(crearCeldaConSelect(criterio, ''));
   fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
+  fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
+
+  fila.appendChild(crearCeldaConInput(' '));
+
   const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
   prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
   fila.appendChild(prioridadCelda);
+
+  fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
+  fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
+  fila.appendChild(crearCeldaConInput('   /   /   '));
   const estadoCelda = crearCeldaConSelect(estados, estados[0]);
   estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
   fila.appendChild(estadoCelda);
-  fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
   fila.appendChild(crearCeldaConInput('   /   /   '));
-  fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
-  fila.appendChild(crearCeldaConInput('   /   /   '));
-  fila.appendChild(crearCeldaConInput('', crearComboBoxCantidadDeDias('')));
-  fila.appendChild(crearCeldaConSelect(entidades, entidades[0]));
-  fila.appendChild(crearCeldaConSelect(responsablesDesviacion, responsablesDesviacion[0]));
+  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCeldaConInputFoto());
+  fila.appendChild(crearCeldaConInput(''));
   fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
   fila.appendChild(crearCeldaConInput(''));
-  fila.appendChild(crearCeldaConInput(''));
   fila.appendChild(crearCeldaConInput('   /   /   '));
-  // foto
-  fila.appendChild(crearCeldaConInputFoto());
+ 
+
   //eliminar
   const celdaEliminar = document.createElement('td');
   const botonEliminar = document.createElement('button');
@@ -2173,7 +2184,6 @@ function guardarDatosTabla() {
   localStorage.setItem('tablaDatos', JSON.stringify(datos));
   alert('Lista de Desviaciones actualizada.');
 }
-
 
 // Descargar la tabla como archivo Excel
 function descargarTablaExcel() {
