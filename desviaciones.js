@@ -1940,14 +1940,41 @@ function crearComboBoxPrioridades() {
   return html;
 }
 
+
+// Variable global para almacenar los datos obtenidos desde la API
+let accionesCorrectivas = [];
+
+// Función para obtener datos desde la API
+async function obtenerTodasLasAccionesDesdeAPI() {
+  try {
+    const response = await fetch('https://bpm-backend.onrender.com/accion-correctivas');
+    if (!response.ok) {
+      throw new Error('Error al obtener datos de la API');
+    }
+    const data = await response.json();
+    accionesCorrectivas = data;
+    console.log('Datos obtenidos de la API:', accionesCorrectivas);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// Llamar a la función para obtener los datos
+obtenerTodasLasAccionesDesdeAPI();
+
+
+
+
+
+
 // Obtener todas las acciones de todas las preguntas
 function obtenerTodasLasAcciones() {
-  return accionCorrectivas.flatMap(q => q.action);
+  return accionesCorrectivas.flatMap(q => q.action);
 }
 
 // Obtener acciones para una pregunta seleccionada
 function obtenerAccionesPorPregunta(preguntaSeleccionada) {
-  const question = accionCorrectivas.find(q => q.question === preguntaSeleccionada);
+  const question = accionesCorrectivas.find(q => q.question === preguntaSeleccionada);
   return question ? question.action : [];
 }
 
