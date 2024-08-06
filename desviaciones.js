@@ -1292,13 +1292,13 @@ function agregarFilaConDatos(dato) {
   prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
   fila.appendChild(prioridadCelda);
   fila.appendChild(crearCeldaConInput(dato.planAccion, crearComboBoxTodasLasAction(dato.planAccion)));
-  fila.appendChild(crearCelda(dato.fechaCambioEstado));
-  fila.appendChild(crearCelda(dato.fechaRecepcionSolicitud));
+  fila.appendChild(crearCelda(''));
+  fila.appendChild(crearCelda(''));
   const estadoCelda = crearCeldaConSelect(estados, dato.estado);
   estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
   fila.appendChild(estadoCelda);
-  fila.appendChild(crearCelda(dato.fechaSolucionProgramada));
-  fila.appendChild(crearCeldaConInput(dato.contacto));
+  fila.appendChild(crearCelda(''));
+  fila.appendChild(crearCelda(''));
   fila.appendChild(crearCeldaConInput(dato.foto));
   fila.appendChild(crearCeldaConInput(dato.contacto));
   fila.appendChild(crearCeldaConSelect(auditores, dato.auditor));
