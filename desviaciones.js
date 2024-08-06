@@ -1294,9 +1294,8 @@ function agregarFilaConDatos(dato) {
   fila.appendChild(crearCeldaConInput(dato.planAccion, crearComboBoxTodasLasAction(dato.planAccion)));
   fila.appendChild(crearCelda(''));
   fila.appendChild(crearCelda(''));
-  const estadoCelda = crearCeldaConSelect(estados, dato.estado);
-  estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
-  fila.appendChild(estadoCelda);
+
+  fila.appendChild(crearCelda(dato.estadoCelda));
   fila.appendChild(crearCelda(''));
   fila.appendChild(crearCelda(''));
   fila.appendChild(crearCeldaConInput(dato.foto));
@@ -1327,15 +1326,14 @@ function crearCelda(texto) {
 }
 
 // crear una celda con un input
-function crearCeldaConInput(valor, elemento) {
+function crearCeldaConInput(valor, input) {
   const celda = document.createElement('td');
-  if (!elemento) {
-    elemento = document.createElement('input');
-    elemento.type = 'text';
-    elemento.className = 'form-control';
-    elemento.value = valor;
+  if (input) {
+    input.value = valor;
+    celda.appendChild(input);
+  } else {
+    celda.innerText = valor;
   }
-  celda.appendChild(elemento);
   return celda;
 }
 
