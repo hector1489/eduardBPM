@@ -304,5 +304,58 @@ function agregarFila() {
   actualizarFiltros();
 }
 
+// estados globales  de la tabla desviaciones
+function analizarEstadoTablaSimplificado() {
+  const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+  if (!tabla) return;
+
+  const filas = tabla.getElementsByTagName('tr');
+  
+  const resumenEstado = {
+    totalFilas: filas.length,
+    estado: {},
+    criticidad: {}
+  };
+
+  Array.from(filas).forEach(fila => {
+    const celdas = fila.getElementsByTagName('td');
+    
+    const estado = celdas[10]?.querySelector('select')?.value || '';
+    const criticidad = celdas[6]?.querySelector('select')?.value || '';
+    
+    if (estado) {
+      resumenEstado.estado[estado] = (resumenEstado.estado[estado] || 0) + 1;
+    }
+
+    if (criticidad) {
+      resumenEstado.criticidad[criticidad] = (resumenEstado.criticidad[criticidad] || 0) + 1;
+    }
+  });
+
+  console.log('Resumen del Estado Simplificado de la Tabla:', resumenEstado);
+  localStorage.setItem('resumenEstadoTablaSimplificado', JSON.stringify(resumenEstado));
+
+  // Actualiza los elementos span con los resultados
+  document.getElementById('totalIncidencias').textContent = `Total : ${resumenEstado.totalFilas || 0}`;
+  document.getElementById('estadoCerrado').textContent = `Cerradas : ${resumenEstado.estado['Cerrado'] || 0}`;
+  document.getElementById('estadoAbierto').textContent = `Abiertas: ${resumenEstado.estado['Abierto'] || 0}`;
+  document.getElementById('criticidadLeve').textContent = `${resumenEstado.criticidad['Leve'] || 0}`;
+  document.getElementById('criticidadModerado').textContent = `${resumenEstado.criticidad['Moderado'] || 0}`;
+  document.getElementById('criticidadCritico').textContent = `${resumenEstado.criticidad['Crítico'] || 0}`;
+  document.getElementById('cardEstadoAbierto').textContent = `${resumenEstado.estado['Abierto'] || 0}`;
+  document.getElementById('cardEstadoCerrado').textContent = `${resumenEstado.estado['Cerrado'] || 0}`;
+  
+
+  return resumenEstado;
+}
+
+// Configura un MutationObserver para escuchar cambios en el tbody de la tabla
+const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+if (tabla) {
+  const observer = new MutationObserver(() => {
+    analizarEstadoTablaSimplificado();
+  });
+  observer.observe(tabla, { childList: true, subtree: true });
+}
 
 
