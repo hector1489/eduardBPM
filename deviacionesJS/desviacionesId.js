@@ -14,6 +14,19 @@ function loadTableDetails() {
   }
 
   data.forEach(rowData => {
+
+    if (rowData.columna1 === "NUMERO DE AUDITORIA") {
+      const columna2Value = rowData.columna2;
+      const targetElementId = 'cardNumeroAuditoria'; 
+
+      const targetElement = document.getElementById(targetElementId);
+      if (targetElement) {
+        targetElement.textContent = columna2Value;
+      } else {
+        console.warn(`Elemento con ID ${targetElementId} no encontrado.`);
+      }
+    }
+
     if (rowData[`columna4`]) {
       const id = rowData[`idColumna4`];
       if (id) {
@@ -31,7 +44,6 @@ function loadTableDetails() {
       }
     }
   });
-
 }
 
 // Agregar una fila a la tabla de desviaciones con datos del ID
@@ -65,7 +77,7 @@ function agregarFilaDesdeID(id) {
 
     fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
     fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
-    fila.appendChild(crearCeldaConInput('   /   /   ')); 
+    fila.appendChild(crearCeldaConInput('   /   /   '));
 
     // Celda de estado
     const estadoCelda = crearCeldaConSelect(estados, estados[0]);

@@ -345,8 +345,8 @@ function analizarEstadoTablaSimplificado() {
   document.getElementById('criticidadCritico').textContent = `${resumenEstado.criticidad['Crítico'] || 0}`;
   document.getElementById('cardEstadoAbierto').textContent = `${resumenEstado.estado['Abierto'] || 0}`;
   document.getElementById('cardEstadoCerrado').textContent = `${resumenEstado.estado['Cerrado'] || 0}`;
-  
 
+  
   return resumenEstado;
 }
 

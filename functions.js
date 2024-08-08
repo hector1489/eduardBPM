@@ -390,6 +390,7 @@ function calculateOverallAverages() {
       final: overallAverage
     };
 
+    
     document.getElementById('promedio-infraestructura').innerText = `${moduleAverages.infraestructura}%`;
     document.getElementById('promedio-legales').innerText = `${moduleAverages.legales}%`;
     document.getElementById('promedio-quimicos').innerText = `${moduleAverages.quimicos}%`;
@@ -419,6 +420,7 @@ function calculateOverallAverages() {
     document.getElementById('promedio-tra').innerText = `${moduleAverages.tra}%`;
     document.getElementById('promedio-lum').innerText = `${moduleAverages.lum}%`;
     document.getElementById('promedio-final').innerText = `${moduleAverages.final}%`;
+    document.getElementById('promedio-auditoria').innerText = document.getElementById('numero-auditoria').value;
 
 
   }
@@ -549,6 +551,8 @@ function guardarDatosTabla() {
       }
       datos.push(filaDatos);
     }
+
+    console.log(`Datos a guardar para la tabla con ID ${tabla.id}:`, datos);
 
     localStorage.setItem(`tablaDatos-${tabla.id}`, JSON.stringify(datos));
   });
