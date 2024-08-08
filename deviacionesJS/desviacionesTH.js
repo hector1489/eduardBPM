@@ -727,7 +727,7 @@ function agregarFiltrosHead() {
   filaFiltro.appendChild(crearCeldaConSelectNumeroTH(''));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasPreguntasTH()));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCriteriosTH('')));
-  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviacionesTH()));
+  filaFiltro.appendChild(crearCeldaConInputTH(''));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviacionesTH()));
   filaFiltro.appendChild(crearCeldaConInputTH(''));
   filaFiltro.appendChild(crearCeldaConSelectPrioridadTH());
@@ -761,7 +761,7 @@ function guardarDatosTabla() {
       numeroRequerimiento: celdas[0]?.innerText || '',
       preguntasAuditadas: celdas[1]?.querySelector('select')?.value || celdas[1]?.innerText || '',
       desviacionOCriterio: celdas[2]?.querySelector('select')?.value || '',
-      tipoDeAccion: celdas[3]?.querySelector('select')?.value || '',
+      tipoDeAccion: celdas[3]?.querySelector('input')?.value || '',
       responsableProblema: celdas[4]?.querySelector('select')?.value || '',
       local: celdas[5]?.querySelector('input')?.value || '',
       criticidad: celdas[6]?.querySelector('select')?.value || '',

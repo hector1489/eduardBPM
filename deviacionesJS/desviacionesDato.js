@@ -28,7 +28,7 @@ function agregarFilaConDatos(dato) {
   fila.appendChild(crearCelda(dato.numeroRequerimiento));
   fila.appendChild(crearCelda(dato.preguntasAuditadas));
   fila.appendChild(crearCeldaConSelect(criterio, dato.desviacionOCriterio));
-  fila.appendChild(crearCeldaConSelect(desviaciones, dato.tipoDeAccion));
+  fila.appendChild(crearCelda(dato.tipoDeAccion));
   fila.appendChild(crearCelda(dato.responsableProblema));
   fila.appendChild(crearCelda(dato.local));
 

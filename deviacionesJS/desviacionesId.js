@@ -54,7 +54,7 @@ function agregarFilaDesdeID(id) {
     fila.appendChild(crearCelda(tabla.rows.length + 1));
     fila.appendChild(crearCelda(pregunta));
     fila.appendChild(crearCeldaConSelect(criterio, ''));
-    fila.appendChild(crearCeldaConSelect(desviaciones, ''));
+    fila.appendChild(crearCelda(''));
     fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
     fila.appendChild(crearCeldaConInput(''));
 

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   actualizarFiltros();
+  analizarEstadoTablaSimplificado();
 });
 
 // ComboBox con todas las acciones disponibles inicialmente
@@ -261,7 +262,7 @@ function agregarFila() {
   fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas('')));
   
   fila.appendChild(crearCeldaConSelect(criterio, ''));
-  fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
+  fila.appendChild(crearCelda(' '));
   fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
   fila.appendChild(crearCeldaConInput(' '));
 
@@ -357,5 +358,4 @@ if (tabla) {
   });
   observer.observe(tabla, { childList: true, subtree: true });
 }
-
 
