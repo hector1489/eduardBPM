@@ -383,6 +383,7 @@ function calculateOverallAverages() {
       documentacion: docAverage,
       bpm: bpmAverage,
       poes: poesAverage,
+      poe: poeAverage,
       doc: docAverage,
       tra: traAverage,
       lum: lumAverage,
@@ -413,6 +414,7 @@ function calculateOverallAverages() {
     document.getElementById('promedio-documentacion').innerText = `${moduleAverages.documentacion}%`;
     document.getElementById('promedio-bpm').innerText = `${moduleAverages.bpm}%`;
     document.getElementById('promedio-poes').innerText = `${moduleAverages.poes}%`;
+    document.getElementById('promedio-poe').innerText = `${moduleAverages.poe}%`;
     document.getElementById('promedio-doc').innerText = `${moduleAverages.doc}%`;
     document.getElementById('promedio-tra').innerText = `${moduleAverages.tra}%`;
     document.getElementById('promedio-lum').innerText = `${moduleAverages.lum}%`;
@@ -552,6 +554,84 @@ function guardarDatosTabla() {
   });
 
   alert('Datos guardados correctamente.');
+}
+
+
+// Obtener los datos de la tabla y enviarlos al backend
+async function enviarDatosTablaDetails() {
+  const modulo = document.getElementById('module-details');
+  const tablas = modulo.querySelectorAll('table');
+
+  if (!tablas || tablas.length === 0) {
+    console.error('Error: No se encontró ninguna tabla dentro de "module-details".');
+    alert('Error: No se encontró ninguna tabla dentro de "module-details".');
+    return;
+  }
+
+  for (const tabla of tablas) {
+    const filas = tabla.rows;
+
+    if (!filas || filas.length === 0) {
+      console.error(`Error: La tabla con ID ${tabla.id} no contiene filas.`);
+      alert(`Error: La tabla con ID ${tabla.id} no contiene filas.`);
+      return;
+    }
+
+    const maxColumnas = Array.from(filas[0].cells).length;
+
+    const datos = [];
+    for (let i = 1; i < filas.length; i++) {
+      const fila = filas[i];
+      const celdas = fila.cells;
+
+      if (!celdas || celdas.length === 0) {
+        console.error(`Error: La fila ${i} en la tabla con ID ${tabla.id} no contiene celdas.`);
+        continue;
+      }
+
+      const filaDatos = {};
+      for (let j = 0; j < maxColumnas; j++) {
+        const celda = celdas[j] || {};
+        if (celda.nodeType === Node.ELEMENT_NODE) {
+          const span = celda.querySelector('span');
+
+          const contenido = span ? span.innerText : celda.innerText;
+          filaDatos[`columna${j + 1}`] = contenido || '';
+          filaDatos[`idColumna${j + 1}`] = span ? span.id : 'N/A';
+        } else {
+          filaDatos[`columna${j + 1}`] = '';
+          filaDatos[`idColumna${j + 1}`] = 'N/A';
+        }
+      }
+      datos.push(filaDatos);
+    }
+
+    // Log the data before sending it
+    console.log('Datos a enviar:', { tablaId: tabla.id, datos });
+
+    try {
+      const response = await fetch('http://localhost:3000/tabla-details', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ tablaId: tabla.id, datos })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error en la solicitud: ${response.statusText}, ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log(`Datos enviados correctamente para la tabla con ID ${tabla.id}:`, result);
+    } catch (error) {
+      console.error(`Error al enviar los datos de la tabla con ID ${tabla.id}:`, error);
+      alert(`Error al enviar los datos de la tabla con ID ${tabla.id}.`);
+    }
+  }
+
+  alert('Datos enviados correctamente.');
 }
 
 
