@@ -34,13 +34,13 @@ function loadTableDetails() {
 
 }
 
-
 // Agregar una fila a la tabla de desviaciones con datos del ID
 function agregarFilaDesdeID(id) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
   const idPart = id.replace('observacion-', '');
 
+  // Buscar la pregunta que coincida con el ID
   const match = questions.find(module =>
     Array.isArray(module.question)
       ? module.question.find(q => q.toLowerCase() === idPart.toLowerCase())
@@ -50,21 +50,28 @@ function agregarFilaDesdeID(id) {
   if (match) {
     const pregunta = Array.isArray(match.question) ? match.question[0] : match.question;
 
+    // Alineación de celdas según la estructura de la tabla
     fila.appendChild(crearCelda(tabla.rows.length + 1));
-    fila.appendChild(crearCeldaConInput(pregunta, crearComboBoxTodasLasPreguntas(pregunta)));
+    fila.appendChild(crearCelda(pregunta));
     fila.appendChild(crearCeldaConSelect(criterio, ''));
-    fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
+    fila.appendChild(crearCeldaConSelect(desviaciones, ''));
     fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
     fila.appendChild(crearCeldaConInput(''));
+
+    // Celda de criticidad (prioridad)
     const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
     prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
     fila.appendChild(prioridadCelda);
+
     fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
     fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
-    fila.appendChild(crearCeldaConInput('   /   /   '));
+    fila.appendChild(crearCeldaConInput('   /   /   ')); 
+
+    // Celda de estado
     const estadoCelda = crearCeldaConSelect(estados, estados[0]);
     estadoCelda.querySelector('select').addEventListener('change', actualizarEstado);
     fila.appendChild(estadoCelda);
+
     fila.appendChild(crearCeldaConInput('   /   /   '));
     fila.appendChild(crearCeldaConInput(''));
     fila.appendChild(crearCeldaConInputFoto());
@@ -73,7 +80,7 @@ function agregarFilaDesdeID(id) {
     fila.appendChild(crearCeldaConInput(''));
     fila.appendChild(crearCeldaConInput('   /   /   '));
 
-    // Eliminar
+    // Celda de eliminación
     const celdaEliminar = document.createElement('td');
     const botonEliminar = document.createElement('button');
     botonEliminar.innerText = 'Eliminar';
@@ -82,14 +89,17 @@ function agregarFilaDesdeID(id) {
     });
     celdaEliminar.appendChild(botonEliminar);
     fila.appendChild(celdaEliminar);
-    tabla.appendChild(fila);
-    actualizarFiltros();
 
+    // Agregar la fila a la tabla
+    tabla.appendChild(fila);
+
+    // Actualizar los filtros si es necesario
+    actualizarFiltros();
   } else {
     console.log(`No se encontró una pregunta para el ID ${id}`);
   }
-
 }
+
 
 
 

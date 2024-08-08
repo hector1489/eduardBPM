@@ -257,7 +257,9 @@ function agregarFila() {
 
   // Agrega celdas con datos a la nueva fila
   fila.appendChild(crearCelda(tabla.rows.length + 1));
+  
   fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas('')));
+  
   fila.appendChild(crearCeldaConSelect(criterio, ''));
   fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
   fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));

@@ -758,29 +758,30 @@ function guardarDatosTabla() {
   const datos = Array.from(filas).map(fila => {
     const celdas = fila.getElementsByTagName('td');
     return {
-      numeroPC: celdas[0]?.innerText || '',
-      numeroPregunta: celdas[1]?.querySelector('select')?.value || '',
-      criterio: celdas[2]?.querySelector('select')?.value || '',
-      desviacion: celdas[3]?.querySelector('select')?.value || '',
-      prioridad: celdas[4]?.querySelector('select')?.value || '',
-      estado: celdas[5]?.querySelector('select')?.value || '',
-      planAccion: celdas[6]?.querySelector('input')?.value || '',
-      fechaCambioEstado: celdas[7]?.innerText || '',
+      numeroRequerimiento: celdas[0]?.innerText || '',
+      preguntasAuditadas: celdas[1]?.querySelector('select')?.value || celdas[1]?.innerText || '',
+      desviacionOCriterio: celdas[2]?.querySelector('select')?.value || '',
+      tipoDeAccion: celdas[3]?.querySelector('select')?.value || '',
+      responsableProblema: celdas[4]?.querySelector('select')?.value || '',
+      local: celdas[5]?.querySelector('input')?.value || '',
+      criticidad: celdas[6]?.querySelector('select')?.value || '',
+      accionesCorrectivas: celdas[7]?.querySelector('input')?.value || '',
       fechaRecepcionSolicitud: celdas[8]?.innerText || '',
-      fechaSolucionProgramada: celdas[9]?.innerText || '',
-      cantidadDias: celdas[10]?.innerText || '',
-      entidad: celdas[11]?.querySelector('select')?.value || '',
-      responsableDesviacion: celdas[12]?.querySelector('select')?.value || '',
-      auditor: celdas[13]?.querySelector('select')?.value || '',
-      contacto: celdas[14]?.querySelector('input')?.value || '',
-      correo: celdas[15]?.querySelector('input')?.value || '',
-      fechaUltimaModificacion: celdas[16]?.innerText || '',
-      foto: celdas[17]?.querySelector('input')?.value || ''
+      fechaSolucionProgramada: celdas[9]?.querySelector('input')?.value || '',
+      estado: celdas[10]?.querySelector('select')?.value || '',
+      fechaCambioEstado: celdas[11]?.querySelector('input')?.value || '',
+      contactoClientes: celdas[12]?.querySelector('input')?.value || '',
+      evidenciaFotografica: celdas[13]?.querySelector('input')?.value || '',
+      detalleFoto: celdas[14]?.querySelector('input')?.value || '',
+      auditor: celdas[15]?.querySelector('select')?.value || '',
+      correo: celdas[16]?.querySelector('input')?.value || '',
+      fechaUltimaModificacion: celdas[17]?.innerText || ''
     };
   });
   localStorage.setItem('tablaDatos', JSON.stringify(datos));
   alert('Lista de Desviaciones actualizada.');
 }
+
 
 // Descargar la tabla como archivo Excel
 function descargarTablaExcel() {
