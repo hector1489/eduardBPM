@@ -196,3 +196,105 @@ function getColorByPercentage(average) {
   if (average >= 75) return 'yellow';
   return 'red';
 }
+
+// grafico solo para lum
+function renderChartLum(lumAverage) {
+  const ctx = document.getElementById('puntaje-sololum').getContext('2d');
+
+  const data = {
+    labels: ['Luminosidad'],
+    datasets: [{
+      label: 'Porcentaje de Cumplimiento',
+      data: [lumAverage],
+      backgroundColor: [getBarGradient(ctx)],
+      borderColor: 'black',
+      borderWidth: 1
+    }]
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        ticks: {
+          stepSize: 10,
+          callback: function (value) {
+            return value + '%';
+          },
+          color: 'black',
+          font: {
+            size: 10,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      x: {
+        ticks: {
+          color: 'black',
+          font: {
+            size: 10,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return 'Luminosidad: ' + Math.round(tooltipItem.raw) + '%';
+          }
+        },
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        titleFont: {
+          size: 12,
+          weight: 'bold'
+        },
+        bodyFont: {
+          size: 10
+        },
+        borderColor: 'rgba(255, 255, 255, 0.3)',
+        borderWidth: 1
+      },
+      legend: {
+        display: false
+      }
+    },
+    layout: {
+      padding: {
+        top: 20,
+        right: 20
+      }
+    }
+  };
+
+  if (window.lumChart instanceof Chart) {
+    window.lumChart.destroy();
+  }
+
+  window.lumChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+}
+
+function getBarGradient(ctx) {
+  const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
+  barGradient.addColorStop(0, 'rgba(0, 150, 255, 0.5)');
+  barGradient.addColorStop(1, 'rgba(0, 255, 150, 0.9)');
+  return barGradient;
+}
+
+
+// Llamar a la función con un valor promedio de ejemplo
+renderChartLum(75);

@@ -15,7 +15,7 @@ function loadTableDetails() {
 
   data.forEach(rowData => {
 
-    if (rowData.columna1 === "NUMERO DE AUDITORIA") {
+    if (rowData[`columna1`] === "NUMERO DE AUDITORIA") {
       const columna2Value = rowData.columna2;
       const targetElementId = 'cardNumeroAuditoria'; 
 
