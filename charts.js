@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   renderChartLum();
+  renderChart();
 });
 
 function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, traAverage, lumAverage, overallAverage) {
@@ -302,15 +303,28 @@ function getBarGradient(ctx) {
 
 //module Kpi
 // grafico solo para tra
-function renderChartTra(traAverage) {
+function renderChartTra(traAverage, poeAverage, docAverage) {
   const ctx = document.getElementById('promedios-kpi').getContext('2d');
 
+  // Asegurarse de que los valores sean números, en caso contrario, asignarles 0.
+  traAverage = typeof traAverage === 'number' ? traAverage : 100;
+  poeAverage = typeof poeAverage === 'number' ? poeAverage : 100;
+  docAverage = typeof docAverage === 'number' ? docAverage : 100;
+  
+  // Calcula el promedio de TRA, SER y DOC
+  const overallAverageTra = (traAverage + poeAverage + docAverage) / 3;
+
   const data = {
-    labels: ['Transporte'],
+    labels: ['Transporte', 'Servicios', 'Documentos', 'Promedio General'],
     datasets: [{
       label: 'Porcentaje de Cumplimiento',
-      data: [traAverage],
-      backgroundColor: [getBarGradient(ctx)],
+      data: [traAverage, poeAverage, docAverage, overallAverageTra],
+      backgroundColor: [
+        getBarGradient(ctx), // Transporte
+        getBarGradient(ctx), // Servicios
+        getBarGradient(ctx), // Documentos
+        getBarGradient(ctx)  // Promedio General
+      ],
       borderColor: 'black',
       borderWidth: 1
     }]
@@ -322,7 +336,7 @@ function renderChartTra(traAverage) {
     scales: {
       y: {
         beginAtZero: true,
-        max: Math.max(100, traAverage), // Ajustar el máximo de Y según el valor de traAverage
+        max: 100, // Asumimos que el máximo es 100%
         ticks: {
           stepSize: 10,
           callback: function (value) {
@@ -355,7 +369,8 @@ function renderChartTra(traAverage) {
       tooltip: {
         callbacks: {
           label: function (tooltipItem) {
-            return 'Transporte: ' + Math.round(tooltipItem.raw) + '%';
+            const label = data.labels[tooltipItem.dataIndex];
+            return `${label}: ${Math.round(tooltipItem.raw)}%`;
           }
         },
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
@@ -391,5 +406,3 @@ function renderChartTra(traAverage) {
     options: options
   });
 }
-
-

@@ -7,6 +7,7 @@ function goToDashboard() {
 document.addEventListener('DOMContentLoaded', function () {
   calculateOverallAverages();
   initializeSelectChangeListeners();
+  calcularPromedioTotalKpi();
 });
 
 // Función para inicializar los event listeners en los selects
@@ -296,7 +297,7 @@ function calculateOverallAverages() {
   renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
   updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
   renderChartLum(lumAverage);
-  renderChartTra(traAverage);
+  renderChartTra(traAverage, poeAverage, docAverage);
 
   // Actualiza la tabla de auditoría con las notas y puntajes
   function updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage) {
@@ -392,7 +393,7 @@ function calculateOverallAverages() {
       final: overallAverage
     };
 
-    
+
     document.getElementById('promedio-infraestructura').innerText = `${moduleAverages.infraestructura}%`;
     document.getElementById('promedio-legales').innerText = `${moduleAverages.legales}%`;
     document.getElementById('promedio-quimicos').innerText = `${moduleAverages.quimicos}%`;
@@ -688,3 +689,41 @@ function updateNotaPorItemHeader() {
 
 // Llama a la función para establecer el color inicial
 document.addEventListener('DOMContentLoaded', updateNotaPorItemHeader);
+
+// Actualizar tabla kpi
+function calcularPromedioTotalKpi() {
+  const table = document.getElementById("kpiTable");
+  const tbody = table.querySelector("tbody");
+  const rows = tbody.querySelectorAll("tr");
+
+  // Asignar valores desde los select si existen
+  const variedadAutoServicio = document.getElementById('variedad-autoservicio').value || "100";
+  const examenes = document.getElementById('examenes').value || "100";
+  const informesMicrobio = document.getElementById('informes-microbio').value || "100";
+
+  document.getElementById("kpiInsp").innerText = informesMicrobio;
+  document.getElementById("kpiCum").innerText = variedadAutoServicio;
+  document.getElementById("kpiExam").innerText = examenes;
+  document.getElementById("kpiInap").innerText = informesMicrobio;
+
+  let sumaPromedios = 0;
+  let contadorFilas = 0;
+
+  rows.forEach(row => {
+    const textContent = row.cells[2].textContent.replace('%', '').trim();
+    const promedio = parseFloat(textContent);
+
+    if (!isNaN(promedio)) {
+      sumaPromedios += promedio;
+      contadorFilas++;
+    }
+  });
+
+  const promedioTotal = (contadorFilas > 0) ? sumaPromedios / contadorFilas : 0;
+
+  // Actualizar el promedio total calculado en la tabla
+  document.getElementById("totalkpi").textContent = promedioTotal.toFixed(2) + "%";
+}
+
+
+

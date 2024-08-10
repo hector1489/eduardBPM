@@ -2895,7 +2895,7 @@
 
       </div>
 
-      <table class="table table-bordered text-center table-sm" style="font-size: 12px;">
+      <table id="kpiTable" class="table table-bordered text-center table-sm" style="font-size: 12px;">
         <thead>
           <tr>
             <th>INDICADOR</th>
@@ -2905,63 +2905,34 @@
         </thead>
         <tbody>
           <tr>
-            <td>
-              ALIMENTACION INSP. BPM
-            </td>
-            <td>
-              25%
-            </td>
-            <td>
-              100%
-            </td>
+            <td>ALIMENTACION INSP. BPM</td>
+            <td>25%</td>
+            <td><span id="kpiInsp"></span>%</td>
           </tr>
           <tr>
-            <td>
-              ALIMENTACION EXAM. MANIP.
-            </td>
-            <td>
-              25%
-            </td>
-            <td>
-              100%
-            </td>
+            <td>ALIMENTACION CUM. INUTAS</td>
+            <td>25%</td>
+            <td><span id="kpiCum"></span>%</td>
           </tr>
           <tr>
-            <td>
-              ALIMENTACION ENAP. MICROB.
-            </td>
-            <td>
-              25%
-            </td>
-            <td>
-              100%
-            </td>
+            <td>ALIMENTACION EXAM. MANIP.</td>
+            <td>25%</td>
+            <td><span id="kpiExam"></span>%</td>
           </tr>
           <tr>
-            <td>
-              ALIMENTACION CUM. INUTAS
-            </td>
-            <td>
-              25%
-            </td>
-            <td>
-              100%
-            </td>
+            <td>ALIMENTACION INAP. MICROB.</td>
+            <td>25%</td>
+            <td><span id="kpiInap"></span>%</td>
           </tr>
-          <tr>
-            <td>
-              TOTAL ALIMENTACION
-            </td>
-            <td>
-              25%
-            </td>
-            <td>
-              100%
-            </td>
-          </tr>
-
+          
         </tbody>
-      </table>
+        <tfoot>
+          <tr class="bg-warning">
+            <td colspan="2">TOTAL ALIMENTACION</td>
+            <td><span id="totalkpi"></span> %</td>
+          </tr>
+        </tfoot>
+    </table>
 
 
       <div class="d-flex justify-content-center">
