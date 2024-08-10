@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function() {
+  renderChartLum();
+});
+
 function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, traAverage, lumAverage, overallAverage) {
   const ctx = document.getElementById('resultChart').getContext('2d');
 
@@ -200,6 +204,7 @@ function getColorByPercentage(average) {
 // grafico solo para lum
 function renderChartLum(lumAverage) {
   const ctx = document.getElementById('puntaje-sololum').getContext('2d');
+  
 
   const data = {
     labels: ['Luminosidad'],
@@ -218,7 +223,7 @@ function renderChartLum(lumAverage) {
     scales: {
       y: {
         beginAtZero: true,
-        max: 100,
+        max: Math.max(100, lumAverage), // Ajustar el máximo de Y según el valor de lumAverage
         ticks: {
           stepSize: 10,
           callback: function (value) {
@@ -295,6 +300,96 @@ function getBarGradient(ctx) {
   return barGradient;
 }
 
+//module Kpi
+// grafico solo para tra
+function renderChartTra(traAverage) {
+  const ctx = document.getElementById('promedios-kpi').getContext('2d');
 
-// Llamar a la función con un valor promedio de ejemplo
-renderChartLum(75);
+  const data = {
+    labels: ['Transporte'],
+    datasets: [{
+      label: 'Porcentaje de Cumplimiento',
+      data: [traAverage],
+      backgroundColor: [getBarGradient(ctx)],
+      borderColor: 'black',
+      borderWidth: 1
+    }]
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: Math.max(100, traAverage), // Ajustar el máximo de Y según el valor de traAverage
+        ticks: {
+          stepSize: 10,
+          callback: function (value) {
+            return value + '%';
+          },
+          color: 'black',
+          font: {
+            size: 10,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      x: {
+        ticks: {
+          color: 'black',
+          font: {
+            size: 10,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
+      }
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return 'Transporte: ' + Math.round(tooltipItem.raw) + '%';
+          }
+        },
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        titleFont: {
+          size: 12,
+          weight: 'bold'
+        },
+        bodyFont: {
+          size: 10
+        },
+        borderColor: 'rgba(255, 255, 255, 0.3)',
+        borderWidth: 1
+      },
+      legend: {
+        display: false
+      }
+    },
+    layout: {
+      padding: {
+        top: 20,
+        right: 20
+      }
+    }
+  };
+
+  if (window.traChart instanceof Chart) {
+    window.traChart.destroy();
+  }
+
+  window.traChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+}
+
+

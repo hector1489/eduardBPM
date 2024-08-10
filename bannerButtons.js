@@ -39,7 +39,7 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
           link.download = 'auditoria.png';
           link.click();
 
-        }, 100); // Esperar 100 ms
+        }, 500); // Esperar ms
 
       } catch (error) {
         console.error('Error accediendo a la cámara: ', error);

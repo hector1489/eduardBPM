@@ -88,6 +88,12 @@ function nextModule(currentModule, nextModule) {
     case 'warning':
       document.getElementById('module-title').style.display = 'none';
       break;
+    case 'sololum':
+      document.getElementById('module-title').innerText = 'LUM - LUMINOMETRÍA';
+      break;
+    case 'kpi':
+      document.getElementById('module-title').innerText = 'RESUMEN KPI';
+      break;
     default:
       document.getElementById('module-title').innerText = 'BPM - Buenas Prácticas de Manufactura';
   }
@@ -156,7 +162,7 @@ function previousModule(currentModule, previousModule) {
     case 'poe-ppt':
       document.getElementById('module-title').innerText = 'POE - Procedimientos Operacionales Estandarizados';
       break;
-      
+
     case 'ma':
       document.getElementById('module-title').innerText = 'MA - Manejo y Protección Ambiental';
       break;
@@ -184,6 +190,12 @@ function previousModule(currentModule, previousModule) {
       break;
     case 'warning':
       document.getElementById('module-title').style.display = 'none';
+      break;
+    case 'sololum':
+      document.getElementById('module-title').innerText = 'LUM - LUMINOMETRÍA';
+      break;
+    case 'kpi':
+      document.getElementById('module-title').innerText = 'RESUMEN KPI';
       break;
     default:
       document.getElementById('module-title').innerText = 'BPM - Buenas Prácticas de Manufactura';
