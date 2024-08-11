@@ -67,9 +67,9 @@ function agregarFilaDesdeID(id) {
     fila.appendChild(crearCelda(tabla.rows.length + 1));
     fila.appendChild(crearCelda(pregunta));
     fila.appendChild(crearCeldaConSelect(criterio, ''));
-    fila.appendChild(crearCelda(''));
+    fila.appendChild(crearCeldaConInputFile(''));
     fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
-    fila.appendChild(crearCeldaConInput(''));
+    fila.appendChild(crearCeldaConInputFile(''));
 
     // Celda de criticidad (prioridad)
     const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
@@ -92,11 +92,11 @@ function agregarFilaDesdeID(id) {
     fila.appendChild(estadoCelda);
 
     fila.appendChild(crearCeldaConInput('   /   /   '));
-    fila.appendChild(crearCeldaConInput(''));
+    fila.appendChild(crearCeldaConInputFile(''));
     fila.appendChild(crearCeldaConInputFoto());
-    fila.appendChild(crearCeldaConInput(''));
+    fila.appendChild(crearCeldaConInputFile(''));
     fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
-    fila.appendChild(crearCeldaConInput(''));
+    fila.appendChild(crearCeldaConInputFile(''));
     fila.appendChild(crearCeldaConInput('   /   /   '));
 
     // Celda de eliminación
