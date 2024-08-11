@@ -128,6 +128,29 @@ function crearCeldaConInputFile(valor, elemento) {
   return celda;
 }
 
+// crear una celda con un inputFile
+function crearCeldaConInputEmail(valor = '', opciones = {}) {
+  const celda = document.createElement('td');
+  const inputEmail = document.createElement('input');
+
+  inputEmail.type = 'email';
+  inputEmail.className = 'form-control';
+  inputEmail.value = valor;
+  inputEmail.placeholder = 'Ingrese su email';
+  inputEmail.autocomplete = 'email';
+
+  inputEmail.required = true;
+  inputEmail.pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$";
+
+  for (const [key, value] of Object.entries(opciones)) {
+    inputEmail.setAttribute(key, value);
+  }
+
+  celda.appendChild(inputEmail);
+  return celda;
+}
+
+
 
 // crear una celda con un selectu
 function crearCeldaConSelect(opciones, valorSeleccionado) {
@@ -306,7 +329,7 @@ function agregarFila() {
   fila.appendChild(crearCeldaConInputFoto());
   fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
-  fila.appendChild(crearCeldaConInputFile(''));
+  fila.appendChild(crearCeldaConInputEmail(''));
   fila.appendChild(crearCeldaConInput('   /   /   '));
 
   // Crear botón de eliminar

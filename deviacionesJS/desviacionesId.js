@@ -96,7 +96,7 @@ function agregarFilaDesdeID(id) {
     fila.appendChild(crearCeldaConInputFoto());
     fila.appendChild(crearCeldaConInputFile(''));
     fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
-    fila.appendChild(crearCeldaConInputFile(''));
+    fila.appendChild(crearCeldaConInputEmail(''));
     fila.appendChild(crearCeldaConInput('   /   /   '));
 
     // Celda de eliminación
