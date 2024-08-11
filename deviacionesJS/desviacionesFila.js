@@ -115,6 +115,20 @@ function crearCeldaConInput(valor, input) {
   return celda;
 }
 
+// crear una celda con un inputFile
+function crearCeldaConInputFile(valor, elemento) {
+  const celda = document.createElement('td');
+  if (!elemento) {
+    elemento = document.createElement('input');
+    elemento.type = 'text';
+    elemento.className = 'form-control';
+    elemento.value = valor;
+  }
+  celda.appendChild(elemento);
+  return celda;
+}
+
+
 // crear una celda con un selectu
 function crearCeldaConSelect(opciones, valorSeleccionado) {
   const celda = document.createElement('td');
@@ -207,24 +221,29 @@ function enviarImagen(file) {
     });
 }
 
-// actualizar la prioridad y calcular fechas relacionadas
+// Actualizar la prioridad y calcular fechas relacionadas
 function actualizarPrioridad(event) {
   const fila = event.target.closest('tr');
   const prioridadSeleccionada = prioridades.find(p => p.valor === event.target.value);
+  
+  // Cambia la clase CSS de la fila basada en la criticidad seleccionada
   fila.className = prioridadSeleccionada.clase;
+
+  // Obtiene la fecha de recepción desde la columna 8 y calcula la fecha de solución
   const fechaRecepcion = new Date(fila.cells[8].innerText.split('/').reverse().join('-'));
   const fechaSolucion = new Date(fechaRecepcion);
   fechaSolucion.setDate(fechaRecepcion.getDate() + prioridadSeleccionada.dias);
+  
+
   fila.cells[9].innerText = fechaSolucion.toLocaleDateString('es-ES');
-  const diferenciaDias = Math.ceil((fechaSolucion - fechaRecepcion) / (1000 * 60 * 60 * 24));
-  fila.cells[10].innerText = diferenciaDias;
-  fila.cells[16].innerText = new Date().toLocaleDateString('es-ES');
+  fila.cells[17].innerText = new Date().toLocaleDateString('es-ES');
 }
+
 
 // actualizar el estado y establecer la fecha de cambio de estado
 function actualizarEstado(event) {
   const fila = event.target.closest('tr');
-  fila.cells[7].innerText = new Date().toLocaleDateString('es-ES');
+  fila.cells[11].innerText = new Date().toLocaleDateString('es-ES');
 }
 
 // actualizar los valores de los filtros de la tabla
@@ -262,9 +281,9 @@ function agregarFila() {
   fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas('')));
   
   fila.appendChild(crearCeldaConSelect(criterio, ''));
-  fila.appendChild(crearCelda(' '));
+  fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
-  fila.appendChild(crearCeldaConInput(' '));
+  fila.appendChild(crearCeldaConInputFile(''));
 
   // Agrega celda de prioridad con evento de cambio
   const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
@@ -283,11 +302,11 @@ function agregarFila() {
   
   // Agrega celdas restantes y el botón de eliminar
   fila.appendChild(crearCeldaConInput('   /   /   '));
-  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConInputFoto());
-  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
-  fila.appendChild(crearCeldaConInput(''));
+  fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConInput('   /   /   '));
 
   // Crear botón de eliminar

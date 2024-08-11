@@ -37,9 +37,9 @@ function agregarFilaConDatos(dato) {
   prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
   fila.appendChild(prioridadCelda);
 
-  fila.appendChild(crearCeldaConInput(dato.accionesCorrectivas, crearComboBoxTodasLasAction(dato.accionesCorrectivas)));
+  fila.appendChild(crearCelda(dato.accionesCorrectivas));
   fila.appendChild(crearCelda(dato.fechaRecepcionSolicitud));
-  fila.appendChild(crearCeldaConInput(dato.fechaSolucionProgramada));
+  fila.appendChild(crearCelda(dato.fechaSolucionProgramada));
 
   // Celda de estado
   const estadoCelda = crearCeldaConSelect(estados, dato.estado);

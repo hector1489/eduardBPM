@@ -336,7 +336,7 @@ function renderChartTra(traAverage, poeAverage, docAverage) {
     scales: {
       y: {
         beginAtZero: true,
-        max: 100, // Asumimos que el máximo es 100%
+        max: 100,
         ticks: {
           stepSize: 10,
           callback: function (value) {

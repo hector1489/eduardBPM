@@ -17,7 +17,7 @@ function loadTableDetails() {
 
     if (rowData[`columna1`] === "NUMERO DE AUDITORIA") {
       const columna2Value = rowData.columna2;
-      const targetElementId = 'cardNumeroAuditoria'; 
+      const targetElementId = 'cardNumeroAuditoria';
 
       const targetElement = document.getElementById(targetElementId);
       if (targetElement) {
@@ -62,6 +62,7 @@ function agregarFilaDesdeID(id) {
   if (match) {
     const pregunta = Array.isArray(match.question) ? match.question[0] : match.question;
 
+
     // Alineación de celdas según la estructura de la tabla
     fila.appendChild(crearCelda(tabla.rows.length + 1));
     fila.appendChild(crearCelda(pregunta));
@@ -75,7 +76,13 @@ function agregarFilaDesdeID(id) {
     prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
     fila.appendChild(prioridadCelda);
 
-    fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasAction('')));
+    // Celda de acciones correctivas
+    const selectActions = crearComboBoxTodasLasAction('');
+    fila.appendChild(crearCeldaConInput('', selectActions));
+
+    // Ejecutar manualmente actualizarComboBoxActions
+    actualizarComboBoxActions(pregunta, selectActions);
+
     fila.appendChild(crearCelda(new Date().toLocaleDateString('es-ES')));
     fila.appendChild(crearCeldaConInput('   /   /   '));
 
