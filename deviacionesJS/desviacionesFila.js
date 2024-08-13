@@ -357,15 +357,27 @@ function analizarEstadoTablaSimplificado() {
   const resumenEstado = {
     totalFilas: filas.length,
     estado: {},
-    criticidad: {}
+    criticidad: {},
+    fueraDePlazo: {}
   };
+
+  const fechaActual = new Date();
 
   Array.from(filas).forEach(fila => {
     const celdas = fila.getElementsByTagName('td');
     
     const estado = celdas[10]?.querySelector('select')?.value || '';
     const criticidad = celdas[6]?.querySelector('select')?.value || '';
+    const fechaTexto = celdas[9]?.innerText || '';
     
+    // Parsear la fecha de la celda y compararla con la fecha actual
+    let fueraDePlazo = false;
+    if (fechaTexto) {
+      const [dia, mes, anio] = fechaTexto.split('/').map(Number); //"dd/mm/yyyy"
+      const fechaCelda = new Date(anio, mes - 1, dia);
+      fueraDePlazo = fechaCelda < fechaActual;
+    }
+
     if (estado) {
       resumenEstado.estado[estado] = (resumenEstado.estado[estado] || 0) + 1;
     }
@@ -373,6 +385,11 @@ function analizarEstadoTablaSimplificado() {
     if (criticidad) {
       resumenEstado.criticidad[criticidad] = (resumenEstado.criticidad[criticidad] || 0) + 1;
     }
+
+    if (fueraDePlazo) {
+      resumenEstado.fueraDePlazo['Fuera de Plazo'] = (resumenEstado.fueraDePlazo['Fuera de Plazo'] || 0) + 1;
+    }
+
   });
 
   console.log('Resumen del Estado Simplificado de la Tabla:', resumenEstado);
@@ -387,10 +404,11 @@ function analizarEstadoTablaSimplificado() {
   document.getElementById('criticidadCritico').textContent = `${resumenEstado.criticidad['Crítico'] || 0}`;
   document.getElementById('cardEstadoAbierto').textContent = `${resumenEstado.estado['Abierto'] || 0}`;
   document.getElementById('cardEstadoCerrado').textContent = `${resumenEstado.estado['Cerrado'] || 0}`;
+  document.getElementById('fueraDePlazo').textContent = `${resumenEstado.fueraDePlazo['Fuera de Plazo'] || 0}`;
 
-  
   return resumenEstado;
 }
+
 
 // Configura un MutationObserver para escuchar cambios en el tbody de la tabla
 const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
