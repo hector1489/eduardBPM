@@ -258,9 +258,12 @@ function obtenerTodasLasAction() {
 
 // Obtener acciones para una pregunta seleccionada
 function obtenerAccionesPorPregunta(preguntaSeleccionada) {
-  const question = accionesCorrectivas.find(q => q.question === preguntaSeleccionada);
+  const normalizedPregunta = preguntaSeleccionada.trim().toLowerCase();
+  const question = accionesCorrectivas.find(q => q.question.trim().toLowerCase() === normalizedPregunta);
+  
   return question ? question.action : [];
 }
+
 
 // Crea una celda con contenido
 function crearCeldaTH(contenido) {

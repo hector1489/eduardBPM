@@ -733,4 +733,66 @@ function calcularPromedioTotalKpi() {
 }
 
 
+// Obtener los datos de la tabla y guardarlos en localStorage 2
+function guardarDatosTablaDetails() {
+  const modulo = document.getElementById('module-details');
+  const tablas = modulo.querySelectorAll('table');
+
+  if (!tablas || tablas.length === 0) {
+    console.error('Error: No se encontró ninguna tabla dentro de "module-details".');
+    alert('Error: No se encontró ninguna tabla dentro de "module-details".');
+    return;
+  }
+
+  tablas.forEach((tabla) => {
+    const filas = tabla.rows;
+
+    if (!filas || filas.length === 0) {
+      console.error(`Error: La tabla con ID ${tabla.id} no contiene filas.`);
+      alert(`Error: La tabla con ID ${tabla.id} no contiene filas.`);
+      return;
+    }
+
+    const maxColumnas = Array.from(filas[0].cells).length;
+
+    const datos = [];
+    for (let i = 1; i < filas.length; i++) {
+      const fila = filas[i];
+      const celdas = fila.cells;
+
+      if (!celdas || celdas.length === 0) {
+        console.error(`Error: La fila ${i} en la tabla con ID ${tabla.id} no contiene celdas.`);
+        continue;
+      }
+
+      const filaDatos = {};
+      for (let j = 0; j < maxColumnas; j++) {
+        const celda = celdas[j] || {};
+        if (celda.nodeType === Node.ELEMENT_NODE) {
+          // Obtener el contenido del <span> o de la celda directamente
+          const span = celda.querySelector('span');
+          const contenido = span ? span.innerText : celda.innerText;
+
+          // Guardar el contenido en lugar del ID
+          filaDatos[`columna${j + 1}`] = contenido || '';
+
+          // Si la celda tiene un ID, también guardarlo
+          filaDatos[`idColumna${j + 1}`] = span ? span.id : ''; 
+        } else {
+          filaDatos[`columna${j + 1}`] = '';
+          filaDatos[`idColumna${j + 1}`] = '';
+        }
+      }
+      datos.push(filaDatos);
+    }
+
+    console.log(`Datos a guardar para la tabla con ID ${tabla.id}:`, datos);
+
+    localStorage.setItem(`tablaDatos-${tabla.id}`, JSON.stringify(datos));
+  });
+
+  alert('Datos guardados correctamente.');
+}
+
+
 

@@ -392,7 +392,6 @@ function analizarEstadoTablaSimplificado() {
 
   });
 
-  console.log('Resumen del Estado Simplificado de la Tabla:', resumenEstado);
   localStorage.setItem('resumenEstadoTablaSimplificado', JSON.stringify(resumenEstado));
 
   // Actualiza los elementos span con los resultados
