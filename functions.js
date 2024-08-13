@@ -28,11 +28,15 @@ function initializeSelectChangeListeners() {
         select.addEventListener('change', function (event) {
           const id = event.target.id;
           const value = parseInt(event.target.value);
+          const selectedText = event.target.options[event.target.selectedIndex].text;
           const notaId = `nota-${id}`;
           const observationId = `observacion-${id}`;
+          const criterioId = `criterio-${id}`;
 
           const notaElement = document.getElementById(notaId);
           const observationElement = document.getElementById(observationId);
+          const selectedTextElement = document.getElementById(criterioId);
+
 
           if (notaElement) {
             notaElement.innerText = `${value}%`;
@@ -40,6 +44,9 @@ function initializeSelectChangeListeners() {
 
           if (observationElement) {
             observationElement.innerText = getObservationText(value);
+          }
+          if (selectedTextElement) {
+            selectedTextElement.innerText = selectedText;
           }
         });
       });
