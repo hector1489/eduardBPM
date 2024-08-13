@@ -57,9 +57,8 @@ function loadTableDetails() {
     const uniqueCriterios = [...new Set(criterio)];
     const uniqueNotas = [...new Set(nota)];
 
-    observacionesConValores.forEach(({ id, valor1, valor2 }) => {
-      console.log(`Agregando fila con ID: ${id} y valor: ${valor1}`);
-      agregarFilaDesdeID(id, valor1, valor2);
+    observacionesConValores.forEach(({ id, valor2 }) => {
+      agregarFilaDesdeID(id, valor2);
     });
   });
 }

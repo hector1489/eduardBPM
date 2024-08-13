@@ -24,9 +24,7 @@ function crearComboBoxTodasLasAction(valorSeleccionado) {
 
 // Actualizar ComboBox de acciones basado en la pregunta seleccionada
 function actualizarComboBoxActions(preguntaSeleccionada, selectActions) {
-  console.log("Actualizando ComboBox para pregunta:", preguntaSeleccionada);
   const actions = obtenerAccionesPorPregunta(preguntaSeleccionada);
-  console.log("Acciones obtenidas:", actions);
 
   selectActions.innerHTML = '';
 
@@ -34,7 +32,6 @@ function actualizarComboBoxActions(preguntaSeleccionada, selectActions) {
     const option = document.createElement('option');
     option.value = action;
     option.text = action;
-    console.log("Agregando opción al select:", action);
     selectActions.appendChild(option);
   });
 }
@@ -303,7 +300,7 @@ function agregarFila() {
   
   fila.appendChild(crearCeldaConInput('', crearComboBoxTodasLasPreguntas('')));
   
-  fila.appendChild(crearCeldaConSelect(criterio, ''));
+  fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
   fila.appendChild(crearCeldaConInputFile(''));

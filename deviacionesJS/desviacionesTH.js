@@ -242,7 +242,6 @@ async function obtenerTodasLasAccionesDesdeAPI() {
     }
     const data = await response.json();
     accionesCorrectivas = data;
-    console.log('Datos obtenidos de la API:', accionesCorrectivas);
   } catch (error) {
     console.error('Error:', error);
   }
@@ -763,7 +762,7 @@ function guardarDatosTabla() {
     return {
       numeroRequerimiento: celdas[0]?.innerText || '',
       preguntasAuditadas: celdas[1]?.querySelector('select')?.value || celdas[1]?.innerText || '',
-      desviacionOCriterio: celdas[2]?.querySelector('select')?.value || '',
+      desviacionOCriterio: celdas[2]?.querySelector('input')?.value || celdas[2]?.innerText || '',
       tipoDeAccion: celdas[3]?.querySelector('input')?.value || '',
       responsableProblema: celdas[4]?.querySelector('select')?.value || '',
       local: celdas[5]?.querySelector('input')?.value || '',
