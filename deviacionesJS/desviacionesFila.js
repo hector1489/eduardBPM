@@ -125,6 +125,22 @@ function crearCeldaConInputFile(valor, elemento) {
   return celda;
 }
 
+// crear una celda con un inpuNumeroTelefono
+function crearCeldaConInputTelefono(valor, elemento) {
+  const celda = document.createElement('td');
+  if (!elemento) {
+    elemento = document.createElement('input');
+    elemento.type = 'tel';
+    elemento.className = 'form-control';
+    elemento.value = valor;
+    elemento.placeholder = 'Número de teléfono';
+    elemento.pattern = '[0-9]{10}'; 
+  }
+  celda.appendChild(elemento);
+  return celda;
+}
+
+
 // crear una celda con un inputFile
 function crearCeldaConInputEmail(valor = '', opciones = {}) {
   const celda = document.createElement('td');
@@ -322,7 +338,7 @@ function agregarFila() {
   
   // Agrega celdas restantes y el botón de eliminar
   fila.appendChild(crearCeldaConInput('   /   /   '));
-  fila.appendChild(crearCeldaConInputFile(''));
+  fila.appendChild(crearCeldaConInputTelefono(''));
   fila.appendChild(crearCeldaConInputFoto());
   fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));

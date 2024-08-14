@@ -728,7 +728,7 @@ function agregarFiltrosHead() {
   // Agrega celdas con filtros a la fila
   filaFiltro.appendChild(crearCeldaConSelectNumeroTH(''));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasPreguntasTH()));
-  filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxCriteriosTH('')));
+  filaFiltro.appendChild(crearCeldaConInputTH(''));
   filaFiltro.appendChild(crearCeldaConInputTH(''));
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxDesviacionesTH()));
   filaFiltro.appendChild(crearCeldaConInputTH(''));
@@ -757,6 +757,7 @@ agregarFiltrosHead();
 function guardarDatosTabla() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const filas = tabla.getElementsByTagName('tr');
+  
   const datos = Array.from(filas).map(fila => {
     const celdas = fila.getElementsByTagName('td');
     return {
@@ -772,7 +773,7 @@ function guardarDatosTabla() {
       fechaSolucionProgramada: celdas[9]?.innerText || '',
       estado: celdas[10]?.querySelector('select')?.value || '',
       fechaCambioEstado: celdas[11]?.querySelector('input')?.value || '',
-      contactoClientes: celdas[12]?.querySelector('input')?.value || '',
+      contactoClientes: celdas[12]?.querySelector('input')?.value || celdas[12]?.innerText || '',
       evidenciaFotografica: celdas[13]?.querySelector('input')?.value || '',
       detalleFoto: celdas[14]?.querySelector('input')?.value || '',
       auditor: celdas[15]?.querySelector('select')?.value || '',

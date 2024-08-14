@@ -115,9 +115,9 @@ function agregarFilaDesdeID(id, valor2) {
   fila.appendChild(estadoCelda);
 
   fila.appendChild(crearCeldaConInput('   /   /   '));
+  fila.appendChild(crearCeldaConInputTelefono(''));
+  fila.appendChild(crearCeldaConInputFoto(''));
   fila.appendChild(crearCeldaConInputFile(''));
-  fila.appendChild(crearCelda(''));
-  fila.appendChild(crearCelda(''));
   fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
   fila.appendChild(crearCeldaConInputEmail(''));
   fila.appendChild(crearCeldaConInput('   /   /   '));
