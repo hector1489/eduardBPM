@@ -346,6 +346,7 @@ function agregarFila() {
   const celdaEliminar = document.createElement('td');
   const botonEliminar = document.createElement('button');
   botonEliminar.innerText = 'Eliminar';
+  botonEliminar.className = 'btn-eliminar';
   botonEliminar.addEventListener('click', function () {
     eliminarFila(fila);
   });
@@ -368,7 +369,7 @@ function analizarEstadoTablaSimplificado() {
     totalFilas: filas.length,
     estado: {},
     criticidad: {},
-    fueraDePlazo: {}
+    fueraDePlazo: 0
   };
 
   const fechaActual = new Date();
@@ -380,12 +381,16 @@ function analizarEstadoTablaSimplificado() {
     const criticidad = celdas[6]?.querySelector('select')?.value || '';
     const fechaTexto = celdas[9]?.innerText || '';
     
-    // Parsear la fecha de la celda y compararla con la fecha actual
     let fueraDePlazo = false;
     if (fechaTexto) {
-      const [dia, mes, anio] = fechaTexto.split('/').map(Number); //"dd/mm/yyyy"
+      const [dia, mes, anio] = fechaTexto.split('/').map(Number);
       const fechaCelda = new Date(anio, mes - 1, dia);
       fueraDePlazo = fechaCelda < fechaActual;
+      
+      if (fueraDePlazo) {
+        resumenEstado.fueraDePlazo++;
+        fila.classList.add('fuera-de-plazo');
+      }
     }
 
     if (estado) {
@@ -395,11 +400,6 @@ function analizarEstadoTablaSimplificado() {
     if (criticidad) {
       resumenEstado.criticidad[criticidad] = (resumenEstado.criticidad[criticidad] || 0) + 1;
     }
-
-    if (fueraDePlazo) {
-      resumenEstado.fueraDePlazo['Fuera de Plazo'] = (resumenEstado.fueraDePlazo['Fuera de Plazo'] || 0) + 1;
-    }
-
   });
 
   localStorage.setItem('resumenEstadoTablaSimplificado', JSON.stringify(resumenEstado));
@@ -413,10 +413,11 @@ function analizarEstadoTablaSimplificado() {
   document.getElementById('criticidadCritico').textContent = `${resumenEstado.criticidad['Crítico'] || 0}`;
   document.getElementById('cardEstadoAbierto').textContent = `${resumenEstado.estado['Abierto'] || 0}`;
   document.getElementById('cardEstadoCerrado').textContent = `${resumenEstado.estado['Cerrado'] || 0}`;
-  document.getElementById('fueraDePlazo').textContent = `${resumenEstado.fueraDePlazo['Fuera de Plazo'] || 0}`;
+  document.getElementById('fueraDePlazo').textContent = `${resumenEstado.fueraDePlazo || 0}`;
 
   return resumenEstado;
 }
+
 
 
 // Configura un MutationObserver para escuchar cambios en el tbody de la tabla

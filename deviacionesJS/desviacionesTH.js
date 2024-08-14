@@ -716,6 +716,29 @@ function filtrarPorAuditor(auditorSeleccionado) {
   }
 }
 
+// Filtrar fuera de plazo 
+function mostrarFilasFueraDePlazo() {
+  const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+  const filas = tabla.getElementsByTagName('tr');
+  const fechaActual = new Date();
+
+  Array.from(filas).forEach(fila => {
+    const fechaTexto = fila.cells[9]?.innerText || '';
+    let fueraDePlazo = false;
+
+    if (fechaTexto) {
+      const [dia, mes, anio] = fechaTexto.split('/').map(Number);
+      const fechaCelda = new Date(anio, mes - 1, dia);
+      fueraDePlazo = fechaCelda < fechaActual;
+    }
+
+  
+    fila.style.display = fueraDePlazo ? '' : 'none';
+  });
+}
+
+
+
 // Función para agregar filtros a la cabecera de la tabla
 function agregarFiltrosHead() {
   const tabla = document.getElementById('tabla-desviaciones');
@@ -735,7 +758,18 @@ function agregarFiltrosHead() {
   filaFiltro.appendChild(crearCeldaConSelectPrioridadTH());
   filaFiltro.appendChild(crearCeldaConInputTH('', crearComboBoxTodasLasActionTH('')));
   filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
-  filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
+
+  // Aquí agregamos el botón en la cabecera de "Fecha de Solución Programada"
+  const celdaConBotonFiltro = crearCeldaTH('');
+  const botonFiltro = document.createElement('button');
+  botonFiltro.textContent = 'Filtrar Fuera de Plazo';
+  botonFiltro.className = 'btn-plazo';
+  botonFiltro.onclick = function() {
+    mostrarFilasFueraDePlazo();
+  };
+  celdaConBotonFiltro.appendChild(botonFiltro);
+  filaFiltro.appendChild(celdaConBotonFiltro);
+  
   filaFiltro.appendChild(crearCeldaTH(''));
   filaFiltro.appendChild(crearCeldaConInputFechaTH(''));
   filaFiltro.appendChild(crearCeldaTH(''));

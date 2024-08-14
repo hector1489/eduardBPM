@@ -126,6 +126,7 @@ function agregarFilaDesdeID(id, valor2) {
   const celdaEliminar = document.createElement('td');
   const botonEliminar = document.createElement('button');
   botonEliminar.innerText = 'Eliminar';
+  botonEliminar.className = 'btn-eliminar';
   botonEliminar.addEventListener('click', function () {
     eliminarFila(fila);
   });
