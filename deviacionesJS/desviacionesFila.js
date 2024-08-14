@@ -262,14 +262,11 @@ function actualizarPrioridad(event) {
   const fila = event.target.closest('tr');
   const prioridadSeleccionada = prioridades.find(p => p.valor === event.target.value);
   
-  // Cambia la clase CSS de la fila basada en la criticidad seleccionada
   fila.className = prioridadSeleccionada.clase;
 
-  // Obtiene la fecha de recepción desde la columna 8 y calcula la fecha de solución
   const fechaRecepcion = new Date(fila.cells[8].innerText.split('/').reverse().join('-'));
   const fechaSolucion = new Date(fechaRecepcion);
   fechaSolucion.setDate(fechaRecepcion.getDate() + prioridadSeleccionada.dias);
-  
 
   fila.cells[9].innerText = fechaSolucion.toLocaleDateString('es-ES');
   fila.cells[17].innerText = new Date().toLocaleDateString('es-ES');
