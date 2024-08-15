@@ -408,12 +408,14 @@ function analizarEstadoTablaSimplificado() {
   document.getElementById('totalIncidencias').textContent = `Total : ${resumenEstado.totalFilas || 0}`;
   document.getElementById('estadoCerrado').textContent = `Cerradas : ${resumenEstado.estado['Cerrado'] || 0}`;
   document.getElementById('estadoAbierto').textContent = `Abiertas: ${resumenEstado.estado['Abierto'] || 0}`;
+  document.getElementById('fueraDePlazo-Head').textContent = `Fuera de plazo: ${resumenEstado.fueraDePlazo || 0}`;
   document.getElementById('criticidadLeve').textContent = `${resumenEstado.criticidad['Leve'] || 0}`;
   document.getElementById('criticidadModerado').textContent = `${resumenEstado.criticidad['Moderado'] || 0}`;
   document.getElementById('criticidadCritico').textContent = `${resumenEstado.criticidad['Crítico'] || 0}`;
   document.getElementById('cardEstadoAbierto').textContent = `${resumenEstado.estado['Abierto'] || 0}`;
   document.getElementById('cardEstadoCerrado').textContent = `${resumenEstado.estado['Cerrado'] || 0}`;
   document.getElementById('fueraDePlazo').textContent = `${resumenEstado.fueraDePlazo || 0}`;
+  
 
   return resumenEstado;
 }
