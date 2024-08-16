@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +8,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <title>Resumen Ejecutivo</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f8f9fa;
       padding: 20px;
     }
+
     .card {
       margin: 15px 0;
     }
+
     .chart-container {
       width: 100%;
       max-width: 500px;
@@ -24,11 +26,9 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
-    
-    
-
     <!-- Resumen de Incidencias con Gráfico Circular -->
     <div class="card animate__animated animate__fadeInUp">
       <div class="d-flex justify-content-center align-items-center mb-4">
@@ -38,24 +38,49 @@
         <h2 class="text-center">Resumen Ejecutivo</h2>
       </div>
       <div class="card-body text-center">
+        <div class="card-header bg-light">
+          <h4 class="text-center">Promedios de Auditoría</h4>
+        </div>
+        <div class="card-body text-center">
+          <div class="chart-container">
+            <canvas id="promediosChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="card-body text-center">
+        <div class="card-header bg-light">
+          <h4 class="text-center">Criticidad</h4>
+        </div>
         <div class="chart-container">
           <canvas id="incidenciasChart"></canvas>
         </div>
         <div class="mt-4">
-          <p><strong>Leve:</strong> <span id="criticidadLeve">10</span></p>
-          <p><strong>Moderado:</strong> <span id="criticidadModerado">20</span></p>
-          <p><strong>Crítico:</strong> <span id="criticidadCritico">5</span></p>
+          <p><strong>Leve:</strong> <span id="criticidadLeve"></span></p>
+          <p><strong>Moderado:</strong> <span id="criticidadModerado"></span></p>
+          <p><strong>Crítico:</strong> <span id="criticidadCritico"></span></p>
         </div>
       </div>
     </div>
-
+    <div class="mt-4">
+      <h4>Detalles Criticidad</h4>
+      <table class="table table-bordered" id="tabla-filas-criticas">
+        <thead>
+          <tr>
+            <th>DESVIACION O CRITERIO</th>
+            <th>FECHA DE SOLUCION PROGRAMADA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Aquí se insertarán dinámicamente las filas -->
+        </tbody>
+      </table>
+    </div>
     <div class="text-center d-flex justify-content-center align-items-center flex-wrap">
       <div class="text-center mt-4 p-2">
         <button class="btn btn-primary" onclick="window.location.href='FORMATOBASE.html'">
           <i class="fas fa-table"></i> Ver Formato Base
         </button>
       </div>
-
       <div class="text-center mt-4 p-2">
         <button class="btn btn-primary" onclick="window.location.href='tablaDesviaciones.html'">
           <i class="fas fa-table"></i> Ver Tabla de Desviaciones
@@ -66,15 +91,39 @@
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // Datos de ejemplo (puedes reemplazarlos con datos dinámicos)
-    const leve = document.getElementById("criticidadLeve").textContent;
-    const moderado = document.getElementById("criticidadModerado").textContent;
-    const critico = document.getElementById("criticidadCritico").textContent;
 
-    // Crear gráfico circular
+  <script>
+    // Obtener datos de localStorage
+    const tableId = 'tabla-details';
+    const data = JSON.parse(localStorage.getItem(`tablaDatos-${tableId}`)) || [];
+    console.log(data);
+
+    // Crear la tabla de criticidad
+    const tablaFilasCriticas = document.getElementById('tabla-filas-criticas').getElementsByTagName('tbody')[0];
+    
+    const resumenEstado = JSON.parse(localStorage.getItem('resumenEstadoTablaSimplificado')) || {};
+    const filasCriticas = resumenEstado.filasCriticas || [];
+
+    filasCriticas.forEach(fila => {
+      const nuevaFila = tablaFilasCriticas.insertRow();
+      const celdaDescripcion = nuevaFila.insertCell(0);
+      const celdaFecha = nuevaFila.insertCell(1);
+
+      celdaDescripcion.textContent = fila.descripcion;
+      celdaFecha.textContent = fila.fecha;
+    });
+
+    // Configuración del gráfico circular
+    const leve = resumenEstado.criticidad?.['Leve'] || 10;
+    const moderado = resumenEstado.criticidad?.['Moderado'] || 20;
+    const critico = resumenEstado.criticidad?.['Crítico'] || 5;
+
+    document.getElementById('criticidadLeve').textContent = leve + ' casos';
+    document.getElementById('criticidadModerado').textContent = moderado + ' casos';
+    document.getElementById('criticidadCritico').textContent = critico + ' casos';
+
     const ctx = document.getElementById('incidenciasChart').getContext('2d');
-    const incidenciasChart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'pie',
       data: {
         labels: ['Leve', 'Moderado', 'Crítico'],
@@ -93,6 +142,43 @@
         }
       }
     });
+
+    // Extraer y mostrar promedios
+    const promedios = data.slice(132, 138).map(item => ({
+      label: item.columna1.replace('PROMEDIO ', ''),
+      value: parseFloat(item.columna2.replace('%', ''))
+    }));
+
+    function getBarGradient(ctxPromedios) {
+      const barGradient = ctxPromedios.createLinearGradient(0, 0, 0, 400);
+      barGradient.addColorStop(0, 'rgba(0, 150, 255, 0.5)');
+      barGradient.addColorStop(1, 'rgba(0, 255, 150, 0.9)');
+      return barGradient;
+    }
+
+    const ctxPromedios = document.getElementById('promediosChart').getContext('2d');
+    new Chart(ctxPromedios, {
+      type: 'bar',
+      data: {
+        labels: promedios.map(p => p.label),
+        datasets: [{
+          label: 'Porcentaje de Cumplimiento',
+          data: promedios.map(p => p.value),
+          backgroundColor: getBarGradient(ctxPromedios)
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        }
+      }
+    });
+
   </script>
 </body>
+
 </html>

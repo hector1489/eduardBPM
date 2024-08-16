@@ -358,9 +358,16 @@ function agregarFila() {
   actualizarFiltros();
 }
 
+function actualizarElemento(id, texto) {
+  const elemento = document.getElementById(id);
+  if (elemento) {
+    elemento.textContent = texto;
+  }
+}
+
 // estados globales  de la tabla desviaciones
 function analizarEstadoTablaSimplificado() {
-  const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+  const tabla = document.getElementById('tabla-desviaciones')?.getElementsByTagName('tbody')[0];
   if (!tabla) return;
 
   const filas = tabla.getElementsByTagName('tr');
@@ -369,7 +376,8 @@ function analizarEstadoTablaSimplificado() {
     totalFilas: filas.length,
     estado: {},
     criticidad: {},
-    fueraDePlazo: 0
+    fueraDePlazo: 0,
+    filasCriticas: []
   };
 
   const fechaActual = new Date();
@@ -380,7 +388,8 @@ function analizarEstadoTablaSimplificado() {
     const estado = celdas[10]?.querySelector('select')?.value || '';
     const criticidad = celdas[6]?.querySelector('select')?.value || '';
     const fechaTexto = celdas[9]?.innerText || '';
-    
+    const descripcion = celdas[2]?.innerText || ''; // Descripción de la celda 2
+
     let fueraDePlazo = false;
     if (fechaTexto) {
       const [dia, mes, anio] = fechaTexto.split('/').map(Number);
@@ -399,6 +408,14 @@ function analizarEstadoTablaSimplificado() {
 
     if (criticidad) {
       resumenEstado.criticidad[criticidad] = (resumenEstado.criticidad[criticidad] || 0) + 1;
+      
+      // Guardar filas con criticidad "Crítico"
+      if (criticidad === 'Crítico') {
+        resumenEstado.filasCriticas.push({
+          descripcion: descripcion,
+          fecha: fechaTexto
+        });
+      }
     }
   });
 
@@ -415,10 +432,10 @@ function analizarEstadoTablaSimplificado() {
   document.getElementById('cardEstadoAbierto').textContent = `${resumenEstado.estado['Abierto'] || 0}`;
   document.getElementById('cardEstadoCerrado').textContent = `${resumenEstado.estado['Cerrado'] || 0}`;
   document.getElementById('fueraDePlazo').textContent = `${resumenEstado.fueraDePlazo || 0}`;
-  
 
   return resumenEstado;
 }
+
 
 
 
