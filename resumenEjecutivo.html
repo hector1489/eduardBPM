@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <title>Resumen Ejecutivo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    .card {
+      margin: 15px 0;
+    }
+    .chart-container {
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    
+
+    <!-- Resumen de Incidencias con Gráfico Circular -->
+    <div class="card animate__animated animate__fadeInUp">
+      <div class="d-flex justify-content-center align-items-center mb-4">
+        <img id="form-logo" src="./logo.jpg" alt="Logo" style="width: 180px; height: auto;">
+      </div>
+      <div class="card-header bg-light">
+        <h2 class="text-center">Resumen Ejecutivo</h2>
+      </div>
+      <div class="card-body text-center">
+        <div class="chart-container">
+          <canvas id="incidenciasChart"></canvas>
+        </div>
+        <div class="mt-4">
+          <p><strong>Leve:</strong> <span id="criticidadLeve">10</span></p>
+          <p><strong>Moderado:</strong> <span id="criticidadModerado">20</span></p>
+          <p><strong>Crítico:</strong> <span id="criticidadCritico">5</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center d-flex justify-content-center align-items-center flex-wrap">
+      <div class="text-center mt-4 p-2">
+        <button class="btn btn-primary" onclick="window.location.href='FORMATOBASE.html'">
+          <i class="fas fa-table"></i> Ver Formato Base
+        </button>
+      </div>
+
+      <div class="text-center mt-4 p-2">
+        <button class="btn btn-primary" onclick="window.location.href='tablaDesviaciones.html'">
+          <i class="fas fa-table"></i> Ver Tabla de Desviaciones
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Datos de ejemplo (puedes reemplazarlos con datos dinámicos)
+    const leve = document.getElementById("criticidadLeve").textContent;
+    const moderado = document.getElementById("criticidadModerado").textContent;
+    const critico = document.getElementById("criticidadCritico").textContent;
+
+    // Crear gráfico circular
+    const ctx = document.getElementById('incidenciasChart').getContext('2d');
+    const incidenciasChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Leve', 'Moderado', 'Crítico'],
+        datasets: [{
+          label: 'Criticidad',
+          data: [leve, moderado, critico],
+          backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
