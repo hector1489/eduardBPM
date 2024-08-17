@@ -96,7 +96,6 @@
     // Obtener datos de localStorage
     const tableId = 'tabla-details';
     const data = JSON.parse(localStorage.getItem(`tablaDatos-${tableId}`)) || [];
-    console.log(data);
 
     // Crear la tabla de criticidad
     const tablaFilasCriticas = document.getElementById('tabla-filas-criticas').getElementsByTagName('tbody')[0];

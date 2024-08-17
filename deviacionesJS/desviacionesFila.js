@@ -388,7 +388,7 @@ function analizarEstadoTablaSimplificado() {
     const estado = celdas[10]?.querySelector('select')?.value || '';
     const criticidad = celdas[6]?.querySelector('select')?.value || '';
     const fechaTexto = celdas[9]?.innerText || '';
-    const descripcion = celdas[2]?.innerText || ''; // Descripción de la celda 2
+    const descripcion = celdas[2]?.innerText || '';
 
     let fueraDePlazo = false;
     if (fechaTexto) {
