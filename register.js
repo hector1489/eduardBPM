@@ -17,7 +17,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
 
     try {
         // Realizar la solicitud POST al backend
-        const response = await fetch('https://backend-api.com/register', {
+        const response = await fetch('https://bpm-backend.onrender.com/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

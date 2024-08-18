@@ -19,9 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
         password: password
       })
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error en la respuesta del servidor');
+        }
+        return response.json();
+      })
       .then(data => {
-        if (data.success) {
+        console.log('Respuesta del backend:', data);
+        if (data.token) {
+          // Almacena el token en localStorage o en donde lo necesites
+          localStorage.setItem('authToken', data.token);
           localStorage.setItem('authenticated', 'true');
           window.location.href = 'dashboard.html';
         } else {
