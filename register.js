@@ -33,7 +33,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
         if (response.ok) {
             // Registro exitoso, redirigir o mostrar un mensaje
             alert('Usuario registrado exitosamente');
-            window.location.href = 'login.html';
+            window.location.href = 'dashboard.html';
         } else {
             // Error en el registro
             const errorData = await response.json();
