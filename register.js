@@ -1,10 +1,10 @@
 document.getElementById('register-form').addEventListener('submit', async function (event) {
-    event.preventDefault(); // Prevenir el envío del formulario por defecto
+    event.preventDefault();
 
     // Obtener los valores de los campos del formulario
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
-    const role = document.getElementById('role').value; // Obtener el rol seleccionado
+    const role = document.getElementById('role').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
 
