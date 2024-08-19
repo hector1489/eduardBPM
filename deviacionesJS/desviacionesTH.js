@@ -833,6 +833,7 @@ function enviarDatosTabla() {
   // Obtener datos del usuario desde localStorage
   const authToken = localStorage.getItem('authToken');
 
+
   const datos = Array.from(filas).map(fila => {
     const celdas = fila.getElementsByTagName('td');
     return {
@@ -844,11 +845,11 @@ function enviarDatosTabla() {
       responsableProblema: celdas[4]?.querySelector('select')?.value || '',
       local: celdas[5]?.querySelector('input')?.value || '',
       criticidad: celdas[6]?.querySelector('select')?.value || '',
-      accionesCorrectivas: celdas[7]?.querySelector('select')?.value || celdas[1]?.innerText || '',
+      accionesCorrectivas: celdas[7]?.querySelector('select')?.value || celdas[7]?.innerText || '',
       fechaRecepcionSolicitud: celdas[8]?.innerText || '',
       fechaSolucionProgramada: celdas[9]?.innerText || '',
       estado: celdas[10]?.querySelector('select')?.value || '',
-      fechaCambioEstado: celdas[11]?.querySelector('input')?.value || '',
+      fechaCambioEstado: celdas[11]?.querySelector('input')?.value || celdas[11]?.innerText || '',
       contactoClientes: celdas[12]?.querySelector('input')?.value || celdas[12]?.innerText || '',
       evidenciaFotografica: celdas[13]?.querySelector('input')?.value || '',
       detalleFoto: celdas[14]?.querySelector('input')?.value || '',
@@ -860,11 +861,39 @@ function enviarDatosTabla() {
 
   console.log(datos);
 
+  // Verificar que todos los campos sean obligatorios
+  const camposObligatorios = datos.every(dato =>
+    dato.authToken && 
+    dato.numeroRequerimiento && 
+    dato.preguntasAuditadas && 
+    dato.desviacionOCriterio && 
+    dato.tipoDeAccion && 
+    dato.responsableProblema && 
+    dato.local && 
+    dato.criticidad && 
+    dato.accionesCorrectivas && 
+    dato.fechaRecepcionSolicitud && 
+    dato.fechaSolucionProgramada && 
+    dato.estado && 
+    dato.fechaCambioEstado && 
+    dato.contactoClientes && 
+    dato.detalleFoto && 
+    dato.auditor && 
+    dato.correo && 
+    dato.fechaUltimaModificacion
+  );
+
+  if (!camposObligatorios) {
+    alert('Por favor, complete todos los campos obligatorios.');
+    return;
+  }
+
   // Enviar los datos al backend
   fetch('http://localhost:3000/send-data', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${authToken}`
     },
     body: JSON.stringify(datos)
   })
