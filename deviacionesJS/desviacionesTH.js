@@ -831,16 +831,12 @@ function enviarDatosTabla() {
   const filas = tabla.getElementsByTagName('tr');
 
   // Obtener datos del usuario desde localStorage
-  const usuarioId = localStorage.getItem('usuario');
-  const rol = localStorage.getItem('role');
-
-  console.log(usuarioId, rol);
+  const authToken = localStorage.getItem('authToken');
 
   const datos = Array.from(filas).map(fila => {
     const celdas = fila.getElementsByTagName('td');
     return {
-      usuarioId: usuarioId || '',
-      rol: rol || '',
+      authToken: authToken || '',
       numeroRequerimiento: celdas[0]?.innerText || '',
       preguntasAuditadas: celdas[1]?.querySelector('select')?.value || celdas[1]?.innerText || '',
       desviacionOCriterio: celdas[2]?.querySelector('input')?.value || celdas[2]?.innerText || '',
