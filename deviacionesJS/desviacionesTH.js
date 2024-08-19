@@ -861,7 +861,7 @@ function enviarDatosTabla() {
   console.log(datos);
 
   // Enviar los datos al backend
-  fetch('https://bpm-backend.onrender.com/send-data', {
+  fetch('http://localhost:3000/send-data', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
