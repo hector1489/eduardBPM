@@ -8,12 +8,124 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link rel="stylesheet" href="./desviaciones.css">
+  <link rel="stylesheet" href="./tablaDesviaciones.css">
 </head>
 
 <body>
   <div class="container">
     <h2 class="animate__animated animate__fadeInLeft text-center">Tabla de Desviaciones</h2>
+
+    <div class="row justify-content-center" id="tablero-seguimiento">
+      <!-- Tablero de Seguimiento -->
+      <div class="col-md-5">
+        <div class="card animate__animated animate__fadeInUp bordered-box">
+          <div class="card-header bg-primary text-white text-center">
+            <i class="fas fa-exclamation-circle text-warning"></i> Total Incidencias
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center"><span id="totalIncidencias"></span></h5>
+          </div>
+        </div>
+        <div class="card animate__animated animate__fadeInUp bordered-box">
+          <div class="card-header bg-primary text-white text-center">
+            <i class="fas fa-tasks text-info"></i> Estado
+          </div>
+          <div class="card-body text-center">
+            <p><i class="fas fa-exclamation text-warning"></i> <span id="estadoAbierto"></span></p>
+            <p><i class="fas fa-check text-success"></i> <span id="estadoCerrado"></span></p>
+            <p><i class="fas fa-times-circle text-danger"></i> <span id="fueraDePlazo-Head"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Responsables y Total Cerrados por Responsable -->
+      <div class="col-md-5">
+        <div class="card animate__animated animate__fadeInUp bordered-box">
+          <div class="card-header bg-info text-white text-center">
+            <i class="fas fa-users text-light"></i> Responsables y Total Cerrados
+          </div>
+          <div class="card-body">
+            <table class="table table-striped table-hover">
+              <tbody>
+                <tr>
+                  <td><i class="fas fa-user text-primary"></i> Responsable 1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-user text-secondary"></i> Responsable 2</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-user text-success"></i> Responsable 3</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-user text-danger"></i> Responsable 4</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-user text-warning"></i> Responsable 5</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen de Incidencias -->
+    <div class="summary-card" id="resumen-incidencias">
+      <div class="card animate__animated animate__fadeInUp">
+        <div class="card-header bg-light">
+          <h2>Resumen de Incidencias</h2>
+        </div>
+        <div class="card-body">
+          <div class="card bg-success text-white bordered-box">
+            <div class="card-body">
+              <h5><span id="criticidadLeve"></span></h5>
+              <p>Leve</p>
+            </div>
+          </div>
+          <div class="card bg-warning text-white bordered-box">
+            <div class="card-body">
+              <h5><span id="criticidadModerado"></span></h5>
+              <p>Moderado</p>
+            </div>
+          </div>
+          <div class="card bg-danger text-white bordered-box">
+            <div class="card-body">
+              <h5><span id="criticidadCritico"></span></h5>
+              <p>Crítico</p>
+            </div>
+          </div>
+          <div class="card bg-dark-green text-white bordered-box">
+            <div class="card-body">
+              <h5><span id="cardEstadoAbierto"></span></h5>
+              <p>Abierta</p>
+            </div>
+          </div>
+          <div class="card bg-blue text-white bordered-box">
+            <div class="card-body">
+              <h5><span id="cardEstadoCerrado"></span></h5>
+              <p>Cerrada</p>
+            </div>
+          </div>
+          <div class="card bg-italian-red text-white bordered-box">
+            <div class="card-body">
+              <h5><span id="fueraDePlazo"></span></h5>
+              <p>Fuera de plazo</p>
+            </div>
+          </div>
+          <div class="card bg-info text-white bordered-box">
+            <div class="card-body">
+              <h5><span id="cardNumeroAuditoria"></span></h5>
+              <p>Numero de Auditoria</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="table-responsive">
       <table id="tabla-desviaciones" class="table table-bordered table-hover">
@@ -138,14 +250,11 @@
         </tbody>
       </table>
     </div>
+
     <div class="text-center d-flex justify-content-center align-items-center flex-wrap">
       <div class="icon-text m-3" onclick="agregarFila()" style="cursor: pointer;">
         <i class="fas fa-plus fa-2x text-success"></i>
         <span class="ml-2">Agregar Desviación</span>
-      </div>
-      <div class="icon-text m-3" onclick="guardarDatosTabla()" style="cursor: pointer;">
-        <i class="fas fa-save fa-2x text-warning"></i>
-        <span class="ml-2">Guardar Tabla</span>
       </div>
       <div class="icon-text m-3" onclick="descargarTablaExcel()" style="cursor: pointer;">
         <i class="fas fa-file-excel fa-2x text-info"></i>
@@ -155,9 +264,17 @@
         <i class="fas fa-sync-alt fa-2x text-danger"></i>
         <span class="ml-2">Cargar desde Auditoria</span>
       </div>
-      <div class="icon-text m-3" onclick="window.location.href='index.html'" style="cursor: pointer;">
+      <div class="icon-text m-3" onclick="window.location.href='dashboard.html'" style="cursor: pointer;">
         <i class="fas fa-arrow-left fa-2x text-primary"></i>
         <span class="ml-2">Volver a Inicio</span>
+      </div>
+      <div class="icon-text m-3" onclick="enviarDatosTabla()" style="cursor: pointer;">
+        <i class="fas fa-upload text-primary"></i>
+        <span class="ml-2">Enviar Desviacion</span>
+      </div>
+      <div class="icon-text m-3" onclick="cargarDatosDesdeBackend()" style="cursor: pointer;">
+        <i class="fas fa-save fa-2x text-warning"></i>
+        <span class="ml-2">Cargar Desviaciones</span>
       </div>
     </div>
 
@@ -180,8 +297,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
   <script src="./deviacionesJS/desviacionesTH.js"></script>
   <script src="./deviacionesJS/desviacionesFila.js"></script>
-  <script src="./deviacionesJS/desviacionesDato.js"></script>
   <script src="./deviacionesJS/desviacionesId.js"></script>
+  <script src="./deviacionesJS/desviacionesGet.js"></script>
+  <script src="./deviacionesJS/desviacionesPost.js"></script>
 </body>
 
 </html>
