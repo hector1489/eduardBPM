@@ -31,6 +31,38 @@ async function cargarDatosDesdeBackend() {
   }
 }
 
+// Función para eliminar la fila
+async function desviacionDelete(fila) {
+  const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+  const indice = Array.from(tabla.rows).indexOf(fila);
+  
+  // Obtener el dato de la fila a eliminar, por ejemplo, usando el 'numero_requerimiento'
+  const numeroRequerimiento = fila.cells[0].innerText;
+
+  try {
+    // Llamar a la API para eliminar la desviación del backend
+    const response = await fetch(`https://bpm-backend.onrender.com/desviacionesDelete/${numeroRequerimiento}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al eliminar la desviación');
+    }
+
+    // Si la solicitud fue exitosa, eliminar la fila de la tabla
+    fila.remove();
+    console.log(`Desviación con requerimiento número ${numeroRequerimiento} eliminada correctamente`);
+  } catch (error) {
+    console.error('Error al eliminar la desviación:', error);
+  }
+
+  // Actualizar los filtros si es necesario
+  actualizarFiltros();
+}
+
 function agregarFilaConGet(dato) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
@@ -77,7 +109,7 @@ function agregarFilaConGet(dato) {
   botonEliminar.innerText = 'Eliminar';
   botonEliminar.className = 'btn-eliminar';
   botonEliminar.addEventListener('click', function () {
-    eliminarFila(fila);
+    desviacionDelete(fila);
   });
   celdaEliminar.appendChild(botonEliminar);
   fila.appendChild(celdaEliminar);
