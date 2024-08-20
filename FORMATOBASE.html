@@ -258,10 +258,6 @@
         <i class="fas fa-plus fa-2x text-success"></i>
         <span class="ml-2">Agregar Desviación</span>
       </div>
-      <div class="icon-text m-3" onclick="guardarDatosTabla()" style="cursor: pointer;">
-        <i class="fas fa-save fa-2x text-warning"></i>
-        <span class="ml-2">Guardar Tabla</span>
-      </div>
       <div class="icon-text m-3" onclick="descargarTablaExcel()" style="cursor: pointer;">
         <i class="fas fa-file-excel fa-2x text-info"></i>
         <span class="ml-2">Descargar Excel</span>
@@ -277,6 +273,10 @@
       <div class="icon-text m-3" onclick="enviarDatosTabla()" style="cursor: pointer;">
         <i class="fas fa-save fa-2x text-warning"></i>
         <span class="ml-2">Enviar Tabla</span>
+      </div>
+      <div class="icon-text m-3" onclick="cargarDatosDesdeBackend()" style="cursor: pointer;">
+        <i class="fas fa-save fa-2x text-warning"></i>
+        <span class="ml-2">Cargar DB</span>
       </div>
     </div>
 
@@ -306,8 +306,10 @@
 
   <script src="./deviacionesJS/desviacionesTH.js"></script>
   <script src="./deviacionesJS/desviacionesFila.js"></script>
-  <script src="./deviacionesJS/desviacionesDato.js"></script>
   <script src="./deviacionesJS/desviacionesId.js"></script>
+  <script src="./deviacionesJS/desviacionesGet.js"></script>
+  <script src="./deviacionesJS/desviacionesPost.js"></script>
+
 
 
 
