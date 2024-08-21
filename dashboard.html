@@ -1,115 +1,391 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: white;
-            font-family: 'Arial', sans-serif;
-        }
-        #form-logo {
-            display: block;
-            margin: 20px auto;
-        }
-        .container {
-            margin-top: 40px;
-        }
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card img {
-            height: 150px;
-            object-fit: cover;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-        .card-title {
-            font-weight: bold;
-            color: #333;
-        }
-        .card-text {
-            color: #666;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 20px;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        #logout-button {
-            border-radius: 30px;
-            padding: 10px 20px;
-            background-color: #dc3545;
-            border: none;
-        }
-        #logout-button:hover {
-            background-color: #c82333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Control</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      background-color: white;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .left-icons {
+      position: fixed;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .left-icons .icon {
+      font-size: 20px;
+      color: #007bff;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.2s ease;
+    }
+
+    .left-icons .icon:hover {
+      background-color: #e9ecef;
+    }
+
+    .left-icons .icon.logout {
+      color: #dc3545;
+    }
+
+    .container {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    #form-logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      justify-items: center;
+      width: 100%;
+    }
+
+    .card {
+      width: 150px;
+      height: 150px;
+      background-color: white;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card-icon {
+      font-size: 40px;
+      color: #007bff;
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    a .card-icon {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (max-width: 767px) {
+      #form-logo {
+        width: 100px;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .card {
+        width: 120px;
+        height: 120px;
+      }
+
+      .card-icon {
+        font-size: 30px;
+      }
+
+      .card-title {
+        font-size: 12px;
+      }
+    }
+
+    .chatbot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 350px;
+      max-width: 90%;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .chatbot-header {
+      background-color: #007bff;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      text-align: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .chatbot-body {
+      padding: 15px;
+      height: 250px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .chatbot-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .chatbot-input input {
+      flex-grow: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 0;
+      border-top-left-radius: 10px;
+    }
+
+    .chatbot-input button {
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-top-right-radius: 10px;
+      cursor: pointer;
+    }
+
+    .chatbot-message {
+      margin-bottom: 10px;
+    }
+
+    .chatbot-message.user {
+      text-align: right;
+      color: #333;
+    }
+
+    .chatbot-message.bot {
+      text-align: left;
+      background-color: #f1f1f1;
+      padding: 8px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 767px) {
+      .left-icons {
+        position: static;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .left-icons .icon {
+        margin: 0 10px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <img id="form-logo" src="./logo.jpg" alt="Logo" style="width: 300px; height: auto;">
-        </div>
 
-        <h2 class="text-center my-2">Panel de Control</h2>
-
-        <div class="row justify-content-center">
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="alimentos.jpg" class="card-img-top" alt="Auditoría 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Auditoría Sanitaria Alimentos</h5>
-                        <p class="card-text"></p>
-                        <a href="auditoria.html" class="btn btn-primary btn-block">Realizar Auditoría</a>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="proceso.jpg" class="card-img-top" alt="Auditoría 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Control de desviaciones</h5>
-                        <p class="card-text"></p>
-                        <a href="FORMATOBASE.html" class="btn btn-primary btn-block">Ingresar</a>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="hotel.jpg" class="card-img-top" alt="Auditoría 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Auditoría Procesos de Aseo</h5>
-                        <p class="card-text"></p>
-                        <a href="construccion.html" class="btn btn-primary btn-block">Realizar Auditoría</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Ajustar el ancho del botón usando clases de Bootstrap -->
-        <button id="logout-button" class="btn btn-danger btn-block w-auto mt-3 mx-auto">Cerrar Sesión</button>
-
+  <div class="left-icons">
+    <div class="icon">
+      <i class="fas fa-tachometer-alt"></i>
     </div>
+    <div class="icon">
+      <i class="fas fa-cogs"></i>
+    </div>
+    <div class="icon logout" onclick="window.location.href='index.html'">
+      <i class="fas fa-sign-out-alt"></i>
+    </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="dashboard.js"></script>
+  <div class="container">
+    <img id="form-logo" src="./logo.jpg" alt="Logo">
+    <h2 class="text-center">Panel de Control</h2>
+    <div class="card-grid mt-4">
+      <div class="card">
+        <a href="auditoria.html">
+          <div class="card-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <div class="card-title">Auditoría Alimentos</div>
+        </a>
+      </div>
+      <div class="card">
+        <a href="FORMATOBASE.html">
+          <div class="card-icon">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <div class="card-title">Control Desviaciones</div>
+        </a>
+      </div>
+      <div class="card">
+        <a href="construccion.html">
+          <div class="card-icon">
+            <i class="fas fa-broom"></i>
+          </div>
+          <div class="card-title">Auditoría Aseo</div>
+        </a>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="card-title">Documentación</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="card-title">Análisis</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="card-title">Seguridad</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <div class="card-title">Verificación</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <i class="fas fa-wifi"></i>
+        </div>
+        <div class="card-title">Conectividad</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bot de IA -->
+  <div class="chatbot-toggle" onclick="toggleChatbot()">💬</div>
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-header">Asistente Virtual</div>
+    <div class="chatbot-body" id="chatbot-body">
+      <div class="chatbot-message bot">¡Hola! ¿En qué puedo ayudarte hoy?</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbot-input" placeholder="Escribe un mensaje...">
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
+  <script>
+    function toggleChatbot() {
+      const chatbot = document.getElementById('chatbot');
+      chatbot.style.display = chatbot.style.display === 'none' || chatbot.style.display === '' ? 'flex' : 'none';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatbot-input');
+      const message = input.value;
+      if (message.trim() === '') return;
+
+      const chatbotBody = document.getElementById('chatbot-body');
+      const userMessage = document.createElement('div');
+      userMessage.className = 'chatbot-message user';
+      userMessage.textContent = message;
+      chatbotBody.appendChild(userMessage);
+
+      setTimeout(() => {
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chatbot-message bot';
+        botMessage.textContent = getBotResponse(message);
+        chatbotBody.appendChild(botMessage);
+        chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }, 800);
+
+      input.value = '';
+    }
+
+    function getBotResponse(message) {
+      const msg = message.toLowerCase().trim();
+
+      if (msg.includes('hola') || msg.includes('buenas') || msg.includes('saludos')) {
+        return '¡Hola! Soy tu asistente virtual. Estoy aquí para ayudarte en lo que necesites, ya sea con información sobre auditorías, el uso del sitio, o cualquier otra duda.';
+      } else if (msg.includes('auditoria') || msg.includes('que es una auditoria')) {
+        return 'Una auditoría es un proceso de revisión sistemática para verificar que los procedimientos y controles estén en conformidad con los estándares y normativas establecidas. Puede incluir la revisión de procesos, documentación, y más.';
+      } else if (msg.includes('funcion') || msg.includes('que haces')) {
+        return 'Mi función es asistirte en el uso de esta plataforma, proporcionándote información sobre auditorías, ayudándote a navegar por el sitio, y respondiendo a cualquier duda que tengas.';
+      } else if (msg.includes('usar este sitio') || msg.includes('como navegar')) {
+        return 'Este sitio está diseñado para gestionar auditorías de calidad. Puedes comenzar una auditoría, revisar los resultados, generar reportes, y mucho más. Si tienes alguna pregunta sobre cómo hacerlo, estoy aquí para ayudarte.';
+      } else {
+        return 'Lo siento, no entiendo tu pregunta. Por favor, intenta reformularla o pregunta sobre otro tema relacionado con auditorías, certificaciones, uso de la plataforma, o seguridad.';
+      }
+    }
+
+    document.getElementById('chatbot-input').addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
