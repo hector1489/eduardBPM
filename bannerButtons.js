@@ -1,4 +1,4 @@
-// botón de "Fotos"
+// Botón de "Fotos"
 document.querySelectorAll('#capture-btn').forEach(btn => {
   btn.addEventListener('click', async function () {
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -25,21 +25,39 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
         canvas.height = video.videoHeight;
 
         // Esperar un breve momento para estabilizar la imagen
-        setTimeout(() => {
-          // Dibujar el frame actual del video en el canvas
-          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        await new Promise(resolve => setTimeout(resolve, 500)); // esperar 500 ms
 
-          // Detener el stream de video
-          track.stop();
-          stream.getTracks().forEach(track => track.stop());
+        // Dibujar el frame actual del video en el canvas
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-          // Crear un enlace para descargar la imagen
-          let link = document.createElement('a');
-          link.href = canvas.toDataURL('image/png');
-          link.download = 'auditoria.png';
-          link.click();
+        // Detener el stream de video
+        track.stop();
+        stream.getTracks().forEach(track => track.stop());
 
-        }, 500); // Esperar ms
+        // Convertir el canvas a Blob
+        canvas.toBlob(async (blob) => {
+          if (blob) {
+            try {
+              // Crear FormData y adjuntar la imagen
+              const formData = new FormData();
+              formData.append('image', blob, 'auditoria.png');
+
+              // Enviar la imagen al backend
+              const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
+                method: 'POST',
+                body: formData
+              });
+
+              if (response.ok) {
+                console.log('Imagen enviada exitosamente al backend.');
+              } else {
+                console.error('Error al enviar la imagen al backend:', response.statusText);
+              }
+            } catch (error) {
+              console.error('Error al enviar la imagen al backend:', error);
+            }
+          }
+        }, 'image/png');
 
       } catch (error) {
         console.error('Error accediendo a la cámara: ', error);
@@ -48,12 +66,37 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
       // Si es una pantalla grande, hacer un screenshot de la pantalla actual
       const module = this.closest('.module-section');
 
-      html2canvas(module).then(canvas => {
-        let link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = module.id + '_screenshot.png';
-        link.click();
-      });
+      try {
+        const canvas = await html2canvas(module);
+
+        // Convertir el canvas a Blob
+        canvas.toBlob(async (blob) => {
+          if (blob) {
+            try {
+              // Crear FormData y adjuntar la imagen
+              const formData = new FormData();
+              formData.append('image', blob, `${module.id}_screenshot.png`);
+
+              // Enviar la imagen al backend
+              const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
+                method: 'POST',
+                body: formData
+              });
+
+              if (response.ok) {
+                console.log('Captura de pantalla enviada exitosamente al backend.');
+              } else {
+                console.error('Error al enviar la captura de pantalla al backend:', response.statusText);
+              }
+            } catch (error) {
+              console.error('Error al enviar la captura de pantalla al backend:', error);
+            }
+          }
+        }, 'image/png');
+
+      } catch (error) {
+        console.error('Error al capturar la pantalla:', error);
+      }
     }
   });
 });
