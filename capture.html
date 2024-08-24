@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captura de Incidencias</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    body {
+      background-color: white;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    #form-logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+  
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <img id="form-logo" src="./logo.jpg" alt="Logo">
+    <h2 class="text-center">Panel de Evidencias Fotograficas</h2>
+
+    <div class="container mt-4">
+      <div class="row" id="card-container">
+        <!-- Las tarjetas se agregarán aquí -->
+      </div>
+    </div>
+
+    <footer>
+        <a href="dashboard.html">
+          <i class="fas fa-sign-out-alt"></i>
+          <p>Volver</p>
+        </a>
+    </footer>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    async function fetchIncidencias() {
+      try {
+        const response = await fetch('https://bpm-backend.onrender.com/photos');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } catch (error) {
+        console.error('Error fetching incidencias:', error);
+        return [];
+      }
+    }
+
+    function renderCards(incidencias) {
+      const row = document.querySelector('.row');
+      row.innerHTML = '';
+
+      const bucketName = 'bpm-aws';
+
+      incidencias.forEach(incidencia => {
+        const col = document.createElement('div');
+        col.className = 'col-md-4 mb-4';
+
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const img = document.createElement('img');
+        const imageUrl = `https://${bucketName}.s3.amazonaws.com/${incidencia.Key}`;
+        console.log('Image URL:', imageUrl);
+        img.src = imageUrl;
+        img.className = 'card-img-top';
+        img.alt = 'Imagen de Incidencia';
+
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+
+        const title = document.createElement('h5');
+        title.className = 'card-title';
+        title.textContent = 'Título de la Incidencia';
+
+        const text = document.createElement('p');
+        text.className = 'card-text';
+        text.textContent = 'Descripción breve de la incidencia.';
+
+        cardBody.appendChild(title);
+        cardBody.appendChild(text);
+        card.appendChild(img);
+        card.appendChild(cardBody);
+        col.appendChild(card);
+        row.appendChild(col);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const incidencias = await fetchIncidencias();
+      renderCards(incidencias);
+    });
+  </script>
+</body>
+
+</html>

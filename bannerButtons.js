@@ -43,7 +43,7 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
               formData.append('image', blob, 'auditoria.png');
 
               // Enviar la imagen al backend
-              const response = await fetch('http://localhost:3000/upload-photo', {
+              const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
                 method: 'POST',
                 body: formData
               });
@@ -78,7 +78,7 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
               formData.append('image', blob, `${module.id}_screenshot.png`);
 
               // Enviar la imagen al backend
-              const response = await fetch('http://localhost:3000/upload-photo', {
+              const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
                 method: 'POST',
                 body: formData
               });
