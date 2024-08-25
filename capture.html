@@ -86,7 +86,7 @@
       const row = document.querySelector('.row');
       row.innerHTML = '';
 
-      const bucketName = 'bpm-aws';
+      const bucketName = 'bpm-aws.s3.us-east-2';
 
       incidencias.forEach(incidencia => {
         const col = document.createElement('div');
@@ -96,7 +96,7 @@
         card.className = 'card';
 
         const img = document.createElement('img');
-        const imageUrl = `https://${bucketName}.s3.amazonaws.com/${incidencia.Key}`;
+        const imageUrl = `https://${bucketName}.amazonaws.com/${incidencia.Key}`;
         console.log('Image URL:', imageUrl);
         img.src = imageUrl;
         img.className = 'card-img-top';
