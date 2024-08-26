@@ -120,7 +120,7 @@ function updateLumAndTraAverages() {
   let lumTotal = 0;
   let lumCount = 0;
   lumModules.forEach(module => {
-    const form = document.getElementById(`form-${module}`);
+    const form = document.getElementById('form-lum');
     const selects = form.querySelectorAll('select');
     selects.forEach(select => {
       lumTotal += parseInt(select.value);
@@ -301,7 +301,7 @@ function calculateOverallAverages() {
 
   // Actualiza la tabla de auditoría
   updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
-  renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage);
+  renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, traAverage, lumAverage,  overallAverage);
   updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
   renderChartLum(lumAverage);
   renderChartTra(traAverage, poeAverage, docAverage);

@@ -74,7 +74,7 @@ function agregarFilaConGet(dato) {
   }
 
   // Alinea las celdas según el orden correcto en la cabecera
-  fila.appendChild(crearCelda(dato.numero_requerimiento));
+  fila.appendChild(crearCelda(dato.id));
   fila.appendChild(crearCelda(dato.preguntas_auditadas));
   fila.appendChild(crearCelda(dato.desviacion_o_criterio));
   fila.appendChild(crearCelda(dato.tipo_de_accion));

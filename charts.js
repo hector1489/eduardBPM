@@ -224,7 +224,7 @@ function renderChartLum(lumAverage) {
     scales: {
       y: {
         beginAtZero: true,
-        max: Math.max(100, lumAverage), // Ajustar el máximo de Y según el valor de lumAverage
+        max: Math.max(100, lumAverage),
         ticks: {
           stepSize: 10,
           callback: function (value) {
