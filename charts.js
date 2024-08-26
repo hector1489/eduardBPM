@@ -1,408 +1,176 @@
 document.addEventListener('DOMContentLoaded', function() {
-  renderChartLum();
-  renderChart();
+  // Llamar a las funciones de renderizado de gráficos con valores de ejemplo o predeterminados
+  renderChart3D();
+  renderChartLum3D();
+  renderChartTra3D();
 });
 
-function renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, traAverage, lumAverage, overallAverage) {
-  const ctx = document.getElementById('resultChart').getContext('2d');
+function renderChart3D(bpmAverage = 70, poesAverage = 100, poeAverage = 90, maAverage = 45, docAverage = 76, traAverage = 100, lumAverage = 100, overallAverage = 100) {
+  const data = [
+    parseFloat(bpmAverage),
+    parseFloat(poesAverage),
+    parseFloat(poeAverage),
+    parseFloat(maAverage),
+    parseFloat(docAverage),
+    parseFloat(traAverage),
+    parseFloat(lumAverage),
+    parseFloat(overallAverage)
+  ];
 
-  function getBarGradient(ctx) {
-    const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
-    barGradient.addColorStop(0, 'rgba(0, 150, 255, 0.5)');
-    barGradient.addColorStop(1, 'rgba(0, 255, 150, 0.9)');
-    return barGradient;
-  }
-
-  function getPromGradient(ctx) {
-    const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
-    barGradient.addColorStop(0, 'rgba(0, 0, 150, 0.5)');
-    barGradient.addColorStop(1, 'rgba(0, 0, 255, 0.9)');
-    return barGradient;
-  }
-
-  function getFixedBarGradient(ctx) {
-    const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
-    barGradient.addColorStop(0, 'green');      
-    barGradient.addColorStop(0.10, 'green');
-    barGradient.addColorStop(0.11, 'yellow');  
-    barGradient.addColorStop(0.25, 'yellow');
-    barGradient.addColorStop(0.26, 'red');     
-    barGradient.addColorStop(1, 'red');
-    return barGradient;
-  }
-
-  const data = {
-    labels: ['BPM', 'POES', 'POE', 'MA', 'DOC', 'TRA', 'LUM', '', 'PROM', ''],
-    datasets: [{
-      label: 'Porcentaje de Cumplimiento',
-      data: [bpmAverage, poesAverage, poeAverage, maAverage, docAverage, traAverage, lumAverage, null, overallAverage, 100],
-      backgroundColor: [
-        getBarGradient(ctx),
-        getBarGradient(ctx),
-        getBarGradient(ctx),
-        getBarGradient(ctx),
-        getBarGradient(ctx),
-        getBarGradient(ctx),
-        getBarGradient(ctx),
-        'transparent',
-        getPromGradient(ctx),
-        getFixedBarGradient(ctx)
-      ],
-      borderColor: 'black',
-      borderWidth: 1
+  Highcharts.chart('resultChart', {
+    chart: {
+      type: 'column',
+      options3d: {
+        enabled: true,
+        alpha: 15,
+        beta: 15,
+        depth: 50,
+        viewDistance: 25
+      }
+    },
+    title: {
+      text: 'Auditoría BPM'
+    },
+    accessibility: {
+      enabled: false
+    },
+    plotOptions: {
+      column: {
+        depth: 25,
+        colorByPoint: true
+      }
+    },
+    xAxis: {
+      categories: ['BPM', 'POES', 'POE', 'MA', 'DOC', 'TRA', 'LUM', 'PROM'],
+      labels: {
+        rotation: 0,
+        style: {
+          fontSize: 'clamp(8px, 2vw, 12px)',
+          whiteSpace: 'nowrap',
+          overflow: 'visible'
+        }
+      }
+    },
+    yAxis: {
+      title: {
+        text: 'Cumplimiento (%)'
+      },
+      max: 100
+    },
+    series: [{
+      data: data.map(value => ({ y: value, color: getColorByPercentage(value) })),
+      name: 'Porcentaje de Cumplimiento'
     }]
-  };
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-        ticks: {
-          stepSize: 10,
-          callback: function (value) {
-            return value + '%';
-          },
-          color: 'black',
-          font: {
-            size: 10,
-            weight: 'bold'
-          }
-        },
-        grid: {
-          color: 'rgba(0, 0, 0, 0.1)'
-        }
-      },
-      x: {
-        ticks: {
-          color: 'black',
-          font: {
-            size: 10,
-            weight: 'bold'
-          }
-        },
-        grid: {
-          color: 'rgba(0, 0, 0, 0.1)'
-        }
-      }
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            const label = tooltipItem.label;
-            return label + ': ' + Math.round(tooltipItem.raw) + '%';
-          }
-        },
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        titleFont: {
-          size: 12,
-          weight: 'bold'
-        },
-        bodyFont: {
-          size: 10
-        },
-        borderColor: 'rgba(255, 255, 255, 0.3)',
-        borderWidth: 1
-      },
-      legend: {
-        display: false,
-        labels: {
-          color: 'black',
-          font: {
-            size: 10,
-            weight: 'bold'
-          }
-        }
-      }
-    },
-    layout: {
-      padding: {
-        top: 20,
-        right: 20
-      }
-    }
-  };
-
-  Chart.register({
-    id: 'customLabelPlugin',
-    afterDatasetsDraw(chart) {
-      const ctx = chart.ctx;
-      chart.data.datasets.forEach((dataset, i) => {
-        const meta = chart.getDatasetMeta(i);
-        meta.data.forEach((bar, index) => {
-          const data = dataset.data[index];
-          if (data !== null) {
-            const labelX = bar.x - 10;
-            const labelY = bar.y - 20;
-            const boxSize = 20;
-
-            ctx.fillStyle = 'white';
-            ctx.fillRect(labelX, labelY, boxSize, boxSize);
-
-            ctx.fillStyle = 'black';
-            ctx.font = 'bold 8px Arial';
-            ctx.fillText(Math.round(data) + '%', labelX + 3, labelY + 15);
-          }
-        });
-      });
-    }
-  });
-
-  const customLabelsPlugin = {
-    id: 'customLabelsPlugin',
-    afterDraw(chart) {
-      const ctx = chart.ctx;
-      const yScale = chart.scales.y;
-      const xScale = chart.scales.x;
-      const barWidth = xScale.getPixelForValue('PROM') - xScale.getPixelForValue('');
-
-      const positions = [
-        { value: 95.2, text: 'CUMPLE' },
-        { value: 78.2, text: 'ALERTA' },
-        { value: 37.5, text: 'CRITICO' }
-      ];
-
-      positions.forEach(pos => {
-        const yPos = yScale.getPixelForValue(pos.value);
-        const xPos = xScale.getPixelForValue('') + barWidth + 28.3;
-        ctx.save();
-        ctx.font = 'bold 7px Arial';
-        ctx.fillStyle = 'black';
-        ctx.fillText(pos.text, xPos, yPos);
-        ctx.restore();
-      });
-    }
-  };
-
-  if (window.resultChart instanceof Chart) {
-    window.resultChart.destroy();
-  }
-  window.resultChart = new Chart(ctx, {
-    type: 'bar',
-    data: data,
-    options: options,
-    plugins: ['customLabelPlugin', customLabelsPlugin]
   });
 }
 
-// Function to get evaluation text
-function getEvaluationText(average) {
-  if (average >= 90) return 'CUMPLE';
-  if (average >= 75) return 'EN ALERTA';
-  return 'CRITICO';
+function renderChartLum3D(lumAverage = 100) {
+  lumAverage = parseFloat(lumAverage);
+
+  Highcharts.chart('puntaje-sololum', {
+    chart: {
+      type: 'column',
+      options3d: {
+        enabled: true,
+        alpha: 15,
+        beta: 15,
+        depth: 50,
+        viewDistance: 25
+      }
+    },
+    title: {
+      text: 'Luminometría'
+    },
+    plotOptions: {
+      column: {
+        depth: 25,
+        colorByPoint: true
+      }
+    },
+    xAxis: {
+      categories: ['Luminometría'],
+      labels: {
+        rotation: 0,
+        style: {
+          fontSize: 'clamp(8px, 2vw, 12px)',
+          whiteSpace: 'nowrap',
+          overflow: 'visible'
+        }
+      }
+    },
+    yAxis: {
+      title: {
+        text: 'Cumplimiento (%)'
+      },
+      max: 100
+    },
+    series: [{
+      data: [{ y: lumAverage, color: getColorByPercentage(lumAverage) }],
+      name: 'Porcentaje de Cumplimiento'
+    }]
+  });
 }
 
-// Function to get color by percentage
+function renderChartTra3D(traAverage = 100, poeAverage = 100, docAverage = 100) {
+  const data = [
+    parseFloat(traAverage),
+    parseFloat(poeAverage),
+    parseFloat(docAverage)
+  ];
+
+  const overallAverageTra = data.reduce((acc, val) => acc + val, 0) / data.length;
+
+  Highcharts.chart('promedios-kpi', {
+    chart: {
+      type: 'column',
+      options3d: {
+        enabled: true,
+        alpha: 15,
+        beta: 15,
+        depth: 50,
+        viewDistance: 25
+      }
+    },
+    title: {
+      text: 'KPI de Alimentos'
+    },
+    plotOptions: {
+      column: {
+        depth: 25,
+        colorByPoint: true
+      }
+    },
+    xAxis: {
+      categories: ['Transporte', 'Servicios', 'Documentos', 'Promedio General'],
+      labels: {
+        rotation: 0,
+        style: {
+          fontSize: 'clamp(8px, 2vw, 12px)',
+          whiteSpace: 'nowrap',
+          overflow: 'visible'
+        }
+      }
+    },
+    yAxis: {
+      title: {
+        text: 'Cumplimiento (%)'
+      },
+      max: 100
+    },
+    series: [{
+      data: [
+        { y: data[0], color: getColorByPercentage(data[0]) },
+        { y: data[1], color: getColorByPercentage(data[1]) },
+        { y: data[2], color: getColorByPercentage(data[2]) },
+        { y: overallAverageTra, color: getColorByPercentage(overallAverageTra) }
+      ],
+      name: 'Porcentaje de Cumplimiento'
+    }]
+  });
+}
+
 function getColorByPercentage(average) {
   if (average >= 90) return 'green';
   if (average >= 75) return 'yellow';
   return 'red';
-}
-
-// grafico solo para lum
-function renderChartLum(lumAverage) {
-  const ctx = document.getElementById('puntaje-sololum').getContext('2d');
-  
-
-  const data = {
-    labels: ['Luminosidad'],
-    datasets: [{
-      label: 'Porcentaje de Cumplimiento',
-      data: [lumAverage],
-      backgroundColor: [getBarGradient(ctx)],
-      borderColor: 'black',
-      borderWidth: 1
-    }]
-  };
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: Math.max(100, lumAverage),
-        ticks: {
-          stepSize: 10,
-          callback: function (value) {
-            return value + '%';
-          },
-          color: 'black',
-          font: {
-            size: 10,
-            weight: 'bold'
-          }
-        },
-        grid: {
-          color: 'rgba(0, 0, 0, 0.1)'
-        }
-      },
-      x: {
-        ticks: {
-          color: 'black',
-          font: {
-            size: 10,
-            weight: 'bold'
-          }
-        },
-        grid: {
-          color: 'rgba(0, 0, 0, 0.1)'
-        }
-      }
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            return 'Luminosidad: ' + Math.round(tooltipItem.raw) + '%';
-          }
-        },
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        titleFont: {
-          size: 12,
-          weight: 'bold'
-        },
-        bodyFont: {
-          size: 10
-        },
-        borderColor: 'rgba(255, 255, 255, 0.3)',
-        borderWidth: 1
-      },
-      legend: {
-        display: false
-      }
-    },
-    layout: {
-      padding: {
-        top: 20,
-        right: 20
-      }
-    }
-  };
-
-  if (window.lumChart instanceof Chart) {
-    window.lumChart.destroy();
-  }
-
-  window.lumChart = new Chart(ctx, {
-    type: 'bar',
-    data: data,
-    options: options
-  });
-}
-
-function getBarGradient(ctx) {
-  const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
-  barGradient.addColorStop(0, 'rgba(0, 150, 255, 0.5)');
-  barGradient.addColorStop(1, 'rgba(0, 255, 150, 0.9)');
-  return barGradient;
-}
-
-//module Kpi
-// grafico solo para tra
-function renderChartTra(traAverage, poeAverage, docAverage) {
-  const ctx = document.getElementById('promedios-kpi').getContext('2d');
-
-  // Asegurarse de que los valores sean números, en caso contrario, asignarles 0.
-  traAverage = typeof traAverage === 'number' ? traAverage : 100;
-  poeAverage = typeof poeAverage === 'number' ? poeAverage : 100;
-  docAverage = typeof docAverage === 'number' ? docAverage : 100;
-  
-  // Calcula el promedio de TRA, SER y DOC
-  const overallAverageTra = (traAverage + poeAverage + docAverage) / 3;
-
-  const data = {
-    labels: ['Transporte', 'Servicios', 'Documentos', 'Promedio General'],
-    datasets: [{
-      label: 'Porcentaje de Cumplimiento',
-      data: [traAverage, poeAverage, docAverage, overallAverageTra],
-      backgroundColor: [
-        getBarGradient(ctx), // Transporte
-        getBarGradient(ctx), // Servicios
-        getBarGradient(ctx), // Documentos
-        getBarGradient(ctx)  // Promedio General
-      ],
-      borderColor: 'black',
-      borderWidth: 1
-    }]
-  };
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-        ticks: {
-          stepSize: 10,
-          callback: function (value) {
-            return value + '%';
-          },
-          color: 'black',
-          font: {
-            size: 10,
-            weight: 'bold'
-          }
-        },
-        grid: {
-          color: 'rgba(0, 0, 0, 0.1)'
-        }
-      },
-      x: {
-        ticks: {
-          color: 'black',
-          font: {
-            size: 10,
-            weight: 'bold'
-          }
-        },
-        grid: {
-          color: 'rgba(0, 0, 0, 0.1)'
-        }
-      }
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            const label = data.labels[tooltipItem.dataIndex];
-            return `${label}: ${Math.round(tooltipItem.raw)}%`;
-          }
-        },
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        titleFont: {
-          size: 12,
-          weight: 'bold'
-        },
-        bodyFont: {
-          size: 10
-        },
-        borderColor: 'rgba(255, 255, 255, 0.3)',
-        borderWidth: 1
-      },
-      legend: {
-        display: false
-      }
-    },
-    layout: {
-      padding: {
-        top: 20,
-        right: 20
-      }
-    }
-  };
-
-  if (window.traChart instanceof Chart) {
-    window.traChart.destroy();
-  }
-
-  window.traChart = new Chart(ctx, {
-    type: 'bar',
-    data: data,
-    options: options
-  });
 }

@@ -301,10 +301,10 @@ function calculateOverallAverages() {
 
   // Actualiza la tabla de auditoría
   updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
-  renderChart(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, traAverage, lumAverage,  overallAverage);
+  renderChart3D(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, traAverage, lumAverage,  overallAverage);
   updateTableDetails(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage);
-  renderChartLum(lumAverage);
-  renderChartTra(traAverage, poeAverage, docAverage);
+  renderChartLum3D(lumAverage);
+  renderChartTra3D(traAverage, poeAverage, docAverage);
 
   // Actualiza la tabla de auditoría con las notas y puntajes
   function updateAuditTable(bpmAverage, poesAverage, poeAverage, maAverage, docAverage, lumAverage, traAverage, overallAverage) {

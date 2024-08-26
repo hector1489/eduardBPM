@@ -2608,9 +2608,9 @@
       </div>
 
       <div class="chart-container">
-        <canvas id="resultChart"></canvas>
-
+        <div id="resultChart"></div>
       </div>
+    
 
       <!-- Tabla de Auditoría -->
       <strong>
@@ -2735,7 +2735,7 @@
 
 
         <div class="chart-container">
-          <canvas id="puntaje-sololum"></canvas>
+          <div id="puntaje-sololum"></div>
   
         </div>
 
@@ -2885,7 +2885,7 @@
 
 
         <div class="chart-container">
-          <canvas id="promedios-kpi" width="400" height="400"></canvas>
+          <div id="promedios-kpi" width="400" height="400"></div>
 
         </div>
 
@@ -4069,6 +4069,12 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-3d@latest"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+  <script src="./charts.js"></script>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
   <script>
@@ -4110,7 +4116,6 @@
   <!-- script para la navegación, funciones, charts y buttons -->
   <script src="./navigation.js"></script>
   <script src="./functions.js"></script>
-  <script src="./charts.js"></script>
   <script src="./buttonsQuestions.js"></script>
   <script src="./bannerButtons.js"></script>
 
