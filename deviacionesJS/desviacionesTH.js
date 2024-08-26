@@ -10,7 +10,7 @@ const prioridades = [
   { valor: 'Crítico', clase: 'prioridad-critica', dias: 15 }
 ];
 
-const estados = ['Cerrado', 'Abierto'];
+const estados = ['Abierto', 'En Progreso', 'Cerrado' ];
 const entidades = ['Entidad 1', 'Entidad 2'];
 const responsablesDesviacion = ['Responsable 1', 'Responsable 2'];
 const auditores = ['Auditor 1', 'Auditor 2'];

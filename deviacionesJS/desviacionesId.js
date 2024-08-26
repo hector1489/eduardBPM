@@ -63,6 +63,35 @@ function loadTableDetails() {
   });
 }
 
+function actualizarPrioridadID(event, criticidadValor = null) {
+  let fila, prioridadSeleccionada;
+  
+  if (criticidadValor !== null) {
+    fila = criticidadValor.fila;
+    console.log(`Valor de criticidad pasado: ${criticidadValor.valor}`);
+    prioridadSeleccionada = prioridades.find(p => p.valor === criticidadValor.valor);
+  } else {
+    fila = event.target.closest('tr');
+    console.log(`Valor seleccionado del select: ${event.target.value}`);
+    prioridadSeleccionada = prioridades.find(p => p.valor === event.target.value);
+  }
+
+  if (!prioridadSeleccionada) {
+    console.error(`No se encontró una prioridad coincidente para el valor: ${criticidadValor ? criticidadValor.valor : event.target.value}`);
+    return; 
+  }
+
+  fila.className = prioridadSeleccionada.clase;
+
+  const fechaRecepcion = new Date(fila.cells[8].innerText.split('/').reverse().join('-'));
+  const fechaSolucion = new Date(fechaRecepcion);
+  fechaSolucion.setDate(fechaRecepcion.getDate() + prioridadSeleccionada.dias);
+
+  // Actualizar las celdas correspondientes
+  fila.cells[9].innerText = fechaSolucion.toLocaleDateString('es-ES');
+  fila.cells[17].innerText = new Date().toLocaleDateString('es-ES');
+}
+
 
 // Agregar una fila a la tabla de desviaciones con datos del ID
 function agregarFilaDesdeID(id, valor2) {
@@ -80,24 +109,44 @@ function agregarFilaDesdeID(id, valor2) {
 
   const fila = document.createElement('tr');
 
-
   const preguntaSeleccionada = idPart;
 
   // Alineación de celdas según la estructura de la tabla
   fila.appendChild(crearCelda(tabla.rows.length + 1));
   fila.appendChild(crearCelda(preguntaSeleccionada));
 
-  // Manejar criterios
-  fila.appendChild(crearCelda(valor2));
+  // Extraer el porcentaje del valor2
+  const porcentajeMatch = valor2.match(/(\d+)%/);
+  let porcentaje = 0;
+  if (porcentajeMatch) {
+    porcentaje = parseInt(porcentajeMatch[1], 10);
+  }
+
+  // Determinar el nivel de criticidad basado en el porcentaje
+  let criticidad = '';
+  if (porcentaje >= 0 && porcentaje <= 24) {
+    criticidad = 'Crítico';
+  } else if (porcentaje >= 25 && porcentaje <= 74) {
+    criticidad = 'Moderado';
+  } else if (porcentaje >= 75) {
+    criticidad = 'Leve';
+  }
+
+  // Añadir la celda del valor y criticidad
+  const valorCelda = crearCelda(valor2);
+  valorCelda.classList.add(`prioridad-${criticidad.toLowerCase()}`);
+  fila.appendChild(valorCelda);
 
   fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
   fila.appendChild(crearCeldaConInputFile(''));
 
-  // Celda de criticidad (prioridad)
-  const prioridadCelda = crearCeldaConSelect(prioridades.map(p => p.valor), prioridades[0].valor);
-  prioridadCelda.querySelector('select').addEventListener('change', actualizarPrioridad);
-  fila.appendChild(prioridadCelda);
+  // Celda para mostrar la criticidad
+  const criticidadCelda = crearCelda(criticidad);
+  criticidadCelda.classList.add(`prioridad-${criticidad.toLowerCase()}`);
+  fila.appendChild(criticidadCelda);
+
+  
 
   // Celda de acciones correctivas
   const selectActions = crearComboBoxTodasLasAction('');
@@ -135,5 +184,8 @@ function agregarFilaDesdeID(id, valor2) {
 
   tabla.appendChild(fila);
 
+  actualizarPrioridadID(null, { fila: fila, valor: criticidad });
   actualizarFiltros();
 }
+
+
