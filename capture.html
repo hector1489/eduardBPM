@@ -35,9 +35,6 @@
       margin-bottom: 20px;
       display: block;
     }
-
-  
-
   </style>
 
 </head>
@@ -55,10 +52,10 @@
     </div>
 
     <footer>
-        <a href="dashboard.html">
-          <i class="fas fa-sign-out-alt"></i>
-          <p>Volver</p>
-        </a>
+      <a href="dashboard.html">
+        <i class="fas fa-sign-out-alt"></i>
+        <p>Volver</p>
+      </a>
     </footer>
   </div>
 
@@ -86,8 +83,6 @@
       const row = document.querySelector('.row');
       row.innerHTML = '';
 
-      const bucketName = 'bpm-aws.s3.us-east-2';
-
       incidencias.forEach(incidencia => {
         const col = document.createElement('div');
         col.className = 'col-md-4 mb-4';
@@ -96,9 +91,7 @@
         card.className = 'card';
 
         const img = document.createElement('img');
-        const imageUrl = `https://${bucketName}.amazonaws.com/${incidencia.Key}`;
-        console.log('Image URL:', imageUrl);
-        img.src = imageUrl;
+        img.src = incidencia.url;
         img.className = 'card-img-top';
         img.alt = 'Imagen de Incidencia';
 
