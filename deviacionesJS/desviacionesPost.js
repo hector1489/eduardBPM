@@ -2,17 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
-
-// Enviar filas al backend 
-function enviarDatosTabla() {
+async function enviarDatosTabla() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const filas = tabla.getElementsByTagName('tr');
 
-  // Obtener datos del usuario desde localStorage
   const authToken = localStorage.getItem('authToken');
 
-
+  // Obtener los datos de la tabla
   const datos = Array.from(filas).map(fila => {
     const celdas = fila.getElementsByTagName('td');
     return {
@@ -23,7 +19,7 @@ function enviarDatosTabla() {
       tipoDeAccion: celdas[3]?.querySelector('input')?.value || '',
       responsableProblema: celdas[4]?.querySelector('select')?.value || '',
       local: celdas[5]?.querySelector('input')?.value || '',
-      criticidad: celdas[6]?.querySelector('select')?.value || '',
+      criticidad: celdas[6]?.querySelector('select')?.value || celdas[6]?.innerText || '',
       accionesCorrectivas: celdas[7]?.querySelector('select')?.value || celdas[7]?.innerText || '',
       fechaRecepcionSolicitud: celdas[8]?.innerText || '',
       fechaSolucionProgramada: celdas[9]?.innerText || '',
@@ -39,6 +35,32 @@ function enviarDatosTabla() {
   });
 
   console.log(datos);
+
+  // Cargar imágenes
+  const cargarImagenes = async (datos) => {
+    const datosConImagenes = [];
+    for (const dato of datos) {
+      if (dato.evidenciaFotografica) {
+        const formData = new FormData();
+        formData.append('photo', dato.evidenciaFotografica);
+
+        try {
+          const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
+            method: 'POST',
+            body: formData
+          });
+
+          const result = await response.json();
+          dato.evidenciaFotografica = result.url;
+        } catch (error) {
+          console.error('Error al cargar imagen:', error);
+          dato.evidenciaFotografica = '';
+        }
+      }
+      datosConImagenes.push(dato);
+    }
+    return datosConImagenes;
+  };
 
   // Verificar que todos los campos sean obligatorios
   const camposObligatorios = datos.every(dato =>
@@ -67,22 +89,24 @@ function enviarDatosTabla() {
     return;
   }
 
-  // Enviar los datos al backend
-  fetch('http://localhost:3000/send-data', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${authToken}`
-    },
-    body: JSON.stringify(datos)
-  })
-    .then(response => response.json())
-    .then(data => {
-      alert('Lista de Desviaciones actualizada.');
-    })
-    .catch(error => {
-      console.error('Error:', error);
+  try {
+    const datosConImagenes = await cargarImagenes(datos);
+
+    // Enviar los datos al backend
+    const response = await fetch('https://bpm-backend.onrender.com/send-data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify(datosConImagenes)
     });
+
+    const result = await response.json();
+    alert('Lista de Desviaciones actualizada.');
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
 

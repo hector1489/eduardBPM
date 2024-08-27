@@ -165,7 +165,24 @@ function agregarFilaDesdeID(id, valor2) {
 
   fila.appendChild(crearCeldaConInput('   /   /   '));
   fila.appendChild(crearCeldaConInputTelefono(''));
-  fila.appendChild(crearCeldaConInputFoto(''));
+
+  // Celda para mostrar la imagen
+  const imgCelda = document.createElement('td');
+  const imgId = `foto-${idPart}`;
+  const imageData = localStorage.getItem(imgId);
+  if (imageData) {
+    const imgElement = document.createElement('img');
+    imgElement.src = imageData;
+    imgElement.alt = 'Imagen de desviación';
+    imgElement.style.maxWidth = '100px';
+    imgElement.style.maxHeight = '100px';
+    imgElement.style.margin = '5px';
+    imgCelda.appendChild(imgElement);
+  } else {
+    imgCelda.textContent = 'Sin imagen';
+  }
+  fila.appendChild(imgCelda);
+  
   fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
   fila.appendChild(crearCeldaConInputEmail(''));
@@ -187,5 +204,4 @@ function agregarFilaDesdeID(id, valor2) {
   actualizarPrioridadID(null, { fila: fila, valor: criticidad });
   actualizarFiltros();
 }
-
 

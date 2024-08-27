@@ -3,59 +3,44 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
   btn.addEventListener('click', async function () {
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-    if (isMobile) {
-      // Si es un dispositivo móvil, tomar una foto con la cámara
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
+    // Captura el elemento de la pregunta activa
+    const activeQuestion = this.closest('.module-section').querySelector('.pregunta.active');
+    const questionId = activeQuestion ? activeQuestion.querySelector('select').id : null;
 
+    if (!questionId) {
+      console.error('No se encontró la pregunta activa.');
+      return;
+    }
+
+    const id = `foto-${questionId}`;
+
+    if (isMobile) {
       try {
-        // Solicitar acceso a la cámara del dispositivo
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         const track = stream.getVideoTracks()[0];
-
-        // Crear un elemento video para capturar una imagen
         const video = document.createElement('video');
         video.srcObject = stream;
 
-        // Esperar a que el video se cargue
         await new Promise(resolve => video.addEventListener('loadedmetadata', resolve));
-
-        // Configurar el canvas con las dimensiones del video
+        const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-
-        // Esperar un breve momento para estabilizar la imagen
-        await new Promise(resolve => setTimeout(resolve, 500)); // esperar 500 ms
-
-        // Dibujar el frame actual del video en el canvas
+        const context = canvas.getContext('2d');
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        // Detener el stream de video
         track.stop();
         stream.getTracks().forEach(track => track.stop());
 
-        // Convertir el canvas a Blob
-        canvas.toBlob(async (blob) => {
+        // Guardar la imagen como blob en localStorage
+        canvas.toBlob(blob => {
           if (blob) {
-            try {
-              // Crear FormData y adjuntar la imagen
-              const formData = new FormData();
-              formData.append('image', blob, 'auditoria.png');
-
-              // Enviar la imagen al backend
-              const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
-                method: 'POST',
-                body: formData
-              });
-
-              if (response.ok) {
-                console.log('Imagen enviada exitosamente al backend.');
-              } else {
-                console.error('Error al enviar la imagen al backend:', response.statusText);
-              }
-            } catch (error) {
-              console.error('Error al enviar la imagen al backend:', error);
-            }
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              const base64data = reader.result;
+              localStorage.setItem(id, base64data);
+              console.log(`Foto guardada en localStorage con ID: ${id}`);
+            };
+            reader.readAsDataURL(blob);
           }
         }, 'image/png');
 
@@ -63,34 +48,19 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
         console.error('Error accediendo a la cámara: ', error);
       }
     } else {
-      // Si es una pantalla grande, hacer un screenshot de la pantalla actual
-      const module = this.closest('.module-section');
-
+      // Captura de pantalla en dispositivos no móviles
       try {
-        const canvas = await html2canvas(module);
+        const canvas = await html2canvas(activeQuestion);
 
-        // Convertir el canvas a Blob
-        canvas.toBlob(async (blob) => {
+        canvas.toBlob(blob => {
           if (blob) {
-            try {
-              // Crear FormData y adjuntar la imagen
-              const formData = new FormData();
-              formData.append('image', blob, `${module.id}_screenshot.png`);
-
-              // Enviar la imagen al backend
-              const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
-                method: 'POST',
-                body: formData
-              });
-
-              if (response.ok) {
-                console.log('Captura de pantalla enviada exitosamente al backend.');
-              } else {
-                console.error('Error al enviar la captura de pantalla al backend:', response.statusText);
-              }
-            } catch (error) {
-              console.error('Error al enviar la captura de pantalla al backend:', error);
-            }
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              const base64data = reader.result;
+              localStorage.setItem(id, base64data);
+              console.log(`Captura de pantalla guardada en localStorage con ID: ${id}`);
+            };
+            reader.readAsDataURL(blob);
           }
         }, 'image/png');
 
@@ -100,6 +70,30 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const tableDetails = document.getElementById('tabla-details');
+  
+  if (tableDetails) {
+    const fotoDetailsElements = tableDetails.querySelectorAll('td span[id^="foto-"]');
+    
+    fotoDetailsElements.forEach((element) => {
+      const preguntaId = element.id.replace('foto-', '');
+      
+      const imageKey = `foto-${preguntaId}`;
+      
+      const imageData = localStorage.getItem(imageKey);
+      if (imageData) {
+        element.innerHTML = `<img src="${imageData}" alt="Imagen" style="max-width: 100px; max-height: 100px; margin: 5px;" />`;
+      } else {
+        element.innerHTML = 'Sin imagen';
+      }
+    });
+  } else {
+    console.error('No se encontró el elemento con ID "tabla-details".');
+  }
+});
+
 
 // botón de "Comentario"
 let comentarios = [];
@@ -147,6 +141,7 @@ function enviarComentario(button) {
     }
   }
 }
+
 // crea el input para los comentarios
 document.querySelectorAll('#comment-btn').forEach(btn => {
   btn.addEventListener('click', function () {
@@ -166,7 +161,6 @@ document.querySelectorAll('#comment-btn').forEach(btn => {
     }
   });
 });
-
 
 // botón de "Incidencia"
 let incidentes = [];
@@ -208,7 +202,6 @@ document.querySelectorAll('#incident-btn').forEach(btn => {
 });
 
 //saca una foto al resumen y la descarga "edo"
-
 function capturarYDescargar() {
   html2canvas(document.body).then(canvas => {
     let link = document.createElement('a');
