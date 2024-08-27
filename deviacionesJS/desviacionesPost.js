@@ -1,11 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+  document.getElementById('enviarDatosBtn').addEventListener('click', enviarDatosTabla);
 });
+
+async function enviarImagen(imagen) {
+  if (!imagen) {
+    console.log('No hay imagen para enviar');
+    return null;
+  }
+
+  try {
+    console.log('Enviando imagen:', imagen);
+    const formData = new FormData();
+    formData.append('imagen', imagen);
+
+    const respuesta = await fetch('https://bpm-backend.onrender.com/upload-photo', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!respuesta.ok) {
+      throw new Error(`Error al enviar la imagen: ${respuesta.statusText}`);
+    }
+
+    const resultado = await respuesta.json();
+    console.log('Resultado del envío de la imagen:', resultado);
+    return resultado;
+  } catch (error) {
+    console.error('Error al enviar la imagen:', error);
+    return null;
+  }
+}
+
+async function cargarImagenes(datos) {
+  const datosConImagenes = [];
+
+  for (const dato of datos) {
+    if (dato.evidenciaFotografica) {
+      const resultadoImagen = await enviarImagen(dato.evidenciaFotografica);
+      if (resultadoImagen && resultadoImagen.url) {
+        dato.evidenciaFotografica = resultadoImagen.url;
+      } else {
+        dato.evidenciaFotografica = '';
+      }
+    }
+    datosConImagenes.push(dato);
+  }
+
+  return datosConImagenes;
+}
 
 async function enviarDatosTabla() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const filas = tabla.getElementsByTagName('tr');
-
   const authToken = localStorage.getItem('authToken');
 
   // Obtener los datos de la tabla
@@ -26,7 +72,7 @@ async function enviarDatosTabla() {
       estado: celdas[10]?.querySelector('select')?.value || '',
       fechaCambioEstado: celdas[11]?.querySelector('input')?.value || celdas[11]?.innerText || '',
       contactoClientes: celdas[12]?.querySelector('input')?.value || celdas[12]?.innerText || '',
-      evidenciaFotografica: celdas[13]?.querySelector('input')?.value || '',
+      evidenciaFotografica: celdas[13]?.querySelector('input')?.files[0] || null,
       detalleFoto: celdas[14]?.querySelector('input')?.value || '',
       auditor: celdas[15]?.querySelector('select')?.value || '',
       correo: celdas[16]?.querySelector('input')?.value || '',
@@ -34,33 +80,7 @@ async function enviarDatosTabla() {
     };
   });
 
-  console.log(datos);
-
-  // Cargar imágenes
-  const cargarImagenes = async (datos) => {
-    const datosConImagenes = [];
-    for (const dato of datos) {
-      if (dato.evidenciaFotografica) {
-        const formData = new FormData();
-        formData.append('photo', dato.evidenciaFotografica);
-
-        try {
-          const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
-            method: 'POST',
-            body: formData
-          });
-
-          const result = await response.json();
-          dato.evidenciaFotografica = result.url;
-        } catch (error) {
-          console.error('Error al cargar imagen:', error);
-          dato.evidenciaFotografica = '';
-        }
-      }
-      datosConImagenes.push(dato);
-    }
-    return datosConImagenes;
-  };
+  console.log('Datos a enviar:', datos);
 
   // Verificar que todos los campos sean obligatorios
   const camposObligatorios = datos.every(dato =>
@@ -91,6 +111,7 @@ async function enviarDatosTabla() {
 
   try {
     const datosConImagenes = await cargarImagenes(datos);
+    console.log('Datos finales a enviar con URLs de imágenes:', datosConImagenes);
 
     // Enviar los datos al backend
     const response = await fetch('https://bpm-backend.onrender.com/send-data', {
@@ -102,11 +123,14 @@ async function enviarDatosTabla() {
       body: JSON.stringify(datosConImagenes)
     });
 
+    if (!response.ok) {
+      throw new Error(`Error al enviar los datos: ${response.statusText}`);
+    }
+
     const result = await response.json();
+    console.log('Resultado del envío de datos:', result);
     alert('Lista de Desviaciones actualizada.');
   } catch (error) {
     console.error('Error:', error);
   }
 }
-
-
