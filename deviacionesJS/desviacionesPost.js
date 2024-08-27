@@ -1,17 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('enviarDatosBtn').addEventListener('click', enviarDatosTabla);
+  // Código que debe ejecutarse cuando el DOM esté completamente cargado
 });
 
-async function enviarImagen(imagen) {
-  if (!imagen) {
+function base64ToBlob(base64, contentType) {
+  const byteCharacters = atob(base64.split(',')[1]);
+  const byteArrays = [];
+
+  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+    const slice = byteCharacters.slice(offset, offset + 512);
+
+    const byteNumbers = new Array(slice.length);
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+
+  return new Blob(byteArrays, { type: contentType });
+}
+
+async function enviarImagen(imagenBase64) {
+  if (!imagenBase64) {
     console.log('No hay imagen para enviar');
     return null;
   }
 
   try {
-    console.log('Enviando imagen:', imagen);
+    console.log('Enviando imagen:', imagenBase64);
+
+    const contentType = imagenBase64.split(',')[0].split(':')[1].split(';')[0];
+    const blob = base64ToBlob(imagenBase64, contentType);
+
     const formData = new FormData();
-    formData.append('imagen', imagen);
+    formData.append('image', blob); // Cambiar 'imagen' a 'image'
 
     const respuesta = await fetch('https://bpm-backend.onrender.com/upload-photo', {
       method: 'POST',
@@ -24,25 +47,24 @@ async function enviarImagen(imagen) {
 
     const resultado = await respuesta.json();
     console.log('Resultado del envío de la imagen:', resultado);
-    return resultado;
+    return resultado.url;
   } catch (error) {
     console.error('Error al enviar la imagen:', error);
     return null;
   }
 }
 
+
 async function cargarImagenes(datos) {
   const datosConImagenes = [];
 
   for (const dato of datos) {
-    if (dato.evidenciaFotografica) {
-      const resultadoImagen = await enviarImagen(dato.evidenciaFotografica);
-      if (resultadoImagen && resultadoImagen.url) {
-        dato.evidenciaFotografica = resultadoImagen.url;
-      } else {
-        dato.evidenciaFotografica = '';
-      }
+    if (dato.evidenciaFotografica.startsWith('data:image')) {
+      // Enviar la imagen al backend y obtener la URL
+      const urlImagen = await enviarImagen(dato.evidenciaFotografica);
+      dato.evidenciaFotografica = urlImagen || '';
     }
+    // Agregar el dato al arreglo final
     datosConImagenes.push(dato);
   }
 
@@ -72,7 +94,7 @@ async function enviarDatosTabla() {
       estado: celdas[10]?.querySelector('select')?.value || '',
       fechaCambioEstado: celdas[11]?.querySelector('input')?.value || celdas[11]?.innerText || '',
       contactoClientes: celdas[12]?.querySelector('input')?.value || celdas[12]?.innerText || '',
-      evidenciaFotografica: celdas[13]?.querySelector('input')?.files[0] || null,
+      evidenciaFotografica: celdas[13]?.querySelector('img')?.src || '', // Extraer la imagen en base64
       detalleFoto: celdas[14]?.querySelector('input')?.value || '',
       auditor: celdas[15]?.querySelector('select')?.value || '',
       correo: celdas[16]?.querySelector('input')?.value || '',
@@ -82,7 +104,7 @@ async function enviarDatosTabla() {
 
   console.log('Datos a enviar:', datos);
 
-  // Verificar que todos los campos sean obligatorios
+  // Verificar que todos los campos obligatorios estén completos
   const camposObligatorios = datos.every(dato =>
     dato.authToken &&
     dato.numeroRequerimiento &&
@@ -110,6 +132,7 @@ async function enviarDatosTabla() {
   }
 
   try {
+    // Cargar las imágenes y obtener sus URLs
     const datosConImagenes = await cargarImagenes(datos);
     console.log('Datos finales a enviar con URLs de imágenes:', datosConImagenes);
 
