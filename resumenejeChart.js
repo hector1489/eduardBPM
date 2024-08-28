@@ -1,4 +1,32 @@
-// Hallazgos Críticos/Acciones Correctivas (Gráfico de Barras 3D)
+// Función para extraer datos de la tabla de desviaciones
+function obtenerDatosTablaDesviaciones() {
+  const tabla = document.getElementById('tabla-desviaciones');
+  const filas = tabla.querySelectorAll('tbody tr');
+  let datosHallazgos = [];
+  let datosEvaluaciones = [];
+
+  filas.forEach(fila => {
+    const celdas = fila.querySelectorAll('td');
+    const pregunta = celdas[1].innerText.trim();
+    const desviacion = parseFloat(celdas[2].innerText.trim()) || 0;
+    const criticidad = parseFloat(celdas[6].innerText.trim()) || 0;
+
+    datosHallazgos.push({
+      name: pregunta,
+      y: desviacion,
+      criticidad: criticidad
+    });
+
+    datosEvaluaciones.push({
+      name: pregunta,
+      y: criticidad
+    });
+  });
+
+  return { datosHallazgos, datosEvaluaciones };
+}
+
+
 Highcharts.chart('hallazgos-criticos-chart', {
   chart: {
     type: 'column',
@@ -294,3 +322,20 @@ Highcharts.chart('control-calidad-chart', {
     color: '#2980b9'
   }]
 });
+
+
+// Función para actualizar los gráficos
+function actualizarGraficos() {
+  const { datosHallazgos, datosEvaluaciones } = obtenerDatosTablaDesviaciones();
+
+}
+
+const tablaDesviaciones = document.getElementById('tabla-desviaciones');
+const observer = new MutationObserver(actualizarGraficos);
+observer.observe(tablaDesviaciones, { childList: true, subtree: true });
+
+actualizarGraficos();
+
+
+
+
