@@ -323,7 +323,7 @@ Highcharts.chart('control-calidad-chart', {
   }]
 });
 
-
+ 
 // Función para actualizar los gráficos
 function actualizarGraficos() {
   const { datosHallazgos, datosEvaluaciones } = obtenerDatosTablaDesviaciones();
