@@ -34,7 +34,7 @@ async function enviarImagen(imagenBase64) {
     const blob = base64ToBlob(imagenBase64, contentType);
 
     const formData = new FormData();
-    formData.append('image', blob); // Cambiar 'imagen' a 'image'
+    formData.append('image', blob);
 
     const respuesta = await fetch('https://bpm-backend.onrender.com/upload-photo', {
       method: 'POST',
