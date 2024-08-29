@@ -36,6 +36,36 @@ function actualizarComboBoxActions(preguntaSeleccionada, selectActions) {
   });
 }
 
+function crearComboBoxTodasLasAction(valorSeleccionado) {
+  const select = document.createElement('select');
+  select.className = 'form-control acciones';
+
+  // Obtener todas las acciones disponibles
+  const todasLasAcciones = obtenerTodasLasAction();
+
+  // Verificar si se encontraron acciones
+  if (todasLasAcciones.length === 0) {
+    // Agregar una opción predeterminada si no se encontraron acciones
+    const option = document.createElement('option');
+    option.value = '';
+    option.text = 'No hay acciones disponibles';
+    select.appendChild(option);
+  } else {
+    // Agregar las acciones al ComboBox
+    todasLasAcciones.forEach(action => {
+      const option = document.createElement('option');
+      option.value = action;
+      option.text = action;
+      if (action === valorSeleccionado) {
+        option.selected = true;
+      }
+      select.appendChild(option);
+    });
+  }
+
+  return select;
+}
+
 function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
   const preguntas = obtenerTodasLasPreguntas();
   const select = document.createElement('select');
@@ -60,6 +90,7 @@ function crearComboBoxTodasLasPreguntas(valorSeleccionado) {
 
   return select;
 }
+
 
 // combo box de criterios
 function crearComboBoxCriterios(valorSeleccionado) {

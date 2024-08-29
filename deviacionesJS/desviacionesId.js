@@ -11,7 +11,9 @@ function loadTableDetails() {
     return;
   }
 
-  data.forEach(rowData => {
+  console.log(data);
+
+  data.forEach(rowData => { 
     if (!rowData.columna2 || !rowData.columna3) {
       return;
     }
@@ -42,33 +44,32 @@ function loadTableDetails() {
           nota.push(idValue);
         } else if (idValue.startsWith('observacion-')) {
           observacion.push(idValue);
-          observacionesConValores.push({
-            id: idValue,
-            valor1: rowData.columna2, 
-            valor2: rowData.columna3
-          });
+          // Verifica en ambos campos columna2 y columna3
+          const valor2 = rowData.columna2 || rowData.columna3; // Prioriza columna2 si tiene valor
+          if (valor2) {
+            observacionesConValores.push({
+              id: idValue,
+              valor1: rowData.columna2, 
+              valor2: valor2
+            });
+          }
         }
       }
     }
 
-   
-    // Eliminar duplicados
-    const uniqueObservaciones = [...new Set(observacion)];
-    const uniqueCriterios = [...new Set(criterio)];
-    const uniqueNotas = [...new Set(nota)];
-
     observacionesConValores.forEach(({ id, valor2 }) => {
+      console.log(id);
       agregarFilaDesdeID(id, valor2);
     });
   });
 }
+
 
 function actualizarPrioridadID(event, criticidadValor = null) {
   let fila, prioridadSeleccionada;
   
   if (criticidadValor !== null) {
     fila = criticidadValor.fila;
-    console.log(`Valor de criticidad pasado: ${criticidadValor.valor}`);
     prioridadSeleccionada = prioridades.find(p => p.valor === criticidadValor.valor);
   } else {
     fila = event.target.closest('tr');
