@@ -17,32 +17,29 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
     if (isMobile) {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const track = stream.getVideoTracks()[0];
         const video = document.createElement('video');
         video.srcObject = stream;
+        video.autoplay = true;
 
-        await new Promise(resolve => video.addEventListener('loadedmetadata', resolve));
+        await new Promise(resolve => video.addEventListener('playing', resolve));
+
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         const context = canvas.getContext('2d');
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        track.stop();
-        stream.getTracks().forEach(track => track.stop());
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        const reader = new FileReader();
 
-        // Guardar la imagen como blob en localStorage
-        canvas.toBlob(blob => {
-          if (blob) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              const base64data = reader.result;
-              localStorage.setItem(id, base64data);
-              console.log(`Foto guardada en localStorage con ID: ${id}`);
-            };
-            reader.readAsDataURL(blob);
-          }
-        }, 'image/png');
+        reader.onloadend = () => {
+          const base64data = reader.result;
+          localStorage.setItem(id, base64data);
+          console.log(`Foto guardada en localStorage con ID: ${id}`);
+        };
+
+        reader.readAsDataURL(blob);
+        stream.getTracks().forEach(track => track.stop());
 
       } catch (error) {
         console.error('Error accediendo a la cámara: ', error);
@@ -69,29 +66,6 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
       }
     }
   });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const tableDetails = document.getElementById('tabla-details');
-  
-  if (tableDetails) {
-    const fotoDetailsElements = tableDetails.querySelectorAll('td span[id^="foto-"]');
-    
-    fotoDetailsElements.forEach((element) => {
-      const preguntaId = element.id.replace('foto-', '');
-      
-      const imageKey = `foto-${preguntaId}`;
-      
-      const imageData = localStorage.getItem(imageKey);
-      if (imageData) {
-        element.innerHTML = `<img src="${imageData}" alt="Imagen" style="max-width: 100px; max-height: 100px; margin: 5px;" />`;
-      } else {
-        element.innerHTML = 'Sin imagen';
-      }
-    });
-  } else {
-    console.error('No se encontró el elemento con ID "tabla-details".');
-  }
 });
 
 
