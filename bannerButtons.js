@@ -216,7 +216,6 @@ function capturarYDescargar() {
 }
 
 
-
 document.querySelectorAll('#save-screenshot-btn').forEach(btn => {
   btn.addEventListener('click', async function () {
     try {
@@ -228,48 +227,32 @@ document.querySelectorAll('#save-screenshot-btn').forEach(btn => {
         return;
       }
 
-      // Encontrar la tabla dentro del módulo activo
-      const table = activeModule.querySelector('table');
-      if (!table) {
-        console.error('No se encontró ninguna tabla en la sección activa.');
+      // Seleccionar el contenedor a capturar
+      const sectionToCapture = activeModule;
+      if (!sectionToCapture) {
+        console.error('No se encontró el contenedor a capturar.');
         return;
       }
 
-      // Extraer los datos de la tabla
-      const dataToExport = [];
-      const rows = table.querySelectorAll('tr');
+      // Configuración para html2pdf
+      const options = {
+        margin: [10, 10, 10, 10],
+        filename: `document-${Date.now()}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
 
-      rows.forEach(row => {
-        const rowData = [];
-        row.querySelectorAll('th, td').forEach(cell => {
-          rowData.push(cell.innerText.trim());
-        });
-        dataToExport.push(rowData);
-      });
+      // Convertir la sección a PDF
+      html2pdf().from(sectionToCapture).set(options).save();
 
-      // Crear el archivo Excel
-      const workbook = XLSX.utils.book_new();
-      const worksheet = XLSX.utils.aoa_to_sheet(dataToExport);
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
-
-      // Generar el archivo y descargarlo
-      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      const excelBlob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-      const excelUrl = URL.createObjectURL(excelBlob);
-      const a = document.createElement('a');
-      a.href = excelUrl;
-      a.download = `data-${Date.now()}.xlsx`;
-      a.click();
-      URL.revokeObjectURL(excelUrl);
-
-      console.log('Archivo Excel descargado con éxito.');
+      console.log('PDF descargado con éxito.');
 
     } catch (error) {
-      console.error('Error al generar el Excel:', error);
+      console.error('Error al generar el PDF:', error);
     }
   });
 });
-
 
 
 
