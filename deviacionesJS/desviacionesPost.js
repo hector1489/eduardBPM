@@ -94,9 +94,9 @@ async function enviarDatosTabla() {
       estado: celdas[10]?.querySelector('select')?.value || '',
       fechaCambioEstado: celdas[11]?.querySelector('input')?.value || celdas[11]?.innerText || '',
       contactoClientes: celdas[12]?.querySelector('input')?.value || celdas[12]?.innerText || '',
-      evidenciaFotografica: celdas[13]?.querySelector('img')?.src || '', // Extraer la imagen en base64
+      evidenciaFotografica: celdas[13]?.querySelector('img')?.src || '',
       detalleFoto: celdas[14]?.querySelector('input')?.value || '',
-      auditor: celdas[15]?.querySelector('select')?.value || '',
+      auditor: celdas[15]?.querySelector('select')?.value || celdas[15]?.innerText || '',
       correo: celdas[16]?.querySelector('input')?.value || '',
       fechaUltimaModificacion: celdas[17]?.innerText || ''
     };

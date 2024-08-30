@@ -338,6 +338,7 @@ function actualizarFiltros() {
 function agregarFila() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const fila = document.createElement('tr');
+  const username = localStorage.getItem('username') || 'Auditor desconocido';
 
   // Agrega celdas con datos a la nueva fila
   fila.appendChild(crearCelda(tabla.rows.length + 1));
@@ -369,7 +370,7 @@ function agregarFila() {
   fila.appendChild(crearCeldaConInputTelefono(''));
   fila.appendChild(crearCeldaConInputFoto());
   fila.appendChild(crearCeldaConInputFile(''));
-  fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
+  fila.appendChild(crearCelda([username], username));
   fila.appendChild(crearCeldaConInputEmail(''));
   fila.appendChild(crearCeldaConInput('   /   /   '));
 

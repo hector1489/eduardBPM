@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
           // Almacena el token en localStorage
           localStorage.setItem('authToken', data.token);
           localStorage.setItem('authenticated', 'true');
+           // Almacena el nombre de usuario en localStorage
+          localStorage.setItem('username', username);
 
           window.location.href = 'dashboard.html';
         } else {

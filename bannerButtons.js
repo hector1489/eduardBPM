@@ -21,7 +21,13 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
         video.srcObject = stream;
         video.autoplay = true;
 
+        video.addEventListener('loadedmetadata', () => {
+          console.log('Video metadata loaded.');
+        });
+
         await new Promise(resolve => video.addEventListener('playing', resolve));
+
+        console.log('Video is playing.');
 
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
@@ -66,6 +72,30 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
       }
     }
   });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const tableDetails = document.getElementById('tabla-details');
+
+  if (tableDetails) {
+    const fotoDetailsElements = tableDetails.querySelectorAll('td span[id^="foto-"]');
+
+    fotoDetailsElements.forEach((element) => {
+      const preguntaId = element.id.replace('foto-', '');
+
+      const imageKey = `foto-${preguntaId}`;
+
+      const imageData = localStorage.getItem(imageKey);
+      if (imageData) {
+        element.innerHTML = `<img src="${imageData}" alt="Imagen" style="max-width: 100px; max-height: 100px; margin: 5px;" />`;
+      } else {
+        element.innerHTML = 'Sin imagen';
+      }
+    });
+  } else {
+    console.error('No se encontró el elemento con ID "tabla-details".');
+  }
 });
 
 
@@ -184,3 +214,65 @@ function capturarYDescargar() {
     link.click();
   });
 }
+
+
+
+document.querySelectorAll('#save-screenshot-btn').forEach(btn => {
+  btn.addEventListener('click', async function () {
+    try {
+      // Obtener la sección activa del módulo
+      const activeModule = document.querySelector('.module-section.active');
+      
+      if (!activeModule) {
+        console.error('No se encontró la sección activa del módulo.');
+        return;
+      }
+
+      // Encontrar la tabla dentro del módulo activo
+      const table = activeModule.querySelector('table');
+      if (!table) {
+        console.error('No se encontró ninguna tabla en la sección activa.');
+        return;
+      }
+
+      // Extraer los datos de la tabla
+      const dataToExport = [];
+      const rows = table.querySelectorAll('tr');
+
+      rows.forEach(row => {
+        const rowData = [];
+        row.querySelectorAll('th, td').forEach(cell => {
+          rowData.push(cell.innerText.trim());
+        });
+        dataToExport.push(rowData);
+      });
+
+      // Crear el archivo Excel
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.aoa_to_sheet(dataToExport);
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+
+      // Generar el archivo y descargarlo
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const excelBlob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+      const excelUrl = URL.createObjectURL(excelBlob);
+      const a = document.createElement('a');
+      a.href = excelUrl;
+      a.download = `data-${Date.now()}.xlsx`;
+      a.click();
+      URL.revokeObjectURL(excelUrl);
+
+      console.log('Archivo Excel descargado con éxito.');
+
+    } catch (error) {
+      console.error('Error al generar el Excel:', error);
+    }
+  });
+});
+
+
+
+
+
+
+

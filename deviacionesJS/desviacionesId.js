@@ -98,6 +98,7 @@ function actualizarPrioridadID(event, criticidadValor = null) {
 function agregarFilaDesdeID(id, valor2) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const idPart = id.replace('observacion-', '');
+  const username = localStorage.getItem('username') || 'Auditor desconocido';
 
   // Verificar si ya existe una fila con la misma pregunta
   for (let i = 0; i < tabla.rows.length; i++) {
@@ -185,7 +186,7 @@ function agregarFilaDesdeID(id, valor2) {
   fila.appendChild(imgCelda);
   
   fila.appendChild(crearCeldaConInputFile(''));
-  fila.appendChild(crearCeldaConSelect(auditores, auditores[0]));
+  fila.appendChild(crearCelda([username], username));
   fila.appendChild(crearCeldaConInputEmail(''));
   fila.appendChild(crearCeldaConInput('   /   /   '));
 

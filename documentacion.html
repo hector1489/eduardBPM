@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Documentación</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .image-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .image-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .image-item img {
+      max-width: 100%;
+      height: auto;
+      border-bottom: 1px solid #eee;
+    }
+
+    .image-item button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .image-item button:hover {
+      background-color: #ff1a1a;
+    }
+
+    .back-button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .back-button-container a {
+      text-decoration: none;
+      color: white;
+      background-color: #007bff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .back-button-container a:hover {
+      background-color: #0056b3;
+    }
+
+    .back-button-container i {
+      margin-right: 8px;
+    }
+
+    .back-button-container button {
+      border: none;
+      background: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Documentación</h1>
+    <div class="image-container" id="imageContainer"></div>
+    <div class="back-button-container">
+      <a href="dashboard.html">
+        <i class="fas fa-arrow-left"></i>
+        <button>Volver</button>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function loadImagesFromLocalStorage() {
+      const imageContainer = document.getElementById('imageContainer');
+      imageContainer.innerHTML = '';
+
+      // Itera sobre todas las claves en localStorage
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('screenshot-')) {
+          const imageData = localStorage.getItem(key);
+          const imageItem = document.createElement('div');
+          imageItem.className = 'image-item';
+
+          const imgElement = document.createElement('img');
+          imgElement.src = imageData;
+          imgElement.alt = `Screenshot saved with ID: ${key}`;
+
+          const deleteButton = document.createElement('button');
+          deleteButton.textContent = 'Eliminar';
+          deleteButton.onclick = function () {
+            localStorage.removeItem(key);
+            imageContainer.removeChild(imageItem);
+            console.log(`Imagen con ID ${key} eliminada.`);
+          };
+
+          imageItem.appendChild(imgElement);
+          imageItem.appendChild(deleteButton);
+          imageContainer.appendChild(imageItem);
+        }
+      }
+
+      if (!imageContainer.hasChildNodes()) {
+        imageContainer.innerHTML = '<p>No se encontraron imágenes en localStorage.</p>';
+      }
+    }
+
+    // Cargar imágenes cuando la página se carga
+    window.onload = loadImagesFromLocalStorage;
+  </script>
+
+</body>
+
+</html>
