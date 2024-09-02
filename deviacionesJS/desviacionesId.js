@@ -11,8 +11,6 @@ function loadTableDetails() {
     return;
   }
 
-  console.log(data);
-
   data.forEach(rowData => { 
     if (!rowData.columna2 || !rowData.columna3) {
       return;
