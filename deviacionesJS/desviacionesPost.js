@@ -101,19 +101,14 @@ async function enviarDatosTabla() {
       fechaUltimaModificacion: celdas[17]?.innerText || ''
     };
     
-    console.log('Dato procesado:', dato);
     return dato;
   });
-
-  console.log('Datos a enviar:', datos);
 
   // Verificar que los campos obligatorios estén completos
   const camposObligatorios = datos.every(dato =>
     dato.numeroRequerimiento &&
     dato.preguntasAuditadas 
   );
-
-  console.log('Verificación de campos obligatorios:', camposObligatorios);
 
   if (!camposObligatorios) {
     alert('Por favor, complete todos los campos obligatorios.');
@@ -123,10 +118,9 @@ async function enviarDatosTabla() {
   try {
     // Cargar las imágenes y obtener sus URLs
     const datosConImagenes = await cargarImagenes(datos);
-    console.log('Datos finales a enviar con URLs de imágenes:', datosConImagenes);
 
     // Enviar los datos al backend
-    const response = await fetch('https://bpm-backend.onrender.com/send-data', {
+    const response = await fetch('http://localhost:3000/send-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -140,7 +134,6 @@ async function enviarDatosTabla() {
     }
 
     const result = await response.json();
-    console.log('Resultado del envío de datos:', result);
     alert('Lista de Desviaciones actualizada.');
   } catch (error) {
     console.error('Error:', error);
