@@ -79,7 +79,7 @@ async function enviarDatosTabla() {
   // Obtener los datos de la tabla
   const datos = Array.from(filas).map(fila => {
     const celdas = fila.getElementsByTagName('td');
-    return {
+    const dato = {
       authToken: authToken || '',
       numeroRequerimiento: celdas[0]?.innerText || '',
       preguntasAuditadas: celdas[1]?.querySelector('select')?.value || celdas[1]?.innerText || '',
@@ -100,31 +100,20 @@ async function enviarDatosTabla() {
       correo: celdas[16]?.querySelector('input')?.value || '',
       fechaUltimaModificacion: celdas[17]?.innerText || ''
     };
+    
+    console.log('Dato procesado:', dato);
+    return dato;
   });
 
   console.log('Datos a enviar:', datos);
 
-  // Verificar que todos los campos obligatorios estén completos
+  // Verificar que los campos obligatorios estén completos
   const camposObligatorios = datos.every(dato =>
-    dato.authToken &&
     dato.numeroRequerimiento &&
-    dato.preguntasAuditadas &&
-    dato.desviacionOCriterio &&
-    dato.tipoDeAccion &&
-    dato.responsableProblema &&
-    dato.local &&
-    dato.criticidad &&
-    dato.accionesCorrectivas &&
-    dato.fechaRecepcionSolicitud &&
-    dato.fechaSolucionProgramada &&
-    dato.estado &&
-    dato.fechaCambioEstado &&
-    dato.contactoClientes &&
-    dato.detalleFoto &&
-    dato.auditor &&
-    dato.correo &&
-    dato.fechaUltimaModificacion
+    dato.preguntasAuditadas 
   );
+
+  console.log('Verificación de campos obligatorios:', camposObligatorios);
 
   if (!camposObligatorios) {
     alert('Por favor, complete todos los campos obligatorios.');

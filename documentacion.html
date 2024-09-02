@@ -166,6 +166,7 @@
 
     <div class="doc-container">
       <h3>Reporte Detallado</h3>
+      <p>Ultima Auditoria : <span id="numeroAuditoria"></span></p>
       <div class="details">
         <table id="tabla-details">
           <thead>
@@ -282,6 +283,19 @@
         if (!rowData.columna2 || !rowData.columna3) {
           return;
         }
+
+        if (rowData[`columna1`] === "NUMERO DE AUDITORIA") {
+          const columna2Value = rowData.columna2;
+          const targetElementId = 'numeroAuditoria';
+
+          const targetElement = document.getElementById(targetElementId);
+          if (targetElement) {
+            targetElement.textContent = columna2Value;
+          } else {
+            console.warn(`Elemento con ID ${targetElementId} no encontrado.`);
+          }
+        }
+
 
         let criterio = [];
         let nota = [];
