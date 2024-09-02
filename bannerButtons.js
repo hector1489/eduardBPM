@@ -1,9 +1,6 @@
 // Botón de "Fotos"
 document.querySelectorAll('#capture-btn').forEach(btn => {
   btn.addEventListener('click', async function () {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-    // Captura el elemento de la pregunta activa
     const activeQuestion = this.closest('.module-section').querySelector('.pregunta.active');
     const questionId = activeQuestion ? activeQuestion.querySelector('select').id : null;
 
@@ -14,65 +11,47 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
 
     const id = `foto-${questionId}`;
 
-    if (isMobile) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const video = document.createElement('video');
-        video.srcObject = stream;
-        video.autoplay = true;
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const video = document.createElement('video');
+      video.srcObject = stream;
+      video.autoplay = true;
 
-        video.addEventListener('loadedmetadata', () => {
-          console.log('Video metadata loaded.');
-        });
+      // Mostrar el video para asegurar que la cámara está funcionando (solo para depuración)
+      document.body.appendChild(video);
 
-        await new Promise(resolve => video.addEventListener('playing', resolve));
+      await new Promise(resolve => video.addEventListener('playing', resolve));
 
-        console.log('Video is playing.');
+      // Añadir un retraso adicional para asegurar que el video está completamente renderizado
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-        const reader = new FileReader();
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      const reader = new FileReader();
 
-        reader.onloadend = () => {
-          const base64data = reader.result;
-          localStorage.setItem(id, base64data);
-          console.log(`Foto guardada en localStorage con ID: ${id}`);
-        };
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        localStorage.setItem(id, base64data);
+        console.log(`Foto guardada en localStorage con ID: ${id}`);
+      };
 
-        reader.readAsDataURL(blob);
-        stream.getTracks().forEach(track => track.stop());
+      reader.readAsDataURL(blob);
+      stream.getTracks().forEach(track => track.stop());
 
-      } catch (error) {
-        console.error('Error accediendo a la cámara: ', error);
-      }
-    } else {
-      // Captura de pantalla en dispositivos no móviles
-      try {
-        const canvas = await html2canvas(activeQuestion);
+      // Remover el video después de la captura (opcional)
+      document.body.removeChild(video);
 
-        canvas.toBlob(blob => {
-          if (blob) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              const base64data = reader.result;
-              localStorage.setItem(id, base64data);
-              console.log(`Captura de pantalla guardada en localStorage con ID: ${id}`);
-            };
-            reader.readAsDataURL(blob);
-          }
-        }, 'image/png');
-
-      } catch (error) {
-        console.error('Error al capturar la pantalla:', error);
-      }
+    } catch (error) {
+      console.error('Error accediendo a la cámara: ', error);
     }
   });
 });
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
