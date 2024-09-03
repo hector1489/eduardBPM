@@ -1,113 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Ejecutivo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <style>
-        .dashboard-header {
-            background-color: #1f4e79;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .dashboard-header img {
-            position: relative;
-            top: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: auto;
-        }
-        .chart-container {
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .highcharts-legend-item text {
-            font-size: 14px !important;
-        }
-        .highcharts-title {
-            font-size: 20px !important;
-            font-weight: bold !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Ejecutivo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <style>
+    .dashboard-header {
+      background-color: #1f4e79;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .dashboard-header img {
+      position: relative;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: auto;
+    }
+
+    .chart-container {
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .highcharts-legend-item text {
+      font-size: 14px !important;
+    }
+
+    .highcharts-title {
+      font-size: 20px !important;
+      font-weight: bold !important;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="container mt-4">
-        <img id="form-logo" src="./logo.jpg" alt="Logo"
-        style="position: relative; top: 5px; left: 50%; transform: translateX(-50%); width: 180px; height: auto;">
-    </div>
+  <div class="container mt-4">
+    <img id="form-logo" src="./logo.jpg" alt="Logo"
+      style="position: relative; top: 5px; left: 50%; transform: translateX(-50%); width: 180px; height: auto;">
+  </div>
 
-    <!-- Hallazgos Críticos/Acciones Correctivas -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Hallazgos Críticos</h2>
-        <div id="hallazgos-criticos-chart" class="chart-container"></div>
-    </div>
+  <!-- Hallazgos Críticos/Acciones Correctivas (Gráfico de Barras Horizontales) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Hallazgos Críticos</h2>
+    <div id="hallazgos-criticos-chart" class="chart-container"></div>
+  </div>
 
-    <!-- Evaluaciones Críticas -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Evaluaciones Críticas</h2>
-        <div id="evaluaciones-criticas-chart" class="chart-container"></div>
-    </div>
+  <!-- Evaluaciones Críticas (Gráfico de Torta con Leyenda) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Evaluaciones Críticas</h2>
+    <div id="evaluaciones-criticas-chart" class="chart-container"></div>
+  </div>
 
-    <!-- Trazadores -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Trazadores</h2>
-        <div id="trazadores-chart" class="chart-container"></div>
-    </div>
+  <!-- Trazadores (Gráfico de Barras) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Trazadores</h2>
+    <div id="trazadores-chart" class="chart-container"></div>
+  </div>
 
-    <!-- Indicadores Claves de Gestión -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Indicadores Claves de Gestión</h2>
-        <div id="indicadores-gestion-chart" class="chart-container"></div>
-    </div>
+  <!-- Indicadores Claves de Gestión (Gráfico de Barras Apiladas 3D) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Indicadores Claves de Gestión</h2>
+    <div id="indicadores-gestion-chart" class="chart-container"></div>
+  </div>
 
-    <!-- Higiene Instalaciones/Alimentos -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Higiene Instalaciones/Alimentos</h2>
-        <div id="higiene-instalaciones-chart" class="chart-container"></div>
-    </div>
+  <!-- Higiene Instalaciones/Alimentos (Barras de tendencia con una línea de tendencia) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Higiene Instalaciones/Alimentos</h2>
+    <div id="higiene-instalaciones-chart" class="chart-container"></div>
+  </div>
 
-    <!-- Eficiencia Operacional -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Eficiencia Operacional</h2>
-        <div id="eficiencia-operacional-chart" class="chart-container"></div>
-    </div>
+  <!-- Eficiencia Operacional (Gráfico de Barras) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Eficiencia Operacional</h2>
+    <div id="eficiencia-operacional-chart" class="chart-container"></div>
+  </div>
 
-    <!-- Satisfacción al Cliente -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Satisfacción al Cliente</h2>
-        <div id="satisfaccion-cliente-chart" class="chart-container"></div>
-    </div>
+  <!-- Satisfacción al Cliente (Gráfico de Torta) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Satisfacción al Cliente</h2>
+    <div id="satisfaccion-cliente-chart" class="chart-container"></div>
+  </div>
 
-    <!-- Seguridad Alimentaria -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Seguridad Alimentaria</h2>
-        <div id="seguridad-alimentaria-chart" class="chart-container"></div>
-    </div>
+  <!-- Seguridad Alimentaria (Gráfico de Áreas Apiladas 3D) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Seguridad Alimentaria</h2>
+    <div id="seguridad-alimentaria-chart" class="chart-container"></div>
+  </div>
 
-    <!-- Control de Calidad -->
-    <div class="dashboard-section mt-4">
-        <h2 class="text-center">Control de Calidad</h2>
-        <div id="control-calidad-chart" class="chart-container"></div>
-    </div>
+  <!-- Control de Calidad (Gráfico de Barras) -->
+  <div class="dashboard-section mt-4">
+    <h2 class="text-center">Control de Calidad</h2>
+    <div id="control-calidad-chart" class="chart-container"></div>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="resumenejeChart.js"></script>
-<script>
- 
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+   
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="resumenejeChart.js"></script>
+
 </body>
+
 </html>
