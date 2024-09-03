@@ -225,8 +225,6 @@ document.querySelectorAll('#save-screenshot-btn').forEach(btn => {
       // Convertir la sección a PDF
       html2pdf().from(sectionToCapture).set(options).save();
 
-      console.log('PDF descargado con éxito.');
-
     } catch (error) {
       console.error('Error al generar el PDF:', error);
     }

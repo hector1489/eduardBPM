@@ -5,159 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <title>Documentación</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 20px;
-      background-color: #f5f5f5;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #333;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .doc-container h3 {
-      color: #007bff;
-      border-bottom: 2px solid #007bff;
-      padding-bottom: 5px;
-      margin-bottom: 20px;
-    }
-
-    .details {
-      margin-bottom: 30px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      background-color: white;
-    }
-
-    table th,
-    table td {
-      text-align: left;
-      padding: 12px;
-      border: 1px solid #ddd;
-      font-size: 14px;
-    }
-
-    table th {
-      background-color: #007bff;
-      color: white;
-    }
-
-    table tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-
-    table tr:hover {
-      background-color: #f1f1f1;
-    }
-
-    .image-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      justify-items: center;
-    }
-
-    .image-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .image-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .image-item img {
-      max-width: 100%;
-      height: auto;
-      border-bottom: 1px solid #eee;
-    }
-
-    .image-item button {
-      background-color: #ff4d4d;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 16px;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    .image-item button:hover {
-      background-color: #ff1a1a;
-    }
-
-    .back-button-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .back-button-container a {
-      text-decoration: none;
-      color: white;
-      background-color: #007bff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    .back-button-container a:hover {
-      background-color: #0056b3;
-    }
-
-    .back-button-container i {
-      margin-right: 8px;
-    }
-
-    .back-button-container button {
-      border: none;
-      background: none;
-      color: inherit;
-      font: inherit;
-      cursor: pointer;
-      outline: inherit;
-    }
-
-    #download-pdf-btn {
-      background-color: #2D1C7D;
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
-      padding: 10px;
-    }
-
-    #download-pdf-btn:hover {
-      background-color: rgb(6, 6, 51);
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="./documentacion.css">
 </head>
 
 <body>
@@ -165,8 +16,19 @@
     <h1>Documentación</h1>
 
     <div class="doc-container">
+      
+      <p>Última Auditoría: <span id="numeroAuditoria"></span></p>
+
+      <div class="trazabilidad-container">
+        <canvas id="promediosChart"></canvas>
+      </div>
+
+      <div class="ETA">
+        <h3>Trazadores ETA</h3>
+        <div id="observationsTableContainer"></div>
+      </div>
+
       <h3>Reporte Detallado</h3>
-      <p>Ultima Auditoria : <span id="numeroAuditoria"></span></p>
       <div class="details">
         <table id="tabla-details">
           <thead>
@@ -183,7 +45,6 @@
       </div>
     </div>
 
-
     <div class="image-container" id="imageContainer"></div>
 
     <div class="back-button-container">
@@ -193,215 +54,10 @@
         <button>Volver</button>
       </a>
     </div>
-
-
   </div>
 
-  <script>
-    function loadImagesFromLocalStorage() {
-      const imageContainer = document.getElementById('imageContainer');
-      imageContainer.innerHTML = '';
-
-      // Itera sobre todas las claves en localStorage
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith('foto-')) {
-          const imageData = localStorage.getItem(key);
-          const imageItem = document.createElement('div');
-          imageItem.className = 'image-item';
-
-          const imgElement = document.createElement('img');
-          imgElement.src = imageData;
-          imgElement.alt = `Foto guardada con ID: ${key}`;
-
-          const deleteButton = document.createElement('button');
-          deleteButton.textContent = 'Eliminar';
-          deleteButton.onclick = function () {
-            localStorage.removeItem(key);
-            imageContainer.removeChild(imageItem);
-            console.log(`Imagen con ID ${key} eliminada.`);
-          };
-
-          imageItem.appendChild(imgElement);
-          imageItem.appendChild(deleteButton);
-          imageContainer.appendChild(imageItem);
-        }
-      }
-
-      if (!imageContainer.hasChildNodes()) {
-        imageContainer.innerHTML = '<p>No se encontraron imágenes en localStorage.</p>';
-      }
-    }
-
-    // Cargar imágenes cuando la página se carga
-    window.onload = loadImagesFromLocalStorage;
-  </script>
-
-
-  <script>
-
-    function addRowToTable(tableId, rowData) {
-      const tableBody = document.querySelector(`#${tableId} tbody`);
-
-      // Crea una nueva fila
-      const row = document.createElement('tr');
-
-      // Crea y añade la celda para el criterio
-      const criterioCell = document.createElement('td');
-      criterioCell.textContent = rowData['criterio'] || '';
-      row.appendChild(criterioCell);
-
-      // Crea y añade la celda para la nota
-      const notaCell = document.createElement('td');
-      notaCell.textContent = rowData['nota'] || '';
-      row.appendChild(notaCell);
-
-      // Crea y añade la celda para la observación
-      const observacionCell = document.createElement('td');
-      observacionCell.textContent = rowData['observacion'] || '';
-      row.appendChild(observacionCell);
-
-      // Añade la fila al cuerpo de la tabla
-      tableBody.appendChild(row);
-    }
-
-    function loadTableDetailsDoc() {
-      const tableId = 'tabla-details';
-      const data = JSON.parse(localStorage.getItem(`tablaDatos-${tableId}`));
-
-      if (!data) {
-        console.log('No se encontraron datos en localStorage para la tabla especificada.');
-        return;
-      }
-
-      // Limpiar el contenido anterior de la tabla
-      const tableBody = document.querySelector(`#${tableId} tbody`);
-      tableBody.innerHTML = '';
-
-      // Procesar cada fila de datos
-      data.forEach(rowData => {
-        if (!rowData.columna2 || !rowData.columna3) {
-          return;
-        }
-
-        if (rowData[`columna1`] === "NUMERO DE AUDITORIA") {
-          const columna2Value = rowData.columna2;
-          const targetElementId = 'numeroAuditoria';
-
-          const targetElement = document.getElementById(targetElementId);
-          if (targetElement) {
-            targetElement.textContent = columna2Value;
-          } else {
-            console.warn(`Elemento con ID ${targetElementId} no encontrado.`);
-          }
-        }
-
-
-        let criterio = [];
-        let nota = [];
-        let observacion = [];
-        let observacionesConValores = [];
-
-        for (let i = 1; i <= 6; i++) {
-          const idValue = rowData[`idColumna${i}`];
-          if (idValue) {
-            if (idValue.startsWith('criterio-')) {
-              criterio.push(idValue);
-            } else if (idValue.startsWith('nota-')) {
-              nota.push(idValue);
-            } else if (idValue.startsWith('observacion-')) {
-              observacion.push(idValue);
-              const valor2 = rowData.columna2 || rowData.columna3;
-              if (valor2) {
-                observacionesConValores.push({
-                  id: idValue,
-                  valor1: rowData.columna2,
-                  valor2: valor2
-                });
-              }
-            }
-          }
-        }
-
-        // Agregar las filas procesadas a la tabla
-        observacionesConValores.forEach(({ id, valor2 }) => {
-          addRowToTable(tableId, {
-            criterio: criterio.join(', '),
-            nota: nota.join(', '),
-            observacion: valor2 || ''
-          });
-        });
-      });
-    }
-
-
-    window.onload = function () {
-      loadImagesFromLocalStorage();
-      loadTableDetailsDoc();
-    };
-
-
-  </script>
-
-  <script>
-    document.getElementById('download-pdf-btn').addEventListener('click', async function () {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-
-      const margin = 10;
-      const lineHeight = 10;
-      const pageHeight = doc.internal.pageSize.height;
-      let y = margin;
-
-      // Añadir el título
-      doc.text('Reporte Detallado', margin, y);
-      y += lineHeight * 2;
-
-      // Añadir el contenido de la tabla
-      const table = document.getElementById('tabla-details');
-      const rows = table.querySelectorAll('tr');
-
-      rows.forEach((row, index) => {
-        const cols = row.querySelectorAll('th, td');
-        cols.forEach((col, colIndex) => {
-          const text = col.textContent || '';
-          if (y > pageHeight - margin) {
-            doc.addPage();
-            y = margin;
-          }
-          doc.text(text, margin + (colIndex * 40), y + (index * lineHeight));
-        });
-        if (index === rows.length - 1) {
-          y += lineHeight * (rows.length - index);
-        }
-      });
-
-      y += lineHeight;
-
-      // Añadir las imágenes al PDF
-      const imageContainer = document.getElementById('imageContainer');
-      const images = imageContainer.querySelectorAll('img');
-
-      images.forEach((img, index) => {
-        if (y > pageHeight - 120) { // 120 es la altura de la imagen
-          doc.addPage();
-          y = margin;
-        }
-        doc.addImage(img.src, 'PNG', margin, y, 180, 120);
-        y += 130; // Espacio después de la imagen
-      });
-
-      // Descargar el PDF
-      doc.save('reporte-detallado.pdf');
-    });
-  </script>
-
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-
+  <script src="./documentacion.funciones.js"></script>
 </body>
 
 </html>

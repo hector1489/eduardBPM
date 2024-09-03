@@ -27,6 +27,7 @@ function obtenerDatosTablaDesviaciones() {
 }
 
 
+
 Highcharts.chart('hallazgos-criticos-chart', {
   chart: {
     type: 'column',

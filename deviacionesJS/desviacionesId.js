@@ -99,13 +99,13 @@ function agregarFilaDesdeID(id, valor2) {
   const username = localStorage.getItem('username') || 'Auditor desconocido';
 
   // Verificar si ya existe una fila con la misma pregunta
-  /*for (let i = 0; i < tabla.rows.length; i++) {
+  for (let i = 0; i < tabla.rows.length; i++) {
     const preguntaCelda = tabla.rows[i].cells[1].textContent;
     if (preguntaCelda.toLowerCase() === idPart.toLowerCase()) {
       console.log(`Fila ya existe para la pregunta: ${preguntaCelda}`);
       return;
     }
-  }*/
+  }
 
   const fila = document.createElement('tr');
 
