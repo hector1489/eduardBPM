@@ -98,7 +98,7 @@ function loadTableDetailsDoc() {
         if (idValue.startsWith('criterio-')) {
           criterio.push(idValue);
         } else if (idValue.startsWith('nota-')) {
-          nota.push(idValue);
+          nota.push(rowData.columna3);
         } else if (idValue.startsWith('observacion-')) {
           observacion.push(idValue);
           const valor2 = rowData.columna2 || rowData.columna3;
