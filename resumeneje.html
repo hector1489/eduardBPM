@@ -11,7 +11,21 @@
   <script src="https://code.highcharts.com/highcharts-3d.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+
     .dashboard-header {
       background-color: #1f4e79;
       color: white;
@@ -116,6 +130,7 @@
       style="padding: 12px 24px; font-size: 30px;" title="Salir">
       <i class="fas fa-sign-out-alt"></i>
     </button>
+    <button id="download-chartsResumeneje-pdf-btn" class="btn btn-primary">Descargar Gráficos en PDF</button>
   </div>
 
 

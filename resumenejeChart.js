@@ -893,3 +893,41 @@ function actualizarGraficoControlCalidad(trazadores) {
     }]
   });
 };
+
+document.getElementById('download-chartsResumeneje-pdf-btn').addEventListener('click', async function () {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let y = 10;
+
+  const charts = [
+    document.getElementById('hallazgos-criticos-chart'),
+    document.getElementById('evaluaciones-criticas-chart'),
+    document.getElementById('trazadores-chart'),
+    document.getElementById('indicadores-gestion-chart'),
+    document.getElementById('higiene-instalaciones-chart'),
+    document.getElementById('eficiencia-operacional-chart'),
+    document.getElementById('satisfaccion-cliente-chart'),
+    document.getElementById('seguridad-alimentaria-chart'),
+    document.getElementById('control-calidad-chart')
+  ];
+
+  for (let i = 0; i < charts.length; i++) {
+    if (charts[i]) {
+      await html2canvas(charts[i]).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgHeight = (canvas.height * 190) / canvas.width; // Ajusta el tamaño
+        
+        if (y + imgHeight > doc.internal.pageSize.height - 10) {
+          doc.addPage();
+          y = 10; // Reiniciar el valor de Y en la nueva página
+        }
+        
+        doc.addImage(imgData, 'PNG', 10, y, 190, imgHeight);
+        y += imgHeight + 10; // Incrementar Y para la siguiente imagen
+      });
+    }
+  }
+
+  doc.save('graficos-dashboard.pdf');
+});
+

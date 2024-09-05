@@ -8,6 +8,12 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       background-color: white;
       font-family: 'Arial', sans-serif;
@@ -229,6 +235,21 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
+    /*animaciones*/
+    .animated-text {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
     @media (max-width: 767px) {
       .left-icons {
         position: static;
@@ -262,7 +283,7 @@
     <img id="form-logo" src="./logo.jpg" alt="Logo">
     <h2 class="text-center">Panel de Control</h2>
     <div class="card-grid mt-4">
-      <div class="card">
+      <div class="card animated-text">
         <a href="auditoria.html">
           <div class="card-icon">
             <i class="fas fa-utensils"></i>
@@ -270,7 +291,7 @@
           <div class="card-title">Auditoría Alimentos</div>
         </a>
       </div>
-      <div class="card">
+      <div class="card animated-text ">
         <a href="FORMATOBASE.html">
           <div class="card-icon">
             <i class="fas fa-exclamation-circle"></i>
@@ -278,7 +299,7 @@
           <div class="card-title">Control Desviaciones</div>
         </a>
       </div>
-      <div class="card">
+      <div class="card animated-text ">
         <a href="construccion.html">
           <div class="card-icon">
             <i class="fas fa-broom"></i>
@@ -286,7 +307,7 @@
           <div class="card-title">Auditoría Aseo</div>
         </a>
       </div>
-      <div class="card">
+      <div class="card animated-text ">
         <a href="documentacion.html">
           <div class="card-icon">
             <i class="fas fa-file-alt"></i>
@@ -294,7 +315,7 @@
           <div class="card-title">Documentación</div>
         </a>
       </div>
-      <div class="card">
+      <div class="card animated-text ">
         <a href="resumeneje.html">
           <div class="card-icon">
             <i class="fas fa-chart-line"></i>
@@ -302,21 +323,21 @@
           <div class="card-title">Análisis</div>
         </a>
       </div>
-      <div class="card">
+      <div class="card animated-text ">
         <div class="card-icon">
           <i class="fas fa-shield-alt"></i>
         </div>
         <div class="card-title">Seguridad</div>
       </div>
-      <div class="card">
+      <div class="card animated-text ">
         <a href="capture.html">
-        <div class="card-icon">
-          <i class="fas fa-images"></i>
-        </div>
-        <div class="card-title"> Panel de Incidencias Fotografica</div>
+          <div class="card-icon">
+            <i class="fas fa-images"></i>
+          </div>
+          <div class="card-title"> Panel de Incidencias Fotografica</div>
         </a>
       </div>
-      <div class="card">
+      <div class="card animated-text ">
         <div class="card-icon">
           <i class="fas fa-wifi"></i>
         </div>
