@@ -16,18 +16,6 @@ function loadTableDetails() {
       return;
     }
 
-    if (rowData[`columna1`] === "NUMERO DE AUDITORIA") {
-      const columna2Value = rowData.columna2;
-      const targetElementId = 'cardNumeroAuditoria';
-
-      const targetElement = document.getElementById(targetElementId);
-      if (targetElement) {
-        targetElement.textContent = columna2Value;
-      } else {
-        console.warn(`Elemento con ID ${targetElementId} no encontrado.`);
-      }
-    }
-
     let criterio = [];
     let nota = [];
     let observacion = [];
@@ -55,11 +43,25 @@ function loadTableDetails() {
       }
     }
 
+    data.forEach(rowData => {
+      if (rowData[`columna1`] === "NUMERO DE AUDITORIA") {
+        const columna2Value = rowData.columna2;
+        const targetElementId = 'cardNumeroAuditoria';
+  
+        const targetElement = document.getElementById(targetElementId);
+        if (targetElement) {
+          targetElement.textContent = columna2Value;
+        } else {
+          console.warn(`Elemento con ID ${targetElementId} no encontrado.`);
+        }
+      }
+    });
+
     observacionesConValores.forEach(({ id, valor2 }) => {
-      console.log(id);
       agregarFilaDesdeID(id, valor2);
     });
   });
+
 }
 
 
