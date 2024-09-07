@@ -14,6 +14,7 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
     // Función para solicitar acceso a la cámara con un facingMode específico
     async function getCameraStream(facingMode) {
       try {
+        console.log(`Intentando acceder a la cámara: ${facingMode}`);
         return await navigator.mediaDevices.getUserMedia({
           video: { facingMode }
         });
@@ -23,16 +24,21 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
       }
     }
 
+    let stream = null;
     try {
-      // Intentar usar la cámara trasera (facingMode: 'environment')
-      let stream = await getCameraStream('environment');
-
-      // Si no se pudo acceder a la cámara trasera, usar la cámara frontal (facingMode: 'user')
+      // Intentar primero acceder a la cámara trasera
+      stream = await getCameraStream('environment');
+      
+      // Si no se pudo acceder a la cámara trasera, probar con la cámara frontal
       if (!stream) {
+        console.log('No se pudo acceder a la cámara trasera, intentando con la cámara frontal.');
         stream = await getCameraStream('user');
-        if (!stream) {
-          throw new Error('No se pudo acceder a ninguna cámara.');
-        }
+      }
+
+      // Si no se pudo acceder a ninguna cámara, mostrar un error
+      if (!stream) {
+        console.error('No se pudo acceder a ninguna cámara.');
+        return;
       }
 
       const video = document.createElement('video');
@@ -45,7 +51,7 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
       await new Promise(resolve => video.addEventListener('playing', resolve));
 
       // Añadir un retraso adicional para asegurar que el video está completamente renderizado
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 500)); // Retraso de 500ms para asegurar estabilización
 
       const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth;
@@ -54,6 +60,8 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
       const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      console.log('Imagen capturada, procesando...');
+
       const reader = new FileReader();
 
       reader.onloadend = () => {
@@ -62,14 +70,20 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
         console.log(`Foto guardada en localStorage con ID: ${id}`);
       };
 
+      reader.onerror = () => {
+        console.error('Error al leer la imagen.');
+      };
+
       reader.readAsDataURL(blob);
+      
+      // Finalizar el stream de video
       stream.getTracks().forEach(track => track.stop());
 
       // Remover el video después de la captura (opcional)
       document.body.removeChild(video);
 
     } catch (error) {
-      console.error('Error accediendo a la cámara: ', error);
+      console.error('Error durante la captura de imagen: ', error);
     }
   });
 });
