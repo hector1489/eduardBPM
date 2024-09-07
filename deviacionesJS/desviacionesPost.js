@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Código que debe ejecutarse cuando el DOM esté completamente cargado
+
 });
 
 function base64ToBlob(base64, contentType) {
@@ -8,12 +8,10 @@ function base64ToBlob(base64, contentType) {
 
   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
     const slice = byteCharacters.slice(offset, offset + 512);
-
     const byteNumbers = new Array(slice.length);
     for (let i = 0; i < slice.length; i++) {
       byteNumbers[i] = slice.charCodeAt(i);
     }
-
     const byteArray = new Uint8Array(byteNumbers);
     byteArrays.push(byteArray);
   }
@@ -54,17 +52,14 @@ async function enviarImagen(imagenBase64) {
   }
 }
 
-
 async function cargarImagenes(datos) {
   const datosConImagenes = [];
 
   for (const dato of datos) {
     if (dato.evidenciaFotografica.startsWith('data:image')) {
-      // Enviar la imagen al backend y obtener la URL
       const urlImagen = await enviarImagen(dato.evidenciaFotografica);
       dato.evidenciaFotografica = urlImagen || '';
     }
-    // Agregar el dato al arreglo final
     datosConImagenes.push(dato);
   }
 
@@ -100,14 +95,13 @@ async function enviarDatosTabla() {
       correo: celdas[16]?.querySelector('input')?.value || '',
       fechaUltimaModificacion: celdas[17]?.innerText || ''
     };
-    
     return dato;
   });
 
   // Verificar que los campos obligatorios estén completos
   const camposObligatorios = datos.every(dato =>
     dato.numeroRequerimiento &&
-    dato.preguntasAuditadas 
+    dato.preguntasAuditadas
   );
 
   if (!camposObligatorios) {
@@ -116,11 +110,10 @@ async function enviarDatosTabla() {
   }
 
   try {
-    // Cargar las imágenes y obtener sus URLs
     const datosConImagenes = await cargarImagenes(datos);
 
     // Enviar los datos al backend
-    const response = await fetch('http://localhost:3000/send-data', {
+    const response = await fetch('https://bpm-backend.onrender.com/send-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

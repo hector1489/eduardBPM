@@ -26,16 +26,13 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
 
     let stream = null;
     try {
-      // Intentar primero acceder a la cámara trasera
       stream = await getCameraStream('environment');
       
-      // Si no se pudo acceder a la cámara trasera, probar con la cámara frontal
       if (!stream) {
         console.log('No se pudo acceder a la cámara trasera, intentando con la cámara frontal.');
         stream = await getCameraStream('user');
       }
 
-      // Si no se pudo acceder a ninguna cámara, mostrar un error
       if (!stream) {
         console.error('No se pudo acceder a ninguna cámara.');
         return;
@@ -45,13 +42,12 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
       video.srcObject = stream;
       video.autoplay = true;
 
-      // Mostrar el video para asegurar que la cámara está funcionando (solo para depuración)
       document.body.appendChild(video);
 
       await new Promise(resolve => video.addEventListener('playing', resolve));
 
       // Añadir un retraso adicional para asegurar que el video está completamente renderizado
-      await new Promise(resolve => setTimeout(resolve, 500)); // Retraso de 500ms para asegurar estabilización
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth;
@@ -75,11 +71,9 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
       };
 
       reader.readAsDataURL(blob);
-      
-      // Finalizar el stream de video
+     
       stream.getTracks().forEach(track => track.stop());
 
-      // Remover el video después de la captura (opcional)
       document.body.removeChild(video);
 
     } catch (error) {

@@ -30,8 +30,7 @@ function loadTableDetails() {
           nota.push(idValue);
         } else if (idValue.startsWith('observacion-')) {
           observacion.push(idValue);
-          // Verifica en ambos campos columna2 y columna3
-          const valor2 = rowData.columna2 || rowData.columna3; // Prioriza columna2 si tiene valor
+          const valor2 = rowData.columna2 || rowData.columna3;
           if (valor2) {
             observacionesConValores.push({
               id: idValue,
@@ -97,14 +96,20 @@ function actualizarPrioridadID(event, criticidadValor = null) {
 // Agregar una fila a la tabla de desviaciones con datos del ID
 function agregarFilaDesdeID(id, valor2) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
+  if (!tabla) {
+    console.error('No se encontró la tabla con ID "tabla-desviaciones".');
+    return;
+  }
+
   const idPart = id.replace('observacion-', '');
   const username = localStorage.getItem('username') || 'Auditor desconocido';
 
   // Verificar si ya existe una fila con la misma pregunta
   for (let i = 0; i < tabla.rows.length; i++) {
-    const preguntaCelda = tabla.rows[i].cells[1].textContent;
-    if (preguntaCelda.toLowerCase() === idPart.toLowerCase()) {
-      console.log(`Fila ya existe para la pregunta: ${preguntaCelda}`);
+    const fila = tabla.rows[i];
+    const preguntaCelda = fila.cells[1];
+    if (preguntaCelda && preguntaCelda.textContent.toLowerCase() === idPart.toLowerCase()) {
+      console.log(`Fila ya existe para la pregunta: ${preguntaCelda.textContent}`);
       return;
     }
   }
@@ -148,8 +153,6 @@ function agregarFilaDesdeID(id, valor2) {
   criticidadCelda.classList.add(`prioridad-${criticidad.toLowerCase()}`);
   fila.appendChild(criticidadCelda);
 
-  
-
   // Celda de acciones correctivas
   const selectActions = crearComboBoxTodasLasAction('');
   fila.appendChild(crearCeldaConInput('', selectActions));
@@ -184,7 +187,7 @@ function agregarFilaDesdeID(id, valor2) {
     imgCelda.textContent = 'Sin imagen';
   }
   fila.appendChild(imgCelda);
-  
+
   fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCelda([username], username));
   fila.appendChild(crearCeldaConInputEmail(''));
