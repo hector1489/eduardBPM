@@ -11,8 +11,30 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
 
     const id = `foto-${questionId}`;
 
+    // Función para solicitar acceso a la cámara con un facingMode específico
+    async function getCameraStream(facingMode) {
+      try {
+        return await navigator.mediaDevices.getUserMedia({
+          video: { facingMode }
+        });
+      } catch (error) {
+        console.warn(`Error accediendo a la cámara (${facingMode}):`, error);
+        return null;
+      }
+    }
+
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // Intentar usar la cámara trasera (facingMode: 'environment')
+      let stream = await getCameraStream('environment');
+
+      // Si no se pudo acceder a la cámara trasera, usar la cámara frontal (facingMode: 'user')
+      if (!stream) {
+        stream = await getCameraStream('user');
+        if (!stream) {
+          throw new Error('No se pudo acceder a ninguna cámara.');
+        }
+      }
+
       const video = document.createElement('video');
       video.srcObject = stream;
       video.autoplay = true;
@@ -51,7 +73,6 @@ document.querySelectorAll('#capture-btn').forEach(btn => {
     }
   });
 });
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
