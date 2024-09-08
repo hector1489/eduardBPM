@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+  // Inicializar o agregar otros listeners necesarios
 });
 
 function base64ToBlob(base64, contentType) {
@@ -20,32 +20,31 @@ function base64ToBlob(base64, contentType) {
 }
 
 async function enviarImagen(imagenBase64) {
-  if (!imagenBase64) {
-    console.log('No hay imagen para enviar');
+  if (!imagenBase64 || !imagenBase64.startsWith('data:image')) {
+    console.warn('Formato de imagen inválido o no presente');
     return null;
   }
 
   try {
-    console.log('Enviando imagen:', imagenBase64);
+    console.log('Preparando imagen para envío...');
 
     const contentType = imagenBase64.split(',')[0].split(':')[1].split(';')[0];
     const blob = base64ToBlob(imagenBase64, contentType);
-
     const formData = new FormData();
     formData.append('image', blob);
 
-    const respuesta = await fetch('https://bpm-backend.onrender.com/upload-photo', {
+    const response = await fetch('https://bpm-backend.onrender.com/upload-photo', {
       method: 'POST',
       body: formData,
     });
 
-    if (!respuesta.ok) {
-      throw new Error(`Error al enviar la imagen: ${respuesta.statusText}`);
+    if (!response.ok) {
+      throw new Error(`Error al enviar la imagen: ${response.statusText}`);
     }
 
-    const resultado = await respuesta.json();
-    console.log('Resultado del envío de la imagen:', resultado);
-    return resultado.url;
+    const result = await response.json();
+    console.log('Imagen enviada exitosamente:', result);
+    return result.url;
   } catch (error) {
     console.error('Error al enviar la imagen:', error);
     return null;
@@ -56,7 +55,7 @@ async function cargarImagenes(datos) {
   const datosConImagenes = [];
 
   for (const dato of datos) {
-    if (dato.evidenciaFotografica.startsWith('data:image')) {
+    if (dato.evidenciaFotografica && dato.evidenciaFotografica.startsWith('data:image')) {
       const urlImagen = await enviarImagen(dato.evidenciaFotografica);
       dato.evidenciaFotografica = urlImagen || '';
     }
@@ -74,7 +73,7 @@ async function enviarDatosTabla() {
   // Obtener los datos de la tabla
   const datos = Array.from(filas).map(fila => {
     const celdas = fila.getElementsByTagName('td');
-    const dato = {
+    return {
       authToken: authToken || '',
       numeroRequerimiento: celdas[0]?.innerText || '',
       preguntasAuditadas: celdas[1]?.querySelector('select')?.value || celdas[1]?.innerText || '',
@@ -95,31 +94,31 @@ async function enviarDatosTabla() {
       correo: celdas[16]?.querySelector('input')?.value || '',
       fechaUltimaModificacion: celdas[17]?.innerText || ''
     };
-    return dato;
   });
-
-  // Verificar que los campos obligatorios estén completos
-  const camposObligatorios = datos.every(dato =>
-    dato.numeroRequerimiento &&
-    dato.preguntasAuditadas
-  );
-
-  if (!camposObligatorios) {
-    alert('Por favor, complete todos los campos obligatorios.');
-    return;
-  }
 
   try {
     const datosConImagenes = await cargarImagenes(datos);
+
+    // Verificar que los campos obligatorios estén completos
+    const camposObligatoriosCompletos = datosConImagenes.every(dato =>
+      dato.numeroRequerimiento &&
+      dato.preguntasAuditadas &&
+      dato.estado
+    );
+
+    if (!camposObligatoriosCompletos) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
 
     // Enviar los datos al backend
     const response = await fetch('https://bpm-backend.onrender.com/send-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${authToken}`
+        'Authorization': `Bearer ${authToken}`,
       },
-      body: JSON.stringify(datosConImagenes)
+      body: JSON.stringify(datosConImagenes),
     });
 
     if (!response.ok) {
@@ -127,8 +126,9 @@ async function enviarDatosTabla() {
     }
 
     const result = await response.json();
-    alert('Lista de Desviaciones actualizada.');
+    alert('Lista de Desviaciones actualizada exitosamente.');
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error en el envío de datos:', error);
+    alert('Ocurrió un error al enviar los datos.');
   }
 }

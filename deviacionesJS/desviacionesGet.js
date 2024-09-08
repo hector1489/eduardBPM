@@ -33,7 +33,7 @@ async function cargarDatosDesdeBackend() {
 async function desviacionDelete(fila) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const indice = Array.from(tabla.rows).indexOf(fila);
-  
+
   // Obtener el dato de la fila a eliminar, por ejemplo, usando el 'numero_requerimiento'
   const numeroRequerimiento = fila.cells[0].innerText;
 
@@ -190,7 +190,20 @@ function agregarFilaConGet(dato) {
 
   fila.appendChild(crearCeldaConInput(dato.fecha_cambio_estado));
   fila.appendChild(crearCeldaConInput(dato.contacto_clientes));
-  fila.appendChild(crearCeldaConInput(dato.evidencia_fotografica || 'N/A'));
+
+  // Celda de evidencia fotográfica
+  const evidenciaCelda = document.createElement('td');
+  if (dato.evidencia_fotografica && dato.evidencia_fotografica !== 'N/A') {
+    const imagen = document.createElement('img');
+    imagen.src = dato.evidencia_fotografica;
+    imagen.alt = 'Evidencia Fotográfica';
+    imagen.style.width = '100px';
+    evidenciaCelda.appendChild(imagen);
+  } else {
+    evidenciaCelda.innerText = 'N/A';
+  }
+  fila.appendChild(evidenciaCelda);
+
   fila.appendChild(crearCeldaConInput(dato.detalle_foto));
   fila.appendChild(crearCelda(dato.auditor));
   fila.appendChild(crearCeldaConInput(dato.correo));
