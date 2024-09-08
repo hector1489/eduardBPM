@@ -34,11 +34,9 @@ async function desviacionDelete(fila) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const indice = Array.from(tabla.rows).indexOf(fila);
 
-  // Obtener el dato de la fila a eliminar, por ejemplo, usando el 'numero_requerimiento'
   const numeroRequerimiento = fila.cells[0].innerText;
 
   try {
-    // Llamar a la API para eliminar la desviación del backend
     const response = await fetch(`https://bpm-backend.onrender.com/desviacionesDelete/${numeroRequerimiento}`, {
       method: 'DELETE',
       headers: {
@@ -50,7 +48,6 @@ async function desviacionDelete(fila) {
       throw new Error('Error al eliminar la desviación');
     }
 
-    // Si la solicitud fue exitosa, eliminar la fila de la tabla
     fila.remove();
     console.log(`Desviación con requerimiento número ${numeroRequerimiento} eliminada correctamente`);
   } catch (error) {
