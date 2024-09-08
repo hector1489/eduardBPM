@@ -119,8 +119,7 @@ function agregarFilaConGet(dato) {
   actualizarFiltros();
 }
 
-
-//Cargar por usuario
+// Cargar por auditor
 async function cargarDatosPorAuditor() {
   const username = localStorage.getItem('username') || 'Auditor desconocido';
   const auditor = username;
@@ -144,15 +143,17 @@ async function cargarDatosPorAuditor() {
 
     const datos = await response.json();
     const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
-    tabla.innerHTML = '';
+    tabla.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
 
     if (datos && datos.length > 0) {
       datos.forEach(dato => agregarFilaConGet(dato));
     } else {
-      tabla.innerHTML = '<tr><td colspan="16">No se encontraron desviaciones para el auditor especificado.</td></tr>';
+      // Mostrar alerta si no se encuentran desviaciones
+      alert('No se encontraron desviaciones en la base de datos para el auditor especificado.');
     }
   } catch (error) {
     console.error('Error:', error);
+    alert('Ocurrió un error al recuperar las desviaciones.');
   }
 }
 
