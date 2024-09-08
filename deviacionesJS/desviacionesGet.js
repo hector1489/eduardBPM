@@ -143,12 +143,11 @@ async function cargarDatosPorAuditor() {
 
     const datos = await response.json();
     const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
-    tabla.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
+    tabla.innerHTML = '';
 
     if (datos && datos.length > 0) {
       datos.forEach(dato => agregarFilaConGet(dato));
     } else {
-      // Mostrar alerta si no se encuentran desviaciones
       alert('No se encontraron desviaciones en la base de datos para el auditor especificado.');
     }
   } catch (error) {

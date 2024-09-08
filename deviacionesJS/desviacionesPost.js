@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Inicializar o agregar otros listeners necesarios
+
 });
 
 function base64ToBlob(base64, contentType) {
@@ -44,7 +44,8 @@ async function enviarImagen(imagenBase64) {
 
     const result = await response.json();
     console.log('Imagen enviada exitosamente:', result);
-    return result.url;
+    
+    return result.data?.url || null; 
   } catch (error) {
     console.error('Error al enviar la imagen:', error);
     return null;
@@ -57,7 +58,15 @@ async function cargarImagenes(datos) {
   for (const dato of datos) {
     if (dato.evidenciaFotografica && dato.evidenciaFotografica.startsWith('data:image')) {
       const urlImagen = await enviarImagen(dato.evidenciaFotografica);
-      dato.evidenciaFotografica = urlImagen || '';
+      console.log('URL de la imagen recibida:', urlImagen);
+
+      if (urlImagen) {
+        dato.evidenciaFotografica = urlImagen;
+        console.log('URL de imagen asignada:', dato.evidenciaFotografica);
+      } else {
+        console.warn('No se pudo obtener la URL de la imagen, asignando vacío');
+        dato.evidenciaFotografica = '';
+      }
     }
     datosConImagenes.push(dato);
   }
@@ -98,6 +107,8 @@ async function enviarDatosTabla() {
 
   try {
     const datosConImagenes = await cargarImagenes(datos);
+    console.log('Datos con URLs de imagen:', datosConImagenes);
+
 
     // Verificar que los campos obligatorios estén completos
     const camposObligatoriosCompletos = datosConImagenes.every(dato =>
