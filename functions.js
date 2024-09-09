@@ -431,6 +431,8 @@ function calculateOverallAverages() {
     document.getElementById('promedio-lum').innerText = `${moduleAverages.lum}%`;
     document.getElementById('promedio-final').innerText = `${moduleAverages.final}%`;
     document.getElementById('promedio-auditoria').innerText = document.getElementById('numero-auditoria').value;
+    document.getElementById('auditoria-responsable-problema').innerText = document.getElementById('supervisor-establecimiento').value;
+    document.getElementById('auditoria-local').innerText = document.getElementById('nombre-establecimiento').value;
 
 
   }

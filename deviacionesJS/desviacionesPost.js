@@ -104,6 +104,9 @@ async function verificarNumeroRequerimiento(numeroRequerimiento) {
     return [];
   }
 }
+
+
+
 async function enviarDatosTabla() {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   const filas = tabla.getElementsByTagName('tr');

@@ -11,15 +11,16 @@ function loadTableDetails() {
     return;
   }
 
-  data.forEach(rowData => { 
-    if (!rowData.columna2 || !rowData.columna3) {
+  let criterio = [];
+  let nota = [];
+  let observacion = [];
+  let observacionesConValores = [];
+  let local = '';
+
+  data.forEach(rowData => {
+    if (!rowData.columna2 && !rowData.columna3) {
       return;
     }
-
-    let criterio = [];
-    let nota = [];
-    let observacion = [];
-    let observacionesConValores = [];
 
     for (let i = 1; i <= 6; i++) {
       const idValue = rowData[`idColumna${i}`];
@@ -34,7 +35,7 @@ function loadTableDetails() {
           if (valor2) {
             observacionesConValores.push({
               id: idValue,
-              valor1: rowData.columna2, 
+              valor1: rowData.columna2,
               valor2: valor2
             });
           }
@@ -42,23 +43,27 @@ function loadTableDetails() {
       }
     }
 
-    data.forEach(rowData => {
-      if (rowData[`columna1`] === "NUMERO DE AUDITORIA") {
-        const columna2Value = rowData.columna2;
-        const targetElementId = 'cardNumeroAuditoria';
-  
-        const targetElement = document.getElementById(targetElementId);
-        if (targetElement) {
-          targetElement.textContent = columna2Value;
-        } else {
-          console.warn(`Elemento con ID ${targetElementId} no encontrado.`);
-        }
-      }
-    });
+    // Si columna1 tiene el valor "NUMERO DE AUDITORIA", actualizar el contenido
+    if (rowData[`columna1`] === "NUMERO DE AUDITORIA") {
+      const columna2Value = rowData.columna2;
+      const targetElementId = 'cardNumeroAuditoria';
+      const targetElement = document.getElementById(targetElementId);
 
-    observacionesConValores.forEach(({ id, valor2 }) => {
-      agregarFilaDesdeID(id, valor2);
-    });
+      if (targetElement) {
+        targetElement.textContent = columna2Value;
+      } else {
+        console.warn(`Elemento con ID ${targetElementId} no encontrado.`);
+      }
+    }
+
+    if (rowData[`idColumna2`] === "auditoria-local") {
+      local = rowData.columna2;
+    }
+
+  });
+
+  observacionesConValores.forEach(({ id, valor2 }) => {
+    agregarFilaDesdeID(id, valor2, local);
   });
 
 }
@@ -66,7 +71,7 @@ function loadTableDetails() {
 
 function actualizarPrioridadID(event, criticidadValor = null) {
   let fila, prioridadSeleccionada;
-  
+
   if (criticidadValor !== null) {
     fila = criticidadValor.fila;
     prioridadSeleccionada = prioridades.find(p => p.valor === criticidadValor.valor);
@@ -78,7 +83,7 @@ function actualizarPrioridadID(event, criticidadValor = null) {
 
   if (!prioridadSeleccionada) {
     console.error(`No se encontró una prioridad coincidente para el valor: ${criticidadValor ? criticidadValor.valor : event.target.value}`);
-    return; 
+    return;
   }
 
   fila.className = prioridadSeleccionada.clase;
@@ -94,7 +99,7 @@ function actualizarPrioridadID(event, criticidadValor = null) {
 
 
 // Agregar una fila a la tabla de desviaciones con datos del ID
-function agregarFilaDesdeID(id, valor2) {
+function agregarFilaDesdeID(id, valor2, local) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   if (!tabla) {
     console.error('No se encontró la tabla con ID "tabla-desviaciones".');
@@ -146,7 +151,7 @@ function agregarFilaDesdeID(id, valor2) {
 
   fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
-  fila.appendChild(crearCeldaConInputFile(''));
+  fila.appendChild(crearCelda(local));
 
   // Celda para mostrar la criticidad
   const criticidadCelda = crearCelda(criticidad);
@@ -209,4 +214,3 @@ function agregarFilaDesdeID(id, valor2) {
   actualizarPrioridadID(null, { fila: fila, valor: criticidad });
   actualizarFiltros();
 }
-
