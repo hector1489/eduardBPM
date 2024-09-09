@@ -26,7 +26,6 @@ async function enviarImagen(imagenBase64) {
   }
 
   try {
-    console.log('Preparando imagen para envío...');
 
     const contentType = imagenBase64.split(',')[0].split(':')[1].split(';')[0];
     const blob = base64ToBlob(imagenBase64, contentType);
@@ -43,7 +42,6 @@ async function enviarImagen(imagenBase64) {
     }
 
     const result = await response.json();
-    console.log('Imagen enviada exitosamente:', result);
 
     return result.data?.url || null;
   } catch (error) {
@@ -99,7 +97,6 @@ async function verificarNumeroRequerimiento(numeroRequerimiento) {
     }
 
     const datos = await response.json();
-    console.log(datos);
     return datos;
   } catch (error) {
     console.error('Error:', error);
@@ -140,15 +137,12 @@ async function enviarDatosTabla() {
 
   try {
     const datosExistentes = await verificarNumeroRequerimiento();
-    console.log('Datos existentes:', datosExistentes);
 
     // Filtrar solo las filas nuevas
     const filasNuevas = datos.filter(dato => {
       const numeroRequerimiento = Number(dato.numeroRequerimiento);
-      console.log(`Comparando - Nueva fila: ${numeroRequerimiento}`);
       return dato.isNew && !datosExistentes.some(existente => {
         const idExistente = Number(existente.id);
-        console.log(`Comparando con - Existente fila: ${idExistente}`);
         return idExistente === numeroRequerimiento;
       });
     });
@@ -160,7 +154,6 @@ async function enviarDatosTabla() {
     }
 
     const datosConImagenes = await cargarImagenes(filasNuevas);
-    console.log('Datos finales a enviar con URLs de imágenes:', datosConImagenes);
 
     const response = await fetch('https://bpm-backend.onrender.com/send-data', {
       method: 'POST',
