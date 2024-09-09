@@ -253,7 +253,7 @@
         </tbody>
       </table>
     </div>
-    
+
     <div class="text-center d-flex justify-content-center align-items-center flex-wrap">
       <div class="icon-text m-3" onclick="agregarFila()" style="cursor: pointer;">
         <i class="fas fa-plus fa-2x text-success"></i>
@@ -311,7 +311,11 @@
   <script src="./deviacionesJS/desviacionesGet.js"></script>
   <script src="./deviacionesJS/desviacionesPost.js"></script>
 
-
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTableDetails() ;
+    });
+  </script>
 
 
 

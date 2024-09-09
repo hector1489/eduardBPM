@@ -1,16 +1,13 @@
-//ir al dashboard
 function goToDashboard() {
   window.location.href = 'dashboard.html';
 }
 
-//cuando se carga el DOM llama a la función para calcular los promedios generales
 document.addEventListener('DOMContentLoaded', function () {
   calculateOverallAverages();
   initializeSelectChangeListeners();
   calcularPromedioTotalKpi();
 });
 
-// Función para inicializar los event listeners en los selects
 function initializeSelectChangeListeners() {
   const modules = [
     'infraestructura', 'legales', 'poes-control-productos', 'poes-control-agua', 'poes-superficies',
@@ -795,5 +792,7 @@ function guardarDatosTablaDetails() {
 
   alert('Datos guardados correctamente.');
 }
+
+
 
 
