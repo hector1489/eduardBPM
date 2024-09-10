@@ -16,6 +16,7 @@ function loadTableDetails() {
   let observacion = [];
   let observacionesConValores = [];
   let local = '';
+  let responsableProblema = '';
 
   data.forEach(rowData => {
     if (!rowData.columna2 && !rowData.columna3) {
@@ -60,10 +61,15 @@ function loadTableDetails() {
       local = rowData.columna2;
     }
 
+    if (rowData[`idColumna2`] === "auditoria-responsable-problema") {
+      responsableProblema = rowData.columna2;
+    }
+    
+
   });
 
   observacionesConValores.forEach(({ id, valor2 }) => {
-    agregarFilaDesdeID(id, valor2, local);
+    agregarFilaDesdeID(id, valor2, local, responsableProblema);
   });
 
 }
@@ -99,7 +105,7 @@ function actualizarPrioridadID(event, criticidadValor = null) {
 
 
 // Agregar una fila a la tabla de desviaciones con datos del ID
-function agregarFilaDesdeID(id, valor2, local) {
+function agregarFilaDesdeID(id, valor2, local, responsableProblema) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   if (!tabla) {
     console.error('No se encontró la tabla con ID "tabla-desviaciones".');
@@ -150,7 +156,7 @@ function agregarFilaDesdeID(id, valor2, local) {
   fila.appendChild(valorCelda);
 
   fila.appendChild(crearCeldaConInputFile(''));
-  fila.appendChild(crearCeldaConInput('', crearComboBoxDesviaciones('')));
+  fila.appendChild(crearCelda(responsableProblema));
   fila.appendChild(crearCelda(local));
 
   // Celda para mostrar la criticidad

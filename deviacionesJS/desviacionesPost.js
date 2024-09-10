@@ -123,7 +123,7 @@ async function enviarDatosTabla() {
       responsableProblema: celdas[4]?.querySelector('select')?.value || '',
       local: celdas[5]?.querySelector('input')?.value || '',
       criticidad: celdas[6]?.querySelector('select')?.value || celdas[6]?.innerText || '',
-      accionesCorrectivas: celdas[7]?.querySelector('select')?.value || celdas[7]?.innerText || '',
+      accionesCorrectivas: celdas[7]?.querySelector('select')?.value || celdas[7]?.innerText || '' || 'N/A',
       fechaRecepcionSolicitud: celdas[8]?.innerText || '',
       fechaSolucionProgramada: celdas[9]?.innerText || '',
       estado: celdas[10]?.querySelector('select')?.value || '',
@@ -149,7 +149,6 @@ async function enviarDatosTabla() {
         return idExistente === numeroRequerimiento;
       });
     });
-    console.log('Filas nuevas a enviar:', filasNuevas);
 
     if (filasNuevas.length === 0) {
       alert('No hay filas nuevas para enviar.');

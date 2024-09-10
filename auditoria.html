@@ -46,8 +46,21 @@
         </div>
         <div class="form-group">
           <label for="supervisor-establecimiento">Responsable del Problema:</label>
-          <input type="text" class="form-control" id="supervisor-establecimiento" name="supervisor-establecimiento" placeholder="Ej:Administrador">
+          <select class="form-control" id="supervisor-establecimiento" name="supervisor-establecimiento">
+            <option value="gerente-contrato">Gerente De Contrato</option>
+            <option value="administrador">Administrador</option>
+            <option value="supervisor-mantencion">Supervisor De Mantención</option>
+            <option value="supervisor-casino">Supervisor De Casino</option>
+            <option value="supervisor-aseo">Supervisor De Aseo</option>
+            <option value="coordinador-calidad">Coordinador De Calidad</option>
+            <option value="asesor-sso">Asesor SSO</option>
+            <option value="asesor-medio-ambiente">Asesor Medio Ambiente</option>
+            <option value="jefe-rh">Jefe RH</option>
+            <option value="bodeguero">Bodeguero</option>
+            <option value="chef">Chef</option>
+          </select>
         </div>
+        
         <div class="form-group">
           <label for="auditor-externo">Auditor Externo:</label>
           <input type="text" class="form-control" id="auditor-externo" name="auditor-externo">
