@@ -132,7 +132,7 @@ async function enviarDatosTabla() {
       evidenciaFotografica: celdas[13]?.querySelector('img')?.src || '',  
       detalleFoto: celdas[14]?.querySelector('input')?.value || '',
       auditor: celdas[15]?.querySelector('select')?.value || celdas[15]?.innerText || '',
-      correo: celdas[16]?.querySelector('input')?.value || '',
+      correo: celdas[16]?.querySelector('input')?.value || celdas[16]?.innerText || '',
       fechaUltimaModificacion: celdas[17]?.innerText || '',
       isNew: !fila.hasAttribute('data-id')
     };

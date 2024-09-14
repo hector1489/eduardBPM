@@ -17,8 +17,10 @@ function loadTableDetails() {
   let observacionesConValores = [];
   let local = '';
   let responsableProblema = '';
+  let emailAudit = '';
 
   data.forEach(rowData => {
+    console.log(data);
     if (!rowData.columna2 && !rowData.columna3) {
       return;
     }
@@ -64,12 +66,16 @@ function loadTableDetails() {
     if (rowData[`idColumna2`] === "auditoria-responsable-problema") {
       responsableProblema = rowData.columna2;
     }
+
+    if (rowData[`idColumna2`] === "auditoria-email") {
+      emailAudit = rowData.columna2;
+    }
     
 
   });
 
   observacionesConValores.forEach(({ id, valor2 }) => {
-    agregarFilaDesdeID(id, valor2, local, responsableProblema);
+    agregarFilaDesdeID(id, valor2, local, responsableProblema, emailAudit);
   });
 
 }
@@ -105,7 +111,7 @@ function actualizarPrioridadID(event, criticidadValor = null) {
 
 
 // Agregar una fila a la tabla de desviaciones con datos del ID
-function agregarFilaDesdeID(id, valor2, local, responsableProblema) {
+function agregarFilaDesdeID(id, valor2, local, responsableProblema, emailAudit) {
   const tabla = document.getElementById('tabla-desviaciones').getElementsByTagName('tbody')[0];
   if (!tabla) {
     console.error('No se encontró la tabla con ID "tabla-desviaciones".');
@@ -201,7 +207,7 @@ function agregarFilaDesdeID(id, valor2, local, responsableProblema) {
 
   fila.appendChild(crearCeldaConInputFile(''));
   fila.appendChild(crearCelda([username], username));
-  fila.appendChild(crearCeldaConInputEmail(''));
+  fila.appendChild(crearCelda(emailAudit));
   fila.appendChild(crearCeldaConInput('   /   /   '));
 
   // Celda de eliminación

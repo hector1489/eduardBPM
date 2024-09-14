@@ -430,7 +430,7 @@ function calculateOverallAverages() {
     document.getElementById('promedio-auditoria').innerText = document.getElementById('numero-auditoria').value;
     document.getElementById('auditoria-responsable-problema').innerText = document.getElementById('supervisor-establecimiento').value;
     document.getElementById('auditoria-local').innerText = document.getElementById('nombre-establecimiento').value;
-
+    document.getElementById('auditoria-email').innerText = document.getElementById('auditor-externo').value;
 
   }
 
