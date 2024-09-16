@@ -18,9 +18,9 @@ function loadTableDetails() {
   let local = '';
   let responsableProblema = '';
   let emailAudit = '';
+  console.log(observacionesConValores);
 
   data.forEach(rowData => {
-    console.log(data);
     if (!rowData.columna2 && !rowData.columna3) {
       return;
     }
@@ -74,9 +74,12 @@ function loadTableDetails() {
 
   });
 
-  observacionesConValores.forEach(({ id, valor2 }) => {
-    agregarFilaDesdeID(id, valor2, local, responsableProblema, emailAudit);
+  observacionesConValores.forEach(({ id, valor1, valor2 }) => {
+    if (!(valor1 && valor1.startsWith('100%:')) && !(valor2 && valor2.startsWith('100%:'))) {
+      agregarFilaDesdeID(id, valor2, local, responsableProblema, emailAudit);
+    }
   });
+  
 
 }
 
