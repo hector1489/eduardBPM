@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <title>Documentación</title>
   <link rel="stylesheet" href="./documentacion.css">
@@ -21,6 +23,24 @@
 
       <div class="trazabilidad-container">
         <canvas id="promediosChart"></canvas>
+      </div>
+
+      <!-- Container for the BPM Audit Chart -->
+      <div class="chart-container">
+        <h3>Auditoría BPM</h3>
+        <div id="resultChart" style="height: 400px;"></div>
+      </div>
+
+      <!-- Container for the Luminometría Chart -->
+      <div class="chart-container">
+        <h3>Luminometría</h3>
+        <div id="puntaje-sololum" style="height: 400px;"></div>
+      </div>
+
+      <!-- Container for the KPI Chart -->
+      <div class="chart-container">
+        <h3>KPI de Alimentos</h3>
+        <div id="promedios-kpi" style="height: 400px;"></div>
       </div>
 
       <div class="ETA">
@@ -58,6 +78,10 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="./documentacion.funciones.js"></script>
+  <script src="./charts.js"></script>
+  
+  
+
 </body>
 
 </html>
