@@ -19,7 +19,7 @@ body {
   background: white;
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(12, 8, 8, 0.1);
 }
 
 
@@ -155,6 +155,7 @@ hr {
 }
 
 /*report-table*/
+
 .audit-summary {
   width: 100%;
   margin: 20px 0;
@@ -246,34 +247,11 @@ hr {
   }
 }
 
-
-
 /* Estilo para pantallas grandes */
 .chart-container {
-  position: relative;
-  height: 43vh;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-}
-
-/* Estilo para pantallas medianas */
-@media (max-width: 1024px) {
-  .chart-container {
-    height: 35vh;
-  }
-}
-
-/* Estilo para pantallas pequeñas */
-@media (max-width: 768px) {
-  .chart-container {
-    height: 23vh;
-  }
-}
-
-/* Estilo para pantallas muy pequeñas */
-@media (max-width: 576px) {
-  .chart-container {
-    height: 21vh;
-  }
 }
 
 

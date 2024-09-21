@@ -379,9 +379,9 @@ function calculateOverallAverages() {
       (lumAverage * weights.lum)
     ) / 100;
 
-    document.getElementById('promedio-ponderado').innerText = `${weightedAverage.toFixed(1)}%`;
   }
 
+  document.getElementById('promedio-ponderado').innerText = `${overallAverage}%`;
 
   //Actualizar datos desde ficha
   function updateFichaResumen() {
