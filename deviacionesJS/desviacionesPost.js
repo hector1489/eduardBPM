@@ -118,7 +118,7 @@ async function enviarDatosTabla() {
       authToken: authToken || '',
       numeroRequerimiento: celdas[0]?.innerText.trim() || '',
       preguntasAuditadas: celdas[1]?.querySelector('select')?.value || celdas[1]?.innerText || '',
-      desviacionOCriterio: celdas[2]?.querySelector('input')?.value || celdas[2]?.innerText || '',
+      desviacionOCriterio: celdas[2]?.querySelector('input')?.value || celdas[2]?.innerText || '' || 'N/A',
       tipoDeAccion: celdas[3]?.querySelector('input')?.value || '',
       responsableProblema: celdas[4]?.querySelector('select')?.value || '',
       local: celdas[5]?.querySelector('input')?.value || '',
@@ -129,7 +129,7 @@ async function enviarDatosTabla() {
       estado: celdas[10]?.querySelector('select')?.value || '',
       fechaCambioEstado: celdas[11]?.querySelector('input')?.value || celdas[11]?.innerText || '',
       contactoClientes: celdas[12]?.querySelector('input')?.value || celdas[12]?.innerText || '',
-      evidenciaFotografica: celdas[13]?.querySelector('img')?.src || '',  
+      evidenciaFotografica: celdas[13]?.querySelector('img')?.src || celdas[13]?.innerText || '' || 'N/A', 
       detalleFoto: celdas[14]?.querySelector('input')?.value || '',
       auditor: celdas[15]?.querySelector('select')?.value || celdas[15]?.innerText || '',
       correo: celdas[16]?.querySelector('input')?.value || celdas[16]?.innerText || '',
@@ -157,7 +157,7 @@ async function enviarDatosTabla() {
 
     const datosConImagenes = await cargarImagenes(filasNuevas);
 
-    const response = await fetch('https://bpm-backend.onrender.com/send-data', {
+    const response = await fetch('http://localhost:3000/desviaciones/send-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
